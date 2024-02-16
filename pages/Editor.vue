@@ -2,9 +2,9 @@
 </script>
 
 <template>
-	<Action :variant="'link'">
+	<Button>
 		Hello
-	</Action>
+	</Button>
 </template>
 
 <style scoped>
