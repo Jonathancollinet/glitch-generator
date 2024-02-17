@@ -1,12 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     sourcemap: true,
-    devtools: {enabled: true},
+    devtools: { enabled: true },
+    typescript: {
+        typeCheck: true
+    },
     modules: [
         '@nuxtjs/tailwindcss',
-        '@nuxtjs/i18n'
+        '@nuxtjs/i18n',
+        '@nuxt/test-utils/module'
     ],
     i18n: {
-        vueI18n: './i18n.config.ts' // if you are using custom path, default
-    }
+        vueI18n: './i18n/i18n.config.ts',
+        detectBrowserLanguage: {
+            useCookie: true,
+            cookieKey: 'i18n_redirected',
+            redirectOn: 'root',  // recommended
+        }
+    },
 })

@@ -2,11 +2,7 @@
 </script>
 
 <template>
-	<Button>
-		Hello
-	</Button>
+    <main class="container mx-auto px-2">
+        <UiHeading>Glitch Generator</UiHeading>
+    </main>
 </template>
-
-<style scoped>
-
-</style>

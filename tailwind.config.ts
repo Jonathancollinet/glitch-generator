@@ -18,13 +18,11 @@ const customColors = {
 }
 
 const colors = {
-    white:  twColors.white,
-    black:  twColors.black,
-
-    blue:   customColors.blue, // primary
-    gray:   twColors.gray, // neutral
-    green:  twColors.green, // success
-    red:    twColors.red, // error
+    transparent: twColors.transparent,
+    blue: customColors.blue,    // primary
+    neutral: twColors.neutral,  // white/gray/black
+    green: twColors.green,      // success
+    red: twColors.red,          // error
 }
 
 const theme = {
@@ -34,5 +32,8 @@ const theme = {
 export default <Partial<Config>>{
     darkMode: 'class',
     theme: theme,
-    configViewer: theme
+    configViewer: theme,
+    content: [
+        "./componentsVariants/**/*.{js,ts}"
+    ]
 }
