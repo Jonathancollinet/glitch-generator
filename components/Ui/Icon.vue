@@ -3,10 +3,16 @@ import { MoonIcon } from '@heroicons/vue/24/solid';
 import { IconVariants, type IconVariantsProps } from '~/componentsVariants/Ui/Icon';
 import { EIcons } from '~/types/icons';
 
-defineProps<{
+const props = defineProps<{
 	variant?: IconVariantsProps['variant']
     icon: EIcons
 }>();
+
+const IconMap = {
+    [EIcons.Moon]: MoonIcon
+};
+
+const icon = IconMap[props.icon];
 </script>
 
 <template>

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="text-neutral-800">
     <LayoutHeader />
     <slot />
   </div>

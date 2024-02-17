@@ -4,11 +4,15 @@ export type IconVariantsProps = VariantProps<typeof IconVariants>;
 
 export const IconVariants = cva(
     [
+        'stroke-2 stroke-blue-400 fill-transparent',
+        'dark:stroke-blue-100'
     ],
     {
         variants: {
             variant: {
-                default: []
+                default: [
+                    "w-6 h-6"
+                ]
             },
             size: {
                 default: ''

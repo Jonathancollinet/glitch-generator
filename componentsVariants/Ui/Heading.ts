@@ -4,7 +4,7 @@ export type HeadingVariantsProps = VariantProps<typeof HeadingVariants>;
 
 export const HeadingVariants = cva(
     [
-        'font-bold text-neutral-900 transition-colors'
+        'font-bold transition-colors'
     ],
     {
         variants: {

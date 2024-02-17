@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/i18n',
-        '@nuxt/test-utils/module'
+        '@nuxt/test-utils/module',
+        '@nuxtjs/color-mode'
     ],
     i18n: {
         vueI18n: './i18n/i18n.config.ts',
@@ -18,4 +19,7 @@ export default defineNuxtConfig({
             redirectOn: 'root',  // recommended
         }
     },
+    colorMode: {
+        classSuffix: ''
+    }
 })

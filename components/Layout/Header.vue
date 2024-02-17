@@ -1,18 +1,24 @@
 <script lang="ts" setup>
+import type { ClassValue } from 'class-variance-authority/types';
 import { navigationItems } from '~/constants/navigation';
 import { EIcons } from '~/types/icons';
-import { EExternalUrls } from '~/types/navigation';
+
+const headerClass: ClassValue[] = [
+    "flex items-center justify-between transition-colors",
+    "px-8 py-4 border-b border-neutral-200",
+    "dark:bg-blue-900 dark:border-blue-50"
+];
 </script>
 
 <template>
-    <header class="flex justify-between px-8 py-4 bg-blue-50 border-b-[1px] border-blue-400">
+    <header :class="cn(headerClass, $attrs.class ?? '')">
         <nav>
-            <ul class="flex">
-                <LayoutNavigationList :items="navigationItems" as="li" />
+            <ul class="flex [&_a]:pe-2">
+                <LayoutNavigationList :items="navigationItems" />
             </ul>
         </nav>
-        <UiLink as="a">
+        <UiButton variant="icon" size="icon" @click="toggleDarkMode">
             <UiIcon :icon="EIcons.Moon" />
-        </UiLink>
+        </UiButton>
     </header>
 </template>

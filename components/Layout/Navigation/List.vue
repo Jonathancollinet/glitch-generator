@@ -5,7 +5,7 @@ withDefaults(defineProps<{
     items: Array<INavigationItem>
     as?: "li" | "div"
 }>(), {
-    as: 'div'
+    as: 'li'
 });
 </script>
 

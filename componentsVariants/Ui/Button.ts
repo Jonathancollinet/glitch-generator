@@ -37,7 +37,7 @@ export const ButtonVariants = cva(
                 default: 'h-10 px-4 py-2',
                 sm: 'h-9 rounded-sm px-3 text-sm',
                 lg: 'h-11 rounded-lg px-8 text-lg',
-                icon: 'h-10 w-10',
+                icon: 'h-6 w-6',
             },
         },
         defaultVariants: {
