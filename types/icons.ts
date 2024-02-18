@@ -1,3 +1,6 @@
 export enum EIcons {
-    Moon = 'MoonIcon'
+    Moon = 'MoonIcon',
+    Language = 'LanguageIcon',
+    Github = 'GithubIcon',
+    Sun = 'SunIcon',
 }

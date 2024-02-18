@@ -19,6 +19,9 @@ export default defineNuxtConfig({
             redirectOn: 'root',  // recommended
         }
     },
+    tailwindcss: {
+        cssPath: '~/assets/css/main.css',
+    },
     colorMode: {
         classSuffix: ''
     }

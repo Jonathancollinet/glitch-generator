@@ -1,10 +1,8 @@
-<script lang="ts" setup>
-
-</script>
-
 <template>
-  <div class="text-neutral-800">
     <LayoutHeader />
-    <slot />
-  </div>
+    <main>
+        <div>
+            <slot />
+        </div>
+    </main>
 </template>

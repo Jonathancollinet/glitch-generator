@@ -25,14 +25,19 @@ const colors = {
     red: twColors.red,          // error
 }
 
-const theme = {
-    colors
+const themeOverrides: Partial<Config> = {
+    colors,
+    extend: {
+        spacing: {
+            header: '4rem'
+        }
+    }
 }
 
 export default <Partial<Config>>{
     darkMode: 'class',
-    theme: theme,
-    configViewer: theme,
+    theme: themeOverrides,
+    configViewer: themeOverrides,
     content: [
         "./componentsVariants/**/*.{js,ts}"
     ]

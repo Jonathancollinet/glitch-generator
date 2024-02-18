@@ -1,7 +1,17 @@
 {
     "navigation": {
         "links": {
-            "home": "Home"
+            "home": "Home",
+            "editor": "Editor"
+        }
+    },
+    "pages": {
+        "home": {
+            "title": "Glitch Generator",
+            "description": "Glitch editor based on text-shadow and box-shadow CSS properties."
+        },
+        "editor": {
+            "title": "Glitch Editor"
         }
     }
 }

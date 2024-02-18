@@ -2,7 +2,5 @@
 </script>
 
 <template>
-    <main class="container mx-auto px-2">
-        <UiHeading>Glitch Generator</UiHeading>
-    </main>
+    <UiHeading class="text-center">{{ $t('pages.editor.title') }}</UiHeading>
 </template>

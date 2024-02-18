@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { MoonIcon } from '@heroicons/vue/24/solid';
+import { MoonIcon, LanguageIcon, SunIcon } from '@heroicons/vue/24/outline';
+import GithubIcon from './Icons/Github.vue';
+
 import { IconVariants, type IconVariantsProps } from '~/componentsVariants/Ui/Icon';
 import { EIcons } from '~/types/icons';
 
@@ -9,10 +11,13 @@ const props = defineProps<{
 }>();
 
 const IconMap = {
-    [EIcons.Moon]: MoonIcon
+    [EIcons.Moon]: MoonIcon,
+    [EIcons.Language]: LanguageIcon,
+    [EIcons.Github]: GithubIcon,
+    [EIcons.Sun]: SunIcon,
 };
 
-const icon = IconMap[props.icon];
+const icon = computed(() => IconMap[props.icon]);
 </script>
 
 <template>
