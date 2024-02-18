@@ -15,7 +15,7 @@ withDefaults(defineProps<{
         v-for="(item, index) in items"
         :key="'link-' + index">
         <LayoutNavigationLink :to="item.to">
-            {{ item.label }}
+            {{ $t(item.label) }}
         </LayoutNavigationLink>
     </component>
 </template>

@@ -4,16 +4,14 @@ import { TextVariants, type TextVariantsProps } from '~/componentsVariants/Ui/Te
 
 withDefaults(defineProps<{
 	as?: 'div' | 'span' | 'p'
-    dataTag: 'p' | 'span'
 }>(), {
     as: 'p',
-    dataTag: 'p'
 });
 </script>
 
 <template>
     <component
-        :data-tag="dataTag"
+        :data-tag="as"
         :is="as"
         :class="cn(TextVariants(), $attrs.class ?? '')">
         <slot />

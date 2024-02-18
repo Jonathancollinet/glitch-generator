@@ -1,6 +1,12 @@
 <script setup lang="ts">
+const config = {}
 </script>
 
 <template>
-    <UiHeading class="text-center">{{ $t('pages.editor.title') }}</UiHeading>
+    <div>
+        <UiHeading class="text-center">
+            {{ $t('pages.editor.title') }}
+        </UiHeading>
+        <DisplayedText />
+    </div>
 </template>

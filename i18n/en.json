@@ -8,7 +8,17 @@
     "pages": {
         "home": {
             "title": "Glitch Generator",
-            "description": "Glitch editor based on text-shadow and box-shadow CSS properties."
+            "description": "Glitch editor based on text-shadow and box-shadow CSS properties.",
+            "why": {
+                "title": "Why?",
+                "description": "Because it's fun! I wanted to create a tool to generate glitch effects using CSS properties.",
+                "result": "This is the result."
+            },
+            "share": {
+                "title": "Share",
+                "description": "Share your glitched text with the world!",
+                "button": "Try it out!"
+            }
         },
         "editor": {
             "title": "Glitch Editor"

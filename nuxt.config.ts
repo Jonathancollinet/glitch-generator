@@ -9,7 +9,8 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@nuxtjs/i18n',
         '@nuxt/test-utils/module',
-        '@nuxtjs/color-mode'
+        '@nuxtjs/color-mode',
+        '@nuxtjs/google-fonts'
     ],
     i18n: {
         vueI18n: './i18n/i18n.config.ts',
@@ -24,5 +25,10 @@ export default defineNuxtConfig({
     },
     colorMode: {
         classSuffix: ''
+    },
+    googleFonts: {
+        families: {
+            Gabarito: true
+        }
     }
 })

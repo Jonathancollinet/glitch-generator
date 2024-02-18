@@ -10,9 +10,9 @@ export const LinkVariants = cva(
         variants: {
             variant: {
                 default: [
-                    "font-medium text-neutral-400 [&.router-link-active]:text-neutral-800",
-                    "hover:text-neutral-600",
-                    "dark:[&.router-link-active]:text-neutral-50"            
+                    "font-medium text-neutral-400 [&.router-link-active]:text-blue-600",
+                    "hover:text-neutral-500",
+                    "dark:hover:text-blue-200 dark:[&.router-link-active]:text-blue-500 dark:text-neutral-50"            
                 ],
                 icon: [
 

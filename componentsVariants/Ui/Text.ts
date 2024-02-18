@@ -6,7 +6,7 @@ export const TextVariants = cva(
     [
         // global
         "text-neutral-600 transition-colors",
-        "dark:text-neutral-300",
+        "dark:text-neutral-200",
 
         // data-tag="p"
         "data-[tag=p]:mb-4",

@@ -2,9 +2,9 @@
 import type { ClassValue } from 'class-variance-authority/types';
 import { EIcons } from '~/types/icons';
 
-const { t } = useI18n();
+const { tm } = useI18n();
 const colorMode = useColorMode()
-const navigationItems = useNavigationItems(t);
+const navigationItems = useNavigationItems();
 
 const darkModeIcon = ref(EIcons.Moon);
 
@@ -20,9 +20,11 @@ function onClickColorSheme() {
 const headerClass: ClassValue[] = [
     "h-header",
     "flex items-center justify-between transition-colors",
-    "px-8 border-b border-neutral-200",
+    "px-8 border-b-2 border-neutral-400",
     "dark:border-blue-50"
 ];
+
+const {locale} = useI18n();
 
 onMounted(() => {
     setDarkModeIcon();
@@ -32,20 +34,22 @@ onMounted(() => {
 <template>
     <header :class="cn(headerClass, $attrs.class ?? '')">
         <nav>
-            <ul class="flex justify-center space-x-2">
+            <ul class="flex justify-center space-x-6">
                 <LayoutNavigationList :items="navigationItems" />
             </ul>
         </nav>
-        <div class="flex justify-center space-x-2">
+        <div class="flex justify-center space-x-4">
             <UiButton variant="icon" size="icon" @click="onClickColorSheme">
                 <UiIcon :icon="darkModeIcon" />
             </UiButton>
             <UiLink variant="icon" as="a" href="https://github.com/Jonathancollinet/glitch-generator" target="_blank">
-                <UiIcon variant="filled" :icon="EIcons.Github" />
+                <UiButton variant="icon" size="icon">
+                    <UiIcon variant="filled" :icon="EIcons.Github" />
+                </UiButton>
             </UiLink>
-            <UiButton variant="icon" size="icon">
+            <!-- <UiButton variant="icon" size="icon" @click="locale = locale === 'fr' ? 'en' : 'fr'">
                 <UiIcon :icon="EIcons.Language" />
-            </UiButton>
+            </UiButton> -->
         </div>
     </header>
 </template>

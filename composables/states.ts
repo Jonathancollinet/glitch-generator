@@ -1,14 +1,6 @@
-import { EUrls, type INavigationItem } from '~/types/navigation';
+import { type INavigationItem } from '~/types/navigation';
+import { navigationItems } from './constants';
 
-export const useNavigationItems = (t: any) => {
-    return useState<INavigationItem[]>("navigationItems", () => [
-        {
-            label: t('navigation.links.home'),
-            to: EUrls.Home
-        },
-        {
-            label: t('navigation.links.editor'),
-            to: EUrls.Editor
-        }
-    ]);
+export const useNavigationItems = () => {
+    return useState<INavigationItem[]>("navigationItems", () => navigationItems);
 }
