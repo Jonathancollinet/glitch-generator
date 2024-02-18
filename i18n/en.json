@@ -11,7 +11,7 @@
             "description": "Glitch editor based on text-shadow and box-shadow CSS properties.",
             "why": {
                 "title": "Why?",
-                "description": "Because it's fun! I wanted to create a tool to generate glitch effects using CSS properties.",
+                "description": "Because it's fun! I wanted to create a tool to generate glitch effects.",
                 "result": "This is the result."
             },
             "share": {
