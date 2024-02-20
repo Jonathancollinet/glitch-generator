@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { _GlitchConfig } from '~/plugins/glitch/types';
+
 const props = defineProps<{
-    config: GlitchConfig
+    config: _GlitchConfig
 }>();
 
 const localConfig = reactive(props.config);

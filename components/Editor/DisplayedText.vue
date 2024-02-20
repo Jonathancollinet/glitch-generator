@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import type { Directive } from 'vue';
 import contenteditable from 'vue-contenteditable'
+import { type _GlitchConfig } from '~/plugins/glitch/types';
 
 const props = defineProps<{
-    config: GlitchConfig,
+    config: _GlitchConfig,
 }>();
 
 const reRender = ref(0);
-const message = ref("😹");
 
 watch(props.config, (newValue) => {
     reRender.value++;
@@ -22,7 +23,7 @@ watch(props.config, (newValue) => {
 <template>
     <div class="w-full h-[100vw] bg-blue-100 min-h-72 max-h-[80vh]">
         <div class="flex h-full items-center justify-center">
-            <contenteditable tag="div" v-model="message" v-glitch="config" :key="reRender" />
+            <div tag="div" v-glitch="config" :key="reRender" />
         </div>
     </div>
 </template>
