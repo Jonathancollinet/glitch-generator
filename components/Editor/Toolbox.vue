@@ -1,24 +1,23 @@
 <script setup lang="ts">
 import { z } from 'zod';
-import type { Config } from '~/types/config';
 
-type ConfigKeys = keyof Config;
+type GlitchConfigKeys = keyof GlitchConfig;
 
-const config = defineModel<Config>({ type: Object });
+const config = defineModel<GlitchConfig>({ type: Object });
 const localConfig = reactive({ ...config.value });
 
-const schema: Record<ConfigKeys, z.ZodSchema> = {
+const schema: Record<GlitchConfigKeys, z.ZodSchema> = {
     fontSize: z.coerce.number().gte(1).lte(128),
     color: z.string()
 };
 
 // errors object to store the validation errors
-const errors: Partial<Record<ConfigKeys, string>> = reactive({});
+const errors: Partial<Record<GlitchConfigKeys, string>> = reactive({});
 
 // custom getter to get the value from the localConfig or default values in the config
 // localConfig is used to store the value of the input field
 // and is persistant in case of an error or empty value
-function getValue(propertyKey: ConfigKeys) {
+function getValue(propertyKey: GlitchConfigKeys) {
     if (localConfig.hasOwnProperty(propertyKey)) {
         return localConfig[propertyKey];
     }
@@ -31,7 +30,7 @@ function getValue(propertyKey: ConfigKeys) {
 // custom update function to update the localConfig and config
 // this function controls if the directive is re-rendered or not
 // by re-assigning the value to the config
-function updateConfig(propertyKey: ConfigKeys) {
+function updateConfig(propertyKey: GlitchConfigKeys) {
     return (value: string) => {
 
         // checks that the config and localConfig are really defined

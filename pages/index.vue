@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { EUrls } from '~/types/navigation';
+import { Urls } from '~/types/enums';
 
-const editorRoute = useNavigationItem(EUrls.Editor)?.to;
+const editorRoute = useNavigationItem(Urls.Editor)?.to;
 </script>
 
 <template>

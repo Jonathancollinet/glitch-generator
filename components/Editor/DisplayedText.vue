@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { Config } from '~/types/config';
 import contenteditable from 'vue-contenteditable'
 
 const props = defineProps<{
-    config: Config,
+    config: GlitchConfig,
 }>();
 
-const reRender = ref<number>(0);
+const reRender = ref(0);
 const message = ref("😹");
 
 watch(props.config, (newValue) => {

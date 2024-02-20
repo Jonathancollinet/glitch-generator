@@ -3,7 +3,10 @@ export default defineNuxtConfig({
     sourcemap: true,
     devtools: { enabled: true },
     typescript: {
-        typeCheck: true
+        typeCheck: true,
+        tsConfig: {
+            include: ["~/types/*.d.ts"]
+        }
     },
     modules: [
         '@nuxtjs/tailwindcss',

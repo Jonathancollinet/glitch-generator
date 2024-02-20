@@ -1,12 +1,12 @@
-import { EUrls, type INavigationItem } from '~/types/navigation';
+import { Urls } from '~/types/enums';
 
-export const navigationItems: INavigationItem[] = [
+export const navigationItems: NavigationItem[] = [
     {
         label: 'navigation.links.home',
-        to: EUrls.Home
+        to: Urls.Home
     },
     {
         label: 'navigation.links.editor',
-        to: EUrls.Editor
+        to: Urls.Editor
     }
 ];

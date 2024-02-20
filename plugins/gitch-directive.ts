@@ -1,16 +1,14 @@
-import type { Config } from "~/types/config";
-
-export const defaultConfig: Config = {
+export const defaultConfig: GlitchConfig = {
     fontSize: '16',
     color: '#000000'
 }
 
-const options: Config = {
+const options: GlitchConfig = {
     fontSize: defaultConfig.fontSize,
     color: defaultConfig.color
 }
 
-function applyOptions(config: Config) {
+function applyOptions(config: GlitchConfig) {
     if (config.fontSize) {
         options.fontSize = config.fontSize;
     }
@@ -34,7 +32,7 @@ function applyKeyFrames() {
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.directive('glitch', (el, binding) => {
-        const config: Config = binding.value || {};
+        const config: GlitchConfig = binding.value;
         console.log("passed config -> ", config);
         applyOptions(config);
         applyStyle(el);

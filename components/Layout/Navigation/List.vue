@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import type { INavigationItem } from '~/types/navigation';
-
 withDefaults(defineProps<{
-    items: Array<INavigationItem>
+    items: NavigationItem[]
     as?: "li" | "div"
 }>(), {
     as: 'li'

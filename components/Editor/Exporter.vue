@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { Config } from '~/types/config';
-
 const props = defineProps<{
-    config: Config
+    config: GlitchConfig
 }>();
 
 const localConfig = reactive(props.config);
