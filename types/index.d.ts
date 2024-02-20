@@ -15,12 +15,3 @@ declare interface NavigationItem {
     label: string;
     to: UrlsValues;
 }
-
-/* 
-    glitch config
-    ----------------
-*/
-declare interface GlitchConfig {
-    fontSize: string;
-    color: string;
-}

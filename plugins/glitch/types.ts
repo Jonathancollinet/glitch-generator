@@ -47,7 +47,7 @@ export type GlitchError = {
     message: string
 }
 
-export type _GlitchConfig = {
+export type GlitchConfig = {
     onErrors?: (errors: GlitchError[]) => void,
     text: GlitchBaseText,
     animation: GlitchAnimation,

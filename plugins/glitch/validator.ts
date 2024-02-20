@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import _get from 'lodash.get';
 import _set from 'lodash.get';
-import { GlitchAnimationProperty, GlitchUnit, type GlitchError, type _GlitchConfig } from './types';
+import { GlitchAnimationProperty, GlitchUnit, type GlitchError, type GlitchConfig } from './types';
 
 const PercentSchema = z.number().int().gte(0).lte(100);
 
@@ -73,7 +73,7 @@ function validateConfigLeaf<T, U extends z.ZodType>(configValue: T, schema: U, p
     }
 }
 
-function validateConfigLeafs(config: _GlitchConfig, oldConfig: _GlitchConfig) {
+function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
     const errors: GlitchError[] = [];
 
     if (config.onErrors !== oldConfig.onErrors) {
@@ -223,7 +223,7 @@ function validateConfigLeafs(config: _GlitchConfig, oldConfig: _GlitchConfig) {
     return errors
 }
 
-export function validateConfig(config: _GlitchConfig, oldConfig: _GlitchConfig) {
+export function validateConfig(config: GlitchConfig, oldConfig: GlitchConfig) {
     return validateConfigLeafs(config, oldConfig);
 }
 
@@ -232,7 +232,7 @@ export function validateConfig(config: _GlitchConfig, oldConfig: _GlitchConfig) 
 // not working yet
 // the goal is to validate only the diffs to avoid unnecessary validations
 // ------------------------
-export function applyConfigDiffs(config: _GlitchConfig, diffs: any) {
+export function applyConfigDiffs(config: GlitchConfig, diffs: any) {
     const keys = Object.keys(diffs);
 
     keys.forEach(key => {
@@ -257,7 +257,7 @@ export function validateConfigDiffs(diffs: any) {
     return errors;
 }
 
-export function validateConfigFromPath(config: _GlitchConfig, path: string, isField: boolean = false) {
+export function validateConfigFromPath(config: GlitchConfig, path: string, isField: boolean = false) {
     const value = _get(config, path);
     let schema;
 

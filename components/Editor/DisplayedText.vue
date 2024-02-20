@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { Directive } from 'vue';
 import contenteditable from 'vue-contenteditable'
-import { type _GlitchConfig } from '~/plugins/glitch/types';
+import { type GlitchConfig } from '~/plugins/glitch/types';
 
 const props = defineProps<{
-    config: _GlitchConfig,
+    config: GlitchConfig,
 }>();
 
 const reRender = ref(0);

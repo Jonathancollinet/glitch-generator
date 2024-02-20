@@ -1,8 +1,8 @@
 import { FunctionDirective } from 'vue';
-import type { _GlitchConfig } from '~/plugins/gitch-directive';
+import type { GlitchConfig } from '~/plugins/gitch-directive';
 
 declare module 'vue' {
     export interface ComponentCustomProperties {
-        vGlitch: FunctionDirective<HTMLElement, _GlitchConfig>;
+        vGlitch: FunctionDirective<HTMLElement, GlitchConfig>;
     }
 }

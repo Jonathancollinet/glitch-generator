@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { _GlitchConfig } from '~/plugins/glitch/types';
+import type { GlitchConfig } from '~/plugins/glitch/types';
 
-const config = defineModel<_GlitchConfig>({ type: Object });
+const config = defineModel<GlitchConfig>({ type: Object });
 
 defineProps<{
     // to do -> refine parent to fit with the new directive

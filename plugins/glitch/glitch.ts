@@ -1,13 +1,13 @@
 import type { DirectiveBinding } from "vue";
 import type {
     GlitchError,
-    _GlitchConfig
+    GlitchConfig
 } from './types';
 import { validateConfig, validateConfigDiffs } from "./validator";
 import { generateGlitch } from "./generate";
 import _set from 'lodash.set';
 
-let localConfig: _GlitchConfig = defaultGlitchConfig;
+let localConfig: GlitchConfig = defaultGlitchConfig;
 
 function logErrors(errors: GlitchError[]) {
     errors.forEach(error => {
@@ -15,7 +15,7 @@ function logErrors(errors: GlitchError[]) {
     });
 }
 
-export function directiveCallback(el: HTMLElement, bindings: DirectiveBinding<_GlitchConfig>) {
+export function directiveCallback(el: HTMLElement, bindings: DirectiveBinding<GlitchConfig>) {
     const propConfig = bindings.value;
     const errors: GlitchError[] = validateConfig(propConfig, localConfig);
 

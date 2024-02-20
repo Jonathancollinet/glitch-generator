@@ -4,10 +4,10 @@ import {
 } from '~/plugins/glitch/types';
 
 import type {
-    _GlitchConfig,
+    GlitchConfig,
 } from '~/plugins/glitch/types'
 
-const _defaultGlichConfig: _GlitchConfig = {
+const _defaultGlichConfig: GlitchConfig = {
     text: {
         size: 16,
         unit: GlitchUnit.Pixel,

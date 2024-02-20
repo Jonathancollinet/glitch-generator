@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { type _GlitchConfig } from '~/plugins/glitch/types';
+import { type GlitchConfig } from '~/plugins/glitch/types';
 import type { GlitchError } from '~/plugins/glitch/types';
 import _set from 'lodash.set';
 
 // default config values
-const glitchConfig = reactive<_GlitchConfig>(defaultGlitchConfig);
+const glitchConfig = reactive<GlitchConfig>(defaultGlitchConfig);
 const errors: any = reactive({});
 
 glitchConfig.onErrors = (errs: GlitchError[]) => {
