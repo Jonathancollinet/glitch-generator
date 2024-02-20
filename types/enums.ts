@@ -9,8 +9,3 @@ export enum Urls {
     Home = '/',
     Editor = '/editor'
 }
-
-export enum ExternalUrls {
-    Github = 'https://github.com'
-}
-
