@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const config = {}
+import { defaultConfig } from '~/plugins/gitch-directive';
+import type { Config } from '~/types/config';
+
+// default config values
+const config = reactive<Config>(defaultConfig);
 </script>
 
 <template>
@@ -7,6 +11,8 @@ const config = {}
         <UiHeading class="text-center">
             {{ $t('pages.editor.title') }}
         </UiHeading>
-        <DisplayedText />
+        <DisplayedText :config="config" />
+        <Toolbox v-model="config" />
+        <Exporter :config="config" />
     </div>
 </template>
