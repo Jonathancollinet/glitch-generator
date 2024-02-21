@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import _get from 'lodash.get';
-import _set from 'lodash.get';
 import { GlitchAnimationProperty, GlitchUnit, type GlitchError, type GlitchConfig } from './types';
 
 const PercentSchema = z.number().int().gte(0).lte(100);
@@ -225,57 +223,4 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
 
 export function validateConfig(config: GlitchConfig, oldConfig: GlitchConfig) {
     return validateConfigLeafs(config, oldConfig);
-}
-
-// ------------------------
-// trying a better approach to validate the config
-// not working yet
-// the goal is to validate only the diffs to avoid unnecessary validations
-// ------------------------
-export function applyConfigDiffs(config: GlitchConfig, diffs: any) {
-    const keys = Object.keys(diffs);
-
-    keys.forEach(key => {
-        _set(config, key, diffs[key]);
-    });
-}
-
-export function validateConfigDiffs(diffs: any) {
-    const keys = Object.keys(diffs);
-    const errors: GlitchError[] = [];
-
-    for (const key of keys) {
-        const error = validateConfigFromPath(diffs, key, key.includes('range'));
-
-        if (error === "_fatal") {
-            return error;
-        } else if (error) {
-            errors.push(error);
-        }
-    }
-
-    return errors;
-}
-
-export function validateConfigFromPath(config: GlitchConfig, path: string, isField: boolean = false) {
-    const value = _get(config, path);
-    let schema;
-
-    if (value !== undefined) {
-        if (isField) {
-            schema = glitchConfigLeafSchema.field;
-        } else {
-            schema = _get(glitchConfigLeafSchema, path);
-        }
-
-        if (schema === undefined) {
-            console.error(`Invalid path: ${path}`)
-            return "_fatal";
-        }
-
-        return validateConfigLeaf(value, schema, path);
-    }
-    
-    console.error(`Invalid path: ${path}`);
-    return "_fatal";
 }

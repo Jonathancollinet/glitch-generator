@@ -3,17 +3,11 @@ import type {
     GlitchError,
     GlitchConfig
 } from './types';
-import { validateConfig, validateConfigDiffs } from "./validator";
+import { validateConfig } from "./validator";
 import { generateGlitch } from "./generate";
-import _set from 'lodash.set';
+import { logErrors } from "./utils";
 
 let localConfig: GlitchConfig = defaultGlitchConfig;
-
-function logErrors(errors: GlitchError[]) {
-    errors.forEach(error => {
-        console.error(`Error: ${error.code} at ${error.property}: ${error.message}`);
-    });
-}
 
 export function directiveCallback(el: HTMLElement, bindings: DirectiveBinding<GlitchConfig>) {
     const propConfig = bindings.value;

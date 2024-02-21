@@ -3,9 +3,9 @@ import { type GlitchConfig } from '~/plugins/glitch/types';
 import type { GlitchError } from '~/plugins/glitch/types';
 import _set from 'lodash.set';
 
-// default config values
 const glitchConfig = reactive<GlitchConfig>(defaultGlitchConfig);
-const errors: any = reactive({});
+
+const errors: FrontGlitchError = reactive({});
 
 glitchConfig.onErrors = (errs: GlitchError[]) => {
     errs.forEach((error) => {
