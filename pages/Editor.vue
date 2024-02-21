@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { type GlitchConfig } from '~/plugins/glitch/types';
 import type { GlitchError } from '~/plugins/glitch/types';
-import _set from 'lodash.set';
 
 const glitchConfig = reactive<GlitchConfig>(defaultGlitchConfig);
 
-const errors: FrontGlitchError = reactive({});
+let errors: FrontGlitchError = reactive({});
 
 glitchConfig.onErrors = (errs: GlitchError[]) => {
+    errors = {};
+
     errs.forEach((error) => {
-        _set(errors, error.property, {...error});
+        walkObjectAndSet(errors, error, error.path);
     });
 }
 </script>

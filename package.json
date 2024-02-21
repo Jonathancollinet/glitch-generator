@@ -13,9 +13,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.1.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@types/lodash.set": "^4.3.9",
     "class-variance-authority": "^0.7.0",
-    "lodash.set": "^4.3.2",
     "nuxt": "^3.10.2",
     "tailwind-merge": "^2.2.1",
     "vue": "^3.4.19",

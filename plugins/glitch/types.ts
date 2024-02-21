@@ -9,6 +9,14 @@ export enum GlitchUnit {
     Rem = 'rem'
 }
 
+export enum FieldActions {
+    Add = 'add',
+    Remove = 'remove',
+    Update = 'update'
+}
+
+export type FieldActionsValues = `${FieldActions}`;
+
 export type GlitchAnimationPropertyValues = `${GlitchAnimationProperty}`;
 
 export type GlitchUnitValues = `${GlitchUnit}`;
@@ -42,13 +50,14 @@ export type GlitchAnimation = {
 }
 
 export type GlitchError = {
-    property: string,
+    path: string,
     code: string,
     message: string
 }
 
 export type GlitchConfig = {
     onErrors?: (errors: GlitchError[]) => void,
+    preventFieldValidation?: boolean,
     text: GlitchBaseText,
     animation: GlitchAnimation,
     ranges: GlitchTextShadowField[][]

@@ -1,26 +1,39 @@
 import type { DirectiveBinding } from "vue";
-import type {
-    GlitchError,
-    GlitchConfig
-} from './types';
-import { validateConfig } from "./validator";
-import { generateGlitch } from "./generate";
-import { logErrors } from "./utils";
+import type { GlitchError, GlitchConfig } from './types';
+import { GlitchValidator } from "./validator";
 
-let localConfig: GlitchConfig = defaultGlitchConfig;
+let currentGlitch: Glitch | null = null;
 
 export function directiveCallback(el: HTMLElement, bindings: DirectiveBinding<GlitchConfig>) {
-    const propConfig = bindings.value;
-    const errors: GlitchError[] = validateConfig(propConfig, localConfig);
-
-    if (errors.length) {
-        if (propConfig.onErrors) {
-            propConfig.onErrors(errors)
-        } else {
-            logErrors(errors);
-        }
+    if (!currentGlitch) {
+        currentGlitch = new Glitch(bindings.value, el);
     } else {
-        localConfig = propConfig;
-        generateGlitch(el, localConfig);
+        currentGlitch.computeConfig(bindings.value);
+    }
+}
+
+class Glitch {
+    private config: GlitchConfig;
+    private validator: GlitchValidator;
+    private el: HTMLElement;
+
+    constructor(config: GlitchConfig, el: HTMLElement) {
+        this.config = config;
+        this.el = el;
+        this.validator = new GlitchValidator();
+        this.computeConfig(this.config);
+    }
+
+    computeConfig(newConfig: GlitchConfig) {
+        const success = this.validator.validateConfig(newConfig, this.config);
+
+        if (success) {
+            this.config = newConfig;
+            this.generateGlitch();
+        }
+    }
+
+    private generateGlitch() {
+        console.log("can generate glitch now")
     }
 }
