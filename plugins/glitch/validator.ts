@@ -74,6 +74,9 @@ function validateConfigLeaf<T, U extends z.ZodType>(configValue: T, schema: U, p
 function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
     const errors: GlitchError[] = [];
 
+    // will need to rework this function
+    // into multiple little functions which takes every types of the config
+
     if (config.onErrors !== oldConfig.onErrors) {
         const err = validateConfigLeaf(config.onErrors, glitchConfigLeafSchema.onErrors, 'onErrors');
 
@@ -144,7 +147,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
         field.forEach((subField, index) => {
             const path = `range[${range}].field[${index}]`;
             
-            if (subField.range !== oldConfig.ranges[range][index].range) {
+            if (!oldConfig.ranges[range][index] || subField.range !== oldConfig.ranges[range][index].range) {
                 const err = validateConfigLeaf(subField.range, glitchConfigLeafSchema.field.range, `${path}.range`);
 
                 if (err) {
@@ -152,7 +155,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.index !== oldConfig.ranges[range][index].index) {
+            if (!oldConfig.ranges[range][index] || subField.index !== oldConfig.ranges[range][index].index) {
                 const err = validateConfigLeaf(subField.index, glitchConfigLeafSchema.field.index, `${path}.index`);
 
                 if (err) {
@@ -160,7 +163,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.startPercent !== oldConfig.ranges[range][index].startPercent) {
+            if (!oldConfig.ranges[range][index] || subField.startPercent !== oldConfig.ranges[range][index].startPercent) {
                 const err = validateConfigLeaf(subField.startPercent, glitchConfigLeafSchema.field.startPercent, `${path}.startPercent`);
 
                 if (err) {
@@ -168,7 +171,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.endPercent !== oldConfig.ranges[range][index].endPercent) {
+            if (!oldConfig.ranges[range][index] || subField.endPercent !== oldConfig.ranges[range][index].endPercent) {
                 const err = validateConfigLeaf(subField.endPercent, glitchConfigLeafSchema.field.endPercent, `${path}.endPercent`);
 
                 if (err) {
@@ -176,7 +179,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.color.hex !== oldConfig.ranges[range][index].color.hex) {
+            if (!oldConfig.ranges[range][index] || subField.color.hex !== oldConfig.ranges[range][index].color.hex) {
                 const err = validateConfigLeaf(subField.color.hex, glitchConfigLeafSchema.field.color.hex, `${path}.color.hex`);
 
                 if (err) {
@@ -184,7 +187,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.color.alphaPercent !== oldConfig.ranges[range][index].color.alphaPercent) {
+            if (!oldConfig.ranges[range][index] || subField.color.alphaPercent !== oldConfig.ranges[range][index].color.alphaPercent) {
                 const err = validateConfigLeaf(subField.color.alphaPercent, glitchConfigLeafSchema.field.color.alphaPercent, `${path}.color.alphaPercent`);
 
                 if (err) {
@@ -192,7 +195,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.offsetX !== oldConfig.ranges[range][index].offsetX) {
+            if (!oldConfig.ranges[range][index] || subField.offsetX !== oldConfig.ranges[range][index].offsetX) {
                 const err = validateConfigLeaf(subField.offsetX, glitchConfigLeafSchema.field.offsetX, `${path}.offsetX`);
 
                 if (err) {
@@ -200,7 +203,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.offsetY !== oldConfig.ranges[range][index].offsetY) {
+            if (!oldConfig.ranges[range][index] || subField.offsetY !== oldConfig.ranges[range][index].offsetY) {
                 const err = validateConfigLeaf(subField.offsetY, glitchConfigLeafSchema.field.offsetY, `${path}.offsetY`);
 
                 if (err) {
@@ -208,7 +211,7 @@ function validateConfigLeafs(config: GlitchConfig, oldConfig: GlitchConfig) {
                 }
             }
 
-            if (subField.blur !== oldConfig.ranges[range][index].blur) {
+            if (!oldConfig.ranges[range][index] || subField.blur !== oldConfig.ranges[range][index].blur) {
                 const err = validateConfigLeaf(subField.blur, glitchConfigLeafSchema.field.blur, `${path}.blur`);
 
                 if (err) {
