@@ -7,7 +7,7 @@ import type {
     GlitchConfig, GlitchTextShadowField,
 } from '~/plugins/glitch/types'
 
-const _defaultGlichConfig: GlitchConfig = {
+const DefaultGlitchConfig: GlitchConfig = {
     text: {
         size: 16,
         unit: GlitchUnit.Pixel,
@@ -24,5 +24,5 @@ const _defaultGlichConfig: GlitchConfig = {
     ranges: defaultTextShadowRanges
 }
 
-export default _defaultGlichConfig;
+export default DefaultGlitchConfig;
 

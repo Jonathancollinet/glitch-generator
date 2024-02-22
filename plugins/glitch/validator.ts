@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { type GlitchError, type GlitchConfig, type GlitchTextShadowField, type FieldActionsValues } from './types';
+import type { 
+    GlitchError,
+    GlitchConfig,
+    GlitchTextShadowField,
+    GlitchErrors
+} from './types';
 import {
     glitchBaseConfigSchemas,
     glitchTextSchemas,
@@ -9,39 +14,67 @@ import {
 } from './schemas';
 
 export class GlitchValidator {
-    private errors: GlitchError[];
+    private errors: GlitchErrors;
 
     constructor() {
-        this.errors = [];
+        this.errors = {};
     }
 
     validateConfig(newConfig: GlitchConfig | undefined, oldConfig: GlitchConfig | undefined) {
-        if (!newConfig) {
-            this.addError({
-                path: '',
-                code: 'missing',
-                message: `The Glitch configuration is not defined.`
-            });
-            return false;
-        } else {
-            this.removeExistingError('');
-        }
-
         const success = this.validateConfigLeafs(newConfig, oldConfig);
 
+        this.onValidated(newConfig);
+
         if (!success) {
-            this.emitErrors(newConfig);
             return false;
         }
 
         return true;
     }
 
-    onFieldChange(field: GlitchTextShadowField, action: FieldActionsValues) {
-        // to be implemented
+    onFieldsChange(config: GlitchConfig, fields: GlitchTextShadowField[]) {
+        const configRanges = config.ranges;
+        
+        if (!config.ranges) {
+            console.error('Impossible to perform a field change when ranges is not defined.')
+    
+            return;
+        }
+    
+        fields.forEach((field, fieldIndex) => {
+            const configRange = config.ranges[field.range];
+
+            if (!configRange) {
+                console.error(`Impossible to perform a field change when the field.range is not an existing index in ranges.`)
+            
+                return;
+            }
+
+            const configRangeField = configRange[field.index];
+
+            if (!configRangeField) {
+                console.error(`Impossible to perform a field change when the field.index is not an existing index in ranges[${field.range}].`)
+
+                return;
+            }
+
+            this.validateRangeField(undefined, `ranges[${fieldIndex}]`)(field, fieldIndex);
+        });
     }
 
-    private validateConfigLeafs(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
+    private validateConfigLeafs(newConfig: GlitchConfig | undefined, oldConfig: GlitchConfig | undefined) {
+        if (!newConfig) {
+            this.addError({
+                path: 'Glitch',
+                code: 'invalid_object',
+                message: `The Glitch configuration is not defined.`
+            });
+
+            return false;
+        } else {
+            this.removeExistingError('Glitch');
+        }
+
         const newTextLeaf = newConfig.text;
         const newTextColorLeaf = newTextLeaf?.color;
         const newAnimationLeaf = newConfig.animation;
@@ -50,7 +83,8 @@ export class GlitchValidator {
         const oldAnimationLeaf = oldConfig?.animation;
 
         const results = [
-            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onErrors'),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onValidated'),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onFieldsChange'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'message', 'text.message'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'size', 'text.size'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'unit', 'text.unit'),
@@ -60,29 +94,26 @@ export class GlitchValidator {
             this.validateConfigLeaf(newAnimationLeaf, oldAnimationLeaf, glitchAnimationSchemas, 'duration', 'animation.duration'),
         ];
 
-        const path = 'ranges';
+        const rangesPath = `ranges`;
 
         if (!newConfig.ranges || newConfig.ranges.length === 0) {
             this.addError({
-                path,
-                code: 'ranges_empty',
+                path: rangesPath,
+                code: 'invalid_object',
                 message: 'Ranges must exists and have at least one range.'
             });
 
             return false;
         } else {
-            this.removeExistingError(path);
+            this.removeExistingError(rangesPath);
         }
 
-        // Performance optimization:
-        // if preventFieldValidation is true, we don't need to validate the fields
-        // the user will call the onFieldChange method to validate the fields
-        if (newConfig.preventFieldValidation) {
+        if (newConfig.preventRangesValidation) {
             return results.every(result => result);
         }
 
         return results
-            .concat(newConfig.ranges.map(this.validateRange(oldConfig?.ranges, path)))
+            .concat(newConfig.ranges.map(this.validateRange(oldConfig?.ranges, rangesPath)))
             .every(result => result);
     }
 
@@ -93,10 +124,10 @@ export class GlitchValidator {
         configProperty: keyof ConfigLeaf,
         path: string = configProperty as string
     ) {
-        if (!newConfig) {
-            const pathSplit = path.split('.');
-            const slicedPath = pathSplit.length > 1 ? pathSplit.slice(0, -1).join('.') : path;
+        const pathSplit = path.split('.');
+        const slicedPath = pathSplit.slice(0, -1).join('.');
 
+        if (!newConfig) {
             this.addError({
                 path: slicedPath,
                 code: 'invalid_object',
@@ -105,7 +136,7 @@ export class GlitchValidator {
 
             return false;
         } else {
-            this.removeExistingError(path);
+            this.removeExistingError(slicedPath);
         }
 
         const newLeaf = newConfig[configProperty];
@@ -119,10 +150,11 @@ export class GlitchValidator {
                 this.addError(validationError);
 
                 return false;
-            } else {
-                this.removeExistingError(path);
             }
         }
+
+        this.removeExistingError(path);
+
         return true;
     }
 
@@ -148,7 +180,7 @@ export class GlitchValidator {
             if (!range || range.length === 0) {
                 this.addError({
                     path: rangePath,
-                    code: 'range_empty',
+                    code: 'invalid_object',
                     message: `Range must exists and have at least one field.`
                 });
 
@@ -170,7 +202,7 @@ export class GlitchValidator {
             if (!field) {
                 this.addError({
                     path: fieldPath,
-                    code: 'field_empty',
+                    code: 'invalid_object',
                     message: `The field must exists with all his attributes.`
                 });
 
@@ -196,17 +228,17 @@ export class GlitchValidator {
     }
 
     private addError(newError: GlitchError) {
-        const existingErrorIndex = this.errors.findIndex(this.isSameErrorPath(newError));
+        const existingError = this.errors[newError.path];
 
-        if (existingErrorIndex === -1) {
-            this.errors.push(newError);
+        if (!existingError) {
+            this.errors[newError.path] = newError;
         } else {
-            this.editError(existingErrorIndex, newError);
+            this.editError(newError);
         }
     }
 
-    private editError(existingErrorIndex: number, newError: GlitchError) {
-        const internalError = this.errors[existingErrorIndex];
+    private editError(newError: GlitchError) {
+        const internalError = this.errors[newError.path];
 
         if (internalError.code !== newError.code) {
             internalError.code = newError.code;
@@ -215,33 +247,32 @@ export class GlitchValidator {
     }
 
     private removeExistingError(path: string) {
-        const index = this.errors.findIndex(this.isSamePath(path));
-
-        if (index !== -1) {
-            this.errors.splice(index, 1);
+        if (this.errors[path]) {
+            delete this.errors[path];
         }
     }
 
-    private isSameErrorPath(error: GlitchError) {
-        return this.isSamePath(error.path);
-    }
+    private onValidated(config: GlitchConfig | undefined) {
+        if (config?.onValidated && typeof config.onValidated === 'function') {
+            const hasErrors = Object.keys(this.errors).length > 0;
+            let params: GlitchErrors | undefined;
 
-    private isSamePath(path: string) {
-        return (error: GlitchError) => error.path === path;
-    }
+            if (hasErrors) {
+                // We need to clone the object to avoid the reference to the original object.
+                params = JSON.parse(JSON.stringify(this.errors))
+            }
 
-    private emitErrors(config: GlitchConfig | undefined) {
-        if (config?.onErrors && typeof config.onErrors === 'function') {
-            config.onErrors(this.errors);
+            config.onValidated(params);
         } else {
             this.logErrors();
         }
     }
 
     private logErrors() {
-        this.errors.forEach(error => {
+        for (const path in this.errors) {
+            const error = this.errors[path];
             console.error(`Error: ${error.code} at ${error.path}: ${error.message}`);
-        });
+        }
     }
 }
 

@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { type GlitchConfig } from '~/plugins/glitch/types';
-import type { GlitchError } from '~/plugins/glitch/types';
+import type { GlitchError, GlitchConfig, GlitchErrors } from '~/plugins/glitch/types';
 
 const glitchConfig = reactive<GlitchConfig>(defaultGlitchConfig);
+const errors = ref<Partial<GlitchErrors>>({});
 
-let errors: FrontGlitchError = reactive({});
-
-glitchConfig.onErrors = (errs: GlitchError[]) => {
-    errors = {};
-
-    errs.forEach((error) => {
-        walkObjectAndSet(errors, error, error.path);
-    });
+glitchConfig.onValidated = (errs: GlitchErrors | undefined) => {
+    if (errs) {
+        errors.value = errs;
+    } else {
+        errors.value = {};
+    }
 }
 </script>
 

@@ -18,6 +18,12 @@ const props = withDefaults(defineProps<{
 
 const modelValue = defineModel();
 
+const localeDebounceTime = computed(() => {
+    if (props.debounce) {
+        return props.debounceTime || 300;
+    }
+});
+
 function updateModelValue(value: string) {
     if (props.debounceFn) {
         props.debounceFn(value);

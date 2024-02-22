@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { FieldActions, GlitchAnimationProperty, GlitchUnit } from './types';
+import { GlitchAnimationProperty, GlitchUnit } from './types';
 
 const percentSchema = z.number().int().gte(0).lte(100);
 
@@ -30,12 +30,12 @@ export const glitchAnimationSchemas = {
 };
 
 export const glitchTextSchemas = {
-    size: z.number(),
+    size: z.number().positive().lte(256),
     unit: z.nativeEnum(GlitchUnit),
     message: z.string()
 };
 
 export const glitchBaseConfigSchemas = {
-    onErrors: z.function().args(z.array(z.object(glitchErrorSchemas))).returns(z.void()).optional(),
-    onFieldChange: z.function().args(z.object(glitchTextShadowFieldSchemas), z.nativeEnum(FieldActions)).returns(z.void()).optional()
+    onValidated: z.function().returns(z.void()).optional(),
+    onFieldsChange: z.function().returns(z.void()).optional()
 }
