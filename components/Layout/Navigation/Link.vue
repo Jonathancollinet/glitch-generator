@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineProps<{
-    to: UrlsValues
+    to: UrlsUnion
 }>();
 </script>
     

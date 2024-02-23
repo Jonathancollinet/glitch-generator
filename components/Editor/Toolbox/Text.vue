@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { GlitchBaseText, GlitchConfig, GlitchErrors } from '~/plugins/glitch/types';
+import type { GlitchBaseText, GlitchConfig, GlitchErrors } from '~/glitch/types';
 import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
 const config = defineModel<GlitchConfig>('config');
@@ -44,6 +44,7 @@ const updateMessage = applyUpdater<ConfValueText>({
         <UiFormGroup label="pages.editor.config.textUnit" :error="textUnitError" name="textUnit">
             <select name="textUnit" id="textUnit" :value="config.text.unit" @change="updateTextUnit">
                 <option value="px">px</option>
+                <option value="pt">pt</option>
                 <option value="em">em</option>
                 <option value="rem">rem</option>
             </select>

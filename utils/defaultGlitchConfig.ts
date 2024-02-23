@@ -1,11 +1,11 @@
 import {
     GlitchUnit,
     GlitchAnimationProperty,
-} from '~/plugins/glitch/types';
+} from '~/glitch/types';
 
 import type {
     GlitchConfig, GlitchTextShadowField,
-} from '~/plugins/glitch/types'
+} from '~/glitch/types'
 
 const DefaultGlitchConfig: GlitchConfig = {
     text: {

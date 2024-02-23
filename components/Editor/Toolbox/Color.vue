@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { GlitchColor, GlitchConfig, GlitchErrors } from '~/plugins/glitch/types';
+import type { GlitchColor, GlitchConfig, GlitchErrors } from '~/glitch/types';
 import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
 const configColor = defineModel<GlitchColor>('color');
@@ -7,7 +7,7 @@ const localConfig = defineModel<GlitchConfig>('localConfig');
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
-        localConfig: GlitchColor
+    localConfig: GlitchColor
 }>()
 
 const textColorHexError = computed(() => getErrorMessage(props.errors, 'text.color.hex'));
@@ -31,8 +31,8 @@ const updateTextColorAlphaPercent = applyUpdater<GlitchColor>({
 </script>
 
 <template>
-  <div v-if="configColor && localConfig">
-    <UiFormGroup label="pages.editor.config.textColorHex" :error="textColorHexError" name="textColorHex">
+    <div v-if="configColor && localConfig">
+        <UiFormGroup label="pages.editor.config.textColorHex" :error="textColorHexError" name="textColorHex">
             <input type="color" id="textColorHex" name="textColorHex" :value="localConfig.text.color.hex"
                 @input="updateTextColorHex">
         </UiFormGroup>
@@ -41,5 +41,5 @@ const updateTextColorAlphaPercent = applyUpdater<GlitchColor>({
             <input type="range" step="1" min="0" max="100" id="textColorAlphaPercent" name="textColorAlphaPercent"
                 :value="localConfig.text.color.alphaPercent" @input="updateTextColorAlphaPercent">
         </UiFormGroup>
-  </div>
+    </div>
 </template>

@@ -4,14 +4,14 @@ export enum GlitchAnimationProperty {
 
 export enum GlitchUnit {
     Pixel = 'px',
-    Percent = '%',
+    Point = 'pt',
     Em = 'em',
-    Rem = 'rem'
+    Rem = 'rem',
 }
 
-export type GlitchAnimationPropertyValues = `${GlitchAnimationProperty}`;
+export type GlitchAnimationPropertyUnion = `${GlitchAnimationProperty}`;
 
-export type GlitchUnitValues = `${GlitchUnit}`;
+export type GlitchUnitUnion = `${GlitchUnit}`;
 
 export type GlitchColor = {
     hex: string,
@@ -31,13 +31,13 @@ export type GlitchTextShadowField = {
 
 export type GlitchBaseText = {
     size: number,
-    unit: GlitchUnitValues,
+    unit: GlitchUnitUnion,
     color: GlitchColor,
     message: string
 }
 
 export type GlitchAnimation = {
-    property: GlitchAnimationPropertyValues,
+    property: GlitchAnimationPropertyUnion,
     duration: number,        
 }
 

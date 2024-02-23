@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GlitchError, GlitchConfig, GlitchErrors } from '~/plugins/glitch/types';
+import type { GlitchError, GlitchConfig, GlitchErrors } from '~/glitch/types';
 
 const glitchConfig = reactive<GlitchConfig>(defaultGlitchConfig);
 const errors = ref<Partial<GlitchErrors>>({});

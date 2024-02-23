@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GlitchConfig } from '~/plugins/glitch/types';
+import type { GlitchConfig } from '~/glitch/types';
 
 const props = defineProps<{
     config: GlitchConfig

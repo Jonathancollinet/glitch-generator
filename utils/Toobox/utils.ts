@@ -1,22 +1,14 @@
 import { debounce } from "vue-debounce";
-import type { GlitchErrors } from "~/plugins/glitch/types";
+import type { GlitchErrors } from "~/glitch/types";
 
-interface Updater<Container>{
+interface FieldUpdate<Container>{
     obj: Record<keyof Container, string | number | object>,
     key: keyof Container,
     modifier?: (v: string) => string | number,
 }
 
-interface UpdateParams<Container, Value> extends Updater<Container> {
+interface WithValue<Container, Value> extends FieldUpdate<Container> {
     value: Value
-}
-
-export function getErrorMessage(errors: Partial<GlitchErrors>, path: string) {
-    const e = errors[path];
-
-    if (e) {
-        return `${e.path}-${e.code}`;
-    }
 }
 
 function applyModifier<Container>({
@@ -24,11 +16,10 @@ function applyModifier<Container>({
     key,
     modifier = (v) => v,
     value
-}: UpdateParams<Container, string>) {
+}: WithValue<Container, string>) {
     const modifiedValue = modifier(value);
 
     obj[key] = modifiedValue;
-    // localObj[key] = modifiedValue;
 }
 
 function updateValue<Container>({
@@ -36,7 +27,7 @@ function updateValue<Container>({
     key,
     modifier = (v) => v,
     value
-}: UpdateParams<Container, string | Event>) {
+}: WithValue<Container, string | Event>) {
     if (value) {
         if (value instanceof Event) {
             const targetValue = (value.target as HTMLInputElement)?.value;
@@ -55,11 +46,19 @@ export function applyUpdater<Container>({
     key,
     modifier = (v) => v,
     debounced
-}: Updater<Container> & {debounced?: number | undefined}) {
+}: FieldUpdate<Container> & {debounced?: number | undefined}) {
     if (obj) {
         if (debounced) {
             return debounce((value: string | Event) => updateValue({obj, key, modifier, value}), debounced);
         }
         return (value: string | Event) => updateValue({obj, key, modifier, value});
+    }
+}
+
+export function getErrorMessage(errors: Partial<GlitchErrors>, path: string) {
+    const e = errors[path];
+
+    if (e) {
+        return `${e.path}-${e.code}`;
     }
 }

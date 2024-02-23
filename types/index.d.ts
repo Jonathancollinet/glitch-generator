@@ -2,8 +2,8 @@
     enums unions
 */
 
-declare type IconsValues = `${import('./enums').Icons}`;
-declare type UrlsValues = `${import('./enums').Urls}`
+declare type IconsUnion = `${import('./enums').Icons}`;
+declare type UrlsUnion = `${import('./enums').Urls}`
 
 /* 
     navigation
@@ -12,7 +12,7 @@ declare type UrlsValues = `${import('./enums').Urls}`
 
 declare interface NavigationItem {
     label: string;
-    to: UrlsValues;
+    to: UrlsUnion;
 }
 
 declare type DOMGlitchField = {

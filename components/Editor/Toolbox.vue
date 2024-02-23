@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GlitchConfig, GlitchErrors } from '~/plugins/glitch/types';
+import type { GlitchConfig, GlitchErrors } from '~/glitch/types';
 
 const config = defineModel<GlitchConfig>();
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import Glitch from '~/plugins/glitch/glitch';
-import type { GlitchConfig } from '~/plugins/glitch/types';
+import Glitch from '~/glitch';
+import type { GlitchConfig } from '~/glitch/types';
 
 const props = defineProps<{
     config: GlitchConfig,

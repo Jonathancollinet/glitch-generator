@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Directive } from 'vue';
-import { type GlitchConfig } from '~/plugins/glitch/types';
+import { type GlitchConfig } from '~/glitch/types';
 
 defineProps<{
     config: GlitchConfig,

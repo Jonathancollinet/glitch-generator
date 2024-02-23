@@ -1,4 +1,4 @@
-import type { GlitchTextShadowField } from "~/plugins/glitch/types";
+import type { GlitchTextShadowField } from "~/glitch/types";
 
 const _defaultTextShadowRange: GlitchTextShadowField[][] = [
     [

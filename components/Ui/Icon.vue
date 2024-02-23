@@ -7,7 +7,7 @@ import { IconVariants, type IconVariantsProps } from '~/componentsVariants/Ui/Ic
 
 const props = defineProps<{
 	variant?: IconVariantsProps['variant']
-    icon: IconsValues
+    icon: IconsUnion
 }>();
 
 const IconMap = {
