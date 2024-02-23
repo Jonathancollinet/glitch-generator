@@ -3,7 +3,7 @@ import vueDebounce from 'vue-debounce';
 
 const vDebounce = vueDebounce({});
 
-type acceptedTypes = 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url';
+type acceptedTypes = 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url' | 'color';
 
 const props = withDefaults(defineProps<{
     type?: acceptedTypes,

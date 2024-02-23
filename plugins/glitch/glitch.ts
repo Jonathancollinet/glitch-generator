@@ -51,7 +51,7 @@ export default class Glitch {
     private generateStyle() {
         return {
             fontSize: `${this.config.text.size}${this.config.text.unit}`,
-            color: this.config.text.color.hex
+            color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent)
         }
     }
 

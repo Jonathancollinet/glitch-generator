@@ -11,7 +11,7 @@ export const glitchErrorSchemas = {
 
 export const glitchColorSchemas = {
     hex: z.string(),
-    alphaPercent: percentSchema
+    alphaPercent: z.number().int().gte(0).lte(1000)
 };
 
 export const glitchTextShadowFieldSchemas = {
