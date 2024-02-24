@@ -2,12 +2,12 @@
 import type { GlitchBaseText, GlitchErrors } from '~/glitch/types';
 import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
-const config = defineModel<GlitchBaseText>('config', { required: true });
-const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });
-
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
 }>()
+
+const config = defineModel<GlitchBaseText>('config', { required: true });
+const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });
 
 const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size'));
 const textUnitError = computed(() => getErrorMessage(props.errors, 'text.unit'));
@@ -34,7 +34,7 @@ const updateMessage = applyUpdater<GlitchBaseText>({
 <template>
     <div>
         <UiFormGroup label="pages.editor.config.textSize" :error="textSizeError" name="textSize">
-            <UiInput debounce :debounceTime="100" :debounceFn="updateTextSize" name="textSize"
+            <UiInput type="number" debounce :debounceTime="100" :debounceFn="updateTextSize" name="textSize"
                 :modelValue="localConfig.size" />
         </UiFormGroup>
         <UiFormGroup label="pages.editor.config.textUnit" :error="textUnitError" name="textUnit">
@@ -49,6 +49,6 @@ const updateMessage = applyUpdater<GlitchBaseText>({
             <UiInput debounce :debounceTime="100" :debounceFn="updateMessage" name="message"
                 :modelValue="localConfig.message" />
         </UiFormGroup>
-        <EditorToolboxColor v-model:color="config.color" v-model:localConfig="localConfig.color" :errors="errors" />
+        <EditorToolboxColor v-model:config="config.color" v-model:localConfig="localConfig.color" :errors="errors" />
     </div>
 </template>

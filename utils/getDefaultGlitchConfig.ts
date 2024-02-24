@@ -7,7 +7,7 @@ import type {
     GlitchConfig
 } from '~/glitch/types'
 
-const DefaultGlitchConfig: GlitchConfig = {
+const defaultGlitchConfig: GlitchConfig = {
     text: {
         size: 16,
         unit: GlitchUnit.Pixel,
@@ -24,5 +24,6 @@ const DefaultGlitchConfig: GlitchConfig = {
     ranges: defaultTextShadowRanges
 }
 
-export default DefaultGlitchConfig;
-
+export function getDefaultGlitchConfig() {
+    return JSON.parse(JSON.stringify(defaultGlitchConfig));
+}

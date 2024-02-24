@@ -101,7 +101,7 @@ export default class GlitchValidator {
 
         const results = [
             this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onValidated'),
-            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'preventRangesValidation'),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'preventRangesCompute'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'message', 'text.message'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'size', 'text.size'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'unit', 'text.unit'),
@@ -121,7 +121,7 @@ export default class GlitchValidator {
             return false;
         }
 
-        if (newConfig.preventRangesValidation) {
+        if (newConfig.preventRangesCompute) {
             return results.every(result => result);
         }
 
@@ -224,8 +224,7 @@ export default class GlitchValidator {
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'property', `${fieldPath}.property`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'range', `${fieldPath}.range`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'index', `${fieldPath}.index`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'startPercent', `${fieldPath}.startPercent`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'endPercent', `${fieldPath}.endPercent`),
+                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetFrame', `${fieldPath}.offsetFrame`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetX', `${fieldPath}.offsetX`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetY', `${fieldPath}.offsetY`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'blur', `${fieldPath}.blur`),

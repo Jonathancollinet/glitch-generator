@@ -1,4 +1,7 @@
-import type { GlitchConfig, GlitchError, GlitchShadowField } from './types';
+import type {
+    GlitchConfig,
+    GlitchShadowField
+} from './types';
 import GlitchValidator from "./validator";
 import GlitchKeyframes from './keyframes';
 
@@ -7,10 +10,14 @@ export default class Glitch {
     private validator: GlitchValidator;
     private keyframes: GlitchKeyframes;
 
-    constructor(config: GlitchConfig) {
+    constructor(config: GlitchConfig, el: HTMLElement | null) {
         this.config = this.getConfigCopy(config);
-        this.keyframes = new GlitchKeyframes();
+        this.keyframes = new GlitchKeyframes(el);
         this.validator = new GlitchValidator();
+
+        if (!this.hasAnimationBrowserCompatibility()) {
+            this.config.controls = false;
+        }
     }
 
     destroy() {
@@ -19,15 +26,19 @@ export default class Glitch {
         }
     }
 
-    computeConfig(newConfig: GlitchConfig) {
+    async computeConfig(newConfig: GlitchConfig, forceRangeCompute?: boolean) {
         const success = this.validator.validateConfig(newConfig, this.config);
 
         if (success) {
             this.config = this.getConfigCopy(newConfig);
             const style = this.getTextStyle();
 
-            if (process.client && !this.config.preventRangesValidation) {
-                this.keyframes.add(this.config);
+            if (process.client && (forceRangeCompute || !this.config.preventRangesCompute)) {
+                this.keyframes.compute(this.config);
+            }
+
+            if (!this.config.controls && this.keyframes.animation?.playState === 'idle') {
+                this.keyframes.animation?.play();
             }
 
             return style;
@@ -39,11 +50,23 @@ export default class Glitch {
             const success = this.validator.computeFields(this.config, fields);
 
             if (success) {
-                this.keyframes.add(this.config, fields);
+                this.keyframes.compute(this.config, fields);
             }
         } else {
             this.keyframes.generateKeyframesOnly(this.config);
         }
+    }
+
+    hasAnimationBrowserCompatibility() {
+        return this.keyframes.hasAnimationBrowserCompatibility();
+    }
+
+    play() {
+        this.keyframes.play();
+    }
+
+    pause() {
+        this.keyframes.pause();
     }
 
     private getConfigCopy(config: GlitchConfig) {
@@ -69,14 +92,18 @@ export default class Glitch {
     }
 
     private generateStyle() {
+        const animation: any = {};
+
+        if (!this.keyframes.animation) {
+            animation.animationDuration = `${this.config.animation.duration}ms`;
+            animation.animationTimingFunction = 'steps(100)';
+            animation.animationIterationCount = 'infinite';
+            animation.animationPlayState = 'running';
+        }
         return {
             fontSize: `${this.config.text.size}${this.config.text.unit}`,
             color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),
-            animationName: 'glitch',
-            animationDuration: `${this.config.animation.duration}ms`,
-            animationTimingFunction: 'steps(100)',
-            animationIterationCount: 'infinite',
-            animationPlayState: 'running',
+            ...animation
         }
     }
 }

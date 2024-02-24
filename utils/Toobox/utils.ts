@@ -2,7 +2,7 @@ import { debounce } from "vue-debounce";
 import type { GlitchErrors } from "~/glitch/types";
 
 interface FieldUpdate<Container>{
-    obj: Record<keyof Container, string | number | object>,
+    obj: {[key in keyof Container]?: string | number | object},
     key: keyof Container,
     modifier?: (v: string) => string | number,
 }

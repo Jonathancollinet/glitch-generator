@@ -23,8 +23,7 @@ export type GlitchShadowField = {
     property?: GlitchAnimationPropertyUnion,
     range: number,
     index: number,
-    startPercent: number,
-    endPercent: number,
+    offsetFrame: number,
     color: GlitchColor,
     offsetX: number,
     offsetY: number,
@@ -52,10 +51,23 @@ export type GlitchError = {
 
 export type GlitchErrors = { [key: string]: GlitchError };
 
-export interface GlitchConfig {
+export type GlitchConfig = {
     onValidated?: (errors: GlitchErrors | undefined) => void,
-    preventRangesValidation?: boolean,
+    preventRangesCompute?: boolean,
     text: GlitchBaseText,
+    controls?: boolean,
     animation: GlitchAnimation,
     ranges: GlitchShadowField[][],
+}
+
+export type GlitchBindings = {
+    message: string,
+    textStyle: {
+        fontSize: string,
+        color: string,
+        animationDuration?: string,
+        animationTimingFunction?: string,
+        animationIterationCount?: string,
+        animationPlayState?: string
+    }
 }

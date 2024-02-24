@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import { MoonIcon, LanguageIcon, SunIcon } from '@heroicons/vue/24/outline';
+import {
+    MoonIcon,
+    LanguageIcon,
+    SunIcon,
+    PlayIcon,
+    PauseIcon,
+} from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
 
@@ -15,6 +21,8 @@ const IconMap = {
     [Icons.Language]: LanguageIcon,
     [Icons.Github]: GithubIcon,
     [Icons.Sun]: SunIcon,
+    [Icons.Play]: PlayIcon,
+    [Icons.Pause]: PauseIcon,
 };
 
 const icon = computed(() => IconMap[props.icon]);

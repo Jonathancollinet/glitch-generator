@@ -5,8 +5,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 0,
-            startPercent: 0,
-            endPercent: 4,
+            offsetFrame: 0,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -19,8 +18,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 1,
-            startPercent: 5,
-            endPercent: 10,
+            offsetFrame: 5,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -33,8 +31,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 2,
-            startPercent: 11,
-            endPercent: 13,
+            offsetFrame: 11,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -47,8 +44,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 3,
-            startPercent: 14,
-            endPercent: 15,
+            offsetFrame: 14,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -61,8 +57,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 4,
-            startPercent: 16,
-            endPercent: 20,
+            offsetFrame: 16,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -75,8 +70,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 5,
-            startPercent: 21,
-            endPercent: 25,
+            offsetFrame: 21,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -89,8 +83,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 6,
-            startPercent: 26,
-            endPercent: 27,
+            offsetFrame: 26,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -103,8 +96,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 7,
-            startPercent: 28,
-            endPercent: 30,
+            offsetFrame: 28,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -117,8 +109,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 8,
-            startPercent: 31,
-            endPercent: 34,
+            offsetFrame: 31,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -131,8 +122,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 9,
-            startPercent: 35,
-            endPercent: 37,
+            offsetFrame: 35,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -145,8 +135,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 10,
-            startPercent: 38,
-            endPercent: 40,
+            offsetFrame: 38,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -159,8 +148,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 11,
-            startPercent: 41,
-            endPercent: 41,
+            offsetFrame: 41,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -173,8 +161,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 12,
-            startPercent: 42,
-            endPercent: 42,
+            offsetFrame: 42,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -187,8 +174,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 13,
-            startPercent: 43,
-            endPercent: 45,
+            offsetFrame: 43,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -201,8 +187,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 14,
-            startPercent: 46,
-            endPercent: 47,
+            offsetFrame: 46,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -215,8 +200,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 15,
-            startPercent: 48,
-            endPercent: 50,
+            offsetFrame: 48,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -229,8 +213,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 16,
-            startPercent: 51,
-            endPercent: 54,
+            offsetFrame: 51,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -243,8 +226,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 17,
-            startPercent: 55,
-            endPercent: 55,
+            offsetFrame: 55,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -257,8 +239,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 18,
-            startPercent: 56,
-            endPercent: 57,
+            offsetFrame: 56,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -271,8 +252,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 19,
-            startPercent: 58,
-            endPercent: 60,
+            offsetFrame: 58,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -285,8 +265,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 20,
-            startPercent: 61,
-            endPercent: 61,
+            offsetFrame: 61,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -299,8 +278,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 21,
-            startPercent: 62,
-            endPercent: 62,
+            offsetFrame: 62,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -313,8 +291,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 22,
-            startPercent: 63,
-            endPercent: 65,
+            offsetFrame: 63,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -327,8 +304,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 23,
-            startPercent: 66,
-            endPercent: 66,
+            offsetFrame: 66,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -341,8 +317,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 24,
-            startPercent: 67,
-            endPercent: 67,
+            offsetFrame: 67,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -355,8 +330,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 25,
-            startPercent: 68,
-            endPercent: 70,
+            offsetFrame: 68,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -369,8 +343,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 26,
-            startPercent: 71,
-            endPercent: 71,
+            offsetFrame: 71,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -383,8 +356,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 27,
-            startPercent: 72,
-            endPercent: 72,
+            offsetFrame: 72,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -397,8 +369,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 28,
-            startPercent: 73,
-            endPercent: 76,
+            offsetFrame: 73,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -411,8 +382,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 29,
-            startPercent: 77,
-            endPercent: 80,
+            offsetFrame: 77,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -425,8 +395,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 30,
-            startPercent: 81,
-            endPercent: 82,
+            offsetFrame: 81,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -439,8 +408,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 31,
-            startPercent: 83,
-            endPercent: 85,
+            offsetFrame: 83,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -453,8 +421,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 32,
-            startPercent: 86,
-            endPercent: 87,
+            offsetFrame: 86,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -467,8 +434,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 33,
-            startPercent: 88,
-            endPercent: 90,
+            offsetFrame: 88,
             color: {
                 hex: '#ff0000',
                 alphaPercent: 100
@@ -481,8 +447,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 34,
-            startPercent: 91,
-            endPercent: 91,
+            offsetFrame: 91,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -495,8 +460,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 35,
-            startPercent: 92,
-            endPercent: 92,
+            offsetFrame: 92,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -509,8 +473,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 36,
-            startPercent: 93,
-            endPercent: 95,
+            offsetFrame: 93,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -523,8 +486,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 0,
             index: 37,
-            startPercent: 96,
-            endPercent: 100,
+            offsetFrame: 96,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -539,8 +501,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 0,
-            startPercent: 0,
-            endPercent: 4,
+            offsetFrame: 0,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -553,8 +514,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 1,
-            startPercent: 5,
-            endPercent: 10,
+            offsetFrame: 5,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -567,8 +527,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 2,
-            startPercent: 11,
-            endPercent: 13,
+            offsetFrame: 11,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -581,8 +540,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 3,
-            startPercent: 14,
-            endPercent: 15,
+            offsetFrame: 14,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -595,8 +553,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 4,
-            startPercent: 16,
-            endPercent: 20,
+            offsetFrame: 16,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -609,8 +566,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 5,
-            startPercent: 21,
-            endPercent: 25,
+            offsetFrame: 21,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -623,8 +579,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 6,
-            startPercent: 26,
-            endPercent: 27,
+            offsetFrame: 26,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -637,8 +592,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 7,
-            startPercent: 28,
-            endPercent: 30,
+            offsetFrame: 28,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -651,8 +605,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 8,
-            startPercent: 31,
-            endPercent: 34,
+            offsetFrame: 31,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -665,8 +618,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 9,
-            startPercent: 35,
-            endPercent: 37,
+            offsetFrame: 35,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -679,8 +631,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 10,
-            startPercent: 38,
-            endPercent: 40,
+            offsetFrame: 38,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -693,8 +644,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 11,
-            startPercent: 41,
-            endPercent: 41,
+            offsetFrame: 41,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -707,8 +657,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 12,
-            startPercent: 42,
-            endPercent: 42,
+            offsetFrame: 42,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -721,8 +670,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 13,
-            startPercent: 43,
-            endPercent: 45,
+            offsetFrame: 43,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -735,8 +683,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 14,
-            startPercent: 46,
-            endPercent: 47,
+            offsetFrame: 46,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -749,8 +696,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 15,
-            startPercent: 48,
-            endPercent: 50,
+            offsetFrame: 48,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -763,8 +709,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 16,
-            startPercent: 51,
-            endPercent: 54,
+            offsetFrame: 51,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -777,8 +722,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 17,
-            startPercent: 55,
-            endPercent: 55,
+            offsetFrame: 55,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -791,8 +735,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 18,
-            startPercent: 56,
-            endPercent: 57,
+            offsetFrame: 56,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -805,8 +748,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 19,
-            startPercent: 58,
-            endPercent: 60,
+            offsetFrame: 58,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -819,8 +761,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 20,
-            startPercent: 61,
-            endPercent: 61,
+            offsetFrame: 61,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -833,8 +774,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 21,
-            startPercent: 62,
-            endPercent: 62,
+            offsetFrame: 62,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -847,8 +787,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 22,
-            startPercent: 63,
-            endPercent: 65,
+            offsetFrame: 63,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -861,8 +800,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 23,
-            startPercent: 66,
-            endPercent: 66,
+            offsetFrame: 66,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -875,8 +813,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 24,
-            startPercent: 67,
-            endPercent: 67,
+            offsetFrame: 67,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -889,8 +826,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 25,
-            startPercent: 68,
-            endPercent: 70,
+            offsetFrame: 68,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -903,8 +839,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 26,
-            startPercent: 71,
-            endPercent: 71,
+            offsetFrame: 71,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -917,8 +852,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 27,
-            startPercent: 72,
-            endPercent: 72,
+            offsetFrame: 72,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -931,8 +865,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 28,
-            startPercent: 73,
-            endPercent: 76,
+            offsetFrame: 73,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -945,8 +878,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 29,
-            startPercent: 77,
-            endPercent: 80,
+            offsetFrame: 77,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -959,8 +891,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 30,
-            startPercent: 81,
-            endPercent: 82,
+            offsetFrame: 81,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -973,8 +904,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 31,
-            startPercent: 83,
-            endPercent: 85,
+            offsetFrame: 83,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -987,8 +917,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 32,
-            startPercent: 86,
-            endPercent: 87,
+            offsetFrame: 86,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -1001,8 +930,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 33,
-            startPercent: 88,
-            endPercent: 90,
+            offsetFrame: 88,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -1015,8 +943,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 34,
-            startPercent: 91,
-            endPercent: 91,
+            offsetFrame: 91,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -1029,8 +956,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 35,
-            startPercent: 92,
-            endPercent: 92,
+            offsetFrame: 92,
             color: {
                 hex: '#0c33f5',
                 alphaPercent: 100
@@ -1043,8 +969,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 36,
-            startPercent: 93,
-            endPercent: 95,
+            offsetFrame: 93,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100
@@ -1057,8 +982,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
         {
             range: 1,
             index: 37,
-            startPercent: 96,
-            endPercent: 100,
+            offsetFrame: 96,
             color: {
                 hex: '#32cd32',
                 alphaPercent: 100

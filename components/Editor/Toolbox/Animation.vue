@@ -2,26 +2,26 @@
 import type { GlitchAnimation, GlitchErrors } from '~/glitch/types';
 import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
-const config = defineModel<GlitchAnimation>('config', { required: true });
-const localConfig = defineModel<GlitchAnimation>('localConfig', { required: true });
-
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
 }>()
+
+const animation = defineModel<GlitchAnimation>('config', { required: true });
+const localAnimation = defineModel<GlitchAnimation>('localConfig', { required: true });
 
 const animationDurationError = computed(() => getErrorMessage(props.errors, 'animation.duration'));
 const animationPropertyError = computed(() => getErrorMessage(props.errors, 'animation.property'));
 
 const updateAnimationDuration = applyUpdater<GlitchAnimation>({
-    obj: config.value,
+    obj: animation.value,
     key: 'duration',
     modifier: Number
 });
 
 const updateAnimationProperty = applyUpdater<GlitchAnimation>({
-    obj: config.value,
+    obj: animation.value,
     key: 'property',
-    debounced: 100
+    debounced: 300
 });
 
 </script>
@@ -30,10 +30,10 @@ const updateAnimationProperty = applyUpdater<GlitchAnimation>({
     <div>
         <UiFormGroup label="pages.editor.config.animationDuration" :error="animationDurationError" name="animationDuration">
             <UiInput debounce :debounceTime="100" :debounceFn="updateAnimationDuration" name="animationDuration"
-                :modelValue="localConfig.duration" />
+                :modelValue="localAnimation.duration" />
         </UiFormGroup>
         <UiFormGroup label="pages.editor.config.animationProperty" :error="animationPropertyError" name="animationProperty">
-            <select name="animationProperty" id="animationProperty" :value="localConfig.property"
+            <select name="animationProperty" id="animationProperty" :value="localAnimation.property"
                 @change="updateAnimationProperty">
                 <option value="text-shadow">text-shadow</option>
                 <option value="box-shadow">box-shadow</option>

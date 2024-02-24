@@ -18,7 +18,7 @@ declare interface NavigationItem {
 declare type DOMGlitchField = {
     range: number,
     index: number,
-    startPercent: string,
+    offsetFrame: string,
     endPercent: string,
     color: {
         hex: string,

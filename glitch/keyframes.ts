@@ -5,10 +5,19 @@ type Frame = Record<GlitchAnimationPropertyUnion, string[]>;
 export default class GlitchKeyframes {
     private styleNode: HTMLStyleElement | null;
     private generatedFrames: { [key: number]: Frame };
+    private glitchedElement: HTMLElement | null;
+    animation: Animation | null;
 
-    constructor() {
+    constructor(el: HTMLElement | null) {
         this.styleNode = null;
         this.generatedFrames = {};
+        this.glitchedElement = el;
+
+        if (this.glitchedElement && this.hasAnimationBrowserCompatibility()) {
+            this.animation = new Animation(new KeyframeEffect(this.glitchedElement, []));
+        } else {
+            this.animation = null;
+        }
     }
 
     destroy() {
@@ -17,15 +26,55 @@ export default class GlitchKeyframes {
         }
     }
 
-    add(config: GlitchConfig, fields?: GlitchShadowField[]) {
-        this.injectHeadStyle(this.getKeyframes(config, fields));
+    compute(config: GlitchConfig, fields?: GlitchShadowField[]) {
+        this.generateFrames(config, fields);
+        this.generateAnimation(config);
     }
 
     generateKeyframesOnly(config: GlitchConfig) {
-        this.injectHeadStyle(this.getKeyframesString(config));
+        this.generateAnimation(config);
     }
 
-    private getKeyframes(config: GlitchConfig, fields?: GlitchShadowField[]) {
+    play() {
+        if (this.animation) {
+            this.animation.play();
+        }
+    }
+
+    pause() {
+        if (this.animation) {
+            this.animation.pause();
+        }
+    }
+
+    private generateAnimation(config: GlitchConfig) {
+        if (this.animation) {
+            this.createAnimation(config);
+        } else {
+            this.injectHeadStyle(this.getKeyframesString(config));
+        }
+    }
+
+    private createAnimation(config: GlitchConfig) {
+        const effect = new KeyframeEffect(
+            this.glitchedElement,
+            this.getKeyframesEffect(config),
+            {
+                duration: config.animation.duration,
+                iterations: Infinity
+            }
+        );
+
+        if (this.animation) {
+            this.animation.effect = effect;
+        }
+    }
+
+    hasAnimationBrowserCompatibility() {
+        return !!(window.KeyframeEffect && window.Animation);
+    }
+
+    private generateFrames(config: GlitchConfig, fields?: GlitchShadowField[]) {
         if (fields) {
             fields.forEach((field) => this.createFrame(config.animation.property, field));
         } else {
@@ -33,38 +82,31 @@ export default class GlitchKeyframes {
                 range.forEach((field) => this.createFrame(config.animation.property, field));
             });
         }
-
-        return this.getKeyframesString(config);
     }
 
     private createFrame(globalProperty: GlitchAnimationPropertyUnion, field: GlitchShadowField) {
-        const length = field.endPercent - field.startPercent + 1;
+        const percent = field.offsetFrame;
+        let frame = this.generatedFrames[percent];
+        const computedProperty = field.property || globalProperty;
 
-        for (let i = 0; i < length; ++i) {
-            const percent = field.startPercent + i;
-            let frame = this.generatedFrames[percent];
-            const computedProperty = field.property || globalProperty;
-
-            if (!frame) {
-                frame = {
-                    [GlitchAnimationProperty.BoxShadow]: [],
-                    [GlitchAnimationProperty.TextShadow]: []
-                };
-            }
-
-            const cssValue = this.getCssPropertyValue(computedProperty, field);
-
-            if (!frame[computedProperty]) {
-                frame[computedProperty] = [cssValue];
-            } else {
-                frame[computedProperty].push(cssValue);
-            }
-
-            this.removeOtherProperties(frame, computedProperty);
-
-            this.generatedFrames[percent] = frame;
-            ++i;
+        if (!frame) {
+            frame = {
+                [GlitchAnimationProperty.BoxShadow]: [],
+                [GlitchAnimationProperty.TextShadow]: []
+            };
         }
+
+        const cssValue = this.getCssPropertyValue(computedProperty, field);
+
+        if (!frame[computedProperty]) {
+            frame[computedProperty] = [cssValue];
+        } else {
+            frame[computedProperty].push(cssValue);
+        }
+
+        this.removeOtherProperties(frame, computedProperty);
+
+        this.generatedFrames[percent] = frame;
     }
 
     private removeOtherProperties(frame: Frame, property: GlitchAnimationPropertyUnion) {
@@ -76,7 +118,6 @@ export default class GlitchKeyframes {
         }
     }
 
-
     private getCssPropertyValue(property: GlitchAnimationPropertyUnion, field: GlitchShadowField) {
         if (property === GlitchAnimationProperty.TextShadow) {
             return `${field.offsetX}px ${field.offsetY}px ${field.blur}px ${field.color.hex}`
@@ -85,6 +126,34 @@ export default class GlitchKeyframes {
             return `${field.offsetX}px ${field.offsetY}px ${field.blur}px ${field.spread}px ${field.color.hex}`
         }
         return "";
+    }
+
+    private getKeyframesEffect(config: GlitchConfig) {
+        const effect: Keyframe[] = [];
+        for (const percent in this.generatedFrames) {
+            const framesAt = this.generatedFrames[percent];
+            const keyframe: Keyframe = {};
+
+            let property: GlitchAnimationPropertyUnion;
+            for (property in framesAt) {
+                if (framesAt[property].length) {
+                    framesAt[property].forEach((frame, index) => {
+                        const camelProperty = property.replace(/-./g, x=>x[1].toUpperCase())
+                        if (!keyframe[camelProperty]) {
+                            keyframe[camelProperty] = frame;
+                        } else {
+                            keyframe[camelProperty] += `, ${frame}`;
+                        }
+                    });
+                }
+            }
+
+            keyframe.offset = Number(percent) / 100;
+
+            effect.push(keyframe);
+        }
+
+        return effect;
     }
 
     private getKeyframesString(config: GlitchConfig) {
@@ -103,10 +172,10 @@ export default class GlitchKeyframes {
                     const lastFrameIndex = frameProperty.length - 1;
 
                     keyframes += `${property}: `;
-    
+
                     frameProperty.forEach((frame, frameIndex) => {
                         keyframes += `${frame}`;
-    
+
                         if (frameIndex !== lastFrameIndex) {
                             keyframes += ', ';
                         }
