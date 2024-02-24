@@ -4,6 +4,8 @@ import type { GlitchError, GlitchConfig, GlitchErrors } from '~/glitch/types';
 const glitchConfig = reactive<GlitchConfig>(defaultGlitchConfig);
 const errors = ref<Partial<GlitchErrors>>({});
 
+// glitchConfig.preventRangesValidation = true
+
 glitchConfig.onValidated = (errs: GlitchErrors | undefined) => {
     if (errs) {
         errors.value = errs;

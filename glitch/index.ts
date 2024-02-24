@@ -1,13 +1,22 @@
-import type { GlitchConfig, GlitchError, GlitchTextShadowField } from './types';
-import { GlitchValidator } from "./validator";
+import type { GlitchConfig, GlitchError, GlitchShadowField } from './types';
+import GlitchValidator from "./validator";
+import GlitchKeyframes from './keyframes';
 
 export default class Glitch {
     private config: GlitchConfig;
     private validator: GlitchValidator;
+    private keyframes: GlitchKeyframes;
 
     constructor(config: GlitchConfig) {
         this.config = this.getConfigCopy(config);
+        this.keyframes = new GlitchKeyframes();
         this.validator = new GlitchValidator();
+    }
+
+    destroy() {
+        if (process.client) {
+            this.keyframes.destroy();
+        }
     }
 
     computeConfig(newConfig: GlitchConfig) {
@@ -15,47 +24,59 @@ export default class Glitch {
 
         if (success) {
             this.config = this.getConfigCopy(newConfig);
-            return this.generateGlitch();
+            const style = this.getTextStyle();
+
+            if (process.client && !this.config.preventRangesValidation) {
+                this.keyframes.add(this.config);
+            }
+
+            return style;
         }
     }
 
-    onFieldsChange(fields: GlitchTextShadowField[]) {
-        this.validator.onFieldsChange(this.config, fields);
+    computeFields(fields?: GlitchShadowField[]) {
+        if (fields?.length) {
+            const success = this.validator.computeFields(this.config, fields);
+
+            if (success) {
+                this.keyframes.add(this.config, fields);
+            }
+        } else {
+            this.keyframes.generateKeyframesOnly(this.config);
+        }
     }
 
-    getConfigCopy(config: GlitchConfig) {
+    private getConfigCopy(config: GlitchConfig) {
         const rawConfig = toRaw(config);
 
         // we need to keep functions in safety before the serialization
         const functions = {
             onValidated: rawConfig.onValidated,
-            onFieldsChange: rawConfig.onFieldsChange
         };
 
         const _config: GlitchConfig = JSON.parse(JSON.stringify(rawConfig));
 
         _config.onValidated = functions.onValidated;
-        _config.onFieldsChange = functions.onFieldsChange;
 
         return _config;
     }
 
-    private generateGlitch() {
+    private getTextStyle() {
         return {
             message: this.config.text.message,
             textStyle: this.generateStyle(),
-            keyframes: this.generateKeyframes()
         }
     }
 
     private generateStyle() {
         return {
             fontSize: `${this.config.text.size}${this.config.text.unit}`,
-            color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent)
+            color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),
+            animationName: 'glitch',
+            animationDuration: `${this.config.animation.duration}ms`,
+            animationTimingFunction: 'steps(100)',
+            animationIterationCount: 'infinite',
+            animationPlayState: 'running',
         }
-    }
-
-    private generateKeyframes() {
-        return []
     }
 }

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { 
     GlitchError,
     GlitchConfig,
-    GlitchTextShadowField,
+    GlitchShadowField,
     GlitchErrors
 } from './types';
 import {
@@ -13,14 +13,22 @@ import {
     glitchTextShadowFieldSchemas
 } from './schemas';
 
-export class GlitchValidator {
+export default class GlitchValidator {
     private errors: GlitchErrors;
 
     constructor() {
         this.errors = {};
     }
 
-    validateConfig(newConfig: GlitchConfig | undefined, oldConfig: GlitchConfig | undefined) {
+    validateConfig(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
+        if (this.hasErrorOrRemoveExisting(!newConfig, {
+            path: 'Glitch',
+            code: 'invalid_object',
+            message: `The Glitch configuration is not defined.`
+        })) {
+            return false;
+        }
+
         const success = this.validateConfigLeafs(newConfig, oldConfig);
 
         this.onValidated(newConfig);
@@ -32,49 +40,58 @@ export class GlitchValidator {
         return true;
     }
 
-    onFieldsChange(config: GlitchConfig, fields: GlitchTextShadowField[]) {
-        const configRanges = config.ranges;
-        
-        if (!config.ranges) {
-            console.error('Impossible to perform a field change when ranges is not defined.')
-    
-            return;
-        }
-    
-        fields.forEach((field, fieldIndex) => {
-            const configRange = config.ranges[field.range];
+    computeFields(config: GlitchConfig, fields: GlitchShadowField[]) {
 
-            if (!configRange) {
-                console.error(`Impossible to perform a field change when the field.range is not an existing index in ranges.`)
-            
-                return;
+        // todo
+        // refactor the range validation
+        // let us avoid the below logic and reuse the range validation
+        // below is a duplication of the range validation in another shape
+        // this method should be a simple call to the range validation
+        // with or without the fields
+
+        const results: boolean[] = [];
+        const configRanges = config.ranges;
+        const pathRanges = 'ranges';
+        
+        if (this.hasErrorOrRemoveExisting(!configRanges, {
+            path: pathRanges,
+            code: 'invalid_object',
+            message: `The ranges are not defined.`
+        })) {
+            return false;
+        }
+
+        for (let fieldIndex = 0, len = fields.length; fieldIndex < len; fieldIndex++) {
+            const field = fields[fieldIndex];
+            const configRange = configRanges[field.range];
+            const rangePath = `${pathRanges}[${field.range}]`;
+
+            if (this.hasErrorOrRemoveExisting(!configRange, {
+                path: rangePath,
+                code: 'invalid_object',
+                message: `Impossible to perform a field change where the ${field.range} is not an existing index in ranges.`
+            })) {
+                return false;
             }
 
             const configRangeField = configRange[field.index];
+            const configRangeFieldPath = `${rangePath}[${field.index}]`;
 
-            if (!configRangeField) {
-                console.error(`Impossible to perform a field change when the field.index is not an existing index in ranges[${field.range}].`)
-
-                return;
+            if (this.hasErrorOrRemoveExisting(!configRangeField, {
+                path: configRangeFieldPath,
+                code: 'invalid_object',
+                message: `Impossible to perform a field change where the ${field.index} is not an existing index in ${rangePath}.`
+            })) {
+                return false;
             }
 
-            this.validateRangeField(undefined, `ranges[${fieldIndex}]`)(field, fieldIndex);
-        });
-    }
-
-    private validateConfigLeafs(newConfig: GlitchConfig | undefined, oldConfig: GlitchConfig | undefined) {
-        if (!newConfig) {
-            this.addError({
-                path: 'Glitch',
-                code: 'invalid_object',
-                message: `The Glitch configuration is not defined.`
-            });
-
-            return false;
-        } else {
-            this.removeExistingError('Glitch');
+            results.push(this.validateRangeField(undefined, `ranges[${field.range}]`)(field, field.index));
         }
 
+        return results.every(result => result);
+    }
+
+    private validateConfigLeafs(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
         const newTextLeaf = newConfig.text;
         const newTextColorLeaf = newTextLeaf?.color;
         const newAnimationLeaf = newConfig.animation;
@@ -84,7 +101,7 @@ export class GlitchValidator {
 
         const results = [
             this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onValidated'),
-            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onFieldsChange'),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'preventRangesValidation'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'message', 'text.message'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'size', 'text.size'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'unit', 'text.unit'),
@@ -96,16 +113,12 @@ export class GlitchValidator {
 
         const rangesPath = `ranges`;
 
-        if (!newConfig.ranges || newConfig.ranges.length === 0) {
-            this.addError({
-                path: rangesPath,
-                code: 'invalid_object',
-                message: 'Ranges must exists and have at least one range.'
-            });
-
+        if (this.hasErrorOrRemoveExisting(!newConfig.ranges || newConfig.ranges.length === 0, {
+            path: rangesPath,
+            code: 'invalid_object',
+            message: 'Ranges must exists.'
+        })) {
             return false;
-        } else {
-            this.removeExistingError(rangesPath);
         }
 
         if (newConfig.preventRangesValidation) {
@@ -159,10 +172,10 @@ export class GlitchValidator {
     }
 
     private validateLeaf<Leaf>(value: Leaf, schema: z.ZodTypeAny, path: string): GlitchError | undefined {
-        const parsed = schema.safeParse(value);
+        const parseResult = schema.safeParse(value);
 
-        if (!parsed.success) {
-            const issue = parsed.error.issues[0];
+        if (!parseResult.success) {
+            const issue = parseResult.error.issues[0];
 
             return {
                 path: path,
@@ -172,8 +185,8 @@ export class GlitchValidator {
         }
     }
 
-    private validateRange(oldRanges: GlitchTextShadowField[][] | undefined, path: string) {
-        return (range: GlitchTextShadowField[] | undefined, rangeIndex: number) => {
+    private validateRange(oldRanges: GlitchShadowField[][] | undefined, path: string) {
+        return (range: GlitchShadowField[] | undefined, rangeIndex: number) => {
             const rangePath = `${path}[${rangeIndex}]`;
             const oldRange = oldRanges?.[rangeIndex];
 
@@ -195,23 +208,20 @@ export class GlitchValidator {
         }
     }
 
-    private validateRangeField(oldField: GlitchTextShadowField | undefined, rangePath: string) {
-        return (field: GlitchTextShadowField, fieldIndex: number) => {
+    private validateRangeField(oldField: GlitchShadowField | undefined, rangePath: string) {
+        return (field: GlitchShadowField, fieldIndex: number) => {
             const fieldPath = `${rangePath}[${fieldIndex}]`;
 
-            if (!field) {
-                this.addError({
-                    path: fieldPath,
-                    code: 'invalid_object',
-                    message: `The field must exists with all his attributes.`
-                });
-
+            if (this.hasErrorOrRemoveExisting(!field, {
+                path: fieldPath,
+                code: 'invalid_object',
+                message: `The field must exists with all his attributes.`
+            })) {
                 return false;
-            } else {
-                this.removeExistingError(fieldPath);
             }
 
             const results = [
+                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'property', `${fieldPath}.property`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'range', `${fieldPath}.range`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'index', `${fieldPath}.index`),
                 this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'startPercent', `${fieldPath}.startPercent`),
@@ -224,6 +234,16 @@ export class GlitchValidator {
             ];
 
             return results.every(result => result === true);
+        }
+    }
+
+    private hasErrorOrRemoveExisting(condition: boolean, error: GlitchError) {
+        if (condition) {
+            this.addError(error);
+
+            return true;
+        } else {
+            this.removeExistingError(error.path);
         }
     }
 

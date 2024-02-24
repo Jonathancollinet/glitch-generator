@@ -15,6 +15,12 @@ export default defineNuxtConfig({
         '@nuxtjs/color-mode',
         '@nuxtjs/google-fonts'
     ],
+    build: {
+        analyze: true,
+        transpile: [
+            'vue-debounce'
+        ]
+    },
     i18n: {
         vueI18n: './i18n/i18n.config.ts',
         detectBrowserLanguage: {

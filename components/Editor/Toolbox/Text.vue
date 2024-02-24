@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { GlitchBaseText, GlitchConfig, GlitchErrors } from '~/glitch/types';
+import type { GlitchBaseText, GlitchErrors } from '~/glitch/types';
 import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
-const config = defineModel<GlitchConfig>('config');
-const localConfig = defineModel<GlitchConfig>('localConfig');
+const config = defineModel<GlitchBaseText>('config', { required: true });
+const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
@@ -13,36 +13,32 @@ const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size'))
 const textUnitError = computed(() => getErrorMessage(props.errors, 'text.unit'));
 const textMessageError = computed(() => getErrorMessage(props.errors, 'text.message'));
 
-const confValueText = config.value?.text || {} as GlitchBaseText;
-
-type ConfValueText = typeof confValueText;
-
-const updateTextSize = applyUpdater<ConfValueText>({
-    obj: confValueText,
+const updateTextSize = applyUpdater<GlitchBaseText>({
+    obj: config.value,
     key: 'size',
     modifier: Number
 });
 
-const updateTextUnit = applyUpdater<ConfValueText>({
-    obj: confValueText,
+const updateTextUnit = applyUpdater<GlitchBaseText>({
+    obj: config.value,
     key: 'unit'
 });
 
-const updateMessage = applyUpdater<ConfValueText>({
-    obj: confValueText,
+const updateMessage = applyUpdater<GlitchBaseText>({
+    obj: config.value,
     key: 'message'
 });
 
 </script>
 
 <template>
-    <div v-if="config && localConfig">
+    <div>
         <UiFormGroup label="pages.editor.config.textSize" :error="textSizeError" name="textSize">
             <UiInput debounce :debounceTime="100" :debounceFn="updateTextSize" name="textSize"
-                :modelValue="localConfig.text.size" />
+                :modelValue="localConfig.size" />
         </UiFormGroup>
         <UiFormGroup label="pages.editor.config.textUnit" :error="textUnitError" name="textUnit">
-            <select name="textUnit" id="textUnit" :value="config.text.unit" @change="updateTextUnit">
+            <select name="textUnit" id="textUnit" :value="localConfig.unit" @change="updateTextUnit">
                 <option value="px">px</option>
                 <option value="pt">pt</option>
                 <option value="em">em</option>
@@ -51,8 +47,8 @@ const updateMessage = applyUpdater<ConfValueText>({
         </UiFormGroup>
         <UiFormGroup label="pages.editor.config.message" :error="textMessageError" name="message">
             <UiInput debounce :debounceTime="100" :debounceFn="updateMessage" name="message"
-                :modelValue="localConfig.text.message" />
+                :modelValue="localConfig.message" />
         </UiFormGroup>
-        <EditorToolboxColor v-model:color="config.text.color" v-model:localConfig="localConfig" :errors="errors" />
+        <EditorToolboxColor v-model:color="config.color" v-model:localConfig="localConfig.color" :errors="errors" />
     </div>
 </template>

@@ -18,6 +18,10 @@ watch(props.config, (config) => {
         bindings.value = newBindings;
     }
 });
+
+onBeforeUnmount(() => {
+    glitch.destroy();
+});
 </script>
 
 <template>

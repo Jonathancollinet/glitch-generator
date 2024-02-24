@@ -1,5 +1,6 @@
 export enum GlitchAnimationProperty {
-    TextShadow = 'text-shadow'
+    TextShadow = 'text-shadow',
+    BoxShadow = 'box-shadow',
 }
 
 export enum GlitchUnit {
@@ -18,7 +19,8 @@ export type GlitchColor = {
     alphaPercent: number
 }
 
-export type GlitchTextShadowField = {
+export type GlitchShadowField = {
+    property?: GlitchAnimationPropertyUnion,
     range: number,
     index: number,
     startPercent: number,
@@ -26,7 +28,8 @@ export type GlitchTextShadowField = {
     color: GlitchColor,
     offsetX: number,
     offsetY: number,
-    blur: number
+    blur: number,
+    spread: number
 }
 
 export type GlitchBaseText = {
@@ -49,11 +52,10 @@ export type GlitchError = {
 
 export type GlitchErrors = { [key: string]: GlitchError };
 
-export type GlitchConfig = {
+export interface GlitchConfig {
     onValidated?: (errors: GlitchErrors | undefined) => void,
-    onFieldsChange?: (fields: GlitchTextShadowField[]) => void,
     preventRangesValidation?: boolean,
     text: GlitchBaseText,
     animation: GlitchAnimation,
-    ranges: GlitchTextShadowField[][]
+    ranges: GlitchShadowField[][],
 }

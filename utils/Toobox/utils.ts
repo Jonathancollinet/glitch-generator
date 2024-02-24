@@ -59,6 +59,6 @@ export function getErrorMessage(errors: Partial<GlitchErrors>, path: string) {
     const e = errors[path];
 
     if (e) {
-        return `${e.path}-${e.code}`;
+        return `${e.path}.${e.code}`;
     }
 }

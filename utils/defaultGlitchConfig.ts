@@ -4,7 +4,7 @@ import {
 } from '~/glitch/types';
 
 import type {
-    GlitchConfig, GlitchTextShadowField,
+    GlitchConfig
 } from '~/glitch/types'
 
 const DefaultGlitchConfig: GlitchConfig = {
@@ -19,7 +19,7 @@ const DefaultGlitchConfig: GlitchConfig = {
     },
     animation: {
         property: GlitchAnimationProperty.TextShadow,
-        duration: 1000
+        duration: 3000
     },
     ranges: defaultTextShadowRanges
 }

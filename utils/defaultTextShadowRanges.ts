@@ -1,6 +1,6 @@
-import type { GlitchTextShadowField } from "~/glitch/types";
+import type { GlitchShadowField } from "~/glitch/types";
 
-const _defaultTextShadowRange: GlitchTextShadowField[][] = [
+const _defaultTextShadowRange: GlitchShadowField[][] = [
     [
         {
             range: 0,
@@ -13,7 +13,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -26,7 +27,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -39,7 +41,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -52,7 +55,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -65,7 +69,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -78,7 +83,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0.8,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -91,7 +97,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0.8,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -104,7 +111,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0.8,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -117,7 +125,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -130,7 +139,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -143,7 +153,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -156,7 +167,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 45,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -169,7 +181,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -182,7 +195,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -195,7 +209,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -208,7 +223,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -221,7 +237,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -234,7 +251,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -247,7 +265,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -260,7 +279,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -273,7 +293,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 30,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -286,7 +307,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -299,7 +321,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -312,7 +335,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -325,7 +349,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -338,7 +363,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -351,7 +377,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 50,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -364,7 +391,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -377,7 +405,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -390,7 +419,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -403,7 +433,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -416,7 +447,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -429,7 +461,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 0,
@@ -442,7 +475,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -455,7 +489,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 60,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -468,7 +503,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -481,7 +517,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0.8,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 0,
@@ -494,7 +531,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         }
     ],
     [
@@ -509,7 +547,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -522,7 +561,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -535,7 +575,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -548,7 +589,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -561,7 +603,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -574,7 +617,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0.8,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -587,7 +631,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -0.8,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -600,7 +645,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -0.8,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -613,7 +659,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -626,7 +673,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -639,7 +687,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -652,7 +701,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -45,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -665,7 +715,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -678,7 +729,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -691,7 +743,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -704,7 +757,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -717,7 +771,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -730,7 +785,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -743,7 +799,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -756,7 +813,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -769,7 +827,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -30,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -782,7 +841,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -795,7 +855,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -808,7 +869,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -821,7 +883,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -834,7 +897,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -847,7 +911,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -50,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -860,7 +925,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -873,7 +939,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -886,7 +953,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -899,7 +967,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -912,7 +981,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -1,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -925,7 +995,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0.5
+            blur: 0,
+            spread: 0.5
         },
         {
             range: 1,
@@ -938,7 +1009,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -951,7 +1023,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -60,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -964,7 +1037,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 0,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -977,7 +1051,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: -0.8,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         },
         {
             range: 1,
@@ -990,7 +1065,8 @@ const _defaultTextShadowRange: GlitchTextShadowField[][] = [
             },
             offsetX: 3,
             offsetY: 0,
-            blur: 0
+            blur: 0,
+            spread: 0
         }
     ]
 ]

@@ -43,7 +43,7 @@ onMounted(() => {
                 <UiIcon :icon="darkModeIcon" />
             </UiButton>
             <UiLink variant="icon" as="a" href="https://github.com/Jonathancollinet/glitch-generator" target="_blank">
-                <UiButton as="div" variant="outline" size="icon">
+                <UiButton as="div" variant="icon" size="icon">
                     <UiIcon variant="filled" :icon="Icons.Github" />
                 </UiButton>
             </UiLink>

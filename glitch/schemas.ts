@@ -15,6 +15,7 @@ export const glitchColorSchemas = {
 };
 
 export const glitchTextShadowFieldSchemas = {
+    property: z.nativeEnum(GlitchAnimationProperty),
     range: z.number(),
     index: z.number(),
     startPercent: percentSchema,
@@ -37,5 +38,5 @@ export const glitchTextSchemas = {
 
 export const glitchBaseConfigSchemas = {
     onValidated: z.function().returns(z.void()).optional(),
-    onFieldsChange: z.function().returns(z.void()).optional()
+    preventRangesValidation: z.boolean().optional(),
 }
