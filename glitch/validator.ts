@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { 
+import type {
     GlitchError,
     GlitchConfig,
     GlitchShadowField,
@@ -20,6 +20,14 @@ export default class GlitchValidator {
         this.errors = {};
     }
 
+    /*
+    * This method is used to validate the Glitch configuration.
+    * We need the old configuration to compare the new one to avoid unnecessary validation.
+    * If the old configuration is not defined, we will perform the validation on the entire configuration.
+    * @param newConfig The new Glitch configuration.
+    * @param oldConfig The old Glitch configuration.
+    * @returns True if the configuration is valid.
+    */
     validateConfig(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
         if (this.hasErrorOrRemoveExisting(!newConfig, {
             path: 'Glitch',
@@ -31,6 +39,7 @@ export default class GlitchValidator {
 
         const success = this.validateConfigLeafs(newConfig, oldConfig);
 
+        // We call the onValidated method to notify the user about the validation result.
         this.onValidated(newConfig);
 
         if (!success) {
@@ -40,19 +49,17 @@ export default class GlitchValidator {
         return true;
     }
 
+    /*
+    * Called by the Glitch class to validate a batch of fields, from any range.
+    * @param config The Glitch configuration.
+    * @param fields The fields to validate.
+    * @returns True if the fields are valid.
+    */
     computeFields(config: GlitchConfig, fields: GlitchShadowField[]) {
-
-        // todo
-        // refactor the range validation
-        // let us avoid the below logic and reuse the range validation
-        // below is a duplication of the range validation in another shape
-        // this method should be a simple call to the range validation
-        // with or without the fields
-
         const results: boolean[] = [];
         const configRanges = config.ranges;
         const pathRanges = 'ranges';
-        
+
         if (this.hasErrorOrRemoveExisting(!configRanges, {
             path: pathRanges,
             code: 'invalid_object',
@@ -85,12 +92,18 @@ export default class GlitchValidator {
                 return false;
             }
 
-            results.push(this.validateRangeField(undefined, `ranges[${field.range}]`)(field, field.index));
+            results.push(this.validateRangeField(field, undefined, `ranges[${field.range}]`));
         }
 
         return results.every(result => result);
     }
 
+    /*
+    * This method is used to validate every leafs of the Glitch configuration.
+    * @param newConfig The new Glitch configuration.
+    * @param oldConfig The old Glitch configuration.
+    * @returns True if the configuration is valid.
+    */
     private validateConfigLeafs(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
         const newTextLeaf = newConfig.text;
         const newTextColorLeaf = newTextLeaf?.color;
@@ -111,6 +124,10 @@ export default class GlitchValidator {
             this.validateConfigLeaf(newAnimationLeaf, oldAnimationLeaf, glitchAnimationSchemas, 'duration', 'animation.duration'),
         ];
 
+        if (newConfig.preventRangesCompute) {
+            return results.every(result => result);
+        }
+
         const rangesPath = `ranges`;
 
         if (this.hasErrorOrRemoveExisting(!newConfig.ranges || newConfig.ranges.length === 0, {
@@ -121,26 +138,30 @@ export default class GlitchValidator {
             return false;
         }
 
-        if (newConfig.preventRangesCompute) {
-            return results.every(result => result);
-        }
-
         return results
-            .concat(newConfig.ranges.map(this.validateRange(oldConfig?.ranges, rangesPath)))
+            .concat(this.validateRanges(newConfig.ranges, oldConfig?.ranges, rangesPath))
             .every(result => result);
     }
 
+    /*
+    * This method is used to validate a leaf (primitive) of the Glitch configuration.
+    * @param configLeaf The new object containing the leaf to validate.
+    * @param oldConfigLeaf The old object containing the leaf to validate.
+    * @param schemas The object schemas containing the validation rules related to the property.
+    * @param leafKey The key of the configLeaf to validate.
+    * @param path The full path of the leaf to validate.
+    * @returns True if the leaf in configLeaf is valid.
+    */
     private validateConfigLeaf<ConfigLeaf, Schemas>(
-        newConfig: ConfigLeaf | undefined,
-        oldConfig: ConfigLeaf | undefined,
+        configLeaf: ConfigLeaf | undefined,
+        oldConfigLeaf: ConfigLeaf | undefined,
         schemas: Record<keyof Schemas, z.ZodTypeAny>,
-        configProperty: keyof ConfigLeaf,
-        path: string = configProperty as string
+        leafKey: keyof ConfigLeaf,
+        path: string = leafKey as string
     ) {
-        const pathSplit = path.split('.');
-        const slicedPath = pathSplit.slice(0, -1).join('.');
+        const slicedPath = path.split('.').slice(0, -1).join('.');
 
-        if (!newConfig) {
+        if (!configLeaf) {
             this.addError({
                 path: slicedPath,
                 code: 'invalid_object',
@@ -152,12 +173,12 @@ export default class GlitchValidator {
             this.removeExistingError(slicedPath);
         }
 
-        const newLeaf = newConfig[configProperty];
-        const oldLeaf = oldConfig?.[configProperty];
+        const newLeaf = configLeaf[leafKey];
+        const oldLeaf = oldConfigLeaf?.[leafKey];
 
-        if (!oldConfig || newLeaf !== oldLeaf) {
-            const schemaProperty = configProperty as string as keyof Schemas;
-            const validationError = this.validateLeaf(newLeaf, schemas[schemaProperty], path);
+        if (!oldConfigLeaf || newLeaf !== oldLeaf) {
+            const schemaKey = leafKey as string as keyof Schemas;
+            const validationError = this.validateLeaf(newLeaf, schemas[schemaKey], path);
 
             if (validationError) {
                 this.addError(validationError);
@@ -185,55 +206,59 @@ export default class GlitchValidator {
         }
     }
 
-    private validateRange(oldRanges: GlitchShadowField[][] | undefined, path: string) {
-        return (range: GlitchShadowField[] | undefined, rangeIndex: number) => {
-            const rangePath = `${path}[${rangeIndex}]`;
-            const oldRange = oldRanges?.[rangeIndex];
+    private validateRanges(ranges: GlitchShadowField[][], oldRanges: GlitchShadowField[][] | undefined, path: string) {
+        return ranges
+            .map((range, rangeIndex) => {
+                const rangePath = `${path}[${rangeIndex}]`;
+                const oldRange = oldRanges?.[rangeIndex];
 
-            if (!range || range.length === 0) {
-                this.addError({
+                if (this.hasErrorOrRemoveExisting(!range || range.length === 0, {
                     path: rangePath,
                     code: 'invalid_object',
                     message: `Range must exists and have at least one field.`
-                });
+                })) {
+                    return false;
+                }
 
-                return false;
-            } else {
-                this.removeExistingError(rangePath);
-            }
-
-            return range
-                .map(this.validateRangeField(oldRange?.[rangeIndex], rangePath))
-                .every(result => result);
-        }
+                return this.validateRange(range, oldRange, path)
+            })
+            .every(result => result);
     }
 
-    private validateRangeField(oldField: GlitchShadowField | undefined, rangePath: string) {
-        return (field: GlitchShadowField, fieldIndex: number) => {
-            const fieldPath = `${rangePath}[${fieldIndex}]`;
+    private validateRange(range: GlitchShadowField[], oldRange: GlitchShadowField[] | undefined, path: string) {
+        return range
+            .map((field, fieldIndex) => {
+                const fieldPath = `${path}[${fieldIndex}]`;
 
-            if (this.hasErrorOrRemoveExisting(!field, {
-                path: fieldPath,
-                code: 'invalid_object',
-                message: `The field must exists with all his attributes.`
-            })) {
-                return false;
-            }
+                if (this.hasErrorOrRemoveExisting(!field, {
+                    path: fieldPath,
+                    code: 'invalid_object',
+                    message: `The field must exists with all his attributes.`
+                })) {
+                    return false;
+                }
 
-            const results = [
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'property', `${fieldPath}.property`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'range', `${fieldPath}.range`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'index', `${fieldPath}.index`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetFrame', `${fieldPath}.offsetFrame`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetX', `${fieldPath}.offsetX`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetY', `${fieldPath}.offsetY`),
-                this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'blur', `${fieldPath}.blur`),
-                this.validateConfigLeaf(field.color, oldField?.color, glitchColorSchemas, 'hex', `${fieldPath}.color.hex`),
-                this.validateConfigLeaf(field.color, oldField?.color, glitchColorSchemas, 'alphaPercent', `${fieldPath}.color.alphaPercent`)
-            ];
+                return this.validateRangeField(field, oldRange?.[fieldIndex], path)
+            })
+            .every(result => result);
+    }
 
-            return results.every(result => result === true);
-        }
+    private validateRangeField(field: GlitchShadowField, oldField: GlitchShadowField | undefined, rangePath: string) {
+        const fieldPath = `${rangePath}[${field.index}]`;
+
+        const results = [
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'property', `${fieldPath}.property`),
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'range', `${fieldPath}.range`),
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'index', `${fieldPath}.index`),
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetFrame', `${fieldPath}.offsetFrame`),
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetX', `${fieldPath}.offsetX`),
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetY', `${fieldPath}.offsetY`),
+            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'blur', `${fieldPath}.blur`),
+            this.validateConfigLeaf(field.color, oldField?.color, glitchColorSchemas, 'hex', `${fieldPath}.color.hex`),
+            this.validateConfigLeaf(field.color, oldField?.color, glitchColorSchemas, 'alphaPercent', `${fieldPath}.color.alphaPercent`)
+        ];
+
+        return results.every(result => result === true);
     }
 
     private hasErrorOrRemoveExisting(condition: boolean, error: GlitchError) {
@@ -272,6 +297,8 @@ export default class GlitchValidator {
     }
 
     private onValidated(config: GlitchConfig | undefined) {
+        // If the onValidated method is defined, we call it to notify the user about the result.
+        // Otherwise, we log the errors in the console.
         if (config?.onValidated && typeof config.onValidated === 'function') {
             const hasErrors = Object.keys(this.errors).length > 0;
             let params: GlitchErrors | undefined;

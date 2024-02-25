@@ -66,4 +66,23 @@
     main>div {
         @apply container mx-auto p-4 h-full;
     }
+
+    /* 
+        --------------------
+        -- Other elements
+        --------------------
+    */
+
+    input[type=number] {
+        &,
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            @apply appearance-none;
+      
+          &:hover,
+          &:focus {
+            @apply appearance-none;
+          }
+        }
+      }
 }

@@ -45,16 +45,28 @@ export default class Glitch {
         }
     }
 
-    computeFields(fields?: GlitchShadowField[]) {
-        if (fields?.length) {
-            const success = this.validator.computeFields(this.config, fields);
+    computeFields(fields: GlitchShadowField[]) {
+        const success = this.validator.computeFields(this.config, fields);
 
-            if (success) {
-                this.keyframes.compute(this.config, fields);
-            }
-        } else {
-            this.keyframes.generateKeyframesOnly(this.config);
+        if (success) {
+            this.keyframes.compute(this.config, fields);
+
+            return true;
         }
+
+        return false;
+    }
+
+    generateKeyframesOnly() {
+        this.keyframes.generateKeyframesOnly(this.config);
+    }
+
+    replaceAnimationDuration(duration: number) {
+        this.keyframes.replaceAnimationDuration(duration);
+    }
+
+    selectAnimationAt(percent: number) {
+        this.keyframes.selectAnimationAt(percent);
     }
 
     hasAnimationBrowserCompatibility() {
@@ -67,6 +79,10 @@ export default class Glitch {
 
     pause() {
         this.keyframes.pause();
+    }
+
+    getCurrentTime() {
+        return this.keyframes.getCurrentTime();
     }
 
     private getConfigCopy(config: GlitchConfig) {

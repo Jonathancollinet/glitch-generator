@@ -35,6 +35,22 @@ export default class GlitchKeyframes {
         this.generateAnimation(config);
     }
 
+    selectAnimationAt(percent: number) {
+        if (this.animation) {
+            const effect = this.animation.effect;
+            const timing = effect?.getComputedTiming();
+            const duration = timing?.duration as number;
+
+            this.animation.currentTime = (duration / 100) * percent;
+        }
+    }
+
+    replaceAnimationDuration(duration: number) {
+        if (this.animation) {
+            this.animation.effect?.updateTiming({ duration });
+        }
+    }
+
     play() {
         if (this.animation) {
             this.animation.play();
@@ -44,6 +60,12 @@ export default class GlitchKeyframes {
     pause() {
         if (this.animation) {
             this.animation.pause();
+        }
+    }
+
+    getCurrentTime() {
+        if (this.animation) {
+            return this.animation.currentTime;
         }
     }
 
