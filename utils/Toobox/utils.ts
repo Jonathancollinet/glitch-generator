@@ -1,10 +1,13 @@
 import { debounce } from "vue-debounce";
 import type { GlitchErrors } from "~/glitch/types";
 
+type ContainerRecord<Container> = {[key in keyof Container]?: string | number | object};
+
 interface FieldUpdate<Container>{
-    obj: {[key in keyof Container]?: string | number | object},
+    obj: ContainerRecord<Container>,
     key: keyof Container,
     modifier?: (v: string) => string | number,
+    onUpdate?: (obj: ContainerRecord<Container>) => void
 }
 
 interface WithValue<Container, Value> extends FieldUpdate<Container> {
@@ -15,17 +18,23 @@ function applyModifier<Container>({
     obj,
     key,
     modifier = (v) => v,
+    onUpdate = (obj) => void 0,
     value
 }: WithValue<Container, string>) {
     const modifiedValue = modifier(value);
 
     obj[key] = modifiedValue;
+
+    if (onUpdate) {
+        onUpdate(obj);
+    }
 }
 
 function updateValue<Container>({
     obj,
     key,
     modifier = (v) => v,
+    onUpdate = (obj) => void 0,
     value
 }: WithValue<Container, string | Event>) {
     if (value) {
@@ -33,10 +42,10 @@ function updateValue<Container>({
             const targetValue = (value.target as HTMLInputElement)?.value;
     
             if (targetValue) {
-                applyModifier<Container>({obj, key, modifier, value: targetValue});
+                applyModifier<Container>({obj, key, modifier, onUpdate, value: targetValue});
             }
         } else {
-            applyModifier({obj, key, modifier, value});
+            applyModifier({obj, key, modifier, onUpdate, value});
         }
     }
 }
@@ -45,13 +54,14 @@ export function applyUpdater<Container>({
     obj,
     key,
     modifier = (v) => v,
+    onUpdate = (obj) => void 0,
     debounced
 }: FieldUpdate<Container> & {debounced?: number | undefined}) {
     if (obj) {
         if (debounced) {
-            return debounce((value: string | Event) => updateValue({obj, key, modifier, value}), debounced);
+            return debounce((value: string | Event) => updateValue({obj, key, modifier, onUpdate, value}), debounced);
         }
-        return (value: string | Event) => updateValue({obj, key, modifier, value});
+        return (value: string | Event) => updateValue({obj, key, modifier, onUpdate, value});
     }
 }
 

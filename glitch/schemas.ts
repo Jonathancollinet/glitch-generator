@@ -15,7 +15,7 @@ export const glitchColorSchemas = {
 };
 
 export const glitchTextShadowFieldSchemas = {
-    property: z.nativeEnum(GlitchAnimationProperty),
+    property: z.nativeEnum(GlitchAnimationProperty).optional(),
     range: z.number(),
     index: z.number(),
     offsetFrame: percentSchema,

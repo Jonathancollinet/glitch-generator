@@ -123,19 +123,29 @@ export default class GlitchKeyframes {
         if (!frame[computedProperty]) {
             frame[computedProperty] = [cssValue];
         } else {
-            frame[computedProperty].push(cssValue);
+            frame[computedProperty][field.range] = cssValue;
         }
 
-        this.removeOtherProperties(frame, computedProperty);
+        // this.removeOtherProperties(frame, computedProperty);
+        this.replaceOtherPropertiesByFalse(frame, computedProperty);
 
         this.generatedFrames[percent] = frame;
     }
 
-    private removeOtherProperties(frame: Frame, property: GlitchAnimationPropertyUnion) {
+    // private removeOtherProperties(frame: Frame, property: GlitchAnimationPropertyUnion) {
+    //     let key: GlitchAnimationPropertyUnion;
+    //     for (key in frame) {
+    //         if (key !== property) {
+    //             delete frame[key];
+    //         }
+    //     }
+    // }
+
+    private replaceOtherPropertiesByFalse(frame: Frame, property: GlitchAnimationPropertyUnion) {
         let key: GlitchAnimationPropertyUnion;
         for (key in frame) {
             if (key !== property) {
-                delete frame[key];
+                frame[key] = [this.getCssPropertyFalseValue(key)];
             }
         }
     }
@@ -146,6 +156,16 @@ export default class GlitchKeyframes {
         }
         if (property === GlitchAnimationProperty.BoxShadow) {
             return `${field.offsetX}px ${field.offsetY}px ${field.blur}px ${field.spread}px ${field.color.hex}`
+        }
+        return "";
+    }
+
+    private getCssPropertyFalseValue(property: GlitchAnimationPropertyUnion) {
+        if (property === GlitchAnimationProperty.TextShadow) {
+            return '0px 0px 0px transparent';
+        }
+        if (property === GlitchAnimationProperty.BoxShadow) {
+            return '0px 0px 0px 0px transparent';
         }
         return "";
     }

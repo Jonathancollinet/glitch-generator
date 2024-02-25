@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
+
+/*
+* TODO:
+* - Move field selector in Toolbox
+* - Use localConfig for fields edition
+* - Move Animation control in a Control component
+*/
+
+
+import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField, ManipulableGlitchShadowField } from '~/glitch/types';
 import Glitch from '~/glitch';
 
 const glitchConfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
@@ -217,9 +226,22 @@ watch(glitchConfig.animation, () => {
 
 });
 
-watch(glitchConfig.ranges, () => {
-    glitch?.computeFields(selectedFields.value);
-});
+function updateFields(field: ManipulableGlitchShadowField) {
+    const fields = selectedFields.value.map((selectedField) => {
+        const data = {
+            ...selectedField,
+            ...field
+        };
+
+        if (data.property === 'nothing') {
+            delete data.property;
+        }
+
+        return data;
+    }) as GlitchShadowField[];
+
+    glitch?.computeFields(fields);
+}
 
 onMounted(() => {
     if (glitchedEl.value) {
@@ -250,7 +272,9 @@ onBeforeUnmount(() => {
         </EditorDisplayedText>
         <EditorToolbox v-model="glitchConfig" :errors="errors" :selectedFields="selectedFields"
             @selectUniqueField="selectUniqueField" @selectAllFieldsTo="selectAllFieldsTo" @deselectField="deselectField"
-            @selectField="selectField" />
+            @selectField="selectField">
+            <EditorFieldOptions v-if="selectedFields.length" :config="glitchConfig" :errors="errors" :selectedFields="selectedFields" @update="updateFields" />
+        </EditorToolbox>
         <EditorExporter :config="glitchConfig" />
     </div>
 </template>

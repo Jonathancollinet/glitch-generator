@@ -31,6 +31,10 @@ export type GlitchShadowField = {
     spread: number
 }
 
+export type ManipulableGlitchShadowField = Omit<GlitchShadowField, 'offsetFrame' | 'range' | 'index' | 'property'> & {
+    property?: "nothing" | GlitchAnimationPropertyUnion,
+}
+
 export type GlitchBaseText = {
     size: number,
     unit: GlitchUnitUnion,

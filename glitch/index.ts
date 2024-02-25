@@ -8,7 +8,7 @@ import GlitchKeyframes from './keyframes';
 export default class Glitch {
     private config: GlitchConfig;
     private validator: GlitchValidator;
-    private keyframes: GlitchKeyframes;
+    keyframes: GlitchKeyframes;
 
     constructor(config: GlitchConfig, el: HTMLElement | null) {
         this.config = this.getConfigCopy(config);
@@ -49,12 +49,25 @@ export default class Glitch {
         const success = this.validator.computeFields(this.config, fields);
 
         if (success) {
+            this.replaceFieldsInConfig(fields);
             this.keyframes.compute(this.config, fields);
 
             return true;
         }
 
         return false;
+    }
+
+    private replaceFieldsInConfig(fields: GlitchShadowField[]) {
+        this.config.ranges = this.config.ranges.map((range) => {
+            return range.map((field) => {
+                const found = fields.find((f) => f.range === field.range && f.index === field.index);
+                if (found) {
+                    return found;
+                }
+                return field;
+            });
+        });
     }
 
     generateKeyframesOnly() {

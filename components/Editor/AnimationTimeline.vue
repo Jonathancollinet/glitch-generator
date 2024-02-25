@@ -17,6 +17,7 @@ function selectAnimationAt(e: MouseEvent) {
         const rect = moveContainer.value.getBoundingClientRect();
         const x = e.clientX - rect.left;
 
+        // on some browsers the clientX can be negative on drag mouseup
         if (x >= 0) {
             let percent = (x / rect.width) * 100;
 
