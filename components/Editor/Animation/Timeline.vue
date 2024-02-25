@@ -9,6 +9,7 @@ const emit = defineEmits<{
 
 const moveContainer = ref<HTMLElement | null>(null);
 const currentWidth = ref(0);
+const displayTitle = ref(false);
 
 // todo: handle touch events
 
@@ -44,6 +45,14 @@ function adaptCurrentWidth() {
     }
 }
 
+function setTitle() {
+    displayTitle.value = true;
+}
+
+function removeTitle() {
+    displayTitle.value = false;
+}
+
 onMounted(() => {
     if (moveContainer.value) {
         currentWidth.value = moveContainer.value.clientWidth;
@@ -63,10 +72,10 @@ onUnmounted(() => {
 
 <template>
     <div class="mb-2 px-5 w-full">
-        <div class="text-center">
+        <div class="text-center" v-if="displayTitle">
             {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
         </div>
-        <div class="w-full py-1 px-1 overflow-hidden cursor-pointer group" @mousedown="selectAnimationAt">
+        <div class="w-full py-1 px-2 overflow-hidden cursor-pointer group" @mousedown="selectAnimationAt" @mouseenter="setTitle" @mouseleave="removeTitle">
             <div ref="moveContainer" class="relative w-full h-1 bg-neutral-400 group-hover:bg-blue-400">
                 <div class="absolute -top-1 h-3 w-3 z-10"
                     @mousedown.stop

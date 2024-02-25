@@ -8,13 +8,13 @@ export default class GlitchKeyframes {
     private glitchedElement: HTMLElement | null;
     animation: Animation | null;
 
-    constructor(el: HTMLElement | null) {
+    constructor() {
         this.styleNode = null;
         this.generatedFrames = {};
-        this.glitchedElement = el;
+        this.glitchedElement = null;
 
-        if (this.glitchedElement && this.hasAnimationBrowserCompatibility()) {
-            this.animation = new Animation(new KeyframeEffect(this.glitchedElement, []));
+        if (process.client && this.hasAnimationBrowserCompatibility()) {
+            this.animation = new Animation(new KeyframeEffect(null, []));
         } else {
             this.animation = null;
         }
@@ -51,6 +51,12 @@ export default class GlitchKeyframes {
         }
     }
 
+    playState() {
+        if (this.animation) {
+            return this.animation.playState;
+        }
+    }
+
     play() {
         if (this.animation) {
             this.animation.play();
@@ -66,6 +72,13 @@ export default class GlitchKeyframes {
     getCurrentTime() {
         if (this.animation) {
             return this.animation.currentTime;
+        }
+    }
+
+    setGlitchedElement(element: HTMLElement) {
+        this.glitchedElement = element;
+        if (this.animation?.effect) {
+            (this.animation.effect as KeyframeEffect).target = element;
         }
     }
 

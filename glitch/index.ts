@@ -8,14 +8,14 @@ import GlitchKeyframes from './keyframes';
 export default class Glitch {
     private config: GlitchConfig;
     private validator: GlitchValidator;
-    keyframes: GlitchKeyframes;
+    private keyframes: GlitchKeyframes;
 
-    constructor(config: GlitchConfig, el: HTMLElement | null) {
+    constructor(config: GlitchConfig) {
         this.config = this.getConfigCopy(config);
-        this.keyframes = new GlitchKeyframes(el);
+        this.keyframes = new GlitchKeyframes();
         this.validator = new GlitchValidator();
 
-        if (!this.hasAnimationBrowserCompatibility()) {
+        if (process.client && !this.hasAnimationBrowserCompatibility()) {
             this.config.controls = false;
         }
     }
@@ -58,18 +58,6 @@ export default class Glitch {
         return false;
     }
 
-    private replaceFieldsInConfig(fields: GlitchShadowField[]) {
-        this.config.ranges = this.config.ranges.map((range) => {
-            return range.map((field) => {
-                const found = fields.find((f) => f.range === field.range && f.index === field.index);
-                if (found) {
-                    return found;
-                }
-                return field;
-            });
-        });
-    }
-
     generateKeyframesOnly() {
         this.keyframes.generateKeyframesOnly(this.config);
     }
@@ -86,6 +74,10 @@ export default class Glitch {
         return this.keyframes.hasAnimationBrowserCompatibility();
     }
 
+    playState() {
+        return this.keyframes.playState();
+    }
+
     play() {
         this.keyframes.play();
     }
@@ -96,6 +88,22 @@ export default class Glitch {
 
     getCurrentTime() {
         return this.keyframes.getCurrentTime();
+    }
+
+    setGlitchedElement(element: HTMLElement) {
+        this.keyframes.setGlitchedElement(element);
+    }
+
+    private replaceFieldsInConfig(fields: GlitchShadowField[]) {
+        this.config.ranges = this.config.ranges.map((range) => {
+            return range.map((field) => {
+                const found = fields.find((f) => f.range === field.range && f.index === field.index);
+                if (found) {
+                    return found;
+                }
+                return field;
+            });
+        });
     }
 
     private getConfigCopy(config: GlitchConfig) {
