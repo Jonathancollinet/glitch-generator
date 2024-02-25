@@ -10,6 +10,8 @@ const emit = defineEmits<{
 const moveContainer = ref<HTMLElement | null>(null);
 const currentWidth = ref(0);
 
+// todo: handle touch events
+
 function selectAnimationAt(e: MouseEvent) {
     if (moveContainer.value) {
         const rect = moveContainer.value.getBoundingClientRect();
@@ -69,7 +71,6 @@ onUnmounted(() => {
                     @mousedown.stop
                     @dragstart.stop="hideGhost"
                     @drag.stop="selectAnimationAt"
-                    @drop.stop="selectAnimationAt"
                     @mouseup.stop
                     draggable="true"
                     :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
