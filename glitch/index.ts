@@ -1,4 +1,5 @@
 import type {
+    AnimationBindings,
     GlitchConfig,
     GlitchShadowField
 } from './types';
@@ -129,7 +130,7 @@ export default class Glitch {
     }
 
     private generateStyle() {
-        const animation: any = {};
+        const animation: AnimationBindings = {};
 
         if (!this.keyframes.animation) {
             animation.animationDuration = `${this.config.animation.duration}ms`;
@@ -137,6 +138,7 @@ export default class Glitch {
             animation.animationIterationCount = 'infinite';
             animation.animationPlayState = 'running';
         }
+
         return {
             fontSize: `${this.config.text.size}${this.config.text.unit}`,
             color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),

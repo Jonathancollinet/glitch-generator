@@ -88,9 +88,12 @@ export type GlitchBindings = {
     textStyle: {
         fontSize: string,
         color: string,
-        animationDuration?: string,
-        animationTimingFunction?: string,
-        animationIterationCount?: string,
-        animationPlayState?: string
-    }
+    } & AnimationBindings
+}
+
+export type AnimationBindings = {
+    animationDuration?: string,
+    animationTimingFunction?: string,
+    animationIterationCount?: string,
+    animationPlayState?: string
 }
