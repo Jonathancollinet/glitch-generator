@@ -151,6 +151,14 @@ export default class GlitchKeyframes {
 
         frame[computedProperty][field.range] = cssValue;
 
+        // todo: replace this to manage all properties when it's set;
+        // we should have text-shadow and box-shadow on the same frame if needed;
+        // probably it requires to change the interface of GlitchShadowField
+        // and probably property should not be set to undefined
+        // and always have the value of the default property
+        // then if we change the property, we should have another GlitchShadowField
+        // it will requires to change the way we manage the fields in the config
+        
         this.replaceOtherPropertiesByFalse(frame, computedProperty);
         this.generatedFrames[percent] = frame;
     }
