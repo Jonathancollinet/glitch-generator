@@ -21,6 +21,7 @@ export type GlitchColor = {
 
 export type GlitchShadowField = {
     property?: GlitchAnimationPropertyUnion,
+    fillAllFrames: boolean,
     range: number,
     index: number,
     offsetFrame: number,
@@ -33,6 +34,9 @@ export type GlitchShadowField = {
 
 export type ManipulableGlitchShadowField = Omit<GlitchShadowField, 'offsetFrame' | 'range' | 'index' | 'property'> & {
     property?: "nothing" | GlitchAnimationPropertyUnion,
+    index?: number,
+    range?: number,
+    offsetFrame?: number
 }
 
 export type GlitchBaseText = {
@@ -44,7 +48,7 @@ export type GlitchBaseText = {
 
 export type GlitchAnimation = {
     property: GlitchAnimationPropertyUnion,
-    duration: number,        
+    duration: number,      
 }
 
 export type GlitchError = {
@@ -59,7 +63,7 @@ export type GlitchConfig = {
     onValidated?: (errors: GlitchErrors | undefined) => void,
     preventRangesCompute?: boolean,
     text: GlitchBaseText,
-    controls?: boolean,
+    controls: boolean,
     animation: GlitchAnimation,
     ranges: GlitchShadowField[][],
 }

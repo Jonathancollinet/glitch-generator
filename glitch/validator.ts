@@ -115,6 +115,7 @@ export default class GlitchValidator {
         const results = [
             this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'onValidated'),
             this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'preventRangesCompute'),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, 'controls'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'message', 'text.message'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'size', 'text.size'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'unit', 'text.unit'),
@@ -305,7 +306,7 @@ export default class GlitchValidator {
 
             if (hasErrors) {
                 // We need to clone the object to avoid the reference to the original object.
-                params = JSON.parse(JSON.stringify(this.errors))
+                params = deepCopy(this.errors)
             }
 
             config.onValidated(params);

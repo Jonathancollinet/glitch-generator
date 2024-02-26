@@ -38,5 +38,6 @@ export const glitchTextSchemas = {
 export const glitchBaseConfigSchemas = {
     onValidated: z.function().returns(z.void()).optional(),
     preventRangesCompute: z.boolean().optional(),
-    controls: z.boolean().optional(),
+    fillAllFrames: z.boolean(),
+    controls: z.boolean(),
 }

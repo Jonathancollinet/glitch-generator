@@ -37,7 +37,7 @@ export default class Glitch {
                 this.keyframes.compute(this.config);
             }
 
-            if (!this.config.controls && this.keyframes.animation?.playState === 'idle') {
+            if (this.hasAnimationBrowserCompatibility() && this.keyframes.animation?.playState === 'idle') {
                 this.keyframes.animation?.play();
             }
 
@@ -114,7 +114,7 @@ export default class Glitch {
             onValidated: rawConfig.onValidated,
         };
 
-        const _config: GlitchConfig = JSON.parse(JSON.stringify(rawConfig));
+        const _config: GlitchConfig = deepCopy(rawConfig);
 
         _config.onValidated = functions.onValidated;
 

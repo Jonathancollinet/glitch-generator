@@ -8,6 +8,7 @@ import type {
 } from '~/glitch/types'
 
 const defaultGlitchConfig: GlitchConfig = {
+    controls: true,
     text: {
         size: 16,
         unit: GlitchUnit.Pixel,
@@ -25,5 +26,5 @@ const defaultGlitchConfig: GlitchConfig = {
 }
 
 export function getDefaultGlitchConfig() {
-    return JSON.parse(JSON.stringify(defaultGlitchConfig));
+    return deepCopy(defaultGlitchConfig);
 }

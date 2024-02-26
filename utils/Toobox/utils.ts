@@ -1,12 +1,12 @@
 import { debounce } from "vue-debounce";
 import type { GlitchErrors } from "~/glitch/types";
 
-type ContainerRecord<Container> = {[key in keyof Container]?: string | number | object};
+type ContainerRecord<Container> = {[key in keyof Container]?: string | number | object | boolean};
 
 interface FieldUpdate<Container>{
     obj: ContainerRecord<Container>,
     key: keyof Container,
-    modifier?: (v: string) => string | number,
+    modifier?: (v: string) => string | number | boolean,
     onUpdate?: (obj: ContainerRecord<Container>) => void
 }
 

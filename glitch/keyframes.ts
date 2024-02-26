@@ -111,16 +111,28 @@ export default class GlitchKeyframes {
 
     private generateFrames(config: GlitchConfig, fields?: GlitchShadowField[]) {
         if (fields) {
-            fields.forEach((field) => this.createFrame(config.animation.property, field));
+            fields.sort((a, b) => a.offsetFrame - b.offsetFrame);
+            fields.forEach((field, index) => this.createFrame(config.animation.property, field, config.ranges[field.range][index + 1]));
         } else {
             config.ranges.forEach((range) => {
-                range.forEach((field) => this.createFrame(config.animation.property, field));
+                range.forEach((field, index) => this.createFrame(config.animation.property, field, config.ranges[field.range][index + 1]));
             });
         }
     }
 
-    private createFrame(globalProperty: GlitchAnimationPropertyUnion, field: GlitchShadowField) {
-        const percent = field.offsetFrame;
+    private createFrame(globalProperty: GlitchAnimationPropertyUnion, field: GlitchShadowField, nextField?: GlitchShadowField) {
+        if (field.fillAllFrames) {
+            const length = (nextField ? nextField.offsetFrame : 100) - field.offsetFrame;
+            for (let i = 0; i < length; i++) {
+                const percent = field.offsetFrame + i;
+                this.setFrame(globalProperty, field, percent);
+            }
+        } else {
+            this.setFrame(globalProperty, field, field.offsetFrame);
+        }
+    }
+
+    private setFrame(globalProperty: GlitchAnimationPropertyUnion, field: GlitchShadowField, percent: number) {
         let frame = this.generatedFrames[percent];
         const computedProperty = field.property || globalProperty;
 
@@ -134,25 +146,14 @@ export default class GlitchKeyframes {
         const cssValue = this.getCssPropertyValue(computedProperty, field);
 
         if (!frame[computedProperty]) {
-            frame[computedProperty] = [cssValue];
-        } else {
-            frame[computedProperty][field.range] = cssValue;
+            frame[computedProperty] = [];
         }
 
-        // this.removeOtherProperties(frame, computedProperty);
-        this.replaceOtherPropertiesByFalse(frame, computedProperty);
+        frame[computedProperty][field.range] = cssValue;
 
+        this.replaceOtherPropertiesByFalse(frame, computedProperty);
         this.generatedFrames[percent] = frame;
     }
-
-    // private removeOtherProperties(frame: Frame, property: GlitchAnimationPropertyUnion) {
-    //     let key: GlitchAnimationPropertyUnion;
-    //     for (key in frame) {
-    //         if (key !== property) {
-    //             delete frame[key];
-    //         }
-    //     }
-    // }
 
     private replaceOtherPropertiesByFalse(frame: Frame, property: GlitchAnimationPropertyUnion) {
         let key: GlitchAnimationPropertyUnion;

@@ -79,7 +79,6 @@ onMounted(() => {
     if (displayedText.value?.glitchedEl) {
         glitchedEl.value = displayedText.value?.glitchedEl;
         glitch.setGlitchedElement(glitchedEl.value);
-        glitchConfig.controls = glitch.hasAnimationBrowserCompatibility();
         computeConfig(glitchConfig, true);
     }
 });

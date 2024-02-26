@@ -12,6 +12,7 @@ const emit = defineEmits(['update']);
 
 const defaultFieldValue: ManipulableGlitchShadowField = {
     property: 'nothing',
+    fillAllFrames: true,
     color: {
         hex: '#000000',
         alphaPercent: 100
@@ -22,33 +23,42 @@ const defaultFieldValue: ManipulableGlitchShadowField = {
     spread: 0
 };
 
-const data = ref<ManipulableGlitchShadowField>(JSON.parse(JSON.stringify(defaultFieldValue)));
-const localData = ref<ManipulableGlitchShadowField>(JSON.parse(JSON.stringify(defaultFieldValue)));
+const data = ref<ManipulableGlitchShadowField>(deepCopy(defaultFieldValue));
+const localData = ref<ManipulableGlitchShadowField>(deepCopy(defaultFieldValue));
+
+function copyField(field: ManipulableGlitchShadowField) {
+    const copy = deepCopy(field);
+    delete copy.index;
+    delete copy.range;
+    delete copy.offsetFrame;
+    copy.property = 'nothing';
+    data.value = copy;
+    localData.value = deepCopy(copy);
+}
 
 watch(props.selectedFields, (newVal) => {
     if (newVal.length === 1) {
-        data.value = newVal[0] as ManipulableGlitchShadowField;
-        localData.value = newVal[0] as ManipulableGlitchShadowField;
+        data.value = deepCopy(newVal[0]) as ManipulableGlitchShadowField;
+        localData.value = deepCopy(newVal[0]) as ManipulableGlitchShadowField;
     } else {
-        data.value = JSON.parse(JSON.stringify(defaultFieldValue));
-        localData.value = JSON.parse(JSON.stringify(defaultFieldValue));
+        copyField(defaultFieldValue);
     }
 });
 
 if (props.selectedFields.length === 1) {
-    data.value = props.selectedFields[0] as ManipulableGlitchShadowField;
-    localData.value = props.selectedFields[0] as ManipulableGlitchShadowField;
+    copyField(props.selectedFields[0]);
 }
 
 const isBoxShadow = computed(() => localData.value.property === 'box-shadow');
 
 const propertyError = computed(() => getErrorMessage(props.errors, 'property'));
+const fillAllFramesError = computed(() => getErrorMessage(props.errors, 'fillAllFrames'));
 const offsetXError = computed(() => getErrorMessage(props.errors, 'offsetX'));
 const offsetYError = computed(() => getErrorMessage(props.errors, 'offsetY'));
 const blurError = computed(() => getErrorMessage(props.errors, 'blur'));
 const spreadError = computed(() => getErrorMessage(props.errors, 'spread'));
 
-const updateProperty = applyUpdater<GlitchShadowField>({
+const updateProperty = applyUpdater<ManipulableGlitchShadowField>({
     obj: data.value,
     key: 'property',
     debounced: 100,
@@ -57,7 +67,17 @@ const updateProperty = applyUpdater<GlitchShadowField>({
     }
 })
 
-const updateOffsetX = applyUpdater<GlitchShadowField>({
+const updateFillAllFrames = applyUpdater<ManipulableGlitchShadowField>({
+    obj: data.value,
+    key: 'fillAllFrames',
+    modifier: Boolean,
+    debounced: 100,
+    onUpdate: (obj) => {
+        emit('update', obj);
+    }
+});
+
+const updateOffsetX = applyUpdater<ManipulableGlitchShadowField>({
     obj: data.value,
     key: 'offsetX',
     modifier: Number,
@@ -67,7 +87,7 @@ const updateOffsetX = applyUpdater<GlitchShadowField>({
     }
 });
 
-const updateOffsetY = applyUpdater<GlitchShadowField>({
+const updateOffsetY = applyUpdater<ManipulableGlitchShadowField>({
     obj: data.value,
     key: 'offsetY',
     modifier: Number,
@@ -77,7 +97,7 @@ const updateOffsetY = applyUpdater<GlitchShadowField>({
     }
 });
 
-const updateBlur = applyUpdater<GlitchShadowField>({
+const updateBlur = applyUpdater<ManipulableGlitchShadowField>({
     obj: data.value,
     key: 'blur',
     modifier: Number,
@@ -87,7 +107,7 @@ const updateBlur = applyUpdater<GlitchShadowField>({
     }
 });
 
-const updateSpread = applyUpdater<GlitchShadowField>({
+const updateSpread = applyUpdater<ManipulableGlitchShadowField>({
     obj: data.value,
     key: 'spread',
     modifier: Number,
@@ -97,30 +117,36 @@ const updateSpread = applyUpdater<GlitchShadowField>({
     }
 });
 
+watch(data.value.color, () => {
+    emit('update', data.value);
+});
+
 </script>
 
 <template>
-  <div>
-    {{ data }}
-    <UiFormGroup label="pages.editor.config.field.property" :error="propertyError" name="property">
-                <select name="property" id="property" :value="localData.property" @change="updateProperty">
-                    <option value="">nothing</option>
-                    <option value="text-shadow">text-shadow</option>
-                    <option value="box-shadow">box-shadow</option>
-                </select>
-            </UiFormGroup>
-            <EditorToolboxColor v-model:config="data.color" v-model:localConfig="localData.color" :errors="errors" />
-            <UiFormGroup label="pages.editor.config.field.offsetX" :error="offsetXError" name="offsetX">
-                <input type="number" id="offsetX" name="offsetX" :value="localData.offsetX" @input="updateOffsetX">
-            </UiFormGroup>
-            <UiFormGroup label="pages.editor.config.field.offsetY" :error="offsetYError" name="offsetY">
-                <input type="number" id="offsetY" name="offsetY" :value="localData.offsetY" @input="updateOffsetY">
-            </UiFormGroup>
-            <UiFormGroup label="pages.editor.config.field.blur" :error="blurError" name="blur">
-                <input type="number" id="blur" name="blur" :value="localData.blur" @input="updateBlur">
-            </UiFormGroup>
-            <UiFormGroup v-if="isBoxShadow" label="pages.editor.config.field.spread" :error="spreadError" name="spread">
-                <input type="number" id="spread" name="spread" :value="localData.spread" @input="updateSpread">
-            </UiFormGroup>
-  </div>
+    <div>
+        <UiFormGroup label="pages.editor.config.field.property" :error="propertyError" name="property">
+            <select name="property" id="property" :value="localData.property" @change="updateProperty">
+                <option value="">nothing</option>
+                <option value="text-shadow">text-shadow</option>
+                <option value="box-shadow">box-shadow</option>
+            </select>
+        </UiFormGroup>
+        <EditorToolboxColor v-model:config="data.color" v-model:localConfig="localData.color" :errors="errors" />
+        <UiFormGroup label="pages.editor.config.field.fillAllFrames" :error="fillAllFramesError" name="fillAllFrames">
+            <input type="checkbox" id="fillAllFrames" name="fillAllFrames" :checked="localData.fillAllFrames" @change="updateFillAllFrames">
+        </UiFormGroup>
+        <UiFormGroup label="pages.editor.config.field.offsetX" :error="offsetXError" name="offsetX">
+            <input type="number" id="offsetX" name="offsetX" :value="localData.offsetX" @input="updateOffsetX">
+        </UiFormGroup>
+        <UiFormGroup label="pages.editor.config.field.offsetY" :error="offsetYError" name="offsetY">
+            <input type="number" id="offsetY" name="offsetY" :value="localData.offsetY" @input="updateOffsetY">
+        </UiFormGroup>
+        <UiFormGroup label="pages.editor.config.field.blur" :error="blurError" name="blur">
+            <input type="number" id="blur" name="blur" :value="localData.blur" @input="updateBlur">
+        </UiFormGroup>
+        <UiFormGroup v-if="isBoxShadow" label="pages.editor.config.field.spread" :error="spreadError" name="spread">
+            <input type="number" id="spread" name="spread" :value="localData.spread" @input="updateSpread">
+        </UiFormGroup>
+    </div>
 </template>

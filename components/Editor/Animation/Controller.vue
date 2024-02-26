@@ -23,7 +23,6 @@ function selectAnimationAt(percent: number) {
 
 function bindTimelineWatcher() {
     currentReq = window.requestAnimationFrame(bindTimelineWatcher);
-
     now = Date.now();
     elapsed = now - then;
 
@@ -42,7 +41,7 @@ function play() {
     props.glitch?.play();
     playState.value = "running";
 
-    if (props.glitchConfig.controls && process.client) {
+    if (process.client) {
         bindTimelineWatcher();
     }
 }
@@ -50,12 +49,15 @@ function play() {
 function pause() {
     props.glitch?.pause();
     playState.value = "paused";
-    if (props.glitchConfig.controls && process.client) {
+
+    if (process.client) {
         cancelAnimationFrame(currentReq);
     }
 }
 
-play();
+onMounted(() => {
+    play();
+});
 </script>
 
 <template>

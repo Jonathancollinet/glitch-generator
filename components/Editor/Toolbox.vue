@@ -12,7 +12,7 @@ const emit = defineEmits<{
 
 const config = defineModel<GlitchConfig>({ required: true });
 
-const localConfig = ref<GlitchConfig>(JSON.parse(JSON.stringify(config.value)));
+const localConfig = ref<GlitchConfig>(deepCopy(config.value));
 const selectedFields = ref<GlitchShadowField[]>([]);
 
 function selectField(field: GlitchShadowField) {
@@ -35,13 +35,13 @@ function shiftSelect(selectedField: GlitchShadowField) {
 }
 
 function selectPreviousFieldFrom(lastSelectedFieldIndex: number, currentFieldIndex: number, currentFieldRange: number) {
-    for (let i = lastSelectedFieldIndex; i >= currentFieldIndex; --i) {
+    for (let i = lastSelectedFieldIndex - 1; i >= currentFieldIndex; --i) {
         shiftSelect(localConfig.value.ranges[currentFieldRange][i]);
     }
 }
 
 function selectNextFieldFrom(lastSelectedFieldIndex: number, currentFieldIndex: number, currentFieldRange: number) {
-    for (let i = lastSelectedFieldIndex; i <= currentFieldIndex; ++i) {
+    for (let i = lastSelectedFieldIndex + 1; i <= currentFieldIndex; ++i) {
         shiftSelect(localConfig.value.ranges[currentFieldRange][i]);
     }
 }
@@ -125,8 +125,8 @@ function deselectField(field: GlitchShadowField) {
 function updateFields(field: ManipulableGlitchShadowField) {
     const fields = selectedFields.value.map((selectedField) => {
         const data = {
-            ...selectedField,
-            ...field
+            ...deepCopy(selectedField),
+            ...deepCopy(field)
         };
 
         if (data.property === 'nothing') {
