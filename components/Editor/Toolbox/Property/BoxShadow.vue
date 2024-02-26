@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import type { GlitchErrors, OptionnalGlitchShadowProperty } from '~/glitch/types';
+import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
 import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
 }>()
 
-const property = defineModel<OptionnalGlitchShadowProperty>('config', { required: true });
-const localProperty = defineModel<OptionnalGlitchShadowProperty>('localConfig', { required: true });
+const property = defineModel<GlitchShadowProperty>('config', { required: true });
+const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
 
 const spreadError = computed(() => getErrorMessage(props.errors, 'spread'));
 
-const updateSpread = applyUpdater<OptionnalGlitchShadowProperty>({
+const updateSpread = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     key: 'spread',
     modifier: Number,

@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import type { GlitchErrors, OptionnalGlitchShadowProperty } from '~/glitch/types';
+import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
 import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
 }>()
 
-const property = defineModel<OptionnalGlitchShadowProperty>('config', { required: true });
-const localProperty = defineModel<OptionnalGlitchShadowProperty>('localConfig', { required: true });
+const property = defineModel<GlitchShadowProperty>('config', { required: true });
+const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
 
 const enabledError = computed(() => getErrorMessage(props.errors, 'enabled'));
 const fillAllFramesError = computed(() => getErrorMessage(props.errors, 'fillAllFrames'));
 
-const updateEnabled = applyUpdater<OptionnalGlitchShadowProperty>({
+const updateEnabled = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     key: 'enabled',
     modifier: Boolean,
     debounced: 100
 });
 
-const updateFillAllFrames = applyUpdater<OptionnalGlitchShadowProperty>({
+const updateFillAllFrames = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     key: 'fillAllFrames',
     modifier: Boolean,

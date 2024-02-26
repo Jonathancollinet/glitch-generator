@@ -3,7 +3,7 @@ const props = defineProps<{
     tabs: Tabs
 }>();
 
-const activeTab = ref<keyof typeof props.tabs>('');
+const activeTab = ref<keyof typeof props.tabs>(Object.keys(props.tabs)[0]);
 const isActive = (key: keyof typeof props.tabs) => activeTab.value === key;
 
 function activateTab(key: keyof typeof props.tabs) {

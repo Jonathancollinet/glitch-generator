@@ -42,19 +42,6 @@ export type GlitchShadowField = {
     properties: GlitchShadowProperties,
 }
 
-export type OptionnalGlitchShadowProperty = Partial<Omit<GlitchShadowProperty, 'color'>> & { color: GlitchColor };
-
-export type OptionnalGlitchShadowProperties = {
-    [key in GlitchAnimationProperty]: OptionnalGlitchShadowProperty
-}
-
-export type OptionnalGlitchShadowField = {
-    index?: number,
-    range?: number,
-    offsetFrame?: number,
-    properties: OptionnalGlitchShadowProperties
-}
-
 export type GlitchBaseText = {
     size: number,
     unit: GlitchUnitUnion,

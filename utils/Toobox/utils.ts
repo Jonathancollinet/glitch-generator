@@ -39,7 +39,21 @@ function updateValue<Container>({
 }: WithValue<Container, string | Event>) {
     if (value) {
         if (value instanceof Event) {
-            const targetValue = (value.target as HTMLInputElement)?.value;
+            const target = value.target as HTMLInputElement;
+            let targetValue: string;
+
+            if (target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
+                targetValue = target.value;
+            } else if (target.tagName === 'INPUT') {
+                if (target.type === 'checkbox') {
+                    // Boolean('false') === true, so we need to provide an empty string if !checked
+                    targetValue = target.checked ? "true" : "";
+                } else {
+                    targetValue = target.value;
+                }
+            } else {
+                targetValue = '';
+            }
     
             if (targetValue) {
                 applyModifier<Container>({obj, key, modifier, onUpdate, value: targetValue});

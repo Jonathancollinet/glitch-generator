@@ -49,8 +49,8 @@ function computeConfig(glitchConfig: GlitchConfig, forceRangeCompute?: boolean) 
     }
 }
 
-function updateFields(newFields: GlitchShadowField[]) {
-    glitch?.computeFields(newFields);
+function updateField(newField: GlitchShadowField) {
+    glitch?.computeFields([newField]);
 }
 
 watch(glitchConfig.text, () => {
@@ -87,7 +87,7 @@ onBeforeUnmount(() => {
     <div>
         <UiHeading class="text-center">{{ $t('pages.editor.title') }}</UiHeading>
         <EditorDisplayedText ref="displayedText" :bindings="bindings" :glitch="glitch" :glitchConfig="glitchConfig" />
-        <EditorToolbox v-model="glitchConfig" :errors="errors" @updateFields="updateFields" />
+        <EditorToolbox v-model="glitchConfig" :errors="errors" @updateField="updateField" />
         <EditorExporter :config="glitchConfig" />
     </div>
 </template>

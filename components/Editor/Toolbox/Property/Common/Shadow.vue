@@ -1,33 +1,33 @@
 <script setup lang="ts">
-import type { GlitchErrors, OptionnalGlitchShadowProperty } from '~/glitch/types';
+import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
 import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
 }>()
 
-const property = defineModel<OptionnalGlitchShadowProperty>('config', { required: true });
-const localProperty = defineModel<OptionnalGlitchShadowProperty>('localConfig', { required: true });
+const property = defineModel<GlitchShadowProperty>('config', { required: true });
+const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
 
 const offsetXError = computed(() => getErrorMessage(props.errors, 'offsetX'));
 const offsetYError = computed(() => getErrorMessage(props.errors, 'offsetY'));
 const blurError = computed(() => getErrorMessage(props.errors, 'blur'));
 
-const updateOffsetX = applyUpdater<OptionnalGlitchShadowProperty>({
+const updateOffsetX = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     key: 'offsetX',
     modifier: Number,
     debounced: 100
 });
 
-const updateOffsetY = applyUpdater<OptionnalGlitchShadowProperty>({
+const updateOffsetY = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     key: 'offsetY',
     modifier: Number,
     debounced: 100
 });
 
-const updateBlur = applyUpdater<OptionnalGlitchShadowProperty>({
+const updateBlur = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     key: 'blur',
     modifier: Number,
