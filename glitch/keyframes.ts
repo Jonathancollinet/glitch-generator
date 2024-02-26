@@ -37,43 +37,9 @@ export default class GlitchKeyframes {
         this.generateAnimation(config);
     }
 
-    selectAnimationAt(percent: number) {
-        if (this.animation) {
-            const effect = this.animation.effect;
-            const timing = effect?.getComputedTiming();
-            const duration = timing?.duration as number;
-
-            this.animation.currentTime = (duration / 100) * percent;
-        }
-    }
-
     replaceAnimationDuration(duration: number) {
         if (this.animation) {
             this.animation.effect?.updateTiming({ duration });
-        }
-    }
-
-    playState() {
-        if (this.animation) {
-            return this.animation.playState;
-        }
-    }
-
-    play() {
-        if (this.animation) {
-            this.animation.play();
-        }
-    }
-
-    pause() {
-        if (this.animation) {
-            this.animation.pause();
-        }
-    }
-
-    getCurrentTime() {
-        if (this.animation) {
-            return this.animation.currentTime;
         }
     }
 
@@ -113,11 +79,10 @@ export default class GlitchKeyframes {
 
     private generateFrames(config: GlitchConfig, fields?: GlitchShadowField[]) {
         if (fields) {
-            fields.sort((a, b) => a.offsetFrame - b.offsetFrame);
-            fields.forEach((field, index) => this.createFrame(field, config.ranges[field.range][index + 1]));
+            fields.forEach((field) => this.createFrame(field, config.ranges[field.range][field.index + 1]));
         } else {
             config.ranges.forEach((range) => {
-                range.forEach((field, index) => this.createFrame(field, config.ranges[field.range][index + 1]));
+                range.forEach((field) => this.createFrame(field, config.ranges[field.range][field.index + 1]));
             });
         }
     }
@@ -140,6 +105,10 @@ export default class GlitchKeyframes {
                 } else {
                     this.setFrame(propertyName, field, field.offsetFrame);
                 }
+            } else {
+                // todo: remove existing frames
+                // actually if we disable a property, the linked frames remains in the generatedFrames
+                // we should remove them
             }
         }
     }
@@ -208,7 +177,7 @@ export default class GlitchKeyframes {
         return effect;
     }
 
-    private getKeyframesString(config: GlitchConfig) {
+    getKeyframesString(config: GlitchConfig) {
         let keyframes = '@keyframes glitch {';
 
         for (const percent in this.generatedFrames) {
@@ -235,7 +204,7 @@ export default class GlitchKeyframes {
                     keyframes += '; ';
                 }
             }
-            keyframes += '; }';
+            keyframes += '}';
         }
 
         return keyframes + '}';

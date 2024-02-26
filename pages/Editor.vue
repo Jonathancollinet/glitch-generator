@@ -53,6 +53,10 @@ function updateField(newField: GlitchShadowField) {
     glitch?.computeFields([newField]);
 }
 
+function exportKeyframe() {
+    console.log(glitch?.exportKeyframes());
+}
+
 watch(glitchConfig.text, () => {
     computeConfig(glitchConfig)
 });
@@ -85,9 +89,11 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <UiHeading class="text-center">{{ $t('pages.editor.title') }}</UiHeading>
-        <EditorDisplayedText ref="displayedText" :bindings="bindings" :glitch="glitch" :glitchConfig="glitchConfig" />
+        <div class="flex items-center justify-between">
+            <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
+            <UiButton @click="exportKeyframe">CSS Keyframes</UiButton>
+        </div>
+        <EditorDisplayedText ref="displayedText" :bindings="bindings" :hasControls="glitchConfig.controls" :controller="glitch.controller" :animationDuration="glitchConfig.animation.duration" />
         <EditorToolbox v-model="glitchConfig" :errors="errors" @updateField="updateField" />
-        <EditorExporter :config="glitchConfig" />
     </div>
 </template>

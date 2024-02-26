@@ -1,20 +1,24 @@
 import type {
     AnimationBindings,
+    GlitchAnimationProperty,
     GlitchConfig,
     GlitchShadowField
 } from './types';
 import GlitchValidator from "./validator";
 import GlitchKeyframes from './keyframes';
+import GlitchController from './controller';
 
 export default class Glitch {
     private config: GlitchConfig;
     private validator: GlitchValidator;
     private keyframes: GlitchKeyframes;
+    controller: GlitchController;
 
     constructor(config: GlitchConfig) {
         this.config = this.getConfigCopy(config);
         this.keyframes = new GlitchKeyframes();
         this.validator = new GlitchValidator();
+        this.controller = new GlitchController(this.keyframes.animation);
 
         if (process.client && !this.hasAnimationBrowserCompatibility()) {
             this.config.controls = false;
@@ -50,13 +54,16 @@ export default class Glitch {
         const success = this.validator.computeFields(this.config, fields);
 
         if (success) {
-            this.replaceFieldsInConfig(fields);
             this.keyframes.compute(this.config, fields);
 
             return true;
         }
 
         return false;
+    }
+
+    exportKeyframes() {
+        return this.keyframes.getKeyframesString(this.config)
     }
 
     generateKeyframesOnly() {
@@ -67,44 +74,12 @@ export default class Glitch {
         this.keyframes.replaceAnimationDuration(duration);
     }
 
-    selectAnimationAt(percent: number) {
-        this.keyframes.selectAnimationAt(percent);
-    }
-
     hasAnimationBrowserCompatibility() {
         return this.keyframes.hasAnimationBrowserCompatibility();
     }
 
-    playState() {
-        return this.keyframes.playState();
-    }
-
-    play() {
-        this.keyframes.play();
-    }
-
-    pause() {
-        this.keyframes.pause();
-    }
-
-    getCurrentTime() {
-        return this.keyframes.getCurrentTime();
-    }
-
     setGlitchedElement(element: HTMLElement) {
         this.keyframes.setGlitchedElement(element);
-    }
-
-    private replaceFieldsInConfig(fields: GlitchShadowField[]) {
-        this.config.ranges = this.config.ranges.map((range) => {
-            return range.map((field) => {
-                const found = fields.find((f) => f.range === field.range && f.index === field.index);
-                if (found) {
-                    return found;
-                }
-                return field;
-            });
-        });
     }
 
     private getConfigCopy(config: GlitchConfig) {

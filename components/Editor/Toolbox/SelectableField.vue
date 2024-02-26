@@ -20,6 +20,7 @@ function selectField() {
 <template>
     <div :class="'select-none inline-flex p-2 border-blue-400 bg-blue-200 m-2 ' + (selected ? 'border-2' : '')"
     @click="selectField">
+        {{ field.properties }}
         <div>Field-{{ field.index }}</div>
     </div>
 </template>

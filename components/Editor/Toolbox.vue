@@ -17,8 +17,12 @@ const selectedField = ref<GlitchShadowField>();
 const localSelectedField = ref<GlitchShadowField>();
 
 function selectField(field: GlitchShadowField) {
-    selectedField.value = deepCopy(field);
-    localSelectedField.value = deepCopy(field);
+    selectedField.value = undefined;
+    localSelectedField.value = undefined;
+    nextTick(() => {
+        selectedField.value = field;
+        localSelectedField.value = deepCopy(field);
+    })
 }
 
 function updateField(field: GlitchShadowField) {

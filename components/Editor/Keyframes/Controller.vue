@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import type Glitch from '~/glitch';
-import type { GlitchConfig } from '~/glitch/types';
+import type GlitchController from '~/glitch/controller';
 
 const props = defineProps<{
-    glitch: Glitch,
-    glitchConfig: GlitchConfig
+    controller: GlitchController,
+    animationDuration: number
 }>()
 
 let currentReq: number;
-let refreshCurrentTimeFPS = 60;
-let now, elapsed, then = Date.now(), fpsInterval = 1000 / refreshCurrentTimeFPS;
-const playState = ref<AnimationPlayState>("idle");
+let now, elapsed, then = Date.now();
+
+const refreshCurrentTimeFPS = 60;
+const fpsInterval = 1000 / refreshCurrentTimeFPS
 const currentPercent = ref<number>(0);
 
 function selectAnimationAt(percent: number) {
-    if (playState.value === "running") {
+    if (props.controller.getPlayState() === "running") {
         pause();
     }
     currentPercent.value = percent;
-    props.glitch?.selectAnimationAt(percent);
+    props.controller?.selectAnimationAt(percent);
 }
 
 function bindTimelineWatcher() {
@@ -29,17 +29,16 @@ function bindTimelineWatcher() {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
 
-        const time = props.glitch?.getCurrentTime() as number;
+        const time = props.controller?.getCurrentTime() as number;
 
         if (time) {
-            currentPercent.value = time / props.glitchConfig.animation.duration * 100 % 100;
+            currentPercent.value = time / props.animationDuration * 100 % 100;
         }
     }
 }
 
 function play() {
-    props.glitch?.play();
-    playState.value = "running";
+    props.controller?.play();
 
     if (process.client) {
         bindTimelineWatcher();
@@ -47,8 +46,7 @@ function play() {
 }
 
 function pause() {
-    props.glitch?.pause();
-    playState.value = "paused";
+    props.controller?.pause();
 
     if (process.client) {
         cancelAnimationFrame(currentReq);
@@ -62,5 +60,5 @@ onMounted(() => {
 
 <template>
     <EditorKeyframesTimeline :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorKeyframesActions :playState="playState" @play="play()" @pause="pause()" />
+    <EditorKeyframesActions :playState="controller.getPlayState()" @play="play()" @pause="pause()" />
 </template>

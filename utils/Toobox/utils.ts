@@ -41,11 +41,13 @@ function updateValue<Container>({
         if (value instanceof Event) {
             const target = value.target as HTMLInputElement;
             let targetValue: string;
+            const targetType = target.getAttribute('type');
+            const isCheckbox = targetType === 'checkbox';
 
             if (target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
                 targetValue = target.value;
             } else if (target.tagName === 'INPUT') {
-                if (target.type === 'checkbox') {
+                if (isCheckbox) {
                     // Boolean('false') === true, so we need to provide an empty string if !checked
                     targetValue = target.checked ? "true" : "";
                 } else {
@@ -55,7 +57,7 @@ function updateValue<Container>({
                 targetValue = '';
             }
     
-            if (targetValue) {
+            if (isCheckbox || targetValue) {
                 applyModifier<Container>({obj, key, modifier, onUpdate, value: targetValue});
             }
         } else {

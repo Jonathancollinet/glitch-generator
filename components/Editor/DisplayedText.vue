@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import type Glitch from '~/glitch';
+import type GlitchController from '~/glitch/controller';
 import type { GlitchBindings, GlitchConfig } from '~/glitch/types';
 
 const glitchedEl = ref<HTMLElement | null>(null);
 
 defineProps<{
-    glitch: Glitch,
-    glitchConfig: GlitchConfig,
+    hasControls: boolean,
+    controller: GlitchController,
+    animationDuration: number,
     bindings: GlitchBindings,
 }>()
 
@@ -22,8 +23,11 @@ defineExpose({
                 {{ bindings.message }}
             </div>
         </div>
-        <div class="absolute w-full bottom-1 flex flex-col justify-center items-center" v-if="glitch && glitchConfig.controls">
-            <EditorKeyframesController :glitch="glitch" :glitchConfig="glitchConfig" />
-        </div>
+        <ClientOnly>
+            <div class="absolute w-full bottom-1 flex flex-col justify-center items-center"
+                v-if="controller && hasControls">
+                <EditorKeyframesController :controller="controller" :animationDuration="animationDuration" />
+            </div>
+        </ClientOnly>
     </div>
 </template>
