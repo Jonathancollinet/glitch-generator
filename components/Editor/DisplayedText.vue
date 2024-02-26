@@ -23,7 +23,7 @@ defineExpose({
             </div>
         </div>
         <div class="absolute w-full bottom-1 flex flex-col justify-center items-center" v-if="glitch && glitchConfig.controls">
-            <EditorAnimationController :glitch="glitch" :glitchConfig="glitchConfig" />
+            <EditorKeyframesController :glitch="glitch" :glitchConfig="glitchConfig" />
         </div>
     </div>
 </template>

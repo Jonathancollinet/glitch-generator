@@ -1,3 +1,5 @@
+import { a } from "vitest/dist/suite-xGC-mxBC.js";
+
 export enum GlitchAnimationProperty {
     TextShadow = 'text-shadow',
     BoxShadow = 'box-shadow',
@@ -19,24 +21,38 @@ export type GlitchColor = {
     alphaPercent: number
 }
 
-export type GlitchShadowField = {
-    property?: GlitchAnimationPropertyUnion,
+export type GlitchShadowProperty = {
+    enabled: boolean,
     fillAllFrames: boolean,
-    range: number,
-    index: number,
-    offsetFrame: number,
     color: GlitchColor,
     offsetX: number,
     offsetY: number,
     blur: number,
-    spread: number
+    spread?: number
 }
 
-export type ManipulableGlitchShadowField = Omit<GlitchShadowField, 'offsetFrame' | 'range' | 'index' | 'property'> & {
-    property?: "nothing" | GlitchAnimationPropertyUnion,
+export type GlitchShadowProperties = {
+    [key in GlitchAnimationProperty]: GlitchShadowProperty
+}
+
+export type GlitchShadowField = {
+    range: number,
+    index: number,
+    offsetFrame: number,
+    properties: GlitchShadowProperties,
+}
+
+export type OptionnalGlitchShadowProperty = Partial<Omit<GlitchShadowProperty, 'color'>> & { color: GlitchColor };
+
+export type OptionnalGlitchShadowProperties = {
+    [key in GlitchAnimationProperty]: OptionnalGlitchShadowProperty
+}
+
+export type OptionnalGlitchShadowField = {
     index?: number,
     range?: number,
-    offsetFrame?: number
+    offsetFrame?: number,
+    properties: OptionnalGlitchShadowProperties
 }
 
 export type GlitchBaseText = {
@@ -47,7 +63,6 @@ export type GlitchBaseText = {
 }
 
 export type GlitchAnimation = {
-    property: GlitchAnimationPropertyUnion,
     duration: number,      
 }
 

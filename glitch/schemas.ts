@@ -14,18 +14,21 @@ export const glitchColorSchemas = {
     alphaPercent: z.number().int().gte(0).lte(1000)
 };
 
+export const glitchShadowPropertySchemas = {
+    enabled: z.boolean(),
+    offsetX: z.number(),
+    offsetY: z.number(),
+    blur: z.number(),
+    spread: z.number().optional()
+};
+
 export const glitchTextShadowFieldSchemas = {
-    property: z.nativeEnum(GlitchAnimationProperty).optional(),
     range: z.number(),
     index: z.number(),
     offsetFrame: percentSchema,
-    offsetX: z.number(),
-    offsetY: z.number(),
-    blur: z.number()
 };
 
 export const glitchAnimationSchemas = {
-    property: z.nativeEnum(GlitchAnimationProperty),
     duration: z.number()
 };
 

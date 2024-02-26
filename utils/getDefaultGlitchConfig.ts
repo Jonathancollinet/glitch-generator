@@ -19,7 +19,6 @@ const defaultGlitchConfig: GlitchConfig = {
         message: 'Hi world!'
     },
     animation: {
-        property: GlitchAnimationProperty.TextShadow,
         duration: 3000
     },
     ranges: defaultTextShadowRanges

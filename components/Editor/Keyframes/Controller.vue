@@ -61,6 +61,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <EditorAnimationTimeline :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorAnimationControls :playState="playState" @play="play()" @pause="pause()" />
+    <EditorKeyframesTimeline :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
+    <EditorKeyframesActions :playState="playState" @play="play()" @pause="pause()" />
 </template>

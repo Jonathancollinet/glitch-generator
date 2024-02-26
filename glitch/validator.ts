@@ -1,16 +1,19 @@
 import { z } from 'zod';
-import type {
-    GlitchError,
-    GlitchConfig,
-    GlitchShadowField,
-    GlitchErrors
+import {
+    type GlitchError,
+    type GlitchConfig,
+    type GlitchShadowField,
+    type GlitchErrors,
+    GlitchAnimationProperty,
+    type GlitchShadowProperties
 } from './types';
 import {
     glitchBaseConfigSchemas,
     glitchTextSchemas,
     glitchAnimationSchemas,
     glitchColorSchemas,
-    glitchTextShadowFieldSchemas
+    glitchTextShadowFieldSchemas,
+    glitchShadowPropertySchemas
 } from './schemas';
 
 export default class GlitchValidator {
@@ -121,7 +124,6 @@ export default class GlitchValidator {
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'unit', 'text.unit'),
             this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, 'hex', 'text.color.hex'),
             this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, 'alphaPercent', 'text.color.alphaPercent'),
-            this.validateConfigLeaf(newAnimationLeaf, oldAnimationLeaf, glitchAnimationSchemas, 'property', 'animation.property'),
             this.validateConfigLeaf(newAnimationLeaf, oldAnimationLeaf, glitchAnimationSchemas, 'duration', 'animation.duration'),
         ];
 
@@ -248,18 +250,53 @@ export default class GlitchValidator {
         const fieldPath = `${rangePath}[${field.index}]`;
 
         const results = [
-            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'property', `${fieldPath}.property`),
             this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'range', `${fieldPath}.range`),
             this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'index', `${fieldPath}.index`),
             this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetFrame', `${fieldPath}.offsetFrame`),
-            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetX', `${fieldPath}.offsetX`),
-            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'offsetY', `${fieldPath}.offsetY`),
-            this.validateConfigLeaf(field, oldField, glitchTextShadowFieldSchemas, 'blur', `${fieldPath}.blur`),
-            this.validateConfigLeaf(field.color, oldField?.color, glitchColorSchemas, 'hex', `${fieldPath}.color.hex`),
-            this.validateConfigLeaf(field.color, oldField?.color, glitchColorSchemas, 'alphaPercent', `${fieldPath}.color.alphaPercent`)
         ];
 
-        return results.every(result => result === true);
+        return results
+            .concat(this.validateFieldProperties(field.properties, oldField?.properties, fieldPath))
+            .every(result => result === true);
+    }
+
+    private validateFieldProperties(properties: GlitchShadowProperties, oldProperties: GlitchShadowProperties | undefined, fieldPath: string) {
+        const propertiesPath = `${fieldPath}.properties`;
+        const existingProperties = [GlitchAnimationProperty.BoxShadow, GlitchAnimationProperty.TextShadow];
+        const results: boolean[] = [];
+
+        if (this.hasErrorOrRemoveExisting(!properties, {
+            path: propertiesPath,
+            code: 'invalid_object',
+            message: `The field's properties must exists with all his attributes.`
+        })) {
+            return false;
+        }
+
+        for (const propertyName of existingProperties) {
+            const propertyPath = `${propertiesPath}.${propertyName}`;
+
+            if (this.hasErrorOrRemoveExisting(!properties[propertyName], {
+                path: propertiesPath,
+                code: 'invalid_object',
+                message: `The property ${propertyName} must exists.`
+            })) {
+                results.push(false);
+                continue;
+            }
+
+            results.concat([
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'enabled', `${propertiesPath}.enabled`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetX', `${propertiesPath}.offsetX`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetY', `${propertiesPath}.offsetY`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'blur', `${propertiesPath}.blur`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'spread', `${propertiesPath}.spread`),
+                this.validateConfigLeaf(properties[propertyName].color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'hex', `${propertiesPath}.color.hex`),
+                this.validateConfigLeaf(properties[propertyName].color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'alphaPercent', `${propertiesPath}.color.alphaPercent`),
+            ]);
+        }
+        
+        return results.every(result => result);
     }
 
     private hasErrorOrRemoveExisting(condition: boolean, error: GlitchError) {

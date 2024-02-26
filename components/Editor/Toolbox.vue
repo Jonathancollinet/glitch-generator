@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { EditorToolboxAnimation } from '#build/components';
-import type { GlitchConfig, GlitchErrors, GlitchShadowField, ManipulableGlitchShadowField } from '~/glitch/types';
+import type { GlitchConfig, GlitchErrors, GlitchShadowField, OptionnalGlitchShadowField } from '~/glitch/types';
 
 defineProps<{
     errors: Partial<GlitchErrors>
@@ -122,16 +122,12 @@ function deselectField(field: GlitchShadowField) {
     }
 }
 
-function updateFields(field: ManipulableGlitchShadowField) {
+function updateFields(field: OptionnalGlitchShadowField) {
     const fields = selectedFields.value.map((selectedField) => {
         const data = {
             ...deepCopy(selectedField),
             ...deepCopy(field)
         };
-
-        if (data.property === 'nothing') {
-            delete data.property;
-        }
 
         return data;
     }) as GlitchShadowField[];
@@ -145,7 +141,7 @@ function updateFields(field: ManipulableGlitchShadowField) {
     <div>
         <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation" :errors="errors" />
-        <EditorFieldOptions v-if="selectedFields.length" :config="localConfig" :errors="errors" :selectedFields="selectedFields" @update="updateFields" />
+        <EditorToolboxField v-if="selectedFields.length" :config="localConfig" :errors="errors" :selectedFields="selectedFields" @update="updateFields" />
         <EditorToolboxRanges v-model:config="config.ranges" v-model:localConfig="localConfig.ranges" :errors="errors" :selectedFields="selectedFields"
             @selectAllFieldsTo="selectAllFieldsTo" @selectField="selectField" @selectUniqueField="selectUniqueField" @deselectField="deselectField" />
     </div>

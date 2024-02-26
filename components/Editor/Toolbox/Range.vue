@@ -47,7 +47,7 @@ function isLastSelected(fieldIndex: number, fieldRange: number) {
 
 <template>
     <div>
-        <EditorToolboxField
+        <EditorToolboxSelectableField
             v-for="(field, index) in localRange" :key="index"
             v-model:config="range[index]"
             v-model:localConfig="localRange[index]"

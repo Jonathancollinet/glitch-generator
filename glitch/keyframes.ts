@@ -1,6 +1,8 @@
-import { GlitchAnimationProperty, type GlitchAnimationPropertyUnion, type GlitchConfig, type GlitchShadowField } from "./types";
+import { GlitchAnimationProperty, type GlitchAnimationPropertyUnion, type GlitchConfig, type GlitchShadowField, type GlitchShadowProperty } from "./types";
 
-type Frame = Record<GlitchAnimationPropertyUnion, string[]>;
+type Frame = {
+    [key in GlitchAnimationProperty]: string[]
+}
 
 export default class GlitchKeyframes {
     private styleNode: HTMLStyleElement | null;
@@ -112,82 +114,66 @@ export default class GlitchKeyframes {
     private generateFrames(config: GlitchConfig, fields?: GlitchShadowField[]) {
         if (fields) {
             fields.sort((a, b) => a.offsetFrame - b.offsetFrame);
-            fields.forEach((field, index) => this.createFrame(config.animation.property, field, config.ranges[field.range][index + 1]));
+            fields.forEach((field, index) => this.createFrame(field, config.ranges[field.range][index + 1]));
         } else {
             config.ranges.forEach((range) => {
-                range.forEach((field, index) => this.createFrame(config.animation.property, field, config.ranges[field.range][index + 1]));
+                range.forEach((field, index) => this.createFrame(field, config.ranges[field.range][index + 1]));
             });
         }
     }
 
-    private createFrame(globalProperty: GlitchAnimationPropertyUnion, field: GlitchShadowField, nextField?: GlitchShadowField) {
-        if (field.fillAllFrames) {
-            const length = (nextField ? nextField.offsetFrame : 100) - field.offsetFrame;
-            for (let i = 0; i < length; i++) {
-                const percent = field.offsetFrame + i;
-                this.setFrame(globalProperty, field, percent);
+    private createFrame(field: GlitchShadowField, nextField?: GlitchShadowField) {
+        const percent = field.offsetFrame;
+
+        let propertyName: GlitchAnimationPropertyUnion;
+        for (propertyName in field.properties) {
+            const fieldProperty = field.properties[propertyName];
+
+            if (fieldProperty.enabled) {
+                if (fieldProperty.fillAllFrames) {
+                    const nextPercent = nextField ? nextField.offsetFrame : 100;
+                    const length = nextPercent - field.offsetFrame;
+                    for (let i = 0; i < length; i++) {
+                        const percent = field.offsetFrame + i;
+                        this.setFrame(propertyName, field, percent);
+                    }
+                } else {
+                    this.setFrame(propertyName, field, field.offsetFrame);
+                }
             }
-        } else {
-            this.setFrame(globalProperty, field, field.offsetFrame);
         }
     }
 
-    private setFrame(globalProperty: GlitchAnimationPropertyUnion, field: GlitchShadowField, percent: number) {
+    private setFrame(propertyName: GlitchAnimationPropertyUnion, field: GlitchShadowField, percent: number) {
         let frame = this.generatedFrames[percent];
-        const computedProperty = field.property || globalProperty;
+        const property = field.properties[propertyName];
 
-        if (!frame) {
-            frame = {
-                [GlitchAnimationProperty.BoxShadow]: [],
-                [GlitchAnimationProperty.TextShadow]: []
-            };
-        }
+        if (property) {
 
-        const cssValue = this.getCssPropertyValue(computedProperty, field);
-
-        if (!frame[computedProperty]) {
-            frame[computedProperty] = [];
-        }
-
-        frame[computedProperty][field.range] = cssValue;
-
-        // todo: replace this to manage all properties when it's set;
-        // we should have text-shadow and box-shadow on the same frame if needed;
-        // probably it requires to change the interface of GlitchShadowField
-        // and probably property should not be set to undefined
-        // and always have the value of the default property
-        // then if we change the property, we should have another GlitchShadowField
-        // it will requires to change the way we manage the fields in the config
-        
-        this.replaceOtherPropertiesByFalse(frame, computedProperty);
-        this.generatedFrames[percent] = frame;
-    }
-
-    private replaceOtherPropertiesByFalse(frame: Frame, property: GlitchAnimationPropertyUnion) {
-        let key: GlitchAnimationPropertyUnion;
-        for (key in frame) {
-            if (key !== property) {
-                frame[key] = [this.getCssPropertyFalseValue(key)];
+            if (!frame) {
+                frame = {
+                    [GlitchAnimationProperty.BoxShadow]: [],
+                    [GlitchAnimationProperty.TextShadow]: [],
+                };
             }
+
+            const cssValue = this.getCssPropertyValue(propertyName, property);
+
+            if (!frame[propertyName]) {
+                frame[propertyName] = [];
+            }
+
+            frame[propertyName][field.range] = cssValue;
+            this.generatedFrames[percent] = frame;
         }
     }
 
-    private getCssPropertyValue(property: GlitchAnimationPropertyUnion, field: GlitchShadowField) {
-        if (property === GlitchAnimationProperty.TextShadow) {
-            return `${field.offsetX}px ${field.offsetY}px ${field.blur}px ${field.color.hex}`
+    private getCssPropertyValue(propertyName: GlitchAnimationPropertyUnion, property: GlitchShadowProperty) {
+        if (propertyName === GlitchAnimationProperty.TextShadow) {
+            return `${property.offsetX}px ${property.offsetY}px ${property.blur}px ${property.color.hex}`
         }
-        if (property === GlitchAnimationProperty.BoxShadow) {
-            return `${field.offsetX}px ${field.offsetY}px ${field.blur}px ${field.spread}px ${field.color.hex}`
-        }
-        return "";
-    }
-
-    private getCssPropertyFalseValue(property: GlitchAnimationPropertyUnion) {
-        if (property === GlitchAnimationProperty.TextShadow) {
-            return '0px 0px 0px transparent';
-        }
-        if (property === GlitchAnimationProperty.BoxShadow) {
-            return '0px 0px 0px 0px transparent';
+        if (propertyName === GlitchAnimationProperty.BoxShadow) {
+            return `${property.offsetX}px ${property.offsetY}px ${property.blur}px ${property.spread}px ${property.color.hex}`
         }
         return "";
     }
@@ -195,14 +181,16 @@ export default class GlitchKeyframes {
     private getKeyframesEffect(config: GlitchConfig) {
         const effect: Keyframe[] = [];
         for (const percent in this.generatedFrames) {
-            const framesAt = this.generatedFrames[percent];
+            const frame = this.generatedFrames[percent];
             const keyframe: Keyframe = {};
 
-            let property: GlitchAnimationPropertyUnion;
-            for (property in framesAt) {
-                if (framesAt[property].length) {
-                    framesAt[property].forEach((frame, index) => {
-                        const camelProperty = property.replace(/-./g, x=>x[1].toUpperCase())
+            let propertyName: GlitchAnimationPropertyUnion;
+            for (propertyName in frame) {
+                const frameProperty = frame[propertyName];
+
+                if (frameProperty?.length) {
+                    frameProperty.forEach((frame, index) => {
+                        const camelProperty = propertyName.replace(/-./g, x => x[1].toUpperCase())
                         if (!keyframe[camelProperty]) {
                             keyframe[camelProperty] = frame;
                         } else {

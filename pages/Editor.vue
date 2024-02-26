@@ -20,7 +20,6 @@ const bindings = ref<GlitchBindings>({
 const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
 
-let animationProperty = glitchConfig.animation.property;
 let animationDuration = glitchConfig.animation.duration;
 let glitch = new Glitch(glitchConfig);
 
@@ -59,19 +58,13 @@ watch(glitchConfig.text, () => {
 });
 
 watch(glitchConfig.animation, () => {
-    const configProperty = glitchConfig.animation.property;
     const configDuration = glitchConfig.animation.duration;
-    const propertyHasChanged = configProperty !== animationProperty;
-
-    if (propertyHasChanged) {
-        animationProperty = configProperty;
-    }
 
     if (glitch.hasAnimationBrowserCompatibility() && configDuration !== animationDuration) {
         animationDuration = configDuration;
         glitch?.replaceAnimationDuration(configDuration);
     } else {
-        computeConfig(glitchConfig, propertyHasChanged)
+        computeConfig(glitchConfig)
     }
 });
 

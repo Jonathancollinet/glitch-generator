@@ -49,6 +49,6 @@ const updateMessage = applyUpdater<GlitchBaseText>({
             <UiInput debounce :debounceTime="100" :debounceFn="updateMessage" name="message"
                 :modelValue="localConfig.message" />
         </UiFormGroup>
-        <EditorToolboxColor v-model:config="config.color" v-model:localConfig="localConfig.color" :errors="errors" />
+        <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color" :errors="errors" />
     </div>
 </template>
