@@ -23,14 +23,6 @@ export default class GlitchValidator {
         this.errors = {};
     }
 
-    /*
-    * This method is used to validate the Glitch configuration.
-    * We need the old configuration to compare the new one to avoid unnecessary validation.
-    * If the old configuration is not defined, we will perform the validation on the entire configuration.
-    * @param newConfig The new Glitch configuration.
-    * @param oldConfig The old Glitch configuration.
-    * @returns True if the configuration is valid.
-    */
     validateConfig(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
         if (this.hasErrorOrRemoveExisting(!newConfig, {
             path: 'Glitch',
@@ -42,7 +34,6 @@ export default class GlitchValidator {
 
         const success = this.validateConfigLeafs(newConfig, oldConfig);
 
-        // We call the onValidated method to notify the user about the validation result.
         this.onValidated(newConfig);
 
         if (!success) {
@@ -52,12 +43,6 @@ export default class GlitchValidator {
         return true;
     }
 
-    /*
-    * Called by the Glitch class to validate a batch of fields, from any range.
-    * @param config The Glitch configuration.
-    * @param fields The fields to validate.
-    * @returns True if the fields are valid.
-    */
     computeFields(config: GlitchConfig, fields: GlitchShadowField[]) {
         const results: boolean[] = [];
         const configRanges = config.ranges;
@@ -101,12 +86,6 @@ export default class GlitchValidator {
         return results.every(result => result);
     }
 
-    /*
-    * This method is used to validate every leafs of the Glitch configuration.
-    * @param newConfig The new Glitch configuration.
-    * @param oldConfig The old Glitch configuration.
-    * @returns True if the configuration is valid.
-    */
     private validateConfigLeafs(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
         const newTextLeaf = newConfig.text;
         const newTextColorLeaf = newTextLeaf?.color;
@@ -146,15 +125,6 @@ export default class GlitchValidator {
             .every(result => result);
     }
 
-    /*
-    * This method is used to validate a leaf (primitive) of the Glitch configuration.
-    * @param configLeaf The new object containing the leaf to validate.
-    * @param oldConfigLeaf The old object containing the leaf to validate.
-    * @param schemas The object schemas containing the validation rules related to the property.
-    * @param leafKey The key of the configLeaf to validate.
-    * @param path The full path of the leaf to validate.
-    * @returns True if the leaf in configLeaf is valid.
-    */
     private validateConfigLeaf<ConfigLeaf, Schemas>(
         configLeaf: ConfigLeaf | undefined,
         oldConfigLeaf: ConfigLeaf | undefined,
@@ -264,6 +234,7 @@ export default class GlitchValidator {
         const propertiesPath = `${fieldPath}.properties`;
         const existingProperties = [GlitchAnimationProperty.BoxShadow, GlitchAnimationProperty.TextShadow];
         const results: boolean[] = [];
+        let propertyName: keyof typeof properties;
 
         if (this.hasErrorOrRemoveExisting(!properties, {
             path: propertiesPath,
@@ -273,7 +244,7 @@ export default class GlitchValidator {
             return false;
         }
 
-        for (const propertyName of existingProperties) {
+        for (propertyName in properties) {
             const propertyPath = `${propertiesPath}.${propertyName}`;
 
             if (this.hasErrorOrRemoveExisting(!properties[propertyName], {
@@ -335,14 +306,11 @@ export default class GlitchValidator {
     }
 
     private onValidated(config: GlitchConfig | undefined) {
-        // If the onValidated method is defined, we call it to notify the user about the result.
-        // Otherwise, we log the errors in the console.
         if (config?.onValidated && typeof config.onValidated === 'function') {
             const hasErrors = Object.keys(this.errors).length > 0;
             let params: GlitchErrors | undefined;
 
             if (hasErrors) {
-                // We need to clone the object to avoid the reference to the original object.
                 params = deepCopy(this.errors)
             }
 
