@@ -6,7 +6,7 @@ const glitchedEl = ref<HTMLElement | null>(null);
 
 defineProps<{
     hasControls: boolean,
-    controller: GlitchController,
+    controller: GlitchController | null,
     animationDuration: number,
     bindings: GlitchBindings,
 }>()

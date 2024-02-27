@@ -17,6 +17,7 @@ const bindings = ref<GlitchBindings>({
         color: ""
     }
 });
+
 const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
 

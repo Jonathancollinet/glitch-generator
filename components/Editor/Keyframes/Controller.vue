@@ -12,13 +12,18 @@ let now, elapsed, then = Date.now();
 const refreshCurrentTimeFPS = 60;
 const fpsInterval = 1000 / refreshCurrentTimeFPS
 const currentPercent = ref<number>(0);
+const playState = ref<AnimationPlayState>("idle");
+
+const isRunning = computed(() => playState.value === "running");
 
 function selectAnimationAt(percent: number) {
-    if (props.controller.getPlayState() === "running") {
-        pause();
+    if (props.controller) {
+        if (isRunning.value) {
+            pause();
+        }
+        currentPercent.value = percent;
+        props.controller?.selectAnimationAt(percent);
     }
-    currentPercent.value = percent;
-    props.controller?.selectAnimationAt(percent);
 }
 
 function bindTimelineWatcher() {
@@ -38,18 +43,24 @@ function bindTimelineWatcher() {
 }
 
 function play() {
-    props.controller?.play();
+    if (props.controller) {
+        props.controller.play();
+        playState.value = props.controller.getPlayState();
 
-    if (process.client) {
-        bindTimelineWatcher();
+        if (process.client) {
+            bindTimelineWatcher();
+        }
     }
 }
 
 function pause() {
-    props.controller?.pause();
+    if (props.controller) {
+        props.controller.pause();
+        playState.value = props.controller.getPlayState();
 
-    if (process.client) {
-        cancelAnimationFrame(currentReq);
+        if (process.client) {
+            cancelAnimationFrame(currentReq);
+        }
     }
 }
 
@@ -60,5 +71,5 @@ onMounted(() => {
 
 <template>
     <EditorKeyframesTimeline :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorKeyframesActions :playState="controller.getPlayState()" @play="play()" @pause="pause()" />
+    <EditorKeyframesActions :playState="playState" @play="play()" @pause="pause()" />
 </template>

@@ -12,16 +12,20 @@ export default class Glitch {
     private config: GlitchConfig;
     private validator: GlitchValidator;
     private keyframes: GlitchKeyframes;
-    controller: GlitchController;
+    controller: GlitchController | null;
 
     constructor(config: GlitchConfig) {
         this.config = this.getConfigCopy(config);
         this.keyframes = new GlitchKeyframes();
         this.validator = new GlitchValidator();
-        this.controller = new GlitchController(this.keyframes.animation);
+        this.controller = null;
 
-        if (process.client && !this.hasAnimationBrowserCompatibility()) {
-            this.config.controls = false;
+        if (process.client) {
+            if (this.hasAnimationBrowserCompatibility()) {
+                this.controller = new GlitchController(<Animation>this.keyframes.animation);
+            } else {
+                this.config.controls = false;
+            }
         }
     }
 
@@ -39,7 +43,7 @@ export default class Glitch {
             const style = this.getTextStyle();
 
             if (process.client && (forceRangeCompute || !this.config.preventRangesCompute)) {
-                this.keyframes.compute(this.config);
+                this.keyframes.generate(this.config);
             }
 
             if (this.hasAnimationBrowserCompatibility() && this.keyframes.animation?.playState === 'idle') {
@@ -54,7 +58,7 @@ export default class Glitch {
         const success = this.validator.computeFields(this.config, fields);
 
         if (success) {
-            this.keyframes.compute(this.config, fields);
+            this.keyframes.generate(this.config, fields);
 
             return true;
         }
@@ -64,10 +68,6 @@ export default class Glitch {
 
     exportKeyframes() {
         return this.keyframes.getKeyframesString(this.config)
-    }
-
-    generateKeyframesOnly() {
-        this.keyframes.generateKeyframesOnly(this.config);
     }
 
     replaceAnimationDuration(duration: number) {
@@ -84,8 +84,6 @@ export default class Glitch {
 
     private getConfigCopy(config: GlitchConfig) {
         const rawConfig = toRaw(config);
-
-        // we need to keep functions in safety before the serialization
         const functions = {
             onValidated: rawConfig.onValidated,
         };

@@ -291,8 +291,8 @@ export default class GlitchValidator {
                 this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetY', `${propertiesPath}.offsetY`),
                 this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'blur', `${propertiesPath}.blur`),
                 this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'spread', `${propertiesPath}.spread`),
-                this.validateConfigLeaf(properties[propertyName].color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'hex', `${propertiesPath}.color.hex`),
-                this.validateConfigLeaf(properties[propertyName].color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'alphaPercent', `${propertiesPath}.color.alphaPercent`),
+                this.validateConfigLeaf(properties[propertyName]?.color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'hex', `${propertiesPath}.color.hex`),
+                this.validateConfigLeaf(properties[propertyName]?.color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'alphaPercent', `${propertiesPath}.color.alphaPercent`),
             ]);
         }
         

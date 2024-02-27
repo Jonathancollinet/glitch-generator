@@ -5,10 +5,15 @@ defineProps<{
     errors: Partial<GlitchErrors>,
 }>();
 
-const emit = defineEmits(['update']);
-
 const field = defineModel<GlitchShadowField>('config', { required: true });
 const localField = defineModel<GlitchShadowField>('localConfig', { required: true });
+const openTab = defineModel<GlitchAnimationProperty>('openTab', { required: true });
+
+const hasBoxShadow = computed(() => field.value.properties[GlitchAnimationProperty.BoxShadow] !== undefined);
+
+const emit = defineEmits<{
+    onSelectedTab: [tab: GlitchAnimationProperty]
+}>();
 
 const tabsConfig: Tabs = {
     [GlitchAnimationProperty.TextShadow]: {
@@ -19,14 +24,10 @@ const tabsConfig: Tabs = {
     }
 }
 
-watch(field, () => {
-    emit('update', field.value);
-}, { deep: true });
-
 </script>
 
 <template>
-    <UiTabs :tabs="tabsConfig">
+    <UiTabs :tabs="tabsConfig" v-model="openTab">
         <template v-slot="slotProps">
             <EditorToolboxPropertyTextShadow v-if="slotProps.activeTab === GlitchAnimationProperty.TextShadow"
                 v-model:config="field.properties[GlitchAnimationProperty.TextShadow]"

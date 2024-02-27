@@ -1,5 +1,3 @@
-import { a } from "vitest/dist/suite-xGC-mxBC.js";
-
 export enum GlitchAnimationProperty {
     TextShadow = 'text-shadow',
     BoxShadow = 'box-shadow',
@@ -32,7 +30,7 @@ export type GlitchShadowProperty = {
 }
 
 export type GlitchShadowProperties = {
-    [key in GlitchAnimationProperty]: GlitchShadowProperty
+    [key in GlitchAnimationPropertyUnion]: GlitchShadowProperty
 }
 
 export type GlitchShadowField = {

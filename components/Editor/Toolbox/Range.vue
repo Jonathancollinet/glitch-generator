@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import type { GlitchErrors, GlitchShadowField } from '~/glitch/types';
+import type { GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
-    errors: Partial<GlitchErrors>,
+    range: GlitchShadowField[],
     selectedField: GlitchShadowField | undefined
 }>()
-
-const range = defineModel<GlitchShadowField[]>('config', { required: true });
-const localRange = defineModel<GlitchShadowField[]>('localConfig', { required: true });
 
 const emit = defineEmits<{
     selectField: [field: GlitchShadowField]
@@ -24,11 +21,7 @@ function isFieldSelected(field: GlitchShadowField) {
 </script>
 
 <template>
-    <EditorToolboxSelectableField
-        v-for="(field, index) in localRange" :key="index"
-        v-model:config="range[index]"
-        v-model:localConfig="localRange[index]"
-        :errors="errors"
-        :selected="isFieldSelected(field)"
+    <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
+        :field="field" :selected="isFieldSelected(field)"
         @selectField="selectField" />
 </template>
