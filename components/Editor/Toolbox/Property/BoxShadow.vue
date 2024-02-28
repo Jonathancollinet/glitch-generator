@@ -13,6 +13,7 @@ const spreadError = computed(() => getErrorMessage(props.errors, 'spread'));
 
 const updateSpread = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
+    localObj: localProperty.value,
     key: 'spread',
     modifier: Number,
     debounced: 100

@@ -13,6 +13,7 @@ const animationDurationError = computed(() => getErrorMessage(props.errors, 'ani
 
 const updateAnimationDuration = applyUpdater<GlitchAnimation>({
     obj: animation.value,
+    localObj: localAnimation.value,
     key: 'duration',
     modifier: Number
 });

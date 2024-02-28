@@ -14,6 +14,7 @@ const textColorAlphaPercentError = computed(() => getErrorMessage(props.errors, 
 
 const updateTextColorHex = applyUpdater<GlitchColor>({
     obj: color.value,
+    localObj: localColor.value,
     key: 'hex',
     modifier: undefined,
     debounced: 100
@@ -21,6 +22,7 @@ const updateTextColorHex = applyUpdater<GlitchColor>({
 
 const updateTextColorAlphaPercent = applyUpdater<GlitchColor>({
     obj: color.value,
+    localObj: localColor.value,
     key: 'alphaPercent',
     modifier: Number,
     debounced: 100

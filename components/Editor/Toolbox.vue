@@ -8,31 +8,37 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    updateField: [field: GlitchShadowField]
+    updateField: [field: GlitchShadowField],
+    selectField: [field: GlitchShadowField]
 }>()
 
-const config = defineModel<GlitchConfig>({ required: true });
-const localConfig = ref<GlitchConfig>(deepCopy(config.value));
+const config = defineModel<GlitchConfig>('config', { required: true });
+const selectedField = defineModel<GlitchShadowField>('field', { required: true });
 
-const selectedField = ref<GlitchShadowField>();
-const localSelectedField = ref<GlitchShadowField>();
+const localConfig = ref<GlitchConfig>(deepCopy(config.value));
+const localSelectedField = ref<GlitchShadowField>(deepCopy(selectedField.value));
 const lastOpenedTab = ref<GlitchAnimationProperty>(GlitchAnimationProperty.TextShadow);
 
 const currentIndexes = computed(() => {
+    console.log("currentIndexes")
     return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : '';
 })
 
 function selectField(field: GlitchShadowField) {
-    selectedField.value = field;
-    localSelectedField.value = deepCopy(field);
+    emit('selectField', field);
 }
 
 const roundedPercent = computed(() => {
     return props.currentPercent;
 })
 
+watch(selectedField, (field) => {
+    if (field) {
+        localSelectedField.value = deepCopy(field);
+    }
+})
+
 watch(config.value.ranges, () => {
-    console.log("ranges updated")
     if (selectedField.value) {
         emit('updateField', selectedField.value);
     }
@@ -46,7 +52,7 @@ watch(config.value.ranges, () => {
         <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />
-        <EditorToolboxField v-if="selectedField && localSelectedField" :errors="errors" :key="currentIndexes"
+        <EditorToolboxField v-if="selectedField && localSelectedField" :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
             v-model:openTab="lastOpenedTab" v-model:config="selectedField" v-model:localConfig="localSelectedField" />
     </div>
 </template>

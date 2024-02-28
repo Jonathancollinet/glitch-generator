@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { GlitchShadowField } from '~/glitch/types';
+import { GlitchAnimationProperty, type GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
     range: GlitchShadowField[],
@@ -7,7 +7,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    selectField: [field: GlitchShadowField]
+    selectField: [field: GlitchShadowField],
+    addField: [field: GlitchShadowField]
 }>()
 
 function selectField(field: GlitchShadowField) {
@@ -34,17 +35,48 @@ function getDataIndex(currentOffsetFrame: number, nextOffsetFrame: number = 100)
     return indexes.toString();
 }
 
-onUpdated(() => {
-    console.log("range updated")
-})
+function addField(e: Event) {
+    const field: GlitchShadowField = {
+        range: props.range[0].range,
+        index: props.range.length,
+        offsetFrame: props.range[props.range.length - 1].offsetFrame + 1,
+        properties: {
+            [GlitchAnimationProperty.TextShadow]: {
+                enabled: false,
+                fillAllFrames: false,
+                color: {
+                    hex: "#000000",
+                    alphaPercent: 100
+                },
+                blur: 0,
+                offsetX: 0,
+                offsetY: 0
+            },
+            [GlitchAnimationProperty.BoxShadow]: {
+                enabled: false,
+                fillAllFrames: false,
+                color: {
+                    hex: "#000000",
+                    alphaPercent: 100
+                },
+                blur: 0,
+                offsetX: 0,
+                offsetY: 0,
+                spread: 0
+            },
+        }
+    };
+    emit('addField', field)
+}
 </script>
 
 <template>
-    <div class="bg-blue-400 mb-4 h-[20px]">
+    <div class="relative bg-blue-400 mb-4 h-[20px]">
         <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
         :data-index="getDataIndex(field.offsetFrame, range[index + 1]?.offsetFrame)"
         :field="field" :isSelected="isFieldSelected(field)"
         :width="getPercentWidth(field.offsetFrame, range[index + 1]?.offsetFrame)"
         @selectField="selectField" />
+        <UiButton class="absolute top-0 h-full" variant="icon" size="icon" @click="addField">+</UiButton>
     </div>
 </template>

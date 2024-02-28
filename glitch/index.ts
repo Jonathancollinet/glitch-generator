@@ -58,6 +58,9 @@ export default class Glitch {
         const success = this.validator.computeFields(this.config, fields);
 
         if (success) {
+            fields.forEach((field) => {
+                this.config.ranges[field.range][field.index] = deepCopy(field);
+            });
             this.keyframes.generate(this.config, fields);
 
             return true;

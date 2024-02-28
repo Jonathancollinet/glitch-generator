@@ -15,17 +15,20 @@ const textMessageError = computed(() => getErrorMessage(props.errors, 'text.mess
 
 const updateTextSize = applyUpdater<GlitchBaseText>({
     obj: config.value,
+    localObj: localConfig.value,
     key: 'size',
     modifier: Number
 });
 
 const updateTextUnit = applyUpdater<GlitchBaseText>({
     obj: config.value,
+    localObj: localConfig.value,
     key: 'unit'
 });
 
 const updateMessage = applyUpdater<GlitchBaseText>({
     obj: config.value,
+    localObj: localConfig.value,
     key: 'message'
 });
 </script>

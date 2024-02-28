@@ -5,6 +5,7 @@ type ContainerRecord<Container> = {[key in keyof Container]?: string | number | 
 
 interface FieldUpdate<Container>{
     obj: ContainerRecord<Container>,
+    localObj: ContainerRecord<Container>
     key: keyof Container,
     modifier?: (v: string) => string | number | boolean,
     onUpdate?: (obj: ContainerRecord<Container>) => void
@@ -16,6 +17,7 @@ interface WithValue<Container, Value> extends FieldUpdate<Container> {
 
 function applyModifier<Container>({
     obj,
+    localObj, 
     key,
     modifier = (v) => v,
     onUpdate = (obj) => void 0,
@@ -25,6 +27,10 @@ function applyModifier<Container>({
 
     obj[key] = modifiedValue;
 
+    if (localObj) {
+        localObj[key] = modifiedValue;
+    }
+
     if (onUpdate) {
         onUpdate(obj);
     }
@@ -32,6 +38,7 @@ function applyModifier<Container>({
 
 function updateValue<Container>({
     obj,
+    localObj, 
     key,
     modifier = (v) => v,
     onUpdate = (obj) => void 0,
@@ -58,16 +65,21 @@ function updateValue<Container>({
             }
     
             if (isCheckbox || targetValue) {
-                applyModifier<Container>({obj, key, modifier, onUpdate, value: targetValue});
+                applyModifier<Container>({obj, localObj, key, modifier, onUpdate, value: targetValue});
             }
         } else {
-            applyModifier({obj, key, modifier, onUpdate, value});
+            applyModifier({obj, localObj, key, modifier, onUpdate, value});
+        }
+    } else {
+        if (localObj) {
+            localObj[key] = value;
         }
     }
 }
 
 export function applyUpdater<Container>({
     obj,
+    localObj,
     key,
     modifier = (v) => v,
     onUpdate = (obj) => void 0,
@@ -75,9 +87,9 @@ export function applyUpdater<Container>({
 }: FieldUpdate<Container> & {debounced?: number | undefined}) {
     if (obj) {
         if (debounced) {
-            return debounce((value: string | Event) => updateValue({obj, key, modifier, onUpdate, value}), debounced);
+            return debounce((value: string | Event) => updateValue({obj, localObj, key, modifier, onUpdate, value}), debounced);
         }
-        return (value: string | Event) => updateValue({obj, key, modifier, onUpdate, value});
+        return (value: string | Event) => updateValue({obj, localObj, key, modifier, onUpdate, value});
     }
 }
 

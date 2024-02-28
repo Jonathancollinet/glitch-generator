@@ -14,6 +14,7 @@ const fillAllFramesError = computed(() => getErrorMessage(props.errors, 'fillAll
 
 const updateEnabled = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
+    localObj: localProperty.value,
     key: 'enabled',
     modifier: Boolean,
     debounced: 100
@@ -21,6 +22,7 @@ const updateEnabled = applyUpdater<GlitchShadowProperty>({
 
 const updateFillAllFrames = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
+    localObj: localProperty.value,
     key: 'fillAllFrames',
     modifier: Boolean,
     debounced: 100

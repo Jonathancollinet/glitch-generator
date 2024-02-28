@@ -9,6 +9,7 @@ interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplaye
 }
 
 const glitchConfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
+const selectedField = ref<GlitchShadowField>(glitchConfig.ranges[0][0]);
 const errors = ref<Partial<GlitchErrors>>({});
 const bindings = ref<GlitchBindings>({
     message: '',
@@ -55,8 +56,19 @@ function exportKeyframe() {
     console.log(glitch?.exportKeyframes());
 }
 
+function selectField(newField: GlitchShadowField) {
+    selectedField.value = newField;
+}
+
 function updateField(newField: GlitchShadowField) {
-    glitch?.computeFields([newField]);
+    const previousField = glitchConfig.ranges[newField.range][newField.index - 1];
+    const batch = [newField];
+
+    if (previousField) {
+        batch.splice(0, 0, previousField);
+    }
+
+    glitch?.computeFields(batch);
 }
 
 watch(glitchConfig.text, () => {
@@ -96,6 +108,6 @@ onBeforeUnmount(() => {
             <UiButton @click="exportKeyframe">CSS Keyframes</UiButton>
         </div>
         <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :hasControls="glitchConfig.controls" :controller="glitch.controller" :animationDuration="glitchConfig.animation.duration" />
-        <EditorToolbox v-model="glitchConfig" :currentPercent="currentPercent" :errors="errors" @updateField="updateField" />
+        <EditorToolbox v-model:config="glitchConfig" v-model:field="selectedField" :currentPercent="currentPercent" :errors="errors" @selectField="selectField" @updateField="updateField" />
     </div>
 </template>
