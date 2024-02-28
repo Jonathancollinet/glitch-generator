@@ -6,12 +6,13 @@ const props = defineProps<{
     animationDuration: number
 }>()
 
+const currentPercent = defineModel<number>({ required: true });
+
 let currentReq: number;
 let now, elapsed, then = Date.now();
 
 const refreshCurrentTimeFPS = 60;
 const fpsInterval = 1000 / refreshCurrentTimeFPS
-const currentPercent = ref<number>(0);
 const playState = ref<AnimationPlayState>("idle");
 
 const isRunning = computed(() => playState.value === "running");

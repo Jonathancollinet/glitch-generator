@@ -20,6 +20,7 @@ const bindings = ref<GlitchBindings>({
 
 const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
+const currentPercent = ref(0);
 
 let animationDuration = glitchConfig.animation.duration;
 let glitch = new Glitch(glitchConfig);
@@ -94,7 +95,7 @@ onBeforeUnmount(() => {
             <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
             <UiButton @click="exportKeyframe">CSS Keyframes</UiButton>
         </div>
-        <EditorDisplayedText ref="displayedText" :bindings="bindings" :hasControls="glitchConfig.controls" :controller="glitch.controller" :animationDuration="glitchConfig.animation.duration" />
-        <EditorToolbox v-model="glitchConfig" :errors="errors" @updateField="updateField" />
+        <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :hasControls="glitchConfig.controls" :controller="glitch.controller" :animationDuration="glitchConfig.animation.duration" />
+        <EditorToolbox v-model="glitchConfig" :currentPercent="currentPercent" :errors="errors" @updateField="updateField" />
     </div>
 </template>

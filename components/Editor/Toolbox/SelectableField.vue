@@ -3,7 +3,7 @@ import type { GlitchShadowField } from '~/glitch/types';
 
 const props = withDefaults(defineProps<{
     field: GlitchShadowField,
-    selected: boolean,
+    isSelected: boolean,
     width?: string
 }>(), {
     width: '100%'
@@ -19,7 +19,7 @@ function selectField() {
 </script>
 
 <template>
-    <div :class="'h-full cursor-pointer select-none inline-flex border-blue-800 bg-blue-400 border-r ' + (selected ? 'border-r-2' : '')"
+    <div :class="'relative z-20 h-full cursor-pointer select-none inline-flex border-l [&.border-l-transparent+.border-l-neutral-800]:border-l-transparent first:border-l-0 ' + (isSelected ? 'bg-blue-50 opacity-50 border-l-transparent' : 'border-l-neutral-800')"
         @click="selectField" :style="{width}">
     </div>
 </template>

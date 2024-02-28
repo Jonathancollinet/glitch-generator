@@ -76,7 +76,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -196,7 +196,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 0.8,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -286,7 +286,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -436,7 +436,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -526,7 +526,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -556,7 +556,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -706,7 +706,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -736,7 +736,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -946,7 +946,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -976,7 +976,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1218,7 +1218,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1338,7 +1338,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -0.8,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1428,7 +1428,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1578,7 +1578,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1668,7 +1668,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1698,7 +1698,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1848,7 +1848,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -1878,7 +1878,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -2088,7 +2088,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,
@@ -2118,7 +2118,7 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0.5
+                    blur: 3
                 },
                 "box-shadow": {
                     enabled: false,

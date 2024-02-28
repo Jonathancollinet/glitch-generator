@@ -28,7 +28,6 @@ const updateMessage = applyUpdater<GlitchBaseText>({
     obj: config.value,
     key: 'message'
 });
-
 </script>
 
 <template>

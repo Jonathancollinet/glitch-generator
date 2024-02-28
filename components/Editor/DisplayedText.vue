@@ -11,6 +11,8 @@ defineProps<{
     bindings: GlitchBindings,
 }>()
 
+const currentPercent = defineModel<number>({ required: true });
+
 defineExpose({
     glitchedEl
 })
@@ -26,7 +28,7 @@ defineExpose({
         <ClientOnly>
             <div class="absolute w-full bottom-1 flex flex-col justify-center items-center"
                 v-if="controller && hasControls">
-                <EditorKeyframesController :controller="controller" :animationDuration="animationDuration" />
+                <EditorKeyframesController v-model="currentPercent" :controller="controller" :animationDuration="animationDuration" />
             </div>
         </ClientOnly>
     </div>

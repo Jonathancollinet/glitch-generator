@@ -2,8 +2,9 @@
 import type { EditorToolboxAnimation } from '#build/components';
 import { GlitchAnimationProperty, type GlitchConfig, type GlitchErrors, type GlitchShadowField } from '~/glitch/types';
 
-defineProps<{
-    errors: Partial<GlitchErrors>
+const props = defineProps<{
+    errors: Partial<GlitchErrors>,
+        currentPercent: number
 }>()
 
 const emit = defineEmits<{
@@ -26,6 +27,10 @@ function selectField(field: GlitchShadowField) {
     localSelectedField.value = deepCopy(field);
 }
 
+const roundedPercent = computed(() => {
+    return props.currentPercent;
+})
+
 watch(config.value.ranges, () => {
     console.log("ranges updated")
     if (selectedField.value) {
@@ -37,11 +42,11 @@ watch(config.value.ranges, () => {
 
 <template>
     <div>
+        <EditorToolboxRanges :hasControls="config.controls" :currentPercent="roundedPercent" :ranges="config.ranges" :selectedField="selectedField" @selectField="selectField" />
         <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />
         <EditorToolboxField v-if="selectedField && localSelectedField" :errors="errors" :key="currentIndexes"
             v-model:openTab="lastOpenedTab" v-model:config="selectedField" v-model:localConfig="localSelectedField" />
-        <EditorToolboxRanges :ranges="config.ranges" :selectedField="selectedField" @selectField="selectField" />
     </div>
 </template>
