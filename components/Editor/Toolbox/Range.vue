@@ -21,7 +21,10 @@ function isFieldSelected(field: GlitchShadowField) {
 </script>
 
 <template>
-    <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
+    <div class="bg-neutral-200 mb-4 h-[150px]">
+        <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
         :field="field" :selected="isFieldSelected(field)"
+        :width="(range[index + 1]?.offsetFrame || 100) - field.offsetFrame + '%'"
         @selectField="selectField" />
+    </div>
 </template>

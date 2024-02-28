@@ -16,7 +16,7 @@ function selectField(field: GlitchShadowField) {
 </script>
 
 <template>
-    <div>
+    <div class="p-4 border">
         <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
             :range="range"
             @selectField="selectField" />

@@ -7,10 +7,10 @@ type GeneratedFrames = {
 };
 
 export default class GlitchKeyframes {
+    animation: Animation | null;
     private styleNode: HTMLStyleElement | null;
     private generatedFrames: GeneratedFrames;
     private glitchedElement: HTMLElement | null;
-    animation: Animation | null;
 
     constructor() {
         this.styleNode = null;
@@ -54,13 +54,13 @@ export default class GlitchKeyframes {
 
     private generateAnimation(config: GlitchConfig) {
         if (this.animation) {
-            this.createAnimation(config);
+            this.bindKeyframeEffect(config);
         } else {
             this.injectHeadStyle(this.getKeyframesString(config));
         }
     }
 
-    private createAnimation(config: GlitchConfig) {
+    private bindKeyframeEffect(config: GlitchConfig) {
         const effect = new KeyframeEffect(
             this.glitchedElement,
             this.getKeyframesEffect(config),

@@ -50,12 +50,12 @@ function computeConfig(glitchConfig: GlitchConfig, forceRangeCompute?: boolean) 
     }
 }
 
-function updateField(newField: GlitchShadowField) {
-    glitch?.computeFields([newField]);
-}
-
 function exportKeyframe() {
     console.log(glitch?.exportKeyframes());
+}
+
+function updateField(newField: GlitchShadowField) {
+    glitch?.computeFields([newField]);
 }
 
 watch(glitchConfig.text, () => {
