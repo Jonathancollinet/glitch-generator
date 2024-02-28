@@ -1,11 +1,5 @@
-import {
-    GlitchUnit,
-    GlitchAnimationProperty,
-} from '~/glitch/types';
-
-import type {
-    GlitchConfig
-} from '~/glitch/types'
+import { GlitchUnit } from '~/glitch/types';
+import type { GlitchConfig } from '~/glitch/types'
 
 const defaultGlitchConfig: GlitchConfig = {
     controls: true,
@@ -21,7 +15,7 @@ const defaultGlitchConfig: GlitchConfig = {
     animation: {
         duration: 3000
     },
-    ranges: defaultTextShadowRanges
+    ranges: defaultRanges
 }
 
 export function getDefaultGlitchConfig() {

@@ -36,36 +36,10 @@ function getDataIndex(currentOffsetFrame: number, nextOffsetFrame: number = 100)
 }
 
 function addField(e: Event) {
-    const field: GlitchShadowField = {
-        range: props.range[0].range,
-        index: props.range.length,
-        offsetFrame: props.range[props.range.length - 1].offsetFrame + 1,
-        properties: {
-            [GlitchAnimationProperty.TextShadow]: {
-                enabled: false,
-                fillAllFrames: false,
-                color: {
-                    hex: "#000000",
-                    alphaPercent: 100
-                },
-                blur: 0,
-                offsetX: 0,
-                offsetY: 0
-            },
-            [GlitchAnimationProperty.BoxShadow]: {
-                enabled: false,
-                fillAllFrames: false,
-                color: {
-                    hex: "#000000",
-                    alphaPercent: 100
-                },
-                blur: 0,
-                offsetX: 0,
-                offsetY: 0,
-                spread: 0
-            },
-        }
-    };
+    const range = props.range;
+    const index = range.length - 1;
+    const field = getDefaultField(range[0].range, index, range[index].offsetFrame + 1);
+
     emit('addField', field)
 }
 </script>
@@ -73,10 +47,9 @@ function addField(e: Event) {
 <template>
     <div class="relative bg-blue-400 mb-4 h-[20px]">
         <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
-        :data-index="getDataIndex(field.offsetFrame, range[index + 1]?.offsetFrame)"
-        :field="field" :isSelected="isFieldSelected(field)"
-        :width="getPercentWidth(field.offsetFrame, range[index + 1]?.offsetFrame)"
-        @selectField="selectField" />
+            :data-index="getDataIndex(field.offsetFrame, range[index + 1]?.offsetFrame)" :field="field"
+            :nextField="range[index + 1]" :isSelected="isFieldSelected(field)"
+            :width="getPercentWidth(field.offsetFrame, range[index + 1]?.offsetFrame)" @selectField="selectField" />
         <UiButton class="absolute top-0 h-full" variant="icon" size="icon" @click="addField">+</UiButton>
     </div>
 </template>
