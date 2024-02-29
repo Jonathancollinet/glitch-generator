@@ -9,7 +9,9 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     updateField: [field: GlitchShadowField],
-    selectField: [field: GlitchShadowField]
+    selectField: [field: GlitchShadowField],
+    addField: [rangeIndex: number],
+    addRange: []
 }>()
 
 const config = defineModel<GlitchConfig>('config', { required: true });
@@ -31,8 +33,12 @@ const roundedPercent = computed(() => {
     return props.currentPercent;
 })
 
+function addField(rangeIndex: number) {
+    emit('addField', rangeIndex);
+}
+
 function addRange() {
-    
+    emit('addRange');
 }
 
 watch(selectedField, (field) => {
@@ -52,7 +58,7 @@ watch(config.value.ranges, () => {
 <template>
     <div>
         <EditorToolboxRanges :hasControls="config.controls" :currentPercent="roundedPercent" :ranges="config.ranges"
-            :selectedField="selectedField" @selectField="selectField" @addRange="addRange" />
+            :selectedField="selectedField" @selectField="selectField" @addRange="addRange" @addField="addField" />
         <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />

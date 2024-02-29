@@ -71,6 +71,17 @@ function updateField(newField: GlitchShadowField) {
     glitch?.computeFields(batch);
 }
 
+function addRange() {
+    glitchConfig.ranges.push([getDefaultField(glitchConfig.ranges.length, 0, 0)]);
+    computeConfig(glitchConfig, true);
+}
+
+function addField(rangeIndex: number) {
+    // glitchConfig.ranges[rangeIndex].push();
+
+    // computeConfig(glitchConfig, true);
+}
+
 watch(glitchConfig.text, () => {
     computeConfig(glitchConfig)
 });
@@ -105,9 +116,11 @@ onBeforeUnmount(() => {
     <div>
         <div class="flex items-center justify-between">
             <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
-            <UiButton @click="exportKeyframe">CSS Keyframes</UiButton>
+            <UiButton @click="exportKeyframe">Get Keyframes</UiButton>
         </div>
-        <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :hasControls="glitchConfig.controls" :controller="glitch.controller" :animationDuration="glitchConfig.animation.duration" />
-        <EditorToolbox v-model:config="glitchConfig" v-model:field="selectedField" :currentPercent="currentPercent" :errors="errors" @selectField="selectField" @updateField="updateField" />
-    </div>
-</template>
+        <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
+            :hasControls="glitchConfig.controls" :controller="glitch.controller"
+            :animationDuration="glitchConfig.animation.duration" />
+        <EditorToolbox v-model:config="glitchConfig" v-model:field="selectedField" :currentPercent="currentPercent"
+            :errors="errors" @addRange="addRange" @addField="addField" @selectField="selectField" @updateField="updateField" />
+    </div></template>

@@ -92,7 +92,7 @@ export default class GlitchKeyframes {
             const fieldProperty = field.properties[propertyName];
             const nextPercent = nextField?.offsetFrame ?? 100;
 
-            if (fieldProperty?.fillAllFrames) {
+            if (fieldProperty.fillAllFrames) {
                 const length = nextPercent - field.offsetFrame;
 
                 for (let i = 0; i < length; ++i) {
@@ -101,17 +101,17 @@ export default class GlitchKeyframes {
                     if (fieldProperty.enabled) {
                         this.setFrame(propertyName, field, percent);
                     } else {
-                        this.generatedFrames[percent][propertyName] = [];
+                        this.generatedFrames[percent][propertyName][field.range] = '';
                     }
                 }
             } else {
                 for (let i = field.offsetFrame; i < nextPercent; ++i) {
                     this.generatedFrames[i][propertyName][field.range] = '';
                 }
-                if (fieldProperty?.enabled) {
+                if (fieldProperty.enabled) {
                     this.setFrame(propertyName, field, field.offsetFrame);
                 } else {
-                    this.generatedFrames[field.offsetFrame][propertyName] = [];
+                    this.generatedFrames[field.offsetFrame][propertyName][field.range] = '';
                 }
             }
         }
@@ -139,6 +139,18 @@ export default class GlitchKeyframes {
         }
     }
 
+    private getEmptyPropertyValue(propertyName: GlitchAnimationPropertyUnion) {
+        if (propertyName === GlitchAnimationProperty.TextShadow) {
+            return '0px 0px 0px transparent';
+        }
+
+        if (propertyName === GlitchAnimationProperty.BoxShadow) {
+            return '0px 0px 0px 0px transparent';
+        }
+        
+        return '';
+    }
+
     private getCssPropertyValue(propertyName: GlitchAnimationPropertyUnion, property: GlitchShadowProperty) {
         const offsetX = property.offsetX;
         const offsetY = property.offsetY;
@@ -164,9 +176,10 @@ export default class GlitchKeyframes {
             
             for (propertyName in frame) {
                 const frameProperty = frame[propertyName];
+                const filteredProperty = frameProperty.filter((frame) => frame);
 
-                if (frameProperty?.length) {
-                    frameProperty.forEach((frame, index) => {
+                if (filteredProperty?.length) {
+                    filteredProperty.forEach((frame, index) => {
                         if (frame) {
                             const camelProperty = propertyName.replace(/-./g, x => x[1].toUpperCase());
 
@@ -199,13 +212,14 @@ export default class GlitchKeyframes {
 
             for (property in framesAt) {
                 const frameProperty = framesAt[property];
+                const filteredProperty = frameProperty.filter((frame) => frame);
 
-                if (frameProperty?.length) {
-                    const lastFrameIndex = frameProperty.length - 1;
+                if (filteredProperty?.length) {
+                    const lastFrameIndex = filteredProperty.length - 1;
 
                     keyframes += `${property}: `;
 
-                    frameProperty.forEach((frame, frameIndex) => {
+                    filteredProperty.forEach((frame, frameIndex) => {
                         if (frame) {
                             keyframes += `${frame}`;
 

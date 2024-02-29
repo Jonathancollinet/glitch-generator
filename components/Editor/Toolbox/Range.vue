@@ -7,8 +7,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    selectField: [field: GlitchShadowField],
-    addField: [field: GlitchShadowField]
+    selectField: [field: GlitchShadowField]
 }>()
 
 function selectField(field: GlitchShadowField) {
@@ -34,22 +33,13 @@ function getDataIndex(currentOffsetFrame: number, nextOffsetFrame: number = 100)
 
     return indexes.toString();
 }
-
-function addField(e: Event) {
-    const range = props.range;
-    const index = range.length - 1;
-    const field = getDefaultField(range[0].range, index, range[index].offsetFrame + 1);
-
-    emit('addField', field)
-}
 </script>
 
 <template>
-    <div class="relative bg-blue-400 mb-4 h-[20px]">
+    <div class="overflow-hidden z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0">
         <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
             :data-index="getDataIndex(field.offsetFrame, range[index + 1]?.offsetFrame)" :field="field"
             :nextField="range[index + 1]" :isSelected="isFieldSelected(field)"
             :width="getPercentWidth(field.offsetFrame, range[index + 1]?.offsetFrame)" @selectField="selectField" />
-        <UiButton class="absolute top-0 h-full" variant="icon" size="icon" @click="addField">+</UiButton>
     </div>
 </template>

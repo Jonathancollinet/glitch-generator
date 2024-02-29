@@ -11,11 +11,11 @@ const props = defineProps<{
 const emit = defineEmits<{
     selectField: [field: GlitchShadowField],
     addRange: [],
-    addField: [rangeIndex: number, field: GlitchShadowField]
+    addField: [rangeIndex: number]
 }>()
 
-function addField(field: GlitchShadowField) {
-    emit('addField', field.range, field);
+function addField(rangeIndex: number) {
+    emit('addField', rangeIndex);
 }
 
 function addRange() {
@@ -29,13 +29,22 @@ function selectField(field: GlitchShadowField) {
 </script>
 
 <template>
-    <div class="relative border p-4">
-        <div class="relative w-[calc(100%-20px)]">
-            <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField" :range="range"
-                @selectField="selectField" @addField="addField" />
-            <ClientOnly>
-                <div v-if="hasControls" class="absolute z-10 bg-blue-400 rounded-full w-[2px] h-full top-0" :style="{left: `calc(${currentPercent}% - 1px)`}" />
-            </ClientOnly>
+    <div class="relative py-4">
+        <div class="flex mb-2">
+            <div class="relative w-[calc(100%-24px)]">
+                <ClientOnly>
+                    <div v-if="hasControls"
+                        class="absolute z-0 bg-neutral-950 w-[2px] top-0"
+                        :style="{ left: `calc(${currentPercent}% - 1px)`, height: `calc(${24 * ranges.length}px + ${1 * ranges.length - 1}rem)` }" />
+                </ClientOnly>
+                <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
+                    :range="range" @selectField="selectField" />
+            </div>
+            <div class="w-[24px]">
+                <UiButton v-for="(range, index) in ranges" :key="index" class="relative top-0 h-[24px] mb-4 last:mb-0" variant="icon" size="icon" @click="addField(index)">
+                    +
+                </UiButton>
+            </div>
         </div>
         <UiButton variant="icon" size="icon" @click="addRange">+</UiButton>
     </div>
