@@ -18,6 +18,12 @@ const emit = defineEmits<{
     selectField: [field: GlitchShadowField]
 }>()
 
+function getPercentWidth() {
+    const length = ((props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame);
+
+    return length - length * 0.01 + '%'
+}
+
 function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadowProperty, filter?: boolean) {
     const nextOffsetFrame = props.nextField?.offsetFrame;
     const color = property.color;
@@ -38,6 +44,18 @@ function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadow
 
     return rgb;
 
+}
+
+function getDataIndex() {
+    const indexes: number[] = [];
+    const currentOffsetFrame = props.field.offsetFrame;
+    const length = (props.nextField?.offsetFrame ?? 101) - currentOffsetFrame;
+
+    for (let i = 0; i < length; ++i) {
+        indexes.push(currentOffsetFrame + i);
+    }
+
+    return indexes.toString();
 }
 
 function getAtts(s: StyleAttrs, shadow: GlitchShadowProperty, nextShadow?: GlitchShadowProperty) {
@@ -64,7 +82,7 @@ function getStyle() {
     if (textShadowEnabled) {
         getAtts(style[GlitchAnimationProperty.TextShadow], textShadow, nextTextShadow);
     }
-    
+
     if (boxShadowEnabled) {
         getAtts(style[GlitchAnimationProperty.BoxShadow], boxShadow, nextBoxShadow);
     }
@@ -82,12 +100,20 @@ const hasShadowBox = computed(() => {
 function selectField() {
     emit('selectField', props.field);
 }
+
+const fieldClass = computed(() => [
+    'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent',
+    'hover:mix-blend-luminosity hover:opacity-50',
+    props.isSelected ? ' border border-l-2 hover:opacity-100' : ''
+]);
 </script>
 
 <template>
-    <div :class="'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent hover:mix-blend-luminosity hover:opacity-50' + (isSelected ? ' border border-l-2 hover:opacity-100' : '')"
-        @click="selectField" :style="{ width, left: `${field.offsetFrame}%` }">
+    <div :data-index="getDataIndex()" :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="{
+        width: getPercentWidth(),
+        left: `${field.offsetFrame - field.offsetFrame * 0.01}%`
+    }">
         <div :class="`w-full`" :style="{ height: hasShadowBox ? '70%' : '100%', ...textShadowStyle }" />
-        <div v-if="hasShadowBox" class="h-[30%] w-full" :style="{  ...boxShadowStyle }" />
+        <div v-if="hasShadowBox" class="h-[30%] w-full" :style="{ ...boxShadowStyle }" />
     </div>
 </template>

@@ -90,7 +90,7 @@ export default class GlitchKeyframes {
 
         for (propertyName in field.properties) {
             const fieldProperty = field.properties[propertyName];
-            const nextPercent = nextField?.offsetFrame ?? 100;
+            const nextPercent = nextField?.offsetFrame ?? 101;
 
             if (fieldProperty.fillAllFrames) {
                 const length = nextPercent - field.offsetFrame;

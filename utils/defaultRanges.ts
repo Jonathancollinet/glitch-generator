@@ -1141,6 +1141,36 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     spread: 0
                 }
             }
+        },
+        {
+            range: 0,
+            index: 38,
+            offsetFrame: 100,
+            properties: {
+                "text-shadow": {
+                    enabled: true,
+                    fillAllFrames: true,
+                    color: {
+                        hex: '#32cd32',
+                        alphaPercent: 100
+                    },
+                    offsetX: 3,
+                    offsetY: 0,
+                    blur: 0
+                },
+                "box-shadow": {
+                    enabled: false,
+                    fillAllFrames: true,
+                    color: {
+                        hex: '#000000',
+                        alphaPercent: 100
+                    },
+                    offsetX: 0,
+                    offsetY: 0,
+                    blur: 0,
+                    spread: 0
+                }
+            }
         }
     ],
     [
@@ -2258,6 +2288,36 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
             range: 1,
             index: 37,
             offsetFrame: 96,
+            properties: {
+                "text-shadow": {
+                    enabled: true,
+                    fillAllFrames: true,
+                    color: {
+                        hex: '#32cd32',
+                        alphaPercent: 100
+                    },
+                    offsetX: 3,
+                    offsetY: 0,
+                    blur: 0
+                },
+                "box-shadow": {
+                    enabled: false,
+                    fillAllFrames: true,
+                    color: {
+                        hex: '#000000',
+                        alphaPercent: 100
+                    },
+                    offsetX: 0,
+                    offsetY: 0,
+                    blur: 0,
+                    spread: 0
+                }
+            }
+        },
+        {
+            range: 1,
+            index: 38,
+            offsetFrame: 100,
             properties: {
                 "text-shadow": {
                     enabled: true,

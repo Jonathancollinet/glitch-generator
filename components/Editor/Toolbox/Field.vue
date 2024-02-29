@@ -24,7 +24,7 @@ function getPossibleOffsetFrames() {
         if (previousField && nextField) {
             length = (nextField.offsetFrame) - (previousField.offsetFrame + 1);
         } else if (previousField) {
-            length = 100 - (previousField.offsetFrame + 1);
+            length = 101 - (previousField.offsetFrame + 1);
         } else {
             length = 0;
         }
