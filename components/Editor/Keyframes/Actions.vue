@@ -16,11 +16,11 @@ const emit = defineEmits<{
 
 <template>
   <div class="flex justify-center items-center">
-    <UiButton variant="outline" size="icon" :disabled="!playState || isRunning">
-        <UiIcon :icon="Icons.Play" @click="emit('play')" />
+    <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('play')">
+        <UiIcon :icon="Icons.Play" />
     </UiButton>
-    <UiButton variant="outline" size="icon" :disabled="!playState || isPaused">
-        <UiIcon :icon="Icons.Pause" @click="emit('pause')" />
+    <UiButton variant="outline" size="icon" :disabled="!playState || isPaused" @click="emit('pause')">
+        <UiIcon :icon="Icons.Pause" />
     </UiButton>
   </div>
 </template>
