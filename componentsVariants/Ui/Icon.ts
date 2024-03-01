@@ -11,17 +11,17 @@ export const IconVariants = cva(
             variant: {
                 default: [
                     'stroke-2 stroke-neutral-800 fill-transparent',
-                    'hover:stroke-blue-600',
+                    'hover:stroke-primary-600',
 
                     'dark:stroke-neutral-50',
-                    'dark:hover:stroke-blue-400',
+                    'dark:hover:stroke-primary-400',
                 ],
                 filled: [
                     "fill-neutral-800",
-                    'hover:fill-blue-600',
+                    'hover:fill-primary-600',
 
                     "dark:fill-neutral-50",
-                    "dark:hover:fill-blue-400",
+                    "dark:hover:fill-primary-400",
                 ]
             },
             size: {

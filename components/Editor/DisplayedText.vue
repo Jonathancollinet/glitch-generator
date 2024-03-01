@@ -19,7 +19,7 @@ defineExpose({
 </script>
 
 <template>
-    <div class="relative w-full h-[100vw] bg-blue-100 min-h-72 max-h-[80vh]">
+    <div class="relative w-full h-[100vw] bg-primary-100 min-h-72 max-h-[80vh]">
         <div class="flex h-full items-center justify-center select-none overflow-hidden">
             <div class="flex items-center justify-center h-0" ref="glitchedEl" :style="bindings.textStyle">
                 {{ bindings.message }}

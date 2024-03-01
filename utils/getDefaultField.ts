@@ -6,10 +6,10 @@ const defaultField: GlitchShadowField = {
     offsetFrame: 0,
     properties: {
         [GlitchAnimationProperty.TextShadow]: {
-            enabled: false,
-            fillAllFrames: false,
+            enabled: true,
+            fillAllFrames: true,
             color: {
-                hex: "#000000",
+                hex: "#724cf9",
                 alphaPercent: 100
             },
             blur: 0,
@@ -18,9 +18,9 @@ const defaultField: GlitchShadowField = {
         },
         [GlitchAnimationProperty.BoxShadow]: {
             enabled: false,
-            fillAllFrames: false,
+            fillAllFrames: true,
             color: {
-                hex: "#000000",
+                hex: "#724cf9",
                 alphaPercent: 100
             },
             blur: 0,

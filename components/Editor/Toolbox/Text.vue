@@ -12,45 +12,80 @@ const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true 
 const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size'));
 const textUnitError = computed(() => getErrorMessage(props.errors, 'text.unit'));
 const textMessageError = computed(() => getErrorMessage(props.errors, 'text.message'));
+const textPaddingError = computed(() => getErrorMessage(props.errors, 'text.padding'));
+const textHeightError = computed(() => getErrorMessage(props.errors, 'text.height'));
 
 const updateTextSize = applyUpdater<GlitchBaseText>({
     obj: config.value,
     localObj: localConfig.value,
     key: 'size',
-    modifier: Number
+    modifier: Number,
+    debounced: 100
 });
 
 const updateTextUnit = applyUpdater<GlitchBaseText>({
     obj: config.value,
     localObj: localConfig.value,
-    key: 'unit'
+    key: 'unit',
+    debounced: 100
 });
 
 const updateMessage = applyUpdater<GlitchBaseText>({
     obj: config.value,
     localObj: localConfig.value,
-    key: 'message'
+    key: 'message',
+    debounced: 100
+});
+
+const updatePadding = applyUpdater<GlitchBaseText>({
+    obj: config.value,
+    localObj: localConfig.value,
+    key: 'padding',
+    modifier: Number,
+    debounced: 100
+});
+
+const updateHeight = applyUpdater<GlitchBaseText>({
+    obj: config.value,
+    localObj: localConfig.value,
+    key: 'height',
+    modifier: Number,
+    debounced: 100
 });
 </script>
 
 <template>
-    <div>
-        <UiFormGroup label="pages.editor.config.textSize" :error="textSizeError" name="textSize">
-            <UiInput type="number" debounce :debounceTime="100" :debounceFn="updateTextSize" name="textSize"
-                :modelValue="localConfig.size" />
-        </UiFormGroup>
-        <UiFormGroup label="pages.editor.config.textUnit" :error="textUnitError" name="textUnit">
-            <select name="textUnit" id="textUnit" :value="localConfig.unit" @change="updateTextUnit">
-                <option value="px">px</option>
-                <option value="pt">pt</option>
-                <option value="em">em</option>
-                <option value="rem">rem</option>
-            </select>
-        </UiFormGroup>
-        <UiFormGroup label="pages.editor.config.message" :error="textMessageError" name="message">
-            <UiInput debounce :debounceTime="100" :debounceFn="updateMessage" name="message"
-                :modelValue="localConfig.message" />
-        </UiFormGroup>
-        <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color" :errors="errors" />
+    <div class="px-4">
+        <div class="flex">
+            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.fontSize" :error="textSizeError"
+                name="textSize">
+                <UiInput alignment="center" type="tel" :debounceFn="updateTextSize" name="textSize"
+                    :modelValue="localConfig.size" />
+            </UiFormGroup>
+            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.padding" :error="textPaddingError"
+                name="textPadding">
+                <UiInput alignment="center" type="tel" :debounceFn="updatePadding" name="textPadding"
+                    :modelValue="localConfig.padding" />
+            </UiFormGroup>
+            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.height" :error="textHeightError"
+                name="textHeight">
+                <UiInput alignment="center" type="tel" :debounceFn="updateHeight" name="textHeight"
+                    :modelValue="localConfig.height" />
+            </UiFormGroup>
+        </div>
+        <div class="flex">
+            <EditorToolboxPropertyColor v-model:config="config.bgColor" v-model:localConfig="localConfig.bgColor"
+                name="textBgColor" :errors="errors" />
+            <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color"
+                name="textColor" :errors="errors" />
+        </div>
+        <div class="flex">
+            <UiFormGroup label="pages.editor.config.text.message" :error="textMessageError" name="message">
+                <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
+            </UiFormGroup>
+        </div>
+        <div class="flex">
+            <slot />
+        </div>
     </div>
 </template>

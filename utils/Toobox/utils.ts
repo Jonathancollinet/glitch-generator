@@ -1,5 +1,5 @@
 import { debounce } from "vue-debounce";
-import type { GlitchErrors } from "~/glitch/types";
+import type { GlitchErrors, GlitchShadowField } from "~/glitch/types";
 
 type ContainerRecord<Container> = {[key in keyof Container]?: string | number | object | boolean};
 
@@ -27,7 +27,7 @@ function applyModifier<Container>({
 
     obj[key] = modifiedValue;
 
-    if (localObj) {
+    if (localObj && modifiedValue !== undefined && modifiedValue !== null && !Number.isNaN(modifiedValue)) {
         localObj[key] = modifiedValue;
     }
 
@@ -97,6 +97,31 @@ export function getErrorMessage(errors: Partial<GlitchErrors>, path: string) {
     const e = errors[path];
 
     if (e) {
-        return `${e.path}.${e.code}`;
+        return `errors.config.${e.path}.${e.code}`;
+    }
+}
+
+export function getPossibleOffsetFrames(field: GlitchShadowField, range: GlitchShadowField[]) {
+    if (field.offsetFrame !== 0) {
+        const percents = [];
+        const previousField = range[field.index - 1];
+        const nextField = range[field.index + 1];
+        let length;
+
+        if (previousField && nextField) {
+            length = (nextField.offsetFrame) - (previousField.offsetFrame + 1);
+        } else if (previousField) {
+            length = 101 - (previousField.offsetFrame + 1);
+        } else {
+            length = 0;
+        }
+
+        for (let i = 1; i <= length; ++i) {
+            percents.push(previousField.offsetFrame + i);
+        }
+
+        return percents;
+    } else {
+        return [field.offsetFrame];
     }
 }

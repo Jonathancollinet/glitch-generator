@@ -21,7 +21,7 @@ const headerClass: ClassValue[] = [
     "h-header",
     "flex items-center justify-between transition-colors",
     "px-8 border-b-2 border-neutral-400",
-    "dark:border-blue-50"
+    "dark:border-primary-50"
 ];
 
 const {locale} = useI18n();

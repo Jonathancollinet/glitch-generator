@@ -3,7 +3,7 @@ import type { GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
     ranges: GlitchShadowField[][],
-    selectedField: GlitchShadowField | undefined,
+    selectedField?: GlitchShadowField,
     hasControls: boolean,
     currentPercent: number
 }>()
@@ -41,11 +41,11 @@ function selectField(field: GlitchShadowField) {
                     :range="range" @selectField="selectField" />
             </div>
             <div class="w-[24px]">
-                <UiButton v-for="(range, index) in ranges" :key="index" class="relative top-0 h-[24px] mb-4 last:mb-0" variant="icon" size="icon" @click="addField(index)">
+                <UiButton v-for="(range, index) in ranges" :key="index" class="relative top-0 h-[24px] mb-4 last:mb-0" variant="ghost" size="icon" @click="addField(index)">
                     +
                 </UiButton>
             </div>
         </div>
-        <UiButton variant="icon" size="icon" @click="addRange">+</UiButton>
+        <UiButton variant="ghost" size="icon" @click="addRange">+</UiButton>
     </div>
 </template>

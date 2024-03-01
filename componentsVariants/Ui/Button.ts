@@ -13,21 +13,29 @@ export const ButtonVariants = cva(
         variants: {
             variant: {
                 default: [
-                    'bg-blue-500 text-neutral-50',
-                    'hover:bg-blue-600 active:bg-blue-700',
-                    'disabled:text-blue-700 disabled:bg-blue-200',
+                    'bg-primary-500 text-neutral-50',
+                    'hover:bg-primary-600 active:bg-primary-700',
+                    'disabled:text-primary-700 disabled:bg-primary-200',
 
-                    'dark:bg-blue-400 dark:text-blue-950',
-                    'dark:hover:bg-blue-300 dark:active:bg-blue-500',
-                    'dark:disabled:bg-blue-800 dark:disabled:text-blue-100'
+                    'dark:bg-primary-400 dark:text-primary-950',
+                    'dark:hover:bg-primary-300 dark:active:bg-primary-500',
+                    'dark:disabled:bg-primary-800 dark:disabled:text-primary-100'
                 ],
                 outline: [
-                    'border border-blue-700 text-blue-700',
-                    'hover:bg-blue-50 active:bg-blue-100',
+                    'border border-primary-700 text-primary-700',
+                    'hover:bg-primary-50 active:bg-primary-100',
                     'disabled:bg-transparent',
 
-                    'dark:bg-transparent dark:text-blue-300 dark:border-blue-300',
-                    'dark:hover:bg-blue-950 dark:active:bg-blue-900'
+                    'dark:bg-transparent dark:text-primary-300 dark:border-primary-300',
+                    'dark:hover:bg-primary-950 dark:active:bg-primary-900'
+                ],
+                ghost: [
+                    'text-primary-500',
+                    'hover:bg-primary-100 active:bg-primary-100',
+                    'disabled:text-primary-200 disabled:bg-transparent',
+
+                    'dark:text-primary-400',
+                    'dark:hover:bg-primary-950 dark:active:bg-primary-900'
                 ],
                 icon: [
                     

@@ -25,18 +25,57 @@
         "editor": {
             "title": "Glitch Editor",
             "config": {
-                "fontSize": "Text size",
-                "color": "Color"
+                "animationDuration": "Animation duration",
+                "color": {
+                    "textBgColorHex": "Bg Color",
+                    "textColorHex": "Color",
+                    "fieldColorHex": "Color"
+                },
+                "text": {
+                    "title": "Text",
+                    "padding": "Padding",
+                    "height": "Height",
+                    "fontSize": "Size",
+                    "message": "Type your text here"
+                },
+                "field": {
+                    "title": "Field",
+                    "shadow": "Shadow",
+                    "offsetX": "Offset X",
+                    "offsetY": "Offset Y",
+                    "blur": "Blur",
+                    "spread": "Spread",
+                    "enabled": "Enabled",
+                    "fillAllFrames": "Fill all frames",
+                    "fillAllFramesDescription": "If enabled, the shadow will be applied to all frames until the next field or animation's end. If disabled, the shadow will be applied to the current frame offset only.",
+                    "offsetFrame": "Offset",
+                    "textShadow": "Text shadow",
+                    "boxShadow": "Box shadow"
+                }
             }
         }
     },
     "errors": {
-        "configValidation": {
-            "fontSize": {
-                "default": "Must be a number between 1 and 128.",
-                "invalid_type": "Must be a number between 1 and 128.",
-                "too_small": "Must be >= 1.",
-                "too_big": "Must be <= 128."
+        "config": {
+            "text": {
+                "size": {
+                    "default": "Must be a number between 1 and 256.",
+                    "invalid_type": "Invalid number, must be between 1 and 256.",
+                    "too_small": "Must be >= 1.",
+                    "too_big": "Must be <= 256."
+                },
+                "padding": {
+                    "default": "Must be a number between 0 and 256.",
+                    "invalid_type": "Invalid number, must be between 0 and 256.",
+                    "too_small": "Must be >= 0.",
+                    "too_big": "Must be <= 256."
+                },
+                "height": {
+                    "default": "Must be a number between 1 and 256.",
+                    "invalid_type": "Invalid number, must be between 0 and 256.",
+                    "too_small": "Must be >= 0.",
+                    "too_big": "Must be <= 256."
+                }
             }
         }
     }

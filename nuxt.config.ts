@@ -37,7 +37,8 @@ export default defineNuxtConfig({
     },
     googleFonts: {
         families: {
-            Gabarito: true
+            Gabarito: true,
+            "Signika Negative": true
         }
     }
 })

@@ -9,12 +9,14 @@ interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplaye
 }
 
 const glitchConfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
-const selectedField = ref<GlitchShadowField>(glitchConfig.ranges[0][0]);
 const errors = ref<Partial<GlitchErrors>>({});
 const bindings = ref<GlitchBindings>({
     message: '',
     textStyle: {
         fontSize: "",
+        padding: "",
+        height: "",
+        backgroundColor: "",
         color: ""
     }
 });
@@ -56,10 +58,6 @@ function exportKeyframe() {
     console.log(glitch?.exportKeyframes());
 }
 
-function selectField(newField: GlitchShadowField) {
-    selectedField.value = newField;
-}
-
 function updateField(newField: GlitchShadowField) {
     const previousField = glitchConfig.ranges[newField.range][newField.index - 1];
     const batch = [newField];
@@ -77,9 +75,14 @@ function addRange() {
 }
 
 function addField(rangeIndex: number) {
-    // glitchConfig.ranges[rangeIndex].push();
+    const range = glitchConfig.ranges[rangeIndex];
+    const lastOffsetFrame = range[range.length - 1].offsetFrame;
+    const nextMidOffset = lastOffsetFrame < 100 ? Math.ceil((lastOffsetFrame + ((100 - lastOffsetFrame) / 2))) : 0;
 
-    // computeConfig(glitchConfig, true);
+    if (nextMidOffset) {
+        range.push(getDefaultField(rangeIndex, range.length, nextMidOffset));
+    }
+    computeConfig(glitchConfig, true);
 }
 
 watch(glitchConfig.text, () => {
@@ -121,6 +124,6 @@ onBeforeUnmount(() => {
         <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
             :hasControls="glitchConfig.controls" :controller="glitch.controller"
             :animationDuration="glitchConfig.animation.duration" />
-        <EditorToolbox v-model:config="glitchConfig" v-model:field="selectedField" :currentPercent="currentPercent"
-            :errors="errors" @addRange="addRange" @addField="addField" @selectField="selectField" @updateField="updateField" />
+        <EditorToolbox v-model:config="glitchConfig" :currentPercent="currentPercent"
+            :errors="errors" @addRange="addRange" @addField="addField" @updateField="updateField" />
     </div></template>

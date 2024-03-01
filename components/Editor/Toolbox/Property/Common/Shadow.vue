@@ -41,14 +41,23 @@ const updateBlur = applyUpdater<GlitchShadowProperty>({
 
 <template>
     <EditorToolboxPropertyCommonOptions v-model:config="property" v-model:localConfig="localProperty" :errors="errors" />
-    <EditorToolboxPropertyColor v-model:config="property.color" v-model:localConfig="localProperty.color" :errors="errors" />
-    <UiFormGroup label="pages.editor.config.field.offsetX" :error="offsetXError" name="offsetX">
-        <input type="number" id="offsetX" name="offsetX" :value="localProperty.offsetX" @input="updateOffsetX">
-    </UiFormGroup>
-    <UiFormGroup label="pages.editor.config.field.offsetY" :error="offsetYError" name="offsetY">
-        <input type="number" id="offsetY" name="offsetY" :value="localProperty.offsetY" @input="updateOffsetY">
-    </UiFormGroup>
-    <UiFormGroup label="pages.editor.config.field.blur" :error="blurError" name="blur">
-        <input type="number" id="blur" name="blur" :value="localProperty.blur" @input="updateBlur">
-    </UiFormGroup>
+    <div class="flex">
+        <EditorToolboxPropertyColor v-model:config="property.color" v-model:localConfig="localProperty.color"
+            name="fieldColor" :errors="errors" />
+        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.offsetX" :error="offsetXError"
+            name="offsetX">
+            <UiInput alignment="center" type="number" name="offsetX" :modelValue="localProperty.offsetX"
+                @update:modelValue="updateOffsetX" />
+        </UiFormGroup>
+        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.offsetY" :error="offsetYError"
+            name="offsetY">
+            <UiInput alignment="center" type="number" name="offsetY" :modelValue="localProperty.offsetY"
+                @update:modelValue="updateOffsetY" />
+        </UiFormGroup>
+        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.blur" :error="blurError" name="blur">
+            <UiInput alignment="center" type="number" name="blur" :modelValue="localProperty.blur"
+                @update:modelValue="updateBlur" />
+        </UiFormGroup>
+        <slot />
+    </div>
 </template>

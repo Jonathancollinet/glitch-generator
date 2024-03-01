@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue';
 import { HeadingVariants, type HeadingVariantsProps } from '~/componentsVariants/Ui/Heading';
 
-withDefaults(defineProps<{
-    variant?: HeadingVariantsProps['variant']
+const props = withDefaults(defineProps<{
+    variant?: HeadingVariantsProps['variant'],
+    class?: HTMLAttributes['class'],
 }>(), {
     variant: 'h1'
 });
@@ -11,7 +13,7 @@ withDefaults(defineProps<{
 <template>
     <component
         :is="variant"
-        :class="cn(HeadingVariants({ variant }), $attrs.class ?? '')">
+        :class="cn(HeadingVariants({ variant }), props.class ?? '')">
         <slot />
     </component>
 </template>

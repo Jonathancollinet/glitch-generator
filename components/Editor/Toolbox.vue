@@ -9,24 +9,27 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     updateField: [field: GlitchShadowField],
-    selectField: [field: GlitchShadowField],
     addField: [rangeIndex: number],
     addRange: []
 }>()
 
 const config = defineModel<GlitchConfig>('config', { required: true });
-const selectedField = defineModel<GlitchShadowField>('field', { required: true });
+const selectedField = ref<GlitchShadowField>();
 
 const localConfig = ref<GlitchConfig>(deepCopy(config.value));
-const localSelectedField = ref<GlitchShadowField>(deepCopy(selectedField.value));
+const localSelectedField = ref<GlitchShadowField>();
 const lastOpenedTab = ref<GlitchAnimationProperty>(GlitchAnimationProperty.TextShadow);
 
 const currentIndexes = computed(() => {
     return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : '';
 })
 
-function selectField(field: GlitchShadowField) {
-    emit('selectField', field);
+function selectField(newField: GlitchShadowField) {
+    if (selectedField.value && newField.range === selectedField.value.range && newField.index === selectedField.value.index) {
+        selectedField.value = undefined;
+        return;
+    }
+    selectedField.value = newField;
 }
 
 const roundedPercent = computed(() => {
@@ -59,11 +62,19 @@ watch(config.value.ranges, () => {
     <div>
         <EditorToolboxRanges :hasControls="config.controls" :currentPercent="roundedPercent" :ranges="config.ranges"
             :selectedField="selectedField" @selectField="selectField" @addRange="addRange" @addField="addField" />
-        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
-        <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
-            :errors="errors" />
         <EditorToolboxField v-if="selectedField && localSelectedField" :range="config.ranges[selectedField.range]"
             :errors="errors" :key="currentIndexes" v-model:openTab="lastOpenedTab" v-model:config="selectedField"
             v-model:localConfig="localSelectedField" />
+        <UiCard>
+            <template #title>
+                <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
+            </template>
+            <template #content>
+                <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors">
+                    <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
+                    :errors="errors" />
+                </EditorToolboxText>
+            </template>
+        </UiCard>
     </div>
 </template>

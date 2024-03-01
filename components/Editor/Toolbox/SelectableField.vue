@@ -58,7 +58,7 @@ function getDataIndex() {
     return indexes.toString();
 }
 
-function getAtts(s: StyleAttrs, shadow: GlitchShadowProperty, nextShadow?: GlitchShadowProperty) {
+function getAttrs(s: StyleAttrs, shadow: GlitchShadowProperty, nextShadow?: GlitchShadowProperty) {
     s.background = getColorFor(shadow, nextShadow, false);
 
     if (shadow.blur > 0) {
@@ -80,11 +80,11 @@ function getStyle() {
     const boxShadowEnabled = boxShadow.enabled;
 
     if (textShadowEnabled) {
-        getAtts(style[GlitchAnimationProperty.TextShadow], textShadow, nextTextShadow);
+        getAttrs(style[GlitchAnimationProperty.TextShadow], textShadow, nextTextShadow);
     }
 
     if (boxShadowEnabled) {
-        getAtts(style[GlitchAnimationProperty.BoxShadow], boxShadow, nextBoxShadow);
+        getAttrs(style[GlitchAnimationProperty.BoxShadow], boxShadow, nextBoxShadow);
     }
 
     return style;
@@ -95,10 +95,46 @@ const boxShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.BoxShad
 
 const hasShadowBox = computed(() => {
     return props.field.properties[GlitchAnimationProperty.BoxShadow].enabled;
-})
+});
+
+const fieldStyle = computed(() => {
+    return {
+        width: getPercentWidth(),
+        left: `${props.field.offsetFrame - props.field.offsetFrame * 0.01}%`
+    }
+});
+
+function hideGhost(e: DragEvent) {
+    oldX = e.pageX;
+    if (e instanceof DragEvent) {
+        e.dataTransfer?.setDragImage(new Image(), 0, 0);
+    }
+}
 
 function selectField() {
     emit('selectField', props.field);
+}
+
+let oldX = 0;
+
+function drag(e: DragEvent) {
+    const target = e.target as HTMLElement;
+
+    if (target) {
+        if (e.pageX < oldX) {
+            // left
+            console.log('left');
+            saveX(e, e.pageX + 1);
+        } else {
+            // right
+            console.log('right');
+            saveX(e, e.pageX - 1);
+        }
+    }
+}
+
+function saveX(e: DragEvent, x?: number) {
+    oldX = x ?? e.pageX;
 }
 
 const fieldClass = computed(() => [
@@ -109,10 +145,8 @@ const fieldClass = computed(() => [
 </script>
 
 <template>
-    <div :data-index="getDataIndex()" :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="{
-        width: getPercentWidth(),
-        left: `${field.offsetFrame - field.offsetFrame * 0.01}%`
-    }">
+    <div :draggable="true" @dragstart="hideGhost" @dragover="drag" @dragend="saveX" :data-index="getDataIndex()"
+        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="fieldStyle">
         <div :class="`w-full`" :style="{ height: hasShadowBox ? '70%' : '100%', ...textShadowStyle }" />
         <div v-if="hasShadowBox" class="h-[30%] w-full" :style="{ ...boxShadowStyle }" />
     </div>

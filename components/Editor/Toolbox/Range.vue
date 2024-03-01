@@ -3,7 +3,7 @@ import { GlitchAnimationProperty, type GlitchShadowField } from '~/glitch/types'
 
 const props = defineProps<{
     range: GlitchShadowField[],
-    selectedField: GlitchShadowField | undefined
+    selectedField?: GlitchShadowField
 }>()
 
 const emit = defineEmits<{

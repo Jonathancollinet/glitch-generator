@@ -16,26 +16,22 @@ const updateEnabled = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     localObj: localProperty.value,
     key: 'enabled',
-    modifier: Boolean,
-    debounced: 100
+    modifier: Boolean
 });
 
 const updateFillAllFrames = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     localObj: localProperty.value,
     key: 'fillAllFrames',
-    modifier: Boolean,
-    debounced: 100
+    modifier: Boolean
 });
 </script>
 
 <template>
-    <UiFormGroup label="pages.editor.config.field.enabled" :error="enabledError" name="enabled">
-        <input type="checkbox" id="enabled" name="enabled" :checked="localProperty.enabled"
-            @change="updateEnabled">
-    </UiFormGroup>
-    <UiFormGroup label="pages.editor.config.field.fillAllFrames" :error="fillAllFramesError" name="fillAllFrames">
-        <input type="checkbox" id="fillAllFrames" name="fillAllFrames" :checked="localProperty.fillAllFrames"
-            @change="updateFillAllFrames">
-    </UiFormGroup>
+    <div class="flex">
+        <UiCheckbox label="pages.editor.config.field.enabled" name="enabled" :checked="localProperty.enabled"
+            :updateFn="updateEnabled" :error="enabledError" />
+        <UiCheckbox label="pages.editor.config.field.fillAllFrames" name="fillAllFrames"
+            :checked="localProperty.fillAllFrames" :updateFn="updateFillAllFrames" :error="fillAllFramesError" />
+    </div>
 </template>

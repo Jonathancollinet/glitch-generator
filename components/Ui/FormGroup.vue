@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-defineProps<{
+import type { HTMLAttributes } from 'vue';
+import { FormGroupVariants, type FormGroupVariantsProps } from '~/componentsVariants/Ui/FormGroup';
+
+const props = defineProps<{
+    variant?: FormGroupVariantsProps['variant']
+    size?: FormGroupVariantsProps['size']
+    alignment?: FormGroupVariantsProps['alignment']
+    class?: HTMLAttributes['class'],
     label?: string,
     name: string,
     error?: string,
@@ -7,8 +14,9 @@ defineProps<{
 </script>
 
 <template>
-    <div class="mb-2 pb-2 border-b last:mb-0 last:pb-2 last:border-b-0">
-        <label class="block" v-if="label" :for="name">{{ $t(label) }}</label>
+    <div :class="cn(FormGroupVariants({ variant, alignment, size }), props.class ?? '')">
+        <slot name="before" />
+        <label class="select-none block" v-if="label" :for="name">{{ $t(label) }}</label>
         <slot />
         <UiText v-if="error" as="div" class="text-xs mt-1 text-red-600 italic">{{ $t(error) }}</UiText>
     </div>

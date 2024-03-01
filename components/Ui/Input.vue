@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { type InputVariantsProps, InputVariants } from '~/componentsVariants/Ui/Input';
 import vueDebounce from 'vue-debounce';
 
 const vDebounce = vueDebounce({});
@@ -6,10 +7,11 @@ const vDebounce = vueDebounce({});
 type acceptedTypes = 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url' | 'color';
 
 const props = withDefaults(defineProps<{
+    variant?: InputVariantsProps['variant'],
+    alignment?: InputVariantsProps['alignment'],
+    size?: InputVariantsProps['size'],
     type?: acceptedTypes,
     name: string,
-    debounce?: boolean,
-    debounceTime?: number,
     debounceFn?: (value: any) => void,
 }>(), {
     type: 'text',
@@ -18,22 +20,18 @@ const props = withDefaults(defineProps<{
 
 const modelValue = defineModel();
 
-const localeDebounceTime = computed(() => {
-    if (props.debounce) {
-        return props.debounceTime || 300;
-    }
-});
+const isColor = computed(() => props.type === 'color');
 
-function updateModelValue(value: string) {
+function updateModelValue(e: Event) {
     if (props.debounceFn) {
-        props.debounceFn(value);
+        props.debounceFn(e);
     } else {
-        modelValue.value = value;
+        modelValue.value = (e.target as HTMLInputElement)?.value;
     }
 }
 </script>
 
 <template>
-    <input v-if="debounce" :type="type" :id="name" :name="name" :value="modelValue" v-debounce:[debounceTime]="updateModelValue">
-    <input v-else :type="type" :id="name" :name="name" v-model="modelValue">
+    <input :class="cn(isColor ? 'cursor-pointer': '', InputVariants({ variant, alignment, size }), $attrs.class ?? '')" :type="type" :id="name" :name="name"
+        :value="modelValue" @input="updateModelValue">
 </template>

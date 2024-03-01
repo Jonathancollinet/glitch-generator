@@ -22,8 +22,10 @@ const updateSpread = applyUpdater<GlitchShadowProperty>({
 </script>
 
 <template>
-    <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty" :errors="errors" />
-    <UiFormGroup label="pages.editor.config.field.spread" :error="spreadError" name="spread">
-        <input type="number" id="spread" name="spread" :value="localProperty.spread" @input="updateSpread">
-    </UiFormGroup>
-</template>
+    <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty" :errors="errors">
+        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.spread" :error="spreadError"
+            name="spread">
+            <UiInput alignment="center" type="number" name="spread" :modelValue="localProperty.spread"
+                @update:modelValue="updateSpread" />
+        </UiFormGroup>
+    </EditorToolboxPropertyCommonShadow></template>

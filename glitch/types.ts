@@ -44,6 +44,9 @@ export type GlitchBaseText = {
     size: number,
     unit: GlitchUnitUnion,
     color: GlitchColor,
+    bgColor: GlitchColor,
+    height: number,
+    padding: number,
     message: string
 }
 
@@ -72,6 +75,9 @@ export type GlitchBindings = {
     message: string,
     textStyle: {
         fontSize: string,
+        padding: string,
+        height: string,
+        backgroundColor: string,
         color: string,
     } & AnimationBindings
 }

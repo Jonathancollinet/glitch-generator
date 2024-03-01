@@ -106,7 +106,9 @@ export default class GlitchKeyframes {
                 }
             } else {
                 for (let i = field.offsetFrame; i < nextPercent; ++i) {
-                    this.generatedFrames[i][propertyName][field.range] = '';
+                    if (this.generatedFrames[i]) {
+                        this.generatedFrames[i][propertyName][field.range] = '';
+                    }
                 }
                 if (fieldProperty.enabled) {
                     this.setFrame(propertyName, field, field.offsetFrame);

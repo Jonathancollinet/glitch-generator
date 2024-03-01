@@ -11,7 +11,7 @@ export const glitchErrorSchemas = {
 
 export const glitchColorSchemas = {
     hex: z.string(),
-    alphaPercent: z.number().int().gte(0).lte(1000)
+    alphaPercent: z.number().int().gte(0).lte(100)
 };
 
 export const glitchShadowPropertySchemas = {
@@ -34,6 +34,8 @@ export const glitchAnimationSchemas = {
 
 export const glitchTextSchemas = {
     size: z.number().positive().lte(256),
+    height: z.number().gte(0).lte(256),
+    padding: z.number().gte(0).lte(256),
     unit: z.nativeEnum(GlitchUnit),
     message: z.string()
 };

@@ -89,11 +89,11 @@ onUnmounted(() => {
         <div class="relative w-full py-1 px-4 overflow-hidden cursor-pointer group select-none"
             @mousedown="selectAnimationAt" @touchstart="selectAnimationAt" @touchmove="selectAnimationAt"
             @touchend="removeTitle" @mouseenter="setTitle" @mouseleave="removeTitle">
-            <div ref="moveContainer" class="relative flex items-center w-full h-2 bg-neutral-400 group-hover:bg-blue-400">
+            <div ref="moveContainer" class="relative flex items-center w-full h-2 bg-neutral-400 group-hover:bg-primary-400">
                 <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost" @touchstart.stop="hideGhost"
                     @drag.stop="selectAnimationAt" @mouseup.stop draggable="true"
                     :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
-                    <div class="w-full h-full bg-blue-800 rounded-full -translate-x-1/2"></div>
+                    <div class="w-full h-full bg-primary-800 rounded-full -translate-x-1/2"></div>
                 </div>
             </div>
         </div>

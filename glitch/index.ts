@@ -1,6 +1,5 @@
 import type {
     AnimationBindings,
-    GlitchAnimationProperty,
     GlitchConfig,
     GlitchShadowField
 } from './types';
@@ -118,6 +117,9 @@ export default class Glitch {
         return {
             fontSize: `${this.config.text.size}${this.config.text.unit}`,
             color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),
+            height: `${this.config.text.height}px`,
+            padding: `${this.config.text.padding}px`,
+            backgroundColor: hexToRGB(this.config.text.bgColor.hex, this.config.text.bgColor.alphaPercent),
             ...animation
         }
     }
