@@ -2,7 +2,8 @@
 import type { ClassValue } from 'class-variance-authority/types';
 import { Icons } from '~/types/enums';
 
-const { tm } = useI18n();
+const { tm, locale } = useI18n();
+
 const colorMode = useColorMode()
 const navigationItems = useNavigationItems();
 
@@ -24,15 +25,13 @@ const headerClass: ClassValue[] = [
     "dark:border-primary-50"
 ];
 
-const {locale} = useI18n();
-
 onMounted(() => {
     setDarkModeIcon();
 });
 </script>
 
 <template>
-    <header :class="cn(headerClass, $attrs.class ?? '')">
+    <header :class="cn(headerClass)">
         <nav>
             <ul class="flex justify-center space-x-6">
                 <LayoutNavigationList :items="navigationItems" />

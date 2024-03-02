@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { ClassValue } from 'class-variance-authority/types';
 import { GlitchAnimationProperty, type GlitchErrors, type GlitchShadowField, type GlitchShadowProperty } from '~/glitch/types';
 import { applyUpdater, getPossibleOffsetFrames } from '~/utils/Toobox/utils';
 
@@ -38,29 +39,52 @@ const updateOffsetFrame = applyUpdater<GlitchShadowField>({
     key: 'offsetFrame',
     modifier: Number
 });
+
+function cardClass(property: GlitchShadowProperty) {
+    const c: ClassValue[] = [
+        'transition-colors',
+    ]
+
+    if (property.enabled) {
+        c.push('bg-primary-200');
+    } else {
+        c.push('opacity-80 bg-neutral-200');
+    }
+
+    return cn(c);
+}
 </script>
 
 <template>
-    <UiCard>
+    <UiCard class="bg-primary-100">
         <template #title>
-            <UiFormGroup variant="inline" label="pages.editor.config.field.offsetFrame" name="offsetFrame">
-                <select id="offsetFrame" name="offsetFrame" :value="localField.offsetFrame" @change="updateOffsetFrame">
-                    <option v-for="frame in getPossibleOffsetFrames(field, range)" :key="frame" :value="frame">{{ frame }}</option>
-                </select>
-            </UiFormGroup>
+            <div class="flex items-center">
+                <UiHeading class="m-0" variant="h3">{{ $t('pages.editor.config.field.offsetFrame') }}</UiHeading>
+                <UiFormGroup class="m-0 ml-2" variant="inline" name="offsetFrame">
+                    <select id="offsetFrame" name="offsetFrame" :value="localField.offsetFrame"
+                        @change="updateOffsetFrame">
+                        <option v-for="frame in getPossibleOffsetFrames(field, range)" :key="frame" :value="frame">
+                            {{ frame }}
+                        </option>
+                    </select>
+                </UiFormGroup>
+            </div>
         </template>
+
         <template #content>
-            <UiTabs :tabs="tabsConfig" v-model="openTab">
-                <template v-slot="slotProps">
-                    <EditorToolboxPropertyTextShadow v-if="slotProps.activeTab === GlitchAnimationProperty.TextShadow"
-                        v-model:config="textShadow"
+            <UiCard :class="cardClass(textShadow)">
+                <template #content>
+                    <EditorToolboxPropertyTextShadow v-model:config="textShadow"
                         v-model:localConfig="localTextShadow" :errors="errors" />
-                    <EditorToolboxPropertyBoxShadow v-else-if="slotProps.activeTab === GlitchAnimationProperty.BoxShadow"
-                        v-model:config="boxShadow"
+                </template>
+            </UiCard>
+            <UiCard :class="cardClass(boxShadow)">
+
+                <template #content>
+                    <EditorToolboxPropertyBoxShadow v-model:config="boxShadow"
                         v-model:localConfig="localBoxShadow" :errors="errors" />
                 </template>
-            </UiTabs>
-
+            </UiCard>
         </template>
     </UiCard>
 </template>

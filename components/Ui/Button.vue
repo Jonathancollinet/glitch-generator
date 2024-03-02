@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
 import { ButtonVariants, type ButtonVariantsProps } from '~/componentsVariants/Ui/Button';
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
 	variant?: ButtonVariantsProps['variant']
 	size?: ButtonVariantsProps['size']
-	as?: 'button' | 'div'
+	as?: 'button' | 'div',
+    class?: HTMLAttributes['class'],
 }>(), {
 	as: 'button'
 });
@@ -13,7 +15,7 @@ withDefaults(defineProps<{
 <template>
 	<component
 		:is="as"
-		:class="cn(ButtonVariants({ variant, size }), $attrs.class ?? '')">
-		<slot />
+		:class="cn(ButtonVariants({ variant, size }), props.class ?? '')">
+    <slot />
 	</component>
 </template>

@@ -79,6 +79,7 @@ export default class GlitchKeyframes {
         if (fields) {
             fields.forEach((field) => this.createFrame(field, config.ranges[field.range][field.index + 1]));
         } else {
+            this.generatedFrames = {};
             config.ranges.forEach((range) => {
                 range.forEach((field) => this.createFrame(field, config.ranges[field.range][field.index + 1]));
             });

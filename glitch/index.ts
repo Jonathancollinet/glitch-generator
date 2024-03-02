@@ -84,6 +84,11 @@ export default class Glitch {
         this.keyframes.setGlitchedElement(element);
     }
 
+    removeRange(range: number) {
+        this.config.ranges.splice(range, 1);
+        this.keyframes.generate(this.config);
+    }
+
     private getConfigCopy(config: GlitchConfig) {
         const rawConfig = toRaw(config);
         const functions = {

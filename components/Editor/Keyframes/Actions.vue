@@ -10,21 +10,27 @@ const isPaused = computed(() => props.playState === 'paused' || props.playState 
 
 const emit = defineEmits<{
     play: []
-    pause: []
+    pause: [],
+    forward: [],
+    backward: []
 }>()
 </script>
 
 <template>
-  <div class="flex justify-center items-center">
-    <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('play')">
-        <UiIcon :icon="Icons.Play" />
-    </UiButton>
-    <UiButton variant="outline" size="icon" :disabled="!playState || isPaused" @click="emit('pause')">
-        <UiIcon :icon="Icons.Pause" />
-    </UiButton>
-  </div>
+    <div class="flex items-center justify-around w-[55px]">
+        <!-- <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('backward')">
+            <UiIcon :icon="Icons.Backward" />
+        </UiButton> -->
+        <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('play')">
+            <UiIcon :icon="Icons.Play" />
+        </UiButton>
+        <UiButton variant="outline" size="icon" :disabled="!playState || isPaused" @click="emit('pause')">
+            <UiIcon :icon="Icons.Pause" />
+        </UiButton>
+        <!-- <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('forward')">
+            <UiIcon :icon="Icons.Forward" />
+        </UiButton> -->
+    </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

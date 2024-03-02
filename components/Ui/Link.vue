@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { LinkVariants, type LinkVariantsProps } from '~/componentsVariants/Ui/Link';
 import { NuxtLink } from "#components";
+import type { HTMLAttributes } from 'vue';
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
     as?: "a" | typeof NuxtLink
-    variant?: LinkVariantsProps['variant']
+    variant?: LinkVariantsProps['variant'],
+    class?: HTMLAttributes['class']
 }>(), {
     as: NuxtLink
 });
@@ -12,7 +14,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-    <component :is="as" :class="cn(LinkVariants({ variant }), $attrs.class ?? '')">
+    <component :is="as" :class="cn(LinkVariants({ variant }), props.class ?? '')">
         <slot />
     </component>
 </template>

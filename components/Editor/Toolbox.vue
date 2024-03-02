@@ -10,7 +10,9 @@ const props = defineProps<{
 const emit = defineEmits<{
     updateField: [field: GlitchShadowField],
     addField: [rangeIndex: number],
-    addRange: []
+    removeRange: [index: number],
+    addEmptyRange: [],
+    duplicateRange: []
 }>()
 
 const config = defineModel<GlitchConfig>('config', { required: true });
@@ -36,8 +38,18 @@ function addField(rangeIndex: number) {
     emit('addField', rangeIndex);
 }
 
-function addRange() {
-    emit('addRange');
+function removeRange(index: number) {
+    selectedField.value = undefined;
+    emit('removeRange', index);
+}
+
+function addEmptyRange() {
+    emit('addEmptyRange');
+}
+
+function duplicateRange() {
+    selectedField.value = undefined;
+    emit('duplicateRange');
 }
 
 watch(selectedField, (field) => {
@@ -48,6 +60,8 @@ watch(selectedField, (field) => {
 
 watch(config.value.ranges, () => {
     if (selectedField.value) {
+        console.log("update");
+        localSelectedField.value = deepCopy(selectedField.value);
         emit('updateField', selectedField.value);
     }
 }, { deep: true });
@@ -56,8 +70,9 @@ watch(config.value.ranges, () => {
 
 <template>
     <div>
-        <EditorToolboxRanges :textFontSize="config.text.size" :hasControls="config.controls" :currentPercent="roundedPercent" :ranges="config.ranges"
-            :selectedField="selectedField" @selectField="selectField" @addRange="addRange" @addField="addField" />
+        <EditorToolboxRanges :textFontSize="config.text.size" :hasControls="config.controls"
+            :currentPercent="roundedPercent" :ranges="config.ranges" :selectedField="selectedField"
+            @selectField="selectField" @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange" @addField="addField" @removeRange="removeRange" />
         <EditorToolboxField v-if="selectedField && localSelectedField" :range="config.ranges[selectedField.range]"
             :errors="errors" :key="currentIndexes" v-model:openTab="lastOpenedTab" v-model:config="selectedField"
             v-model:localConfig="localSelectedField" />
@@ -65,10 +80,11 @@ watch(config.value.ranges, () => {
             <template #title>
                 <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
             </template>
+
             <template #content>
                 <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors">
-                    <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
-                    :errors="errors" />
+                    <EditorToolboxAnimation v-model:config="config.animation"
+                        v-model:localConfig="localConfig.animation" :errors="errors" />
                 </EditorToolboxText>
             </template>
         </UiCard>

@@ -5,6 +5,10 @@ export enum Icons {
     Sun = 'SunIcon',
     Play = 'PlayIcon',
     Pause = 'PauseIcon',
+    Dots = 'DotsIcon',
+    Backward = 'BackwardIcon',
+    Forward = 'ForwardIcon',
+
 }
 
 export enum Urls {

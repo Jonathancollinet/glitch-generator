@@ -65,7 +65,11 @@ function getDataIndex() {
 }
 
 function getAttrs(s: StyleAttrs, shadow: GlitchShadowProperty, blurModifier: number, nextShadow?: GlitchShadowProperty) {
-    s.background = getColorFor(shadow, nextShadow, false);
+    if (nextShadow?.enabled) {
+        s.background = getColorFor(shadow, nextShadow, false);
+    } else {
+        s.background = getColorFor(shadow, undefined, false);
+    }
 
     if (shadow.blur > 0) {
         s.filter = `blur(${shadow.blur / props.textFontSize * blurModifier}px)`;

@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'class-variance-authority/types';
+import type { HTMLAttributes } from 'vue';
 import { TextVariants, type TextVariantsProps } from '~/componentsVariants/Ui/Text';
 
-withDefaults(defineProps<{
-	as?: 'div' | 'span' | 'p'
+const props = withDefaults(defineProps<{
+	as?: 'div' | 'span' | 'p',
+    class?: HTMLAttributes['class'],
 }>(), {
     as: 'p',
 });
@@ -13,7 +15,7 @@ withDefaults(defineProps<{
     <component
         :data-tag="as"
         :is="as"
-        :class="cn(TextVariants(), $attrs.class ?? '')">
+        :class="cn(TextVariants(), props.class ?? '')">
         <slot />
     </component>
 </template>

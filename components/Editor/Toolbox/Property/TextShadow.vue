@@ -11,5 +11,7 @@ const localProperty = defineModel<GlitchShadowProperty>('localConfig', { require
 </script>
 
 <template>
-    <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty" :errors="errors" />
+    <div>
+        <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty" name="textShadow" :errors="errors" />
+    </div>
 </template>

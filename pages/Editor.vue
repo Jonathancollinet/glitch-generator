@@ -59,19 +59,39 @@ function exportKeyframe() {
 }
 
 function updateField(newField: GlitchShadowField) {
-    const previousField = glitchConfig.ranges[newField.range][newField.index - 1];
-    const batch = [newField];
+    if (glitchConfig.ranges[newField.range]) {
+        const previousField = glitchConfig.ranges[newField.range][newField.index - 1];
+        const batch = [newField];
+        const nextField = glitchConfig.ranges[newField.range][newField.index + 1];
 
-    if (previousField) {
-        batch.splice(0, 0, previousField);
+        if (previousField) {
+            batch.splice(0, 0, previousField);
+        }
+        if (nextField) {
+            batch.push(nextField);
+        }
+
+        glitch?.computeFields(batch);
     }
-
-    glitch?.computeFields(batch);
 }
 
-function addRange() {
+function addEmptyRange() {
     glitchConfig.ranges.push([getDefaultField(glitchConfig.ranges.length, 0, 0)]);
     computeConfig(glitchConfig, true);
+}
+
+function duplicateRange() {
+    const rangeNb = glitchConfig.ranges.length;
+
+    if (rangeNb) {
+        const rangeToCopy = deepCopy(glitchConfig.ranges[rangeNb - 1]).map(field => {
+            field.range += 1;
+            return field;
+        });
+
+        glitchConfig.ranges.push(rangeToCopy);
+        computeConfig(glitchConfig, true);
+    }
 }
 
 function addField(rangeIndex: number) {
@@ -82,6 +102,25 @@ function addField(rangeIndex: number) {
     if (nextMidOffset) {
         range.push(getDefaultField(rangeIndex, range.length, nextMidOffset));
     }
+
+    computeConfig(glitchConfig, true);
+}
+
+function removeRange(index: number) {
+    const rangeNb = glitchConfig.ranges.length;
+
+    if (index < (rangeNb - 1)) {
+        const length = (rangeNb - 1) - index;
+
+        for (let i = 1; i <= length; ++i) {
+            glitchConfig.ranges[index + i] = glitchConfig.ranges[index + i].map(field => {
+                field.range -= 1;
+                return field;
+            });
+        }
+    }
+
+    glitchConfig.ranges.splice(index, 1);
     computeConfig(glitchConfig, true);
 }
 
@@ -121,9 +160,15 @@ onBeforeUnmount(() => {
             <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
             <UiButton @click="exportKeyframe">Get Keyframes</UiButton>
         </div>
-        <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
-            :hasControls="glitchConfig.controls" :controller="glitch.controller"
-            :animationDuration="glitchConfig.animation.duration" />
-        <EditorToolbox v-model:config="glitchConfig" :currentPercent="currentPercent"
-            :errors="errors" @addRange="addRange" @addField="addField" @updateField="updateField" />
-    </div></template>
+        <UiCard>
+            <template #content>
+                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
+                    :hasControls="glitchConfig.controls" :controller="glitch.controller"
+                    :animationDuration="glitchConfig.animation.duration" />
+            </template>
+        </UiCard>
+        <EditorToolbox v-model:config="glitchConfig" :currentPercent="currentPercent" :errors="errors"
+            @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange" @addField="addField"
+            @updateField="updateField" @removeRange="removeRange" />
+    </div>
+</template>

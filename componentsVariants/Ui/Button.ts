@@ -30,12 +30,15 @@ export const ButtonVariants = cva(
                     'dark:hover:bg-primary-950 dark:active:bg-primary-900'
                 ],
                 ghost: [
-                    'text-primary-500',
-                    'hover:bg-primary-100 active:bg-primary-100',
+                    'text-primary-600 bg-primary-200',
+                    'hover:bg-primary-300 active:bg-primary-300',
                     'disabled:text-primary-200 disabled:bg-transparent',
 
-                    'dark:text-primary-400',
+                    'dark:text-primary-800',
                     'dark:hover:bg-primary-950 dark:active:bg-primary-900'
+                ],
+                link: [
+                    'hover:text-primary-500'
                 ],
                 icon: [
                     
@@ -46,6 +49,7 @@ export const ButtonVariants = cva(
                 sm: 'h-9 rounded-sm px-3 text-sm',
                 lg: 'h-11 rounded-lg px-8 text-lg',
                 icon: 'h-6 w-6',
+                link: 'text-sm'
             },
         },
         defaultVariants: {

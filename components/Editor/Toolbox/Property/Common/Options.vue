@@ -4,6 +4,7 @@ import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
+    name: string
 }>()
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
@@ -25,13 +26,17 @@ const updateFillAllFrames = applyUpdater<GlitchShadowProperty>({
     key: 'fillAllFrames',
     modifier: Boolean
 });
+
+function getName(key: string) {
+    return `${props.name}.${key}`;
+}
 </script>
 
 <template>
-    <div class="flex">
-        <UiCheckbox label="pages.editor.config.field.enabled" name="enabled" :checked="localProperty.enabled"
+    <div class="flex justify-between">
+        <UiCheckbox :label="`pages.editor.config.field.${name}`" :name="getName('enabled')" :checked="localProperty.enabled"
             :updateFn="updateEnabled" :error="enabledError" />
-        <UiCheckbox label="pages.editor.config.field.fillAllFrames" name="fillAllFrames"
+        <UiCheckbox :label="`pages.editor.config.field.fillAllFrames`" :name="getName('fillAllFrames')"
             :checked="localProperty.fillAllFrames" :updateFn="updateFillAllFrames" :error="fillAllFramesError" />
     </div>
 </template>

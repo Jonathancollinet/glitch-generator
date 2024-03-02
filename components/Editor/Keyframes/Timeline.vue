@@ -82,18 +82,21 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="mb-2 px-5 w-full">
-        <div class="text-center" v-if="displayTitle">
-            {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
-        </div>
-        <div class="relative w-full py-1 px-4 overflow-hidden cursor-pointer group select-none"
+    <div class="mb-2 px-5 w-full select-none">
+        <Transition name="fade" mode="out-in">
+            <div class="text-center" v-if="displayTitle">
+                {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
+            </div>
+        </Transition>
+        <div class="relative w-full py-1 px-4 overflow-hidden cursor-pointer group"
             @mousedown="selectAnimationAt" @touchstart="selectAnimationAt" @touchmove="selectAnimationAt"
             @touchend="removeTitle" @mouseenter="setTitle" @mouseleave="removeTitle">
-            <div ref="moveContainer" class="relative flex items-center w-full h-2 bg-neutral-400 group-hover:bg-primary-400">
-                <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost" @touchstart.stop="hideGhost"
-                    @drag.stop="selectAnimationAt" @mouseup.stop draggable="true"
+            <div ref="moveContainer"
+                class="relative flex items-center w-full h-2 bg-neutral-400 group-hover:bg-primary-400">
+                <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost"
+                    @touchstart.stop="hideGhost" @drag.stop="selectAnimationAt" @mouseup.stop draggable="true"
                     :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
-                    <div class="w-full h-full bg-primary-800 rounded-full -translate-x-1/2"></div>
+                    <div class="w-full h-full bg-primary-800 rounded-full -translate-x-1/2 hover:cursor-grab"></div>
                 </div>
             </div>
         </div>

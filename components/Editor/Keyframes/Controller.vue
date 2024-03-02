@@ -11,7 +11,7 @@ const currentPercent = defineModel<number>({ required: true });
 let currentReq: number;
 let now, elapsed, then = Date.now();
 
-const refreshCurrentTimeFPS = 60;
+const refreshCurrentTimeFPS = 75;
 const fpsInterval = 1000 / refreshCurrentTimeFPS
 const playState = ref<AnimationPlayState>("idle");
 
@@ -65,6 +65,27 @@ function pause() {
     }
 }
 
+function forward() {
+    if (props.controller) {
+        currentPercent.value += 1;
+        props.controller?.selectAnimationAt(currentPercent.value);
+    }
+}
+
+function backward() {
+    if (props.controller) {
+        currentPercent.value -= 1;
+        props.controller?.selectAnimationAt(currentPercent.value);
+    }
+}
+
+const actions = {
+    play,
+    pause,
+    forward,
+    backward
+}
+
 onMounted(() => {
     play();
 });
@@ -72,5 +93,5 @@ onMounted(() => {
 
 <template>
     <EditorKeyframesTimeline :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorKeyframesActions :playState="playState" @play="play()" @pause="pause()" />
+    <EditorKeyframesActions :playState="playState" v-on="actions"@play="play()" @pause="pause()" />
 </template>

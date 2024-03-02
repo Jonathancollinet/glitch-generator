@@ -55,7 +55,7 @@ const updateHeight = applyUpdater<GlitchBaseText>({
 </script>
 
 <template>
-    <div class="px-4">
+    <div>
         <div class="flex">
             <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.fontSize" :error="textSizeError"
                 name="textSize">

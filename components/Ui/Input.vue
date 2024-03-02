@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { type InputVariantsProps, InputVariants } from '~/componentsVariants/Ui/Input';
 import vueDebounce from 'vue-debounce';
+import type { HTMLAttributes } from 'vue';
 
 const vDebounce = vueDebounce({});
 
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<{
     size?: InputVariantsProps['size'],
     type?: acceptedTypes,
     name: string,
+    class?: HTMLAttributes['class'],
     debounceFn?: (value: any) => void,
 }>(), {
     type: 'text',
@@ -32,6 +34,6 @@ function updateModelValue(e: Event) {
 </script>
 
 <template>
-    <input :class="cn(isColor ? 'cursor-pointer': '', InputVariants({ variant, alignment, size }), $attrs.class ?? '')" :type="type" :id="name" :name="name"
+    <input :class="cn(isColor ? 'cursor-pointer': '', InputVariants({ variant, alignment, size }), props.class ?? '')" :type="type" :id="name" :name="name"
         :value="modelValue" @input="updateModelValue">
 </template>

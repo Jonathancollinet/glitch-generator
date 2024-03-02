@@ -29,7 +29,12 @@
                 "color": {
                     "textBgColorHex": "Bg Color",
                     "textColorHex": "Color",
-                    "fieldColorHex": "Color"
+                    "textShadow": {
+                        "fieldColorHex": "Color"
+                    },
+                    "boxShadow": {
+                        "fieldColorHex": "Color"
+                    }
                 },
                 "text": {
                     "title": "Text",

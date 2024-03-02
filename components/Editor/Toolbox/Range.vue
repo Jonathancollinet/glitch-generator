@@ -17,14 +17,14 @@ let isDragging = false;
 let currentField: GlitchShadowField | undefined;
 let nextCurrentField: GlitchShadowField | undefined;
 let jump = 0;
-let jumpSize = 2;
+let jumpSize = 4;
 let hoveredField = ref<GlitchShadowField>();
 const fieldPropertiesToShow = ref<GlitchShadowField>();
 
 const draggingFieldIndex = ref(-1);
 
 function changeFieldOffset(modifier: number) {
-    if (jump === jumpSize * modifier) {
+    if (jump === (jumpSize * modifier)) {
         jump = 0;
 
         if (nextCurrentField) {
@@ -146,14 +146,16 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @drag="drag" @mouseout="removeProperties">
+    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0 first:mb-4" @drag="drag" @mouseout="removeProperties">
         <div class="absolute whitespace-nowrap z-50 top-0 -translate-x-1/2 -translate-y-full bg-primary-50 border-2 rounded-xl border-primary-500 p-2"
             v-show="showProperties" :style="propertyPosition">
-            <EditorToolboxFieldProperties :field="fieldPropertiesToShow" :nextHoveredFrameOffset="nextHoveredFrameOffset" />
+            <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
+                :nextHoveredFrameOffset="nextHoveredFrameOffset" />
         </div>
         <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
             :textFontSize="textFontSize" :field="field" :nextField="range[index + 1]"
             :draggingFieldIndex="draggingFieldIndex" :isSelected="isFieldSelected(field)"
-            @displayProperties="displayProperties" @dragStart="dragStart" @dragEnd="dragEnd" @selectField="selectField" />
+            @displayProperties="displayProperties" @dragStart="dragStart" @dragEnd="dragEnd"
+            @selectField="selectField" />
     </div>
 </template>
