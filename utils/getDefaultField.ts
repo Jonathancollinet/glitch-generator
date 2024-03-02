@@ -31,7 +31,7 @@ const defaultField: GlitchShadowField = {
     }
 }
 
-export default function getDefaultField(range: number, index: number, offset: number) {
+export default function getDefaultField(range: number, index: number, offset: number): GlitchShadowField {
     return {
         ...deepCopy(defaultField),
         range,

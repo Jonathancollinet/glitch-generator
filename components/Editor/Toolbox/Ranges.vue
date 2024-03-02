@@ -2,6 +2,7 @@
 import type { GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
+    textFontSize: number,
     ranges: GlitchShadowField[][],
     selectedField?: GlitchShadowField,
     hasControls: boolean,
@@ -38,7 +39,7 @@ function selectField(field: GlitchShadowField) {
                         :style="{ left: `calc(${currentPercent}% - 1px)`, height: `calc(${24 * ranges.length}px + ${1 * ranges.length - 1}rem)` }" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
-                    :range="range" @selectField="selectField" />
+                    :textFontSize="textFontSize" :range="range" @selectField="selectField" />
             </div>
             <div class="w-[24px]">
                 <UiButton v-for="(range, index) in ranges" :key="index" class="relative top-0 h-[24px] mb-4 last:mb-0" variant="ghost" size="icon" @click="addField(index)">

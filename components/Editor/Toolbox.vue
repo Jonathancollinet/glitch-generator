@@ -25,10 +25,6 @@ const currentIndexes = computed(() => {
 })
 
 function selectField(newField: GlitchShadowField) {
-    if (selectedField.value && newField.range === selectedField.value.range && newField.index === selectedField.value.index) {
-        selectedField.value = undefined;
-        return;
-    }
     selectedField.value = newField;
 }
 
@@ -60,7 +56,7 @@ watch(config.value.ranges, () => {
 
 <template>
     <div>
-        <EditorToolboxRanges :hasControls="config.controls" :currentPercent="roundedPercent" :ranges="config.ranges"
+        <EditorToolboxRanges :textFontSize="config.text.size" :hasControls="config.controls" :currentPercent="roundedPercent" :ranges="config.ranges"
             :selectedField="selectedField" @selectField="selectField" @addRange="addRange" @addField="addField" />
         <EditorToolboxField v-if="selectedField && localSelectedField" :range="config.ranges[selectedField.range]"
             :errors="errors" :key="currentIndexes" v-model:openTab="lastOpenedTab" v-model:config="selectedField"

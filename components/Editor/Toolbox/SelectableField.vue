@@ -1,21 +1,27 @@
 <script lang="ts" setup>
 import { GlitchAnimationProperty } from '~/glitch/types';
 import type { GlitchShadowField, GlitchShadowProperty } from '~/glitch/types';
+import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
 
 type StyleAttrs = { background?: string, filter?: string };
 type Style = { [key in GlitchAnimationProperty]: StyleAttrs };
 
 const props = withDefaults(defineProps<{
+    textFontSize: number,
     field: GlitchShadowField,
     nextField?: GlitchShadowField,
     isSelected: boolean,
-    width?: string
+    width?: string,
+    draggingFieldIndex: number
 }>(), {
     width: '100%'
 })
 
 const emit = defineEmits<{
-    selectField: [field: GlitchShadowField]
+    selectField: [field: GlitchShadowField],
+    dragStart: [e: DragEvent, field: GlitchShadowField],
+    dragEnd: [e: DragEvent],
+    displayProperties: [field: GlitchShadowField]
 }>()
 
 function getPercentWidth() {
@@ -58,11 +64,11 @@ function getDataIndex() {
     return indexes.toString();
 }
 
-function getAttrs(s: StyleAttrs, shadow: GlitchShadowProperty, nextShadow?: GlitchShadowProperty) {
+function getAttrs(s: StyleAttrs, shadow: GlitchShadowProperty, blurModifier: number, nextShadow?: GlitchShadowProperty) {
     s.background = getColorFor(shadow, nextShadow, false);
 
     if (shadow.blur > 0) {
-        // s.filter = `blur(${shadow.blur}px)`;
+        s.filter = `blur(${shadow.blur / props.textFontSize * blurModifier}px)`;
     }
 }
 
@@ -76,15 +82,15 @@ function getStyle() {
     const boxShadow = field.properties[GlitchAnimationProperty.BoxShadow];
     const nextTextShadow = props.nextField?.properties[GlitchAnimationProperty.TextShadow];
     const nextBoxShadow = props.nextField?.properties[GlitchAnimationProperty.BoxShadow];
-    const textShadowEnabled = textShadow.enabled;
-    const boxShadowEnabled = boxShadow.enabled;
+    const textShadowEnabled = textShadow?.enabled;
+    const boxShadowEnabled = boxShadow?.enabled;
 
     if (textShadowEnabled) {
-        getAttrs(style[GlitchAnimationProperty.TextShadow], textShadow, nextTextShadow);
+        getAttrs(style[GlitchAnimationProperty.TextShadow], textShadow, 16, nextTextShadow);
     }
 
     if (boxShadowEnabled) {
-        getAttrs(style[GlitchAnimationProperty.BoxShadow], boxShadow, nextBoxShadow);
+        getAttrs(style[GlitchAnimationProperty.BoxShadow], boxShadow, 8, nextBoxShadow);
     }
 
     return style;
@@ -94,7 +100,7 @@ const textShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.TextSh
 const boxShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.BoxShadow]);
 
 const hasShadowBox = computed(() => {
-    return props.field.properties[GlitchAnimationProperty.BoxShadow].enabled;
+    return props.field.properties[GlitchAnimationProperty.BoxShadow]?.enabled;
 });
 
 const fieldStyle = computed(() => {
@@ -104,50 +110,39 @@ const fieldStyle = computed(() => {
     }
 });
 
-function hideGhost(e: DragEvent) {
-    oldX = e.pageX;
-    if (e instanceof DragEvent) {
-        e.dataTransfer?.setDragImage(new Image(), 0, 0);
-    }
-}
-
 function selectField() {
     emit('selectField', props.field);
 }
 
-let oldX = 0;
-
-function drag(e: DragEvent) {
-    const target = e.target as HTMLElement;
-
-    if (target) {
-        if (e.pageX < oldX) {
-            // left
-            console.log('left');
-            saveX(e, e.pageX + 1);
-        } else {
-            // right
-            console.log('right');
-            saveX(e, e.pageX - 1);
-        }
-    }
+function dragStart(e: DragEvent) {
+    emit('dragStart', e, props.field);
 }
 
-function saveX(e: DragEvent, x?: number) {
-    oldX = x ?? e.pageX;
+function dragEnd(e: DragEvent) {
+    emit('dragEnd', e);
+}
+
+function displayProperties() {
+    emit('displayProperties', props.field);
 }
 
 const fieldClass = computed(() => [
     'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent',
     'hover:mix-blend-luminosity hover:opacity-50',
-    props.isSelected ? ' border border-l-2 hover:opacity-100' : ''
+    props.isSelected ? ' border border-l-2 hover:opacity-100' : '',
+    props.draggingFieldIndex !== -1 && props.draggingFieldIndex !== props.field.index ? 'hover:mix-blend-normal hover:opacity-100' : '',
+    props.draggingFieldIndex !== -1 && props.draggingFieldIndex === props.field.index ? 'mix-blend-luminosity opacity-50' : ''
 ]);
 </script>
 
 <template>
-    <div :draggable="true" @dragstart="hideGhost" @dragover="drag" @dragend="saveX" :data-index="getDataIndex()"
+    <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd" :data-index="getDataIndex()"
         :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="fieldStyle">
-        <div :class="`w-full`" :style="{ height: hasShadowBox ? '70%' : '100%', ...textShadowStyle }" />
-        <div v-if="hasShadowBox" class="h-[30%] w-full" :style="{ ...boxShadowStyle }" />
+        <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%'}">
+            <div class="h-full" :style="{ ...textShadowStyle }" />
+        </div>
+        <div class="h-[30%] w-full border-t-2 border-t-neutral-50 overflow-hidden">
+            <div class="h-full" v-if="hasShadowBox"  :style="{ ...boxShadowStyle }" />
+        </div>
     </div>
 </template>

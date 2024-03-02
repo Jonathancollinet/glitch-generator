@@ -30,7 +30,7 @@ export type GlitchShadowProperty = {
 }
 
 export type GlitchShadowProperties = {
-    [key in GlitchAnimationProperty]: GlitchShadowProperty
+    [key in GlitchAnimationProperty]?: GlitchShadowProperty
 }
 
 export type GlitchShadowField = {
