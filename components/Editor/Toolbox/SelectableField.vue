@@ -27,7 +27,7 @@ const emit = defineEmits<{
 function getPercentWidth() {
     const length = ((props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame);
 
-    return length - length * 0.01 + '%'
+    return length + '%'
 }
 
 function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadowProperty, filter?: boolean) {
@@ -106,7 +106,7 @@ const hasShadowBox = computed(() => {
 const fieldStyle = computed(() => {
     return {
         width: getPercentWidth(),
-        left: `${props.field.offsetFrame - props.field.offsetFrame * 0.01}%`
+        left: `${props.field.offsetFrame}%`
     }
 });
 
@@ -128,10 +128,10 @@ function displayProperties() {
 
 const fieldClass = computed(() => [
     'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent',
-    'hover:mix-blend-luminosity hover:opacity-50',
-    props.isSelected ? ' border border-l-2 hover:opacity-100' : '',
-    props.draggingFieldIndex !== -1 && props.draggingFieldIndex !== props.field.index ? 'hover:mix-blend-normal hover:opacity-100' : '',
-    props.draggingFieldIndex !== -1 && props.draggingFieldIndex === props.field.index ? 'mix-blend-luminosity opacity-50' : ''
+    'hover:bg-primary-50 hover:opacity-50',
+    props.isSelected ? ' border border-l-2' : '',
+    props.draggingFieldIndex !== -1 && props.draggingFieldIndex !== props.field.index ? 'hover:opacity-100' : '',
+    props.draggingFieldIndex !== -1 && props.draggingFieldIndex === props.field.index ? 'opacity-50' : ''
 ]);
 </script>
 

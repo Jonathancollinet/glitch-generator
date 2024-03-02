@@ -32,7 +32,7 @@ function selectField(field: GlitchShadowField) {
 <template>
     <div class="relative py-4">
         <div class="flex mb-2">
-            <div class="relative w-[calc(100%-24px)]">
+            <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
                     <div v-if="hasControls"
                         class="absolute z-0 bg-neutral-950 w-[2px] top-0"
@@ -41,7 +41,7 @@ function selectField(field: GlitchShadowField) {
                 <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
                     :textFontSize="textFontSize" :range="range" @selectField="selectField" />
             </div>
-            <div class="w-[24px]">
+            <div class="w-[24px] pl-[12px]">
                 <UiButton v-for="(range, index) in ranges" :key="index" class="relative top-0 h-[24px] mb-4 last:mb-0" variant="ghost" size="icon" @click="addField(index)">
                     +
                 </UiButton>
