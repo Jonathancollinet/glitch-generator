@@ -10,6 +10,7 @@ export const TextVariants = cva(
 
         // data-tag="p"
         "data-[tag=p]:mb-4",
+        "last:data-[tag=p]:mb-0",
 
         // data-tag="span"
     ]

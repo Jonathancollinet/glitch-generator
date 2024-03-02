@@ -33,11 +33,11 @@ const updateAlphaPercent = applyUpdater<GlitchColor>({
 </script>
 
 <template>
-    <UiFormGroup :label="`pages.editor.config.color.${hexName}`" alignment="center" size="tiny" :error="hexError"
+    <UiFormGroup class="w-[70px]" :label="`pages.editor.config.color.${hexName}`" alignment="center" :error="hexError"
         :name="hexName">
         <div class="flex">
-            <UiInput class="w-8" alignment="center" type="color" :name="hexName" :modelValue="localColor.hex" :debounceFn="updateHex" />
-            <UiInput alignment="center" type="tel" :name="alphaPercentName" :modelValue="localColor.alphaPercent"
+            <UiInput class="w-[calc(100%-40px)]" alignment="center" type="color" :name="hexName" :modelValue="localColor.hex" :debounceFn="updateHex" />
+            <UiInput class="w-[40px]" alignment="center" type="tel" :name="alphaPercentName" :modelValue="localColor.alphaPercent"
                 :debounceFn="updateAlphaPercent" />
         </div>
     </UiFormGroup>

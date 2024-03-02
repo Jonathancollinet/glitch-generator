@@ -22,7 +22,7 @@ export const FormGroupVariants = cva(
             },
             size: {
                 default: '',
-                tiny: 'w-24',
+                tiny: 'w-16',
             },
         },
         defaultVariants: {

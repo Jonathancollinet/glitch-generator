@@ -140,14 +140,16 @@ const nextHoveredFrameOffset = computed(() => {
     if (fieldPropertiesToShow.value) {
         return (props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ?? 100);
     }
+
+    return 100;
 })
 </script>
 
 <template>
     <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @drag="drag" @mouseout="removeProperties">
         <div class="absolute whitespace-nowrap z-50 top-0 -translate-x-1/2 -translate-y-full bg-primary-50 border-2 rounded-xl border-primary-500 p-2"
-            v-if="showProperties" :style="propertyPosition">
-            {{ fieldPropertiesToShow?.offsetFrame }}% -> {{ nextHoveredFrameOffset }}%
+            v-show="showProperties" :style="propertyPosition">
+            <EditorToolboxFieldProperties :field="fieldPropertiesToShow" :nextHoveredFrameOffset="nextHoveredFrameOffset" />
         </div>
         <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
             :textFontSize="textFontSize" :field="field" :nextField="range[index + 1]"
