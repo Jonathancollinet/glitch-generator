@@ -7,8 +7,9 @@ const props = defineProps<{
 }>();
 
 const cardClasses: ClassValue[] = [
-    'border border-primary-100 rounded-2xl mb-4 last:mb-0',
-    'bg-primary-100'
+    'border border-primary-900 rounded-2xl mb-4 last:mb-0 transition-[background-color]',
+    'bg-primary-100',
+    'dark:bg-neutral-800',
 ]
 </script>
 

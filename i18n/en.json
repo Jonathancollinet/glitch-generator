@@ -51,7 +51,7 @@
                     "blur": "Blur",
                     "spread": "Spread",
                     "enabled": "Enabled",
-                    "fillAllFrames": "Fill all frames",
+                    "fillAllFrames": "Fill",
                     "fillAllFramesDescription": "If enabled, the shadow will be applied to all frames until the next field or animation's end. If disabled, the shadow will be applied to the current frame offset only.",
                     "offsetFrame": "Offset",
                     "textShadow": "Text shadow",

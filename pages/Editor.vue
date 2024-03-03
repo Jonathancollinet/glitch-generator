@@ -60,9 +60,10 @@ function exportKeyframe() {
 
 function updateField(newField: GlitchShadowField) {
     if (glitchConfig.ranges[newField.range]) {
-        const previousField = glitchConfig.ranges[newField.range][newField.index - 1];
+        const range = glitchConfig.ranges[newField.range];
+        const previousField = range[newField.index - 1];
         const batch = [newField];
-        const nextField = glitchConfig.ranges[newField.range][newField.index + 1];
+        const nextField = range[newField.index + 1];
 
         if (previousField) {
             batch.splice(0, 0, previousField);
@@ -86,6 +87,7 @@ function duplicateRange() {
     if (rangeNb) {
         const rangeToCopy = deepCopy(glitchConfig.ranges[rangeNb - 1]).map(field => {
             field.range += 1;
+
             return field;
         });
 
@@ -96,13 +98,39 @@ function duplicateRange() {
 
 function addField(rangeIndex: number) {
     const range = glitchConfig.ranges[rangeIndex];
-    const lastOffsetFrame = range[range.length - 1].offsetFrame;
-    const nextMidOffset = lastOffsetFrame < 100 ? Math.ceil((lastOffsetFrame + ((100 - lastOffsetFrame) / 2))) : 0;
+    const lastOffsetFrame = range[range.length - 1]?.offsetFrame;
 
-    if (nextMidOffset) {
-        range.push(getDefaultField(rangeIndex, range.length, nextMidOffset));
+    if (lastOffsetFrame === undefined) {
+        range.push(getDefaultField(rangeIndex, range.length, 0));
+    } else {
+        const nextMidOffset = lastOffsetFrame < 100 ? Math.ceil((lastOffsetFrame + ((100 - lastOffsetFrame) / 2))) : 0;
+
+        if (nextMidOffset) {
+            range.push(getDefaultField(rangeIndex, range.length, nextMidOffset));
+        }
     }
 
+    computeConfig(glitchConfig, true);
+}
+
+function removeField(field: GlitchShadowField) {
+    const range = glitchConfig.ranges[field.range];
+    const fieldNb = range.length;
+    const index = field.index;
+
+    if (index < (fieldNb - 1)) {
+        const length = (fieldNb - 1) - index;
+
+        for (let i = 1; i <= length; ++i) {
+            range[index + i].index -= 1;
+        }
+    }
+
+    if (index === 0 && fieldNb > 1) {
+        range[1].offsetFrame = 0;
+    }
+
+    glitchConfig.ranges[field.range].splice(field.index, 1);
     computeConfig(glitchConfig, true);
 }
 
@@ -160,15 +188,11 @@ onBeforeUnmount(() => {
             <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
             <UiButton @click="exportKeyframe">Get Keyframes</UiButton>
         </div>
-        <UiCard>
-            <template #content>
-                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
-                    :hasControls="glitchConfig.controls" :controller="glitch.controller"
-                    :animationDuration="glitchConfig.animation.duration" />
-            </template>
-        </UiCard>
+        <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
+            :hasControls="glitchConfig.controls" :controller="glitch.controller"
+            :animationDuration="glitchConfig.animation.duration" />
         <EditorToolbox v-model:config="glitchConfig" :currentPercent="currentPercent" :errors="errors"
             @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange" @addField="addField"
-            @updateField="updateField" @removeRange="removeRange" />
+            @updateField="updateField" @removeRange="removeRange" @removeField="removeField" />
     </div>
 </template>

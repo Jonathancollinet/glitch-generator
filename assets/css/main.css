@@ -49,20 +49,10 @@
         @apply h-full;
     }
 
-    /* 
-        Main page container
-        -------------------
-        Defines the sizes and the overflow control
-    */
     main {
         @apply overflow-auto h-[calc(100%-theme(spacing.header))];
     }
 
-    /* 
-        Main page sub-container
-        -----------------------
-        Defines the box model rules
-    */
     main>div {
         @apply container mx-auto p-4 h-full;
     }

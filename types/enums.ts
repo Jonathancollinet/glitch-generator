@@ -8,7 +8,9 @@ export enum Icons {
     Dots = 'DotsIcon',
     Backward = 'BackwardIcon',
     Forward = 'ForwardIcon',
-
+    Trash = 'TrashIcon',
+    Close = 'CloseIcon',
+    Add = 'AddIcon',
 }
 
 export enum Urls {

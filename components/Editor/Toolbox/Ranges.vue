@@ -71,35 +71,30 @@ function selectField(field: GlitchShadowField) {
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
                     <div v-if="hasControls" class="absolute z-0 bg-neutral-950 w-[2px] top-0"
-                        :style="{ left: `calc(${currentPercent}% - 1px)`, height: `calc(${24 * ranges.length}px + ${1 * ranges.length - 1}rem)` }" />
+                        :style="{ left: `calc(${currentPercent}% - 1px)`, height: `calc(${24 * ranges.length}px + ${1 * ranges.length}rem)` }" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
                     :textFontSize="textFontSize" :range="range" @selectField="selectField" />
             </div>
             <div class="w-[24px] pl-[12px]">
-                <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in ranges" :key="index">
-                    <UiButton variant="ghost" size="icon" @click="displayRangeOptions(index)">
-                        <UiIcon :icon="Icons.Dots" />
-                    </UiButton>
-                    <Transition name="fade" mode="out-in">
-                        <div class="whitespace-nowrap absolute z-10 ml-2 inline-flex flex-col p-2 bg-primary-50 -translate-x-[75%] top rounded-xl border-2 border-primary-500 *:mb-1 [&>*:last-child]:mb-0"
+                <div class="relative top-0 h-[24px] mb-4" v-for="(range, index) in ranges" :key="index">
+                    <UiButtonIconTooltip @click="displayRangeOptions(index)">
+                        <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]"
                             v-if="showRangeOptions[index]">
-                            <UiButton variant="link" size="link" @click="addField(index)" :disabled="false">Add a frame</UiButton>
+                            <UiButton variant="link" size="link" @click="addField(index)">Add a frame</UiButton>
                             <UiButton variant="link" size="link" @click="removeRange(index)">Remove the range</UiButton>
-                        </div>
-                    </Transition>
+                        </UiTooltipContent>
+                    </UiButtonIconTooltip>
                 </div>
             </div>
         </div>
         <div class="relative">
-            <UiButton variant="ghost" size="icon" @click="displayAddRangeOptions">+</UiButton>
-            <Transition name="fade" mode="out-in">
-                <div v-if="openAddRangeOptions"
-                    class="absolute ml-2 inline-flex flex-col p-2 bg-primary-50 rounded-xl border-2 border-primary-500 *:mb-1 [&>*:last-child]:mb-0">
+            <UiButtonIconTooltip :icon="Icons.Add" @click="displayAddRangeOptions">
+                <UiTooltipContent class="whitespace-nowrap" v-if="openAddRangeOptions">
                     <UiButton variant="link" size="link" @click="duplicateRange">Duplicate the last range</UiButton>
                     <UiButton variant="link" size="link" @click="addEmptyRange">Add an empty range</UiButton>
-                </div>
-            </Transition>
+                </UiTooltipContent>
+            </UiButtonIconTooltip>
         </div>
     </div>
 </template>

@@ -147,11 +147,10 @@ const nextHoveredFrameOffset = computed(() => {
 
 <template>
     <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0 first:mb-4" @drag="drag" @mouseout="removeProperties">
-        <div class="absolute whitespace-nowrap z-50 top-0 -translate-x-1/2 -translate-y-full bg-primary-50 border-2 rounded-xl border-primary-500 p-2"
-            v-show="showProperties" :style="propertyPosition">
+        <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full" :style="propertyPosition">
             <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
                 :nextHoveredFrameOffset="nextHoveredFrameOffset" />
-        </div>
+        </UiTooltipContent>
         <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
             :textFontSize="textFontSize" :field="field" :nextField="range[index + 1]"
             :draggingFieldIndex="draggingFieldIndex" :isSelected="isFieldSelected(field)"

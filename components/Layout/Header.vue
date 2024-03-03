@@ -20,7 +20,7 @@ function onClickColorSheme() {
 
 const headerClass: ClassValue[] = [
     "h-header",
-    "flex items-center justify-between transition-colors",
+    "flex items-center justify-between",
     "px-8 border-b-2 border-neutral-400",
     "dark:border-primary-50"
 ];

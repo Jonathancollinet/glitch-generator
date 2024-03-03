@@ -34,6 +34,6 @@ function updateModelValue(e: Event) {
 </script>
 
 <template>
-    <input :class="cn(isColor ? 'cursor-pointer': '', InputVariants({ variant, alignment, size }), props.class ?? '')" :type="type" :id="name" :name="name"
+    <input :class="cn(isColor ? 'cursor-pointer': '', InputVariants({ variant, alignment, size }), props.class ?? '')" autocomplete="off" :type="type" :id="name" :name="name"
         :value="modelValue" @input="updateModelValue">
 </template>

@@ -8,7 +8,10 @@ export const InputVariants = cva(
     {
         variants: {
             variant: {
-                default: []
+                default: [
+                    "bg-primary-100 text-neutral-900 placeholder-neutral-500",
+                    "dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder-neutral-400",
+                ]
             },
             alignment: {
                 default: '',

@@ -4,7 +4,7 @@ export type LinkVariantsProps = VariantProps<typeof LinkVariants>;
 
 export const LinkVariants = cva(
     [
-        "transition-colors",
+        "transition-[color]",
     ],
     {
         variants: {

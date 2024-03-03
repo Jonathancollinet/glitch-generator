@@ -12,7 +12,8 @@ const emit = defineEmits<{
     addField: [rangeIndex: number],
     removeRange: [index: number],
     addEmptyRange: [],
-    duplicateRange: []
+    duplicateRange: [],
+    removeField: [field: GlitchShadowField]
 }>()
 
 const config = defineModel<GlitchConfig>('config', { required: true });
@@ -20,7 +21,6 @@ const selectedField = ref<GlitchShadowField>();
 
 const localConfig = ref<GlitchConfig>(deepCopy(config.value));
 const localSelectedField = ref<GlitchShadowField>();
-const lastOpenedTab = ref<GlitchAnimationProperty>(GlitchAnimationProperty.TextShadow);
 
 const currentIndexes = computed(() => {
     return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : '';
@@ -52,6 +52,15 @@ function duplicateRange() {
     emit('duplicateRange');
 }
 
+function removeField(field: GlitchShadowField) {
+    selectedField.value = undefined;
+    emit('removeField', field);
+}
+
+function closeField() {
+    selectedField.value = undefined;
+}
+
 watch(selectedField, (field) => {
     if (field) {
         localSelectedField.value = deepCopy(field);
@@ -60,7 +69,6 @@ watch(selectedField, (field) => {
 
 watch(config.value.ranges, () => {
     if (selectedField.value) {
-        console.log("update");
         localSelectedField.value = deepCopy(selectedField.value);
         emit('updateField', selectedField.value);
     }
@@ -74,8 +82,8 @@ watch(config.value.ranges, () => {
             :currentPercent="roundedPercent" :ranges="config.ranges" :selectedField="selectedField"
             @selectField="selectField" @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange" @addField="addField" @removeRange="removeRange" />
         <EditorToolboxField v-if="selectedField && localSelectedField" :range="config.ranges[selectedField.range]"
-            :errors="errors" :key="currentIndexes" v-model:openTab="lastOpenedTab" v-model:config="selectedField"
-            v-model:localConfig="localSelectedField" />
+            :errors="errors" :key="currentIndexes" v-model:config="selectedField"
+            v-model:localConfig="localSelectedField" @removeField="removeField" @closeField="closeField" />
         <UiCard>
             <template #title>
                 <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>

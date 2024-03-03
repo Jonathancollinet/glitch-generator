@@ -8,6 +8,9 @@ import {
     EllipsisHorizontalIcon,
     ForwardIcon,
     BackwardIcon,
+    TrashIcon,
+    XMarkIcon,
+    PlusIcon
 } from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
@@ -31,6 +34,9 @@ const IconMap = {
     [Icons.Dots]: EllipsisHorizontalIcon,
     [Icons.Forward]: ForwardIcon,
     [Icons.Backward]: BackwardIcon,
+    [Icons.Trash]: TrashIcon,
+    [Icons.Close]: XMarkIcon,
+    [Icons.Add]: PlusIcon,
 };
 
 const icon = computed(() => IconMap[props.icon]);

@@ -28,17 +28,19 @@ function selectAnimationAt(percent: number) {
 }
 
 function bindTimelineWatcher() {
-    currentReq = window.requestAnimationFrame(bindTimelineWatcher);
-    now = Date.now();
-    elapsed = now - then;
+    if (isRunning.value) {
+        currentReq = window.requestAnimationFrame(bindTimelineWatcher);
+        now = Date.now();
+        elapsed = now - then;
 
-    if (elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);
+        if (elapsed > fpsInterval) {
+            then = now - (elapsed % fpsInterval);
 
-        const time = props.controller?.getCurrentTime() as number;
+            const time = props.controller?.getCurrentTime() as number;
 
-        if (time) {
-            currentPercent.value = time / props.animationDuration * 100 % 100;
+            if (time) {
+                currentPercent.value = time / props.animationDuration * 100 % 100;
+            }
         }
     }
 }
@@ -93,5 +95,5 @@ onMounted(() => {
 
 <template>
     <EditorKeyframesTimeline :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorKeyframesActions :playState="playState" v-on="actions"@play="play()" @pause="pause()" />
+    <EditorKeyframesActions :playState="playState" v-on="actions" @play="play()" @pause="pause()" />
 </template>
