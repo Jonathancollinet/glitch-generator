@@ -146,15 +146,20 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0 first:mb-4" @drag="drag" @mouseout="removeProperties">
-        <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full" :style="propertyPosition">
-            <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
-                :nextHoveredFrameOffset="nextHoveredFrameOffset" />
-        </UiTooltipContent>
-        <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
-            :textFontSize="textFontSize" :field="field" :nextField="range[index + 1]"
-            :draggingFieldIndex="draggingFieldIndex" :isSelected="isFieldSelected(field)"
-            @displayProperties="displayProperties" @dragStart="dragStart" @dragEnd="dragEnd"
-            @selectField="selectField" />
+    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @drag="drag"
+        @mouseout="removeProperties">
+        <div class="h-full w-[calc(100%-36px)]">
+            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
+                :style="propertyPosition">
+                <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
+                    :nextHoveredFrameOffset="nextHoveredFrameOffset" />
+            </UiTooltipContent>
+            <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
+                :textFontSize="textFontSize" :field="field" :nextField="range[index + 1]"
+                :draggingFieldIndex="draggingFieldIndex" :isSelected="isFieldSelected(field)"
+                @displayProperties="displayProperties" @dragStart="dragStart" @dragEnd="dragEnd"
+                @selectField="selectField" />
+
+        </div>
     </div>
 </template>

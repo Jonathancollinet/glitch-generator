@@ -3,10 +3,10 @@
 </script>
 
 <template>
-  <div class="pt-8 pb-6">
-    <div class="text-center text-sm">
-        Glitch Generator - idea from <UiLink as="a" href="https://codepen.io/nucliweb/pen/QEreae" target="_blank">this codepen</UiLink>
-    </div>
+  <div class="pt-12 pb-6">
+    <UiText class="text-center text-sm">
+        Glitch Generator - idea from <UiLink as="a" href="https://codepen.io/nucliweb/pen/QEreae" target="_blank">/nucliweb/pen/QEreae</UiLink>
+    </UiText>
   </div>
 </template>
 

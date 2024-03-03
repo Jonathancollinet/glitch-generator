@@ -63,6 +63,15 @@ function selectField(field: GlitchShadowField) {
     emit('selectField', field);
 }
 
+const cursorStyle = computed(() => {
+    const rangeNb = props.ranges.length;
+    
+    return {
+        left: `calc(${props.currentPercent}% - 1px)`,
+        height: `calc(${24 * rangeNb}px + ${1 * rangeNb - 1}rem)`
+    }
+})
+
 </script>
 
 <template>
@@ -70,17 +79,15 @@ function selectField(field: GlitchShadowField) {
         <div class="flex mb-2">
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <div v-if="hasControls" class="absolute z-0 bg-neutral-950 w-[2px] top-0"
-                        :style="{ left: `calc(${currentPercent}% - 1px)`, height: `calc(${24 * ranges.length}px + ${1 * ranges.length}rem)` }" />
+                    <div v-if="hasControls" class="absolute z-50 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
                     :textFontSize="textFontSize" :range="range" @selectField="selectField" />
             </div>
             <div class="w-[24px] pl-[12px]">
-                <div class="relative top-0 h-[24px] mb-4" v-for="(range, index) in ranges" :key="index">
+                <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in ranges" :key="index">
                     <UiButtonIconTooltip @click="displayRangeOptions(index)">
-                        <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]"
-                            v-if="showRangeOptions[index]">
+                        <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
                             <UiButton variant="link" size="link" @click="addField(index)">Add a frame</UiButton>
                             <UiButton variant="link" size="link" @click="removeRange(index)">Remove the range</UiButton>
                         </UiTooltipContent>

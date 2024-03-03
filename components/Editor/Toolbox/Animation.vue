@@ -21,10 +21,17 @@ const updateAnimationDuration = applyUpdater<GlitchAnimation>({
 </script>
 
 <template>
-    <div>
-        <UiFormGroup label="pages.editor.config.animationDuration" :error="animationDurationError" name="animationDuration">
-            <UiInput size="medium" :debounceFn="updateAnimationDuration" name="animationDuration"
-                :modelValue="localAnimation.duration" />
-        </UiFormGroup>
-    </div>
+    <UiCard>
+        <template #title>
+            <UiHeading variant="h3">{{ $t('pages.editor.config.animation.title') }}</UiHeading>
+        </template>
+
+        <template #content>
+            <UiFormGroup label="pages.editor.config.animationDuration" :error="animationDurationError"
+                name="animationDuration">
+                <UiInput size="medium" :debounceFn="updateAnimationDuration" name="animationDuration"
+                    :modelValue="localAnimation.duration" />
+            </UiFormGroup>
+        </template>
+    </UiCard>
 </template>

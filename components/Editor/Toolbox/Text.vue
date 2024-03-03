@@ -55,37 +55,44 @@ const updateHeight = applyUpdater<GlitchBaseText>({
 </script>
 
 <template>
-    <div>
-        <div class="flex">
-            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.fontSize" :error="textSizeError"
-                name="textSize">
-                <UiInput alignment="center" type="tel" :debounceFn="updateTextSize" name="textSize"
-                    :modelValue="localConfig.size" />
-            </UiFormGroup>
-            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.padding" :error="textPaddingError"
-                name="textPadding">
-                <UiInput alignment="center" type="tel" :debounceFn="updatePadding" name="textPadding"
-                    :modelValue="localConfig.padding" />
-            </UiFormGroup>
-            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.height" :error="textHeightError"
-                name="textHeight">
-                <UiInput alignment="center" type="tel" :debounceFn="updateHeight" name="textHeight"
-                    :modelValue="localConfig.height" />
-            </UiFormGroup>
-        </div>
-        <div class="flex">
-            <EditorToolboxPropertyColor v-model:config="config.bgColor" v-model:localConfig="localConfig.bgColor"
-                name="textBgColor" :errors="errors" />
-            <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color"
-                name="textColor" :errors="errors" />
-        </div>
-        <div class="flex">
-            <UiFormGroup label="pages.editor.config.text.message" :error="textMessageError" name="message">
-                <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
-            </UiFormGroup>
-        </div>
-        <div class="flex">
-            <slot />
-        </div>
-    </div>
+    <UiCard>
+        <template #title>
+            <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
+        </template>
+
+        <template #content>
+
+            <div class="flex">
+                <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.fontSize"
+                    :error="textSizeError" name="textSize">
+                    <UiInput alignment="center" type="tel" :debounceFn="updateTextSize" name="textSize"
+                        :modelValue="localConfig.size" />
+                </UiFormGroup>
+                <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.padding"
+                    :error="textPaddingError" name="textPadding">
+                    <UiInput alignment="center" type="tel" :debounceFn="updatePadding" name="textPadding"
+                        :modelValue="localConfig.padding" />
+                </UiFormGroup>
+                <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.text.height"
+                    :error="textHeightError" name="textHeight">
+                    <UiInput alignment="center" type="tel" :debounceFn="updateHeight" name="textHeight"
+                        :modelValue="localConfig.height" />
+                </UiFormGroup>
+            </div>
+            <div class="flex">
+                <EditorToolboxPropertyColor v-model:config="config.bgColor" v-model:localConfig="localConfig.bgColor"
+                    name="textBgColor" :errors="errors" />
+                <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color"
+                    name="textColor" :errors="errors" />
+            </div>
+            <div class="flex">
+                <UiFormGroup label="pages.editor.config.text.message" :error="textMessageError" name="message">
+                    <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
+                </UiFormGroup>
+            </div>
+            <div class="flex">
+                <slot />
+            </div>
+        </template>
+    </UiCard>
 </template>

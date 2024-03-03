@@ -40,7 +40,7 @@ function propertyCardClass(property: GlitchShadowProperty) {
     ]
 
     if (property.enabled) {
-        cls.push('bg-primary-200 dark:bg-primary-950');
+        cls.push('bg-primary-200 dark:bg-primary-800');
     } else {
         cls.push('bg-neutral-200 dark:bg-neutral-600');
     }

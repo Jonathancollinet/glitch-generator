@@ -13,11 +13,12 @@ const emit = defineEmits<{
     removeRange: [index: number],
     addEmptyRange: [],
     duplicateRange: [],
-    removeField: [field: GlitchShadowField]
+    removeField: [field: GlitchShadowField],
+    closeField: []
 }>()
 
 const config = defineModel<GlitchConfig>('config', { required: true });
-const selectedField = ref<GlitchShadowField>();
+const selectedField = defineModel<GlitchShadowField | undefined>('field', { required: true });
 
 const localConfig = ref<GlitchConfig>(deepCopy(config.value));
 const localSelectedField = ref<GlitchShadowField>();
@@ -26,39 +27,12 @@ const currentIndexes = computed(() => {
     return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : '';
 })
 
-function selectField(newField: GlitchShadowField) {
-    selectedField.value = newField;
-}
-
-const roundedPercent = computed(() => {
-    return props.currentPercent;
-})
-
-function addField(rangeIndex: number) {
-    emit('addField', rangeIndex);
-}
-
-function removeRange(index: number) {
-    selectedField.value = undefined;
-    emit('removeRange', index);
-}
-
-function addEmptyRange() {
-    emit('addEmptyRange');
-}
-
-function duplicateRange() {
-    selectedField.value = undefined;
-    emit('duplicateRange');
-}
-
 function removeField(field: GlitchShadowField) {
-    selectedField.value = undefined;
     emit('removeField', field);
 }
 
 function closeField() {
-    selectedField.value = undefined;
+    emit('closeField');
 }
 
 watch(selectedField, (field) => {
@@ -78,23 +52,12 @@ watch(config.value.ranges, () => {
 
 <template>
     <div>
-        <EditorToolboxRanges :textFontSize="config.text.size" :hasControls="config.controls"
-            :currentPercent="roundedPercent" :ranges="config.ranges" :selectedField="selectedField"
-            @selectField="selectField" @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange" @addField="addField" @removeRange="removeRange" />
         <EditorToolboxField v-if="selectedField && localSelectedField" :range="config.ranges[selectedField.range]"
             :errors="errors" :key="currentIndexes" v-model:config="selectedField"
             v-model:localConfig="localSelectedField" @removeField="removeField" @closeField="closeField" />
-        <UiCard>
-            <template #title>
-                <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
-            </template>
-
-            <template #content>
-                <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors">
-                    <EditorToolboxAnimation v-model:config="config.animation"
-                        v-model:localConfig="localConfig.animation" :errors="errors" />
-                </EditorToolboxText>
-            </template>
-        </UiCard>
+        <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
+            :errors="errors" />
+        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors">
+        </EditorToolboxText>
     </div>
 </template>

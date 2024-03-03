@@ -4,12 +4,13 @@ export type InputVariantsProps = VariantProps<typeof InputVariants>;
 
 export const InputVariants = cva(
     [
+        'px-1 rounded-md'
     ],
     {
         variants: {
             variant: {
                 default: [
-                    "bg-primary-100 text-neutral-900 placeholder-neutral-500",
+                    "bg-primary-50 text-neutral-900 placeholder-neutral-500",
                     "dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder-neutral-400",
                 ]
             },

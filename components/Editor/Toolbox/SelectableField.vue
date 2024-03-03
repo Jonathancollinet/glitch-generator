@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { ClassValue } from 'class-variance-authority/types';
 import { GlitchAnimationProperty } from '~/glitch/types';
 import type { GlitchShadowField, GlitchShadowProperty } from '~/glitch/types';
 import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
@@ -130,23 +131,39 @@ function displayProperties() {
     emit('displayProperties', props.field);
 }
 
-const fieldClass = computed(() => [
-    'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent',
-    'hover:bg-primary-50 hover:opacity-50',
-    props.isSelected ? ' border border-l-2' : '',
-    props.draggingFieldIndex !== -1 && props.draggingFieldIndex !== props.field.index ? 'hover:opacity-100' : '',
-    props.draggingFieldIndex !== -1 && props.draggingFieldIndex === props.field.index ? 'opacity-50' : ''
-]);
+const fieldClass = computed(() => {
+    const isDragging = props.draggingFieldIndex !== -1;
+    const draggingOther = props.draggingFieldIndex !== props.field.index;
+
+    const classes: ClassValue[] = [
+        'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent',
+        'hover:bg-primary-50 hover:opacity-50',
+        'first:border-l-0',
+        props.isSelected ? ' border border-l-2' : '',
+
+    ]
+
+    if (isDragging) {
+        if (draggingOther) {
+            classes.push('hover:opacity-100');
+        } else {
+            classes.push('opacity-50');
+        }
+    }
+
+    return classes;
+});
 </script>
 
 <template>
-    <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd" :data-index="getDataIndex()"
-        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="fieldStyle">
-        <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%'}">
+    <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
+        :data-index="getDataIndex()" :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField"
+        :style="fieldStyle">
+        <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
             <div class="h-full" :style="{ ...textShadowStyle }" />
         </div>
         <div class="h-[30%] w-full border-t-2 border-t-neutral-50 overflow-hidden">
-            <div class="h-full" v-if="hasShadowBox"  :style="{ ...boxShadowStyle }" />
+            <div class="h-full" v-if="hasShadowBox" :style="{ ...boxShadowStyle }" />
         </div>
     </div>
 </template>

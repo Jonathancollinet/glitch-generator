@@ -24,6 +24,7 @@ const bindings = ref<GlitchBindings>({
 const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
 const currentPercent = ref(0);
+const selectedField = ref<GlitchShadowField>();
 
 let animationDuration = glitchConfig.animation.duration;
 let glitch = new Glitch(glitchConfig);
@@ -84,6 +85,8 @@ function addEmptyRange() {
 function duplicateRange() {
     const rangeNb = glitchConfig.ranges.length;
 
+    selectedField.value = undefined;
+
     if (rangeNb) {
         const rangeToCopy = deepCopy(glitchConfig.ranges[rangeNb - 1]).map(field => {
             field.range += 1;
@@ -118,6 +121,8 @@ function removeField(field: GlitchShadowField) {
     const fieldNb = range.length;
     const index = field.index;
 
+    selectedField.value = undefined;
+
     if (index < (fieldNb - 1)) {
         const length = (fieldNb - 1) - index;
 
@@ -137,6 +142,8 @@ function removeField(field: GlitchShadowField) {
 function removeRange(index: number) {
     const rangeNb = glitchConfig.ranges.length;
 
+    selectedField.value = undefined;
+
     if (index < (rangeNb - 1)) {
         const length = (rangeNb - 1) - index;
 
@@ -150,6 +157,14 @@ function removeRange(index: number) {
 
     glitchConfig.ranges.splice(index, 1);
     computeConfig(glitchConfig, true);
+}
+
+function selectField(newField: GlitchShadowField) {
+    selectedField.value = newField;
+}
+
+function closeField() {
+    selectedField.value = undefined;
 }
 
 watch(glitchConfig.text, () => {
@@ -188,11 +203,18 @@ onBeforeUnmount(() => {
             <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
             <UiButton @click="exportKeyframe">Get Keyframes</UiButton>
         </div>
-        <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
-            :hasControls="glitchConfig.controls" :controller="glitch.controller"
-            :animationDuration="glitchConfig.animation.duration" />
-        <EditorToolbox v-model:config="glitchConfig" :currentPercent="currentPercent" :errors="errors"
-            @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange" @addField="addField"
-            @updateField="updateField" @removeRange="removeRange" @removeField="removeField" />
+        <div class="lg:flex">
+            <div class="lg:w-[70%]">
+                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
+                    :hasControls="glitchConfig.controls" :controller="glitch.controller"
+                    :animationDuration="glitchConfig.animation.duration" />
+                <EditorToolboxRanges :textFontSize="glitchConfig.text.size" :hasControls="glitchConfig.controls"
+                    :currentPercent="currentPercent" :ranges="glitchConfig.ranges" :selectedField="selectedField"
+                    @selectField="selectField" @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange"
+                    @addField="addField" @removeRange="removeRange" />
+            </div>
+            <EditorToolbox class="lg:w-[30%] lg:ml-8" v-model:config="glitchConfig" v-model:field="selectedField" :currentPercent="currentPercent"
+                :errors="errors" @updateField="updateField" @removeField="removeField" @closeField="closeField" />
+        </div>
     </div>
 </template>
