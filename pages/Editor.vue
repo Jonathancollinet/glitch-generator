@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
+import type { GlitchAnimationProperty, GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
 import Glitch from '~/glitch';
 import { EditorDisplayedText } from '#components';
 
@@ -82,19 +82,72 @@ function addEmptyRange() {
     computeConfig(glitchConfig, true);
 }
 
-function duplicateRange() {
+function duplicateRange(index: number) {
     const rangeNb = glitchConfig.ranges.length;
 
     selectedField.value = undefined;
 
     if (rangeNb) {
-        const rangeToCopy = deepCopy(glitchConfig.ranges[rangeNb - 1]).map(field => {
+        const rangeToCopy = deepCopy(glitchConfig.ranges[index]).map(field => {
             field.range += 1;
 
             return field;
         });
 
-        glitchConfig.ranges.push(rangeToCopy);
+        if (index < (rangeNb - 1)) {
+            const length = (rangeNb - 1) - index;
+
+            for (let i = 1; i <= length; ++i) {
+                glitchConfig.ranges[index + i] = glitchConfig.ranges[index + i].map(field => {
+                    field.range += 1;
+                    return field;
+                });
+            }
+        }
+
+        glitchConfig.ranges.splice(index + 1, 0, rangeToCopy);
+        computeConfig(glitchConfig, true);
+    }
+}
+
+function reversePositions(index: number) {
+    const range = glitchConfig.ranges[index];
+    debugger;
+
+    if (range) {
+        range.forEach((field) => {
+            let key: GlitchAnimationProperty;
+
+            for (key in field.properties) {
+                const property = field.properties[key];
+
+                if (property) {
+                    property.offsetX = reverseNumber(property.offsetX);
+                    property.offsetY = reverseNumber(property.offsetY);
+                }
+            }
+        });
+
+        computeConfig(glitchConfig, true);
+    }
+}
+
+function reverseColors(index: number) {
+    const range = glitchConfig.ranges[index];
+
+    if (range) {
+        range.forEach((field) => {
+            let key: GlitchAnimationProperty;
+
+            for (key in field.properties) {
+                const property = field.properties[key];
+
+                if (property) {
+                    property.color.hex = reverseColor(property.color.hex);
+                }
+            }
+        });
+
         computeConfig(glitchConfig, true);
     }
 }
@@ -182,6 +235,16 @@ watch(glitchConfig.animation, () => {
     }
 });
 
+const onRangesEvents = {
+    selectField,
+    addEmptyRange,
+    duplicateRange,
+    reversePositions,
+    reverseColors,
+    addField,
+    removeRange
+}
+
 onMounted(() => {
     if (displayedText.value?.glitchedEl) {
         glitchedEl.value = displayedText.value?.glitchedEl;
@@ -210,11 +273,11 @@ onBeforeUnmount(() => {
                     :animationDuration="glitchConfig.animation.duration" />
                 <EditorToolboxRanges :textFontSize="glitchConfig.text.size" :hasControls="glitchConfig.controls"
                     :currentPercent="currentPercent" :ranges="glitchConfig.ranges" :selectedField="selectedField"
-                    @selectField="selectField" @addEmptyRange="addEmptyRange" @duplicateRange="duplicateRange"
-                    @addField="addField" @removeRange="removeRange" />
+                    v-on="onRangesEvents" />
             </div>
-            <EditorToolbox class="lg:w-[30%] lg:ml-8" v-model:config="glitchConfig" v-model:field="selectedField" :currentPercent="currentPercent"
-                :errors="errors" @updateField="updateField" @removeField="removeField" @closeField="closeField" />
+            <EditorToolbox class="lg:w-[30%] lg:ml-8" v-model:config="glitchConfig" v-model:field="selectedField"
+                :currentPercent="currentPercent" :errors="errors" @updateField="updateField" @removeField="removeField"
+                @closeField="closeField" />
         </div>
     </div>
 </template>

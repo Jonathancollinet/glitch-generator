@@ -13,13 +13,16 @@ const props = defineProps<{
 const emit = defineEmits<{
     selectField: [field: GlitchShadowField],
     addEmptyRange: [],
-    duplicateRange: [],
+    duplicateRange: [index: number],
+    reversePositions: [index: number],
+    reverseColors: [index: number],
     addField: [rangeIndex: number],
     removeRange: [index: number]
 }>()
 
 const openAddRangeOptions = ref(false);
 const showRangeOptions = ref<boolean[]>(new Array(props.ranges.length).fill(false));
+const mode = ref<ModesUnion>('move');
 
 function resetRangeOptions() {
     showRangeOptions.value = new Array(props.ranges.length).fill(false);
@@ -49,9 +52,19 @@ function removeRange(index: number) {
     resetRangeOptions();
 }
 
-function duplicateRange() {
-    emit('duplicateRange');
-    closeAddRangeOptions();
+function duplicateRange(index: number) {
+    emit('duplicateRange', index);
+    resetRangeOptions();
+}
+
+function reversePositions(index: number) {
+    emit('reversePositions', index);
+    resetRangeOptions();
+}
+
+function reverseColors(index: number) {
+    emit('reverseColors', index);
+    resetRangeOptions();
 }
 
 function addEmptyRange() {
@@ -61,6 +74,14 @@ function addEmptyRange() {
 
 function selectField(field: GlitchShadowField) {
     emit('selectField', field);
+}
+
+function changeMode(newMode: ModesUnion) {
+    mode.value = newMode;
+}
+
+function isMode(match: ModesUnion) {
+    return mode.value === match;
 }
 
 const cursorStyle = computed(() => {
@@ -75,33 +96,39 @@ const cursorStyle = computed(() => {
 </script>
 
 <template>
-    <div class="relative py-4">
-        <div class="flex mb-2">
+    <div class="relative">
+        <div class="flex mb-4">
+            <UiButton :variant="isMode('move') ? 'default' : 'ghost'" size="icon" @click="changeMode('move')">
+                <UiIcon :icon="Icons.Move" />
+            </UiButton>
+            <UiButton :variant="isMode('resize') ? 'default' : 'ghost'" size="icon" @click="changeMode('resize')">
+                <UiIcon :icon="Icons.Resize" />
+            </UiButton>
+        </div>
+        <div class="flex mb-4">
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <div v-if="hasControls" class="absolute z-50 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
+                    <div v-if="hasControls" class="absolute z-20 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
-                    :textFontSize="textFontSize" :range="range" @selectField="selectField" />
+                    :textFontSize="textFontSize" :range="range" :mode="mode" @selectField="selectField" />
             </div>
             <div class="w-[24px] pl-[12px]">
                 <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in ranges" :key="index">
                     <UiButtonIconTooltip @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
                             <UiButton variant="link" size="link" @click="addField(index)">Add a frame</UiButton>
-                            <UiButton variant="link" size="link" @click="removeRange(index)">Remove the range</UiButton>
+                            <UiButton variant="link" size="link" @click="reversePositions(index)">Reverse positions</UiButton>
+                            <UiButton variant="link" size="link" @click="reverseColors(index)">Reverse colors</UiButton>
+                            <UiButton variant="link" size="link" @click="duplicateRange(index)">Duplicate range</UiButton>
+                            <UiButton variant="link" size="link" @click="removeRange(index)">Remove range</UiButton>
                         </UiTooltipContent>
                     </UiButtonIconTooltip>
                 </div>
             </div>
         </div>
         <div class="relative">
-            <UiButtonIconTooltip :icon="Icons.Add" @click="displayAddRangeOptions">
-                <UiTooltipContent class="whitespace-nowrap" v-if="openAddRangeOptions">
-                    <UiButton variant="link" size="link" @click="duplicateRange">Duplicate the last range</UiButton>
-                    <UiButton variant="link" size="link" @click="addEmptyRange">Add an empty range</UiButton>
-                </UiTooltipContent>
-            </UiButtonIconTooltip>
+            <UiButton variant="link" size="link" @click="addEmptyRange">Add an empty range</UiButton>
         </div>
     </div>
 </template>

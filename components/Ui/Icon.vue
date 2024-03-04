@@ -10,7 +10,9 @@ import {
     BackwardIcon,
     TrashIcon,
     XMarkIcon,
-    PlusIcon
+    PlusIcon,
+    ArrowsRightLeftIcon,
+    ArrowsPointingOutIcon
 } from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
@@ -37,6 +39,8 @@ const IconMap = {
     [Icons.Trash]: TrashIcon,
     [Icons.Close]: XMarkIcon,
     [Icons.Add]: PlusIcon,
+    [Icons.Resize]: ArrowsRightLeftIcon,
+    [Icons.Move]: ArrowsPointingOutIcon
 };
 
 const icon = computed(() => IconMap[props.icon]);

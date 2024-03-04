@@ -53,18 +53,6 @@ function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadow
 
 }
 
-function getDataIndex() {
-    const indexes: number[] = [];
-    const currentOffsetFrame = props.field.offsetFrame;
-    const length = (props.nextField?.offsetFrame ?? 101) - currentOffsetFrame;
-
-    for (let i = 0; i < length; ++i) {
-        indexes.push(currentOffsetFrame + i);
-    }
-
-    return indexes.toString();
-}
-
 function getAttrs(s: StyleAttrs, shadow: GlitchShadowProperty, blurModifier: number, nextShadow?: GlitchShadowProperty) {
     if (nextShadow?.enabled) {
         s.background = getColorFor(shadow, nextShadow, false);
@@ -157,7 +145,7 @@ const fieldClass = computed(() => {
 
 <template>
     <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
-        :data-index="getDataIndex()" :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField"
+        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField"
         :style="fieldStyle">
         <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
             <div class="h-full" :style="{ ...textShadowStyle }" />

@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { GlitchAnimationProperty, type GlitchShadowField } from '~/glitch/types';
+import type { GlitchShadowField } from '~/glitch/types';
 import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     textFontSize: number,
     range: GlitchShadowField[],
-    selectedField?: GlitchShadowField
+    selectedField?: GlitchShadowField,
+    mode: ModesUnion
 }>()
 
 const emit = defineEmits<{
@@ -18,53 +19,41 @@ let currentField: GlitchShadowField | undefined;
 let nextCurrentField: GlitchShadowField | undefined;
 let jump = 0;
 let jumpSize = 4;
-let hoveredField = ref<GlitchShadowField>();
-const fieldPropertiesToShow = ref<GlitchShadowField>();
+let fieldToResize: GlitchShadowField | undefined;
+let possibilities: number[] | undefined;
 
+const hoveredField = ref<GlitchShadowField>();
+const fieldPropertiesToShow = ref<GlitchShadowField>();
 const draggingFieldIndex = ref(-1);
 
 function changeFieldOffset(modifier: number) {
     if (jump === (jumpSize * modifier)) {
         jump = 0;
 
-        if (nextCurrentField) {
-            const possibilities = getPossibleOffsetFrames(nextCurrentField, props.range);
-
-            if (possibilities.includes(nextCurrentField.offsetFrame + modifier)) {
-                nextCurrentField.offsetFrame += modifier;
-            }
-        } else {
-            if (currentField) {
-                const possibilities = getPossibleOffsetFrames(currentField, props.range);
-
-                if (possibilities.includes(currentField.offsetFrame + modifier)) {
-                    currentField.offsetFrame += modifier;
-                }
+        if (fieldToResize && possibilities) {
+            if (possibilities.includes(fieldToResize.offsetFrame + modifier)) {
+                fieldToResize.offsetFrame += modifier;
             }
         }
     }
 }
 
-function drag(e: DragEvent) {
+function drag(e: any) {
     if (isDragging) {
-        const target = e.target as HTMLElement;
-
-        if (target) {
-            if (e.pageX < oldX) {
-                if (jump > 0) {
-                    jump = 0;
-                }
-                --jump;
-                changeFieldOffset(-1);
-            } else if (e.pageX > oldX) {
-                if (jump < 0) {
-                    jump = 0;
-                }
-                ++jump;
-                changeFieldOffset(1);
+        if (e.pageX < oldX) {
+            if (jump > 0) {
+                jump = 0;
             }
-            saveX(e, e.pageX);
+            --jump;
+            changeFieldOffset(-1);
+        } else if (e.pageX > oldX) {
+            if (jump < 0) {
+                jump = 0;
+            }
+            ++jump;
+            changeFieldOffset(1);
         }
+        saveX(e, e.pageX);
     }
 }
 
@@ -76,11 +65,25 @@ function hideGhost(e: DragEvent) {
 }
 
 function dragStart(e: DragEvent, field: GlitchShadowField) {
+    const target = e.target as HTMLElement;
+    const rect = target.getBoundingClientRect();
     hideGhost(e);
     draggingFieldIndex.value = field.index;
     isDragging = true;
     currentField = field;
     nextCurrentField = props.range[field.index + 1];
+
+    if (field.index === 0) {
+        fieldToResize = nextCurrentField;
+    } else {
+        if (e.offsetX < rect.width / 2) {
+            fieldToResize = currentField;
+        } else {
+            fieldToResize = nextCurrentField || currentField;
+        }
+    }
+
+    possibilities = fieldToResize && getPossibleOffsetFrames(fieldToResize, props.range);
 }
 
 function dragEnd(e: DragEvent) {
@@ -89,6 +92,8 @@ function dragEnd(e: DragEvent) {
     isDragging = false;
     currentField = undefined;
     nextCurrentField = undefined;
+    fieldToResize = undefined;
+    possibilities = undefined;
 }
 
 function saveX(e: DragEvent, x?: number) {

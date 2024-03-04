@@ -6,7 +6,7 @@ const props = defineProps<{
 }>()
 
 const TooltipContentClass = [
-    "absolute z-10 ml-2 inline-flex flex-col p-2 transition-[background-color]",
+    "absolute z-30 ml-2 inline-flex flex-col p-2 transition-[background-color] select-none",
     "rounded-xl border-2 border-primary-500",
     "bg-primary-50",
     "*:mb-1 [&>*:last-child]:mb-0",

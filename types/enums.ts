@@ -11,9 +11,16 @@ export enum Icons {
     Trash = 'TrashIcon',
     Close = 'CloseIcon',
     Add = 'AddIcon',
+    Resize = 'ResizeIcon',
+    Move = 'MoveIcon',
 }
 
 export enum Urls {
     Home = '/',
     Editor = '/editor'
+}
+
+export enum Modes {
+    Move = 'move',
+    Resize = 'resize'
 }
