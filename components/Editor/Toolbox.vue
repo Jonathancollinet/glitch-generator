@@ -43,7 +43,7 @@ watch(selectedField, (field) => {
 
 watch(config.value.ranges, () => {
     if (selectedField.value) {
-        localSelectedField.value = deepCopy(selectedField.value);
+        localSelectedField.value = deepCopy(config.value.ranges[selectedField.value.range][selectedField.value.index]);
         emit('updateField', selectedField.value);
     }
 }, { deep: true });

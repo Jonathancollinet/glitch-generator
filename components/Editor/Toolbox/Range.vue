@@ -4,9 +4,9 @@ import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     textFontSize: number,
+    ranges: GlitchShadowField[][],
     range: GlitchShadowField[],
-    selectedField?: GlitchShadowField,
-    mode: ModesUnion
+    selectedField?: GlitchShadowField
 }>()
 
 const emit = defineEmits<{
@@ -18,7 +18,7 @@ let isDragging = false;
 let currentField: GlitchShadowField | undefined;
 let nextCurrentField: GlitchShadowField | undefined;
 let jump = 0;
-let jumpSize = 4;
+let jumpResize = 4;
 let fieldToResize: GlitchShadowField | undefined;
 let possibilities: number[] | undefined;
 
@@ -27,7 +27,7 @@ const fieldPropertiesToShow = ref<GlitchShadowField>();
 const draggingFieldIndex = ref(-1);
 
 function changeFieldOffset(modifier: number) {
-    if (jump === (jumpSize * modifier)) {
+    if (jump >= jumpResize) {
         jump = 0;
 
         if (fieldToResize && possibilities) {
@@ -38,27 +38,24 @@ function changeFieldOffset(modifier: number) {
     }
 }
 
-function drag(e: any) {
+function drag(e: DragEvent) {
     if (isDragging) {
-        if (e.pageX < oldX) {
-            if (jump > 0) {
-                jump = 0;
+
+        if (e.screenX && e.screenY) {
+            if (e.pageX < oldX) {
+                ++jump;
+                changeFieldOffset(-1);
+            } else if (e.pageX > oldX) {
+                ++jump;
+                changeFieldOffset(1);
             }
-            --jump;
-            changeFieldOffset(-1);
-        } else if (e.pageX > oldX) {
-            if (jump < 0) {
-                jump = 0;
-            }
-            ++jump;
-            changeFieldOffset(1);
+
+            saveX(e, e.pageX);
         }
-        saveX(e, e.pageX);
     }
 }
 
 function hideGhost(e: DragEvent) {
-    oldX = e.pageX;
     if (e instanceof DragEvent) {
         e.dataTransfer?.setDragImage(new Image(), 0, 0);
     }
@@ -67,10 +64,11 @@ function hideGhost(e: DragEvent) {
 function dragStart(e: DragEvent, field: GlitchShadowField) {
     const target = e.target as HTMLElement;
     const rect = target.getBoundingClientRect();
+
     hideGhost(e);
     draggingFieldIndex.value = field.index;
     isDragging = true;
-    currentField = field;
+    currentField = props.range[field.index];
     nextCurrentField = props.range[field.index + 1];
 
     if (field.index === 0) {
@@ -88,12 +86,14 @@ function dragStart(e: DragEvent, field: GlitchShadowField) {
 
 function dragEnd(e: DragEvent) {
     saveX(e);
-    draggingFieldIndex.value = -1;
-    isDragging = false;
-    currentField = undefined;
     nextCurrentField = undefined;
     fieldToResize = undefined;
     possibilities = undefined;
+    draggingFieldIndex.value = -1;
+    isDragging = false;
+    currentField = undefined;
+
+    props.ranges[props.range[0].range] = props.range;
 }
 
 function saveX(e: DragEvent, x?: number) {
@@ -151,20 +151,17 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @drag="drag"
-        @mouseout="removeProperties">
+    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties">
         <div class="h-full w-[calc(100%-36px)]">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
                 :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
                     :nextHoveredFrameOffset="nextHoveredFrameOffset" />
             </UiTooltipContent>
-            <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" v-model:config="range[index]"
-                :textFontSize="textFontSize" :field="field" :nextField="range[index + 1]"
-                :draggingFieldIndex="draggingFieldIndex" :isSelected="isFieldSelected(field)"
-                @displayProperties="displayProperties" @dragStart="dragStart" @dragEnd="dragEnd"
-                @selectField="selectField" />
-
+            <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" :textFontSize="textFontSize"
+                :field="field" :nextField="range[index + 1]" @drag="drag" :draggingFieldIndex="draggingFieldIndex"
+                :isSelected="isFieldSelected(field)" @displayProperties="displayProperties" @dragStart="dragStart"
+                @dragEnd="dragEnd" @selectField="selectField" />
         </div>
     </div>
 </template>

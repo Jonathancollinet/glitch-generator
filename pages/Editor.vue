@@ -66,6 +66,8 @@ function updateField(newField: GlitchShadowField) {
         const batch = [newField];
         const nextField = range[newField.index + 1];
 
+        selectField(newField);
+
         if (previousField) {
             batch.splice(0, 0, previousField);
         }
@@ -112,7 +114,6 @@ function duplicateRange(index: number) {
 
 function reversePositions(index: number) {
     const range = glitchConfig.ranges[index];
-    debugger;
 
     if (range) {
         range.forEach((field) => {

@@ -2,7 +2,6 @@
 import type { ClassValue } from 'class-variance-authority/types';
 import { GlitchAnimationProperty } from '~/glitch/types';
 import type { GlitchShadowField, GlitchShadowProperty } from '~/glitch/types';
-import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
 
 type StyleAttrs = { background?: string, filter?: string };
 type Style = { [key in GlitchAnimationProperty]: StyleAttrs };

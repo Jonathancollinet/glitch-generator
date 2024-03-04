@@ -66,7 +66,7 @@ function closeField() {
                     <UiFormGroup class="m-0 ml-2" variant="inline" name="offsetFrame">
                         <select class="bg-transparent" id="offsetFrame" name="offsetFrame" :value="localField.offsetFrame"
                             @change="updateOffsetFrame">
-                            <option v-for="frame in getPossibleOffsetFrames(field, range)" :key="frame" :value="frame">
+                            <option v-for="frame in getPossibleOffsetFrames(localField, range)" :key="frame" :value="frame">
                                 {{ frame }}
                             </option>
                         </select>

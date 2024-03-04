@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Icons } from '~/types/enums';
+import { Icons, Modes } from '~/types/enums';
 import type { GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
@@ -22,7 +22,6 @@ const emit = defineEmits<{
 
 const openAddRangeOptions = ref(false);
 const showRangeOptions = ref<boolean[]>(new Array(props.ranges.length).fill(false));
-const mode = ref<ModesUnion>('move');
 
 function resetRangeOptions() {
     showRangeOptions.value = new Array(props.ranges.length).fill(false);
@@ -76,14 +75,6 @@ function selectField(field: GlitchShadowField) {
     emit('selectField', field);
 }
 
-function changeMode(newMode: ModesUnion) {
-    mode.value = newMode;
-}
-
-function isMode(match: ModesUnion) {
-    return mode.value === match;
-}
-
 const cursorStyle = computed(() => {
     const rangeNb = props.ranges.length;
     
@@ -98,20 +89,12 @@ const cursorStyle = computed(() => {
 <template>
     <div class="relative">
         <div class="flex mb-4">
-            <UiButton :variant="isMode('move') ? 'default' : 'ghost'" size="icon" @click="changeMode('move')">
-                <UiIcon :icon="Icons.Move" />
-            </UiButton>
-            <UiButton :variant="isMode('resize') ? 'default' : 'ghost'" size="icon" @click="changeMode('resize')">
-                <UiIcon :icon="Icons.Resize" />
-            </UiButton>
-        </div>
-        <div class="flex mb-4">
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
                     <div v-if="hasControls" class="absolute z-20 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
-                    :textFontSize="textFontSize" :range="range" :mode="mode" @selectField="selectField" />
+                    :textFontSize="textFontSize" :ranges="ranges" :range="range" @selectField="selectField" />
             </div>
             <div class="w-[24px] pl-[12px]">
                 <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in ranges" :key="index">
