@@ -1,14 +1,15 @@
 <script setup lang="ts">
 
-import type { GlitchAnimationProperty, GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
+import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
 import Glitch from '~/glitch';
 import { EditorDisplayedText } from '#components';
+import * as EditorUtils from '~/utils/Editor/utils';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
 }
 
-const glitchConfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
+const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
 const errors = ref<Partial<GlitchErrors>>({});
 const bindings = ref<GlitchBindings>({
     message: '',
@@ -20,18 +21,33 @@ const bindings = ref<GlitchBindings>({
         color: ""
     }
 });
-
 const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
 const currentPercent = ref(0);
 const selectedField = ref<GlitchShadowField>();
 
-let animationDuration = glitchConfig.animation.duration;
-let glitch = new Glitch(glitchConfig);
+const onRangesEvents = {
+    selectField,
+    addEmptyRange,
+    duplicateRange,
+    reversePositions,
+    reverseColors,
+    addField,
+    removeRange
+}
 
-glitchConfig.preventRangesCompute = true
+const onToolboxEvents = {
+    updateField,
+    removeField,
+    closeField
+}
 
-glitchConfig.onValidated = (errs: GlitchErrors | undefined) => {
+let animationDuration = gconfig.animation.duration;
+let glitch = new Glitch(gconfig);
+
+gconfig.preventRangesCompute = true
+
+gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     if (errs) {
         errors.value = errs;
     } else {
@@ -45,9 +61,9 @@ function bindGlitch(newBindings: any) {
     }
 }
 
-function computeConfig(glitchConfig: GlitchConfig, forceRangeCompute?: boolean) {
+function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
-        glitch.computeConfig(glitchConfig, forceRangeCompute)
+        glitch.computeConfig(gconfig, forceRangeCompute)
             .then(bindGlitch)
             .catch((err: Error) => {
                 console.error(err);
@@ -60,13 +76,11 @@ function exportKeyframe() {
 }
 
 function updateField(newField: GlitchShadowField) {
-    if (glitchConfig.ranges[newField.range]) {
-        const range = glitchConfig.ranges[newField.range];
+    if (gconfig.ranges[newField.range]) {
+        const range = gconfig.ranges[newField.range];
         const previousField = range[newField.index - 1];
         const batch = [newField];
         const nextField = range[newField.index + 1];
-
-        selectField(newField);
 
         if (previousField) {
             batch.splice(0, 0, previousField);
@@ -80,137 +94,56 @@ function updateField(newField: GlitchShadowField) {
 }
 
 function addEmptyRange() {
-    glitchConfig.ranges.push([getDefaultField(glitchConfig.ranges.length, 0, 0)]);
-    computeConfig(glitchConfig, true);
+    gconfig.ranges.push([getDefaultField(gconfig.ranges.length, 0, 0)]);
+    computeConfig(gconfig, true);
 }
 
-function duplicateRange(index: number) {
-    const rangeNb = glitchConfig.ranges.length;
+function duplicateRange(rangeIndex: number) {
+    const rangeNb = gconfig.ranges.length;
 
-    selectedField.value = undefined;
+    closeField();
 
     if (rangeNb) {
-        const rangeToCopy = deepCopy(glitchConfig.ranges[index]).map(field => {
-            field.range += 1;
-
-            return field;
-        });
-
-        if (index < (rangeNb - 1)) {
-            const length = (rangeNb - 1) - index;
-
-            for (let i = 1; i <= length; ++i) {
-                glitchConfig.ranges[index + i] = glitchConfig.ranges[index + i].map(field => {
-                    field.range += 1;
-                    return field;
-                });
-            }
-        }
-
-        glitchConfig.ranges.splice(index + 1, 0, rangeToCopy);
-        computeConfig(glitchConfig, true);
+        EditorUtils.duplicateRange(gconfig, rangeIndex);
+        computeConfig(gconfig, true);
     }
 }
 
 function reversePositions(index: number) {
-    const range = glitchConfig.ranges[index];
+    const range = gconfig.ranges[index];
 
     if (range) {
-        range.forEach((field) => {
-            let key: GlitchAnimationProperty;
-
-            for (key in field.properties) {
-                const property = field.properties[key];
-
-                if (property) {
-                    property.offsetX = reverseNumber(property.offsetX);
-                    property.offsetY = reverseNumber(property.offsetY);
-                }
-            }
-        });
-
-        computeConfig(glitchConfig, true);
+        EditorUtils.reverseRangePositions(range);
+        computeConfig(gconfig, true);
     }
 }
 
-function reverseColors(index: number) {
-    const range = glitchConfig.ranges[index];
+function reverseColors(rangeIndex: number) {
+    const range = gconfig.ranges[rangeIndex];
 
     if (range) {
-        range.forEach((field) => {
-            let key: GlitchAnimationProperty;
-
-            for (key in field.properties) {
-                const property = field.properties[key];
-
-                if (property) {
-                    property.color.hex = reverseColor(property.color.hex);
-                }
-            }
-        });
-
-        computeConfig(glitchConfig, true);
+        EditorUtils.reverseRangeColors(range);
+        computeConfig(gconfig, true);
     }
 }
 
 function addField(rangeIndex: number) {
-    const range = glitchConfig.ranges[rangeIndex];
-    const lastOffsetFrame = range[range.length - 1]?.offsetFrame;
+    const range = gconfig.ranges[rangeIndex];
 
-    if (lastOffsetFrame === undefined) {
-        range.push(getDefaultField(rangeIndex, range.length, 0));
-    } else {
-        const nextMidOffset = lastOffsetFrame < 100 ? Math.ceil((lastOffsetFrame + ((100 - lastOffsetFrame) / 2))) : 0;
-
-        if (nextMidOffset) {
-            range.push(getDefaultField(rangeIndex, range.length, nextMidOffset));
-        }
-    }
-
-    computeConfig(glitchConfig, true);
+    EditorUtils.pushField(range, rangeIndex);
+    computeConfig(gconfig, true);
 }
 
 function removeField(field: GlitchShadowField) {
-    const range = glitchConfig.ranges[field.range];
-    const fieldNb = range.length;
-    const index = field.index;
-
-    selectedField.value = undefined;
-
-    if (index < (fieldNb - 1)) {
-        const length = (fieldNb - 1) - index;
-
-        for (let i = 1; i <= length; ++i) {
-            range[index + i].index -= 1;
-        }
-    }
-
-    if (index === 0 && fieldNb > 1) {
-        range[1].offsetFrame = 0;
-    }
-
-    glitchConfig.ranges[field.range].splice(field.index, 1);
-    computeConfig(glitchConfig, true);
+    closeField();
+    EditorUtils.removeField(gconfig, field);
+    computeConfig(gconfig, true);
 }
 
-function removeRange(index: number) {
-    const rangeNb = glitchConfig.ranges.length;
-
-    selectedField.value = undefined;
-
-    if (index < (rangeNb - 1)) {
-        const length = (rangeNb - 1) - index;
-
-        for (let i = 1; i <= length; ++i) {
-            glitchConfig.ranges[index + i] = glitchConfig.ranges[index + i].map(field => {
-                field.range -= 1;
-                return field;
-            });
-        }
-    }
-
-    glitchConfig.ranges.splice(index, 1);
-    computeConfig(glitchConfig, true);
+function removeRange(rangeIndex: number) {
+    closeField();
+    EditorUtils.removeRange(gconfig, rangeIndex);
+    computeConfig(gconfig, true);
 }
 
 function selectField(newField: GlitchShadowField) {
@@ -221,36 +154,26 @@ function closeField() {
     selectedField.value = undefined;
 }
 
-watch(glitchConfig.text, () => {
-    computeConfig(glitchConfig)
+watch(gconfig.text, () => {
+    computeConfig(gconfig)
 });
 
-watch(glitchConfig.animation, () => {
-    const configDuration = glitchConfig.animation.duration;
+watch(gconfig.animation, () => {
+    const configDuration = gconfig.animation.duration;
 
     if (glitch.hasAnimationBrowserCompatibility() && configDuration !== animationDuration) {
         animationDuration = configDuration;
         glitch?.replaceAnimationDuration(configDuration);
     } else {
-        computeConfig(glitchConfig)
+        computeConfig(gconfig)
     }
 });
-
-const onRangesEvents = {
-    selectField,
-    addEmptyRange,
-    duplicateRange,
-    reversePositions,
-    reverseColors,
-    addField,
-    removeRange
-}
 
 onMounted(() => {
     if (displayedText.value?.glitchedEl) {
         glitchedEl.value = displayedText.value?.glitchedEl;
         glitch.setGlitchedElement(glitchedEl.value);
-        computeConfig(glitchConfig, true);
+        computeConfig(gconfig, true);
     }
 });
 
@@ -269,16 +192,13 @@ onBeforeUnmount(() => {
         </div>
         <div class="lg:flex">
             <div class="lg:w-[70%]">
-                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
-                    :hasControls="glitchConfig.controls" :controller="glitch.controller"
-                    :animationDuration="glitchConfig.animation.duration" />
-                <EditorToolboxRanges :textFontSize="glitchConfig.text.size" :hasControls="glitchConfig.controls"
-                    :currentPercent="currentPercent" :ranges="glitchConfig.ranges" :selectedField="selectedField"
+                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :config="gconfig"
+                    :controller="glitch.controller" />
+                <EditorToolboxRanges :config="gconfig" :currentPercent="currentPercent" :selectedField="selectedField"
                     v-on="onRangesEvents" />
             </div>
-            <EditorToolbox class="lg:w-[30%] lg:ml-8" v-model:config="glitchConfig" v-model:field="selectedField"
-                :currentPercent="currentPercent" :errors="errors" @updateField="updateField" @removeField="removeField"
-                @closeField="closeField" />
+            <EditorToolbox class="lg:w-[30%] lg:ml-8" v-model:config="gconfig" v-model:field="selectedField"
+                :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
         </div>
     </div>
 </template>

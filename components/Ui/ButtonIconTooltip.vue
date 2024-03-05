@@ -6,7 +6,8 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-    click: []
+    click: [],
+    clickOutside: []
 }>()
 
 function onClick() {
@@ -16,7 +17,7 @@ function onClick() {
 
 <template>
     <div>
-        <UiButton size="icon" @click="onClick">
+        <UiButton variant="icon" size="icon" @click="onClick">
             <UiIcon :icon="icon || Icons.Dots" />
         </UiButton>
         <Transition name="fade" mode="out-in">

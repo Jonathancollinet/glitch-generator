@@ -21,10 +21,10 @@ const emit = defineEmits<{
         <!-- <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('backward')">
             <UiIcon :icon="Icons.Backward" />
         </UiButton> -->
-        <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('play')">
+        <UiButton variant="icon" size="icon" :disabled="!playState || isRunning" @click="emit('play')">
             <UiIcon :icon="Icons.Play" />
         </UiButton>
-        <UiButton variant="outline" size="icon" :disabled="!playState || isPaused" @click="emit('pause')">
+        <UiButton variant="icon" size="icon" :disabled="!playState || isPaused" @click="emit('pause')">
             <UiIcon :icon="Icons.Pause" />
         </UiButton>
         <!-- <UiButton variant="outline" size="icon" :disabled="!playState || isRunning" @click="emit('forward')">

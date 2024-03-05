@@ -4,7 +4,7 @@ export type ButtonVariantsProps = VariantProps<typeof ButtonVariants>;
 
 export const ButtonVariants = cva(
     [
-        'inline-flex items-center justify-center rounded-md',
+        'inline-flex items-center justify-center rounded-tl-2xl rounded-br-2xl',
         'text-base font-medium select-none',
         'disabled:pointer-events-none disabled:opacity-50'
     ],
@@ -39,7 +39,7 @@ export const ButtonVariants = cva(
                     'hover:text-primary-500'
                 ],
                 icon: [
-                    
+                    "rounded-tl-md rounded-br-md"
                 ]
             },
             size: {

@@ -4,14 +4,16 @@ import type { GlitchBindings, GlitchConfig } from '~/glitch/types';
 
 const glitchedEl = ref<HTMLElement | null>(null);
 
-defineProps<{
-    hasControls: boolean,
+const props = defineProps<{
+    config: GlitchConfig,
     controller: GlitchController | null,
-    animationDuration: number,
     bindings: GlitchBindings,
 }>()
 
 const currentPercent = defineModel<number>({ required: true });
+
+const hasControls = computed(() => props.config.controls);
+const animationDuration = computed(() => props.config.animation.duration);
 
 defineExpose({
     glitchedEl

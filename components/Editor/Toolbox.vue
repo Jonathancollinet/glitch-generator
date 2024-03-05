@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { EditorToolboxAnimation } from '#build/components';
-import { GlitchAnimationProperty, type GlitchConfig, type GlitchErrors, type GlitchShadowField } from '~/glitch/types';
+import { type GlitchConfig, type GlitchErrors, type GlitchShadowField } from '~/glitch/types';
 
-const props = defineProps<{
+defineProps<{
     errors: Partial<GlitchErrors>,
     currentPercent: number
 }>()
@@ -43,7 +43,11 @@ watch(selectedField, (field) => {
 
 watch(config.value.ranges, () => {
     if (selectedField.value) {
-        localSelectedField.value = deepCopy(config.value.ranges[selectedField.value.range][selectedField.value.index]);
+        const fieldRangeIndex = selectedField.value.range;
+        const fieldIndex = selectedField.value.index;
+        const field = config.value.ranges[fieldRangeIndex][fieldIndex];
+
+        localSelectedField.value = deepCopy(field);
         emit('updateField', selectedField.value);
     }
 }, { deep: true });
@@ -57,7 +61,6 @@ watch(config.value.ranges, () => {
             v-model:localConfig="localSelectedField" @removeField="removeField" @closeField="closeField" />
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />
-        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors">
-        </EditorToolboxText>
+        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
     </div>
 </template>

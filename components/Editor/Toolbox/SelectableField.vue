@@ -88,19 +88,6 @@ function getStyle() {
     return style;
 }
 
-const textShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.TextShadow]);
-const boxShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.BoxShadow]);
-
-const hasShadowBox = computed(() => {
-    return props.field.properties[GlitchAnimationProperty.BoxShadow]?.enabled;
-});
-
-const fieldStyle = computed(() => {
-    return {
-        width: getPercentWidth(),
-        left: `${props.field.offsetFrame}%`
-    }
-});
 
 function selectField() {
     emit('selectField', props.field);
@@ -117,6 +104,20 @@ function dragEnd(e: DragEvent) {
 function displayProperties() {
     emit('displayProperties', props.field);
 }
+
+const textShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.TextShadow]);
+const boxShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.BoxShadow]);
+
+const hasShadowBox = computed(() => {
+    return props.field.properties[GlitchAnimationProperty.BoxShadow]?.enabled;
+});
+
+const fieldStyle = computed(() => {
+    return {
+        width: getPercentWidth(),
+        left: `${props.field.offsetFrame}%`
+    }
+});
 
 const fieldClass = computed(() => {
     const isDragging = props.draggingFieldIndex !== -1;
@@ -144,8 +145,7 @@ const fieldClass = computed(() => {
 
 <template>
     <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
-        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField"
-        :style="fieldStyle">
+        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="fieldStyle">
         <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
             <div class="h-full" :style="{ ...textShadowStyle }" />
         </div>

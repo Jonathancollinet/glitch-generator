@@ -90,9 +90,6 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                     <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
                 </UiFormGroup>
             </div>
-            <div class="flex">
-                <slot />
-            </div>
         </template>
     </UiCard>
 </template>

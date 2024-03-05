@@ -151,7 +151,7 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="z-10 relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties">
+    <div class="relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties">
         <div class="h-full w-[calc(100%-36px)]">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
                 :style="propertyPosition">

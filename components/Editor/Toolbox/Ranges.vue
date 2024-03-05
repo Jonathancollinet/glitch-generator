@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 import { Icons, Modes } from '~/types/enums';
-import type { GlitchShadowField } from '~/glitch/types';
+import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
-    textFontSize: number,
-    ranges: GlitchShadowField[][],
     selectedField?: GlitchShadowField,
-    hasControls: boolean,
+    config: GlitchConfig,
     currentPercent: number
 }>()
 
@@ -21,10 +19,10 @@ const emit = defineEmits<{
 }>()
 
 const openAddRangeOptions = ref(false);
-const showRangeOptions = ref<boolean[]>(new Array(props.ranges.length).fill(false));
+const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
 
 function resetRangeOptions() {
-    showRangeOptions.value = new Array(props.ranges.length).fill(false);
+    showRangeOptions.value = new Array(props.config.ranges.length).fill(false);
 }
 
 function displayRangeOptions(index: number) {
@@ -76,7 +74,7 @@ function selectField(field: GlitchShadowField) {
 }
 
 const cursorStyle = computed(() => {
-    const rangeNb = props.ranges.length;
+    const rangeNb = props.config.ranges.length;
     
     return {
         left: `calc(${props.currentPercent}% - 1px)`,
@@ -91,13 +89,13 @@ const cursorStyle = computed(() => {
         <div class="flex mb-4">
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <div v-if="hasControls" class="absolute z-20 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
+                    <div v-if="config.controls" class="absolute z-20 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
                 </ClientOnly>
-                <EditorToolboxRange v-for="(range, index) in ranges" :key="index" :selectedField="selectedField"
-                    :textFontSize="textFontSize" :ranges="ranges" :range="range" @selectField="selectField" />
+                <EditorToolboxRange v-for="(range, index) in config.ranges" :key="index" :selectedField="selectedField"
+                    :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @selectField="selectField" />
             </div>
-            <div class="w-[24px] pl-[12px]">
-                <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in ranges" :key="index">
+            <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
+                <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
                     <UiButtonIconTooltip @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
                             <UiButton variant="link" size="link" @click="addField(index)">Add a frame</UiButton>
