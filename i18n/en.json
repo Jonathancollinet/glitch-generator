@@ -24,6 +24,9 @@
         },
         "editor": {
             "title": "Glitch Editor",
+            "presets": {
+                "title": "Presets"
+            },
             "config": {
                 "color": {
                     "textBgColorHex": "Bg Color",

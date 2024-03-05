@@ -56,7 +56,7 @@ function getName(key: string) {
             :name="getName('offsetX')" :error="offsetXError" :update="updateOffsetX" />
         <FieldPropertyWithRange label="pages.editor.config.field.offsetY" :value="localProperty.offsetY"
             :name="getName('offsetY')" :error="offsetYError" :update="updateOffsetY" />
-        <FieldPropertyWithRange label="pages.editor.config.field.blur" :value="localProperty.blur"
+        <FieldPropertyWithRange label="pages.editor.config.field.blur" min="0" :value="localProperty.blur"
             :name="getName('blur')" :error="blurError" :update="updateBlur" />
         <slot />
     </div>

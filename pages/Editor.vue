@@ -4,12 +4,12 @@ import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } fr
 import Glitch from '~/glitch';
 import { EditorDisplayedText } from '#components';
 import * as EditorUtils from '~/utils/Editor/utils';
+import { getPresets, type Preset } from '~/utils/Toobox/presets';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
 }
 
-const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
 const errors = ref<Partial<GlitchErrors>>({});
 const bindings = ref<GlitchBindings>({
     message: '',
@@ -25,6 +25,11 @@ const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
 const currentPercent = ref(0);
 const selectedField = ref<GlitchShadowField>();
+const presets = ref<Preset[]>(getPresets());
+const currentPreset = ref<Preset>(presets.value[0]);
+const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
+
+setConfigFromPreset(currentPreset.value);
 
 const onRangesEvents = {
     selectField,
@@ -40,7 +45,8 @@ const onRangesEvents = {
 const onToolboxEvents = {
     updateField,
     removeField,
-    closeField
+    closeField,
+    presetChanged
 }
 
 let animationDuration = gconfig.animation.duration;
@@ -53,6 +59,15 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
         errors.value = errs;
     } else {
         errors.value = {};
+    }
+}
+
+function initConfig() {
+    if (displayedText.value?.glitchedEl) {
+        glitchedEl.value = displayedText.value?.glitchedEl;
+        glitch.setGlitchedElement(glitchedEl.value);
+        computeConfig(gconfig, true);
+        selectField(gconfig.ranges[0][0]);
     }
 }
 
@@ -155,6 +170,24 @@ function closeField() {
     selectedField.value = undefined;
 }
 
+function setConfigFromPreset(preset: Preset) {
+    gconfig.text.bgColor = preset.config.text.bgColor;
+    gconfig.text.color = preset.config.text.color;
+    gconfig.text.size = preset.config.text.size;
+    gconfig.text.padding = preset.config.text.padding;
+    gconfig.text.height = preset.config.text.height;
+    gconfig.text.message = preset.config.text.message;
+    gconfig.animation.duration = preset.config.animation.duration;
+    gconfig.ranges = deepCopy(preset.config.ranges);
+}
+
+function presetChanged(preset: Preset) {
+    setConfigFromPreset(preset);
+    nextTick(() => {
+        initConfig();
+    })
+}
+
 function insertField(rangeIndex: number, offset: number) {
     const range = gconfig.ranges[rangeIndex];
 
@@ -164,6 +197,12 @@ function insertField(rangeIndex: number, offset: number) {
         alert("Can't add a field at the offset: " + offset);
     }
 }
+
+watch(currentPreset, (preset) => {
+    if (preset) {
+        presetChanged(preset);
+    }
+});
 
 watch(gconfig.text, () => {
     computeConfig(gconfig)
@@ -181,12 +220,7 @@ watch(gconfig.animation, () => {
 });
 
 onMounted(() => {
-    if (displayedText.value?.glitchedEl) {
-        glitchedEl.value = displayedText.value?.glitchedEl;
-        glitch.setGlitchedElement(glitchedEl.value);
-        computeConfig(gconfig, true);
-        selectField(gconfig.ranges[0][0]);
-    }
+    initConfig();
 });
 
 onBeforeUnmount(() => {
@@ -200,9 +234,17 @@ onBeforeUnmount(() => {
     <div>
         <div class="flex items-center justify-between">
             <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
-            <UiButton @click="exportKeyframe">Get Keyframes</UiButton>
+            <div class="flex items-center">
+                <UiFormGroup label="pages.editor.presets.title">
+                    <select v-model="currentPreset" class="w-full">
+                        <option v-for="(preset, index) in presets" :key="index" :value="preset">{{ preset.name }}
+                        </option>
+                    </select>
+                </UiFormGroup>
+                <UiButton class="ml-4" @click="exportKeyframe">Get Keyframes</UiButton>
+            </div>
         </div>
-        <div class="lg:flex">
+        <div class="lg:flex" :key="currentPreset.name">
             <div class="lg:w-[70%]">
                 <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :config="gconfig"
                     :controller="glitch.controller" />

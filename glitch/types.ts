@@ -65,8 +65,8 @@ export type GlitchErrors = { [key: string]: GlitchError };
 export type GlitchConfig = {
     onValidated?: (errors: GlitchErrors | undefined) => void,
     preventRangesCompute?: boolean,
-    text: GlitchBaseText,
     controls: boolean,
+    text: GlitchBaseText,
     animation: GlitchAnimation,
     ranges: GlitchShadowField[][],
 }

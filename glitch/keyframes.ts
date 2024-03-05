@@ -239,7 +239,9 @@ export default class GlitchKeyframes {
                 }
             }
 
-            keyframes += '}';
+            if (percentPushed) {
+                keyframes += '}';
+            }
         }
 
         return keyframes + '}';

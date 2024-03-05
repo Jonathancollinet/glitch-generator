@@ -1,8 +1,7 @@
-import { GlitchUnit } from '~/glitch/types';
-import type { GlitchConfig } from '~/glitch/types'
+import { GlitchUnit } from "~/glitch/types";
+import homepageRanges from "./homepage.ranges";
 
-const defaultGlitchConfig: GlitchConfig = {
-    controls: true,
+export default deepCopy({
     text: {
         size: 42,
         unit: GlitchUnit.Pixel,
@@ -21,11 +20,5 @@ const defaultGlitchConfig: GlitchConfig = {
     animation: {
         duration: 3000
     },
-    ranges: [
-        [getDefaultField(0, 0, 0)]
-    ]
-}
-
-export function getDefaultGlitchConfig() {
-    return deepCopy(defaultGlitchConfig);
-}
+    ranges: homepageRanges
+})

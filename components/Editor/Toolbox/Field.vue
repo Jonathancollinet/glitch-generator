@@ -75,8 +75,8 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                     </UiFormGroup>
                 </div>
                 <div class="flex">
-                    <UiIcon :icon="Icons.Trash" class="cursor-pointer" @click="removeField" />
-                    <UiIcon :icon="Icons.Close" class="cursor-pointer" @click="closeField" />
+                    <UiIcon class="stroke-neutral-50 cursor-pointer hover:stroke-primary-200" :icon="Icons.Trash" @click="removeField" />
+                    <!-- <UiIcon :icon="Icons.Close" class="cursor-pointer" @click="closeField" /> -->
                 </div>
             </div>
         </template>

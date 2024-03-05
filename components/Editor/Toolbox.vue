@@ -4,7 +4,7 @@ import { type GlitchConfig, type GlitchErrors, type GlitchShadowField } from '~/
 
 defineProps<{
     errors: Partial<GlitchErrors>,
-    currentPercent: number
+    currentPercent: number,
 }>()
 
 const emit = defineEmits<{
@@ -56,13 +56,11 @@ watch(config.value.ranges, () => {
 
 <template>
     <div>
-        <Transition name="fade" mode="out-in">
-            <div class="mb-4" v-if="selectedField && localSelectedField">
-                <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
-                    v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField"
-                    @closeField="closeField" />
-            </div>
-        </Transition>
+        <div class="mb-4" v-if="selectedField && localSelectedField">
+            <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
+                v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField"
+                @closeField="closeField" />
+        </div>
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />
         <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
