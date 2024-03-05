@@ -55,6 +55,8 @@ function removeField() {
 function closeField() {
     emit('closeField');
 }
+
+const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
 </script>
 
 <template>
@@ -83,14 +85,13 @@ function closeField() {
             <UiCard :class="propertyCardClass(textShadow)">
                 <template #content>
                     <EditorToolboxPropertyTextShadow v-model:config="textShadow" v-model:localConfig="localTextShadow"
-                        :errors="errors" />
+                        :errors="errors" :name="`${fieldName}.properties.text-shadow`" />
                 </template>
             </UiCard>
             <UiCard :class="propertyCardClass(boxShadow)">
-
                 <template #content>
                     <EditorToolboxPropertyBoxShadow v-model:config="boxShadow" v-model:localConfig="localBoxShadow"
-                        :errors="errors" />
+                        :errors="errors" :name="`${fieldName}.properties.box-shadow`" />
                 </template>
             </UiCard>
         </template>

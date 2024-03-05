@@ -1,5 +1,6 @@
 export type ClickOutside = {
     clickOutsideEvent: (event: Event) => void;
+    mouseupOutsideEvent: (event: Event) => void;
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -9,14 +10,23 @@ export default defineNuxtPlugin((nuxtApp) => {
                 if (!(el == event.target || el.contains(event.target as Node))) {
                     binding.value(event, el)
                 }
-            }
+            };
+
+            el.mouseupOutsideEvent = (event: Event) => {
+                if (!(el == event.target || el.contains(event.target as Node))) {
+                    binding.value(event, el)
+                }
+            };
+
             if (process.client) {
                 document.addEventListener("click", el.clickOutsideEvent)
+                document.addEventListener("mouseup", el.mouseupOutsideEvent)
             }
         },
         unmounted(el: HTMLElement & ClickOutside) {
             if (process.client) {
                 document.removeEventListener("click", el.clickOutsideEvent)
+                document.removeEventListener("mouseup", el.mouseupOutsideEvent)
             }
         },
         getSSRProps() {

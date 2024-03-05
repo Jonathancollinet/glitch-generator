@@ -13,6 +13,8 @@ export enum Icons {
     Add = 'AddIcon',
     Resize = 'ResizeIcon',
     Move = 'MoveIcon',
+    ChevronUp = 'ChevronUpIcon',
+    ChevronDown = 'ChevronDownIcon',
 }
 
 export enum Urls {

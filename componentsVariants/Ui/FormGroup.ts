@@ -4,7 +4,7 @@ export type FormGroupVariantsProps = VariantProps<typeof FormGroupVariants>;
 
 export const FormGroupVariants = cva(
     [
-        "mb-2 ml-2 first:ml-0"
+        "mb-2 ml-2 first:ml-0 last:mb-0"
     ],
     {
         variants: {

@@ -33,7 +33,8 @@ const onRangesEvents = {
     reversePositions,
     reverseColors,
     addField,
-    removeRange
+    removeRange,
+    insertField
 }
 
 const onToolboxEvents = {
@@ -154,6 +155,16 @@ function closeField() {
     selectedField.value = undefined;
 }
 
+function insertField(rangeIndex: number, offset: number) {
+    const range = gconfig.ranges[rangeIndex];
+
+    if (EditorUtils.addFieldAtOffset(range, rangeIndex, offset)) {
+        computeConfig(gconfig, true)
+    } else {
+        alert("Can't add a field at the offset: " + offset);
+    }
+}
+
 watch(gconfig.text, () => {
     computeConfig(gconfig)
 });
@@ -174,6 +185,7 @@ onMounted(() => {
         glitchedEl.value = displayedText.value?.glitchedEl;
         glitch.setGlitchedElement(glitchedEl.value);
         computeConfig(gconfig, true);
+        selectField(gconfig.ranges[0][0]);
     }
 });
 

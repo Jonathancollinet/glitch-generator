@@ -9,7 +9,7 @@ const props = defineProps<{
 const config = defineModel<GlitchBaseText>('config', { required: true });
 const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });
 
-const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size'));
+const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size', true));
 const textUnitError = computed(() => getErrorMessage(props.errors, 'text.unit'));
 const textMessageError = computed(() => getErrorMessage(props.errors, 'text.message'));
 const textPaddingError = computed(() => getErrorMessage(props.errors, 'text.padding'));
@@ -55,7 +55,7 @@ const updateHeight = applyUpdater<GlitchBaseText>({
 </script>
 
 <template>
-    <UiCard>
+    <UiCard openable :isOpen="false">
         <template #title>
             <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
         </template>
@@ -79,12 +79,10 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                         :modelValue="localConfig.height" />
                 </UiFormGroup>
             </div>
-            <div class="flex">
-                <EditorToolboxPropertyColor v-model:config="config.bgColor" v-model:localConfig="localConfig.bgColor"
-                    name="textBgColor" :errors="errors" />
-                <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color"
-                    name="textColor" :errors="errors" />
-            </div>
+            <EditorToolboxPropertyColor v-model:config="config.bgColor" v-model:localConfig="localConfig.bgColor"
+                name="textBgColor" :errors="errors" />
+            <EditorToolboxPropertyColor v-model:config="config.color" v-model:localConfig="localConfig.color"
+                name="textColor" :errors="errors" />
             <div class="flex">
                 <UiFormGroup label="pages.editor.config.text.message" :error="textMessageError" name="message">
                     <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />

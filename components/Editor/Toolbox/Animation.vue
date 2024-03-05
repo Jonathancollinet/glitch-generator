@@ -21,7 +21,7 @@ const updateAnimationDuration = applyUpdater<GlitchAnimation>({
 </script>
 
 <template>
-    <UiCard>
+    <UiCard openable :isOpen="false">
         <template #title>
             <UiHeading variant="h3">{{ $t('pages.editor.config.animation.title') }}</UiHeading>
         </template>

@@ -54,7 +54,7 @@ export default class Glitch {
     }
 
     computeFields(fields: GlitchShadowField[]) {
-        const success = this.validator.computeFields(this.config, fields);
+        const success = this.validator.validateFields(this.config, fields);
 
         if (success) {
             fields.forEach((field) => {

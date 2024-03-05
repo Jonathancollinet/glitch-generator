@@ -12,7 +12,9 @@ import {
     XMarkIcon,
     PlusIcon,
     ArrowsRightLeftIcon,
-    ArrowsPointingOutIcon
+    ArrowsPointingOutIcon,
+    ChevronUpIcon,
+    ChevronDownIcon
 } from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
@@ -40,7 +42,9 @@ const IconMap = {
     [Icons.Close]: XMarkIcon,
     [Icons.Add]: PlusIcon,
     [Icons.Resize]: ArrowsRightLeftIcon,
-    [Icons.Move]: ArrowsPointingOutIcon
+    [Icons.Move]: ArrowsPointingOutIcon,
+    [Icons.ChevronUp]: ChevronUpIcon,
+    [Icons.ChevronDown]: ChevronDownIcon,
 };
 
 const icon = computed(() => IconMap[props.icon]);

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
 import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
+import FieldPropertyWithRange from '../../FieldPropertyWithRange.vue';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
-    name: string
+    name: string,
+    propertyName: string
 }>()
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
@@ -19,7 +21,7 @@ const updateOffsetX = applyUpdater<GlitchShadowProperty>({
     localObj: localProperty.value,
     key: 'offsetX',
     modifier: Number,
-    debounced: 100
+    debounced: 20
 });
 
 const updateOffsetY = applyUpdater<GlitchShadowProperty>({
@@ -27,7 +29,7 @@ const updateOffsetY = applyUpdater<GlitchShadowProperty>({
     localObj: localProperty.value,
     key: 'offsetY',
     modifier: Number,
-    debounced: 100
+    debounced: 20
 });
 
 const updateBlur = applyUpdater<GlitchShadowProperty>({
@@ -35,7 +37,7 @@ const updateBlur = applyUpdater<GlitchShadowProperty>({
     localObj: localProperty.value,
     key: 'blur',
     modifier: Number,
-    debounced: 100
+    debounced: 20
 });
 
 function getName(key: string) {
@@ -45,24 +47,17 @@ function getName(key: string) {
 </script>
 
 <template>
-    <EditorToolboxPropertyCommonOptions v-model:config="property" v-model:localConfig="localProperty" :name="name" :errors="errors" />
-    <div class="flex flex-wrap">
+    <EditorToolboxPropertyCommonOptions v-model:config="property" v-model:localConfig="localProperty"
+        :name="propertyName" :errors="errors" />
+    <div class="flex flex-wrap" v-if="property.enabled">
         <EditorToolboxPropertyColor v-model:config="property.color" v-model:localConfig="localProperty.color"
-            :name="getName('fieldColor')" :errors="errors" />
-        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.offsetX" :error="offsetXError"
-            :name="getName('offsetX')">
-            <UiInput alignment="center" type="number" :name="getName('offsetX')" :modelValue="localProperty.offsetX"
-                @update:modelValue="updateOffsetX" />
-        </UiFormGroup>
-        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.offsetY" :error="offsetYError"
-            :name="getName('offsetY')">
-            <UiInput alignment="center" type="number" :name="getName('offsetY')" :modelValue="localProperty.offsetY"
-                @update:modelValue="updateOffsetY" />
-        </UiFormGroup>
-        <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.blur" :error="blurError" :name="getName('blur')">
-            <UiInput alignment="center" type="number" :name="getName('blur')" :modelValue="localProperty.blur"
-                @update:modelValue="updateBlur" />
-        </UiFormGroup>
+            labelName="textColor" :name="name" :errors="errors" />
+        <FieldPropertyWithRange label="pages.editor.config.field.offsetX" :value="localProperty.offsetX"
+            :name="getName('offsetX')" :error="offsetXError" :update="updateOffsetX" />
+        <FieldPropertyWithRange label="pages.editor.config.field.offsetY" :value="localProperty.offsetY"
+            :name="getName('offsetY')" :error="offsetYError" :update="updateOffsetY" />
+        <FieldPropertyWithRange label="pages.editor.config.field.blur" :value="localProperty.blur"
+            :name="getName('blur')" :error="blurError" :update="updateBlur" />
         <slot />
     </div>
 </template>

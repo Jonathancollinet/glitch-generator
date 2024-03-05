@@ -3,6 +3,7 @@ import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
 
 defineProps<{
     errors: Partial<GlitchErrors>,
+    name: string
 }>()
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
@@ -12,6 +13,6 @@ const localProperty = defineModel<GlitchShadowProperty>('localConfig', { require
 
 <template>
     <div>
-        <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty" name="textShadow" :errors="errors" />
+        <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty" propertyName="textShadow" :name="name" :errors="errors" />
     </div>
 </template>

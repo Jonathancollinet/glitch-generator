@@ -11,10 +11,11 @@ const currentPercent = defineModel<number>({ required: true });
 let currentReq: number;
 let now, elapsed, then = Date.now();
 
-const refreshCurrentTimeFPS = 75;
-const fpsInterval = 1000 / refreshCurrentTimeFPS
 const playState = ref<AnimationPlayState>("idle");
-const precision = ref(1);
+const precision = ref(100);
+const fps = ref(144);
+
+const fpsInterval = computed(() => 1000 / fps.value);
 
 function selectAnimationAt(percent: number) {
     if (props.controller) {
@@ -31,9 +32,10 @@ function bindTimelineWatcher() {
         currentReq = window.requestAnimationFrame(bindTimelineWatcher);
         now = Date.now();
         elapsed = now - then;
+        const fps = fpsInterval.value;
 
-        if (elapsed > fpsInterval) {
-            then = now - (elapsed % fpsInterval);
+        if (elapsed > fps) {
+            then = now - (elapsed % fps);
 
             const time = props.controller?.getCurrentTime() as number;
 
@@ -96,5 +98,5 @@ onMounted(() => {
 
 <template>
     <EditorKeyframesTimeline :precision="precision" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorKeyframesActions :playState="playState" v-model="precision" v-on="actions" @play="play()" @pause="pause()" />
+    <EditorKeyframesActions :playState="playState" v-model:precision="precision" v-model:fps="fps" v-on="actions" @play="play()" @pause="pause()" />
 </template>

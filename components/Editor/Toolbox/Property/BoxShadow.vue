@@ -4,6 +4,8 @@ import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
+    name: string
+
 }>()
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
@@ -24,7 +26,7 @@ const updateSpread = applyUpdater<GlitchShadowProperty>({
 <template>
     <div>
         <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty"
-            name="boxShadow" :errors="errors">
+            propertyName="boxShadow" :name="name" :errors="errors">
             <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.spread" :error="spreadError"
                 name="spread">
                 <UiInput alignment="center" type="number" name="spread" :modelValue="localProperty.spread"

@@ -65,23 +65,15 @@
     },
     "errors": {
         "config": {
+            "default": "Invalid number.",
+            "invalid_type": "Invalid number.",
+            "too_small": "Must be >= 0.",
+            "too_big": "Must be <= 256.",
             "text": {
                 "size": {
                     "default": "Must be a number between 1 and 256.",
                     "invalid_type": "Invalid number, must be between 1 and 256.",
                     "too_small": "Must be >= 1.",
-                    "too_big": "Must be <= 256."
-                },
-                "padding": {
-                    "default": "Must be a number between 0 and 256.",
-                    "invalid_type": "Invalid number, must be between 0 and 256.",
-                    "too_small": "Must be >= 0.",
-                    "too_big": "Must be <= 256."
-                },
-                "height": {
-                    "default": "Must be a number between 1 and 256.",
-                    "invalid_type": "Invalid number, must be between 0 and 256.",
-                    "too_small": "Must be >= 0.",
                     "too_big": "Must be <= 256."
                 }
             }

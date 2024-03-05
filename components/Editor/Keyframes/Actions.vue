@@ -12,17 +12,23 @@ const emit = defineEmits<{
     backward: []
 }>()
 
-const precision = defineModel<number>({ required: true });
+const precision = defineModel<number>('precision', { required: true });
+const fps = defineModel<number>('fps', { required: true });
 
 const isRunning = computed(() => props.playState === 'running');
 const isPaused = computed(() => props.playState === 'paused' || props.playState === 'idle');
 
 const applyPrecision = (e: Event) => {
-    const value = Number((e.target as HTMLSelectElement).value);
+    const value = (e.target as HTMLSelectElement).value;
 
-    precision.value = value;
+    precision.value = Number(value);
 }
 
+const updateFps = (e: Event) => {
+    const value = (e.target as HTMLSelectElement).value;
+
+    fps.value = Number(value);
+}
 </script>
 
 <template>
@@ -35,13 +41,21 @@ const applyPrecision = (e: Event) => {
                 <UiIcon :icon="Icons.Pause" />
             </UiButton>
         </div>
-        <div class="flex">
+        <!-- <div class="flex items-center">
             <select :value="precision" @change="applyPrecision" class="rounded-md border border-gray-300 bg-white text-sm text-gray-700">
                 <option value="1">1</option>
                 <option value="10">0.1</option>
                 <option value="100">0.01</option>
             </select>
-        </div>
+            <select :value="fps" @change="updateFps" class="rounded-md border border-gray-300 bg-white text-sm text-gray-700">
+                <option value="60">60</option>
+                <option value="75">75</option>
+                <option value="120">120</option>
+                <option value="144">144</option>
+                <option value="240">240</option>
+                <option value="360">360</option>
+            </select>
+        </div> -->
     </div>
 </template>
 

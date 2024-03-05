@@ -63,6 +63,61 @@ export function pushField(range: GlitchShadowField[], rangeIndex: number) {
     }
 }
 
+export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number, offset: number) {
+    let closestIndex = range.findIndex((field) => field.offsetFrame > offset);
+
+    closestIndex = closestIndex !== -1 ? closestIndex : range.length;
+
+    if (range.length === 1) {
+        range.push(getDefaultField(rangeIndex, 1, offset));
+        return true;
+    }
+    
+    const previousField = range[closestIndex - 1];
+    const previousParams = deepCopy(previousField);
+    const newField = getDefaultField(rangeIndex, closestIndex, offset);
+
+    newField.properties = deepCopy(previousParams.properties);
+
+    if (previousField.offsetFrame !== offset) {
+        range.splice(closestIndex, 0, newField);
+        incrementUpperFieldIndexesFrom(range, closestIndex);
+
+        return true;
+    } else {
+        const copy = deepCopy(range);
+
+        copy.splice(closestIndex - 1, 0, newField);
+
+        const length = copy.length;
+        let i = closestIndex;
+        let found = false;
+
+        for (i; i < length; ++i) {
+            const field = copy[i];
+            const nextField = copy[i + 1];
+
+            if ((nextField?.offsetFrame ?? 101) - field.offsetFrame > 1) {
+                field.offsetFrame += 1;
+                found = true;
+
+                break;
+            } else {
+                field.offsetFrame += 1;
+            }
+        }
+
+        if (found) {
+            copy.forEach((field, index) => range[index] = copy[index]);
+            incrementUpperFieldIndexesFrom(range, closestIndex);
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export function reverseRangeColors(range: GlitchShadowField[]) {
     applyToFieldProperties(range, (property) => {
         property.color.hex = reverseColor(property.color.hex);
@@ -74,6 +129,14 @@ export function reverseRangePositions(range: GlitchShadowField[]) {
         property.offsetX = reverseNumber(property.offsetX);
         property.offsetY = reverseNumber(property.offsetY);
     })
+}
+
+function incrementUpperFieldIndexesFrom(range: GlitchShadowField[], index: number) {
+    const length = range.length;
+
+    for (let i = index; i < length; ++i) {
+        range[i].index = i;
+    }
 }
 
 function applyToFieldProperties(range: GlitchShadowField[], callback: (property: GlitchShadowProperty) => void) {

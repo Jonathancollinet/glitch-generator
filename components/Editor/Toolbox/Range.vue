@@ -10,7 +10,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    selectField: [field: GlitchShadowField]
+    selectField: [field: GlitchShadowField],
+    insertField: [offset: number]
 }>()
 
 let oldX = 0;
@@ -21,10 +22,33 @@ let jump = 0;
 let jumpResize = 4;
 let fieldToResize: GlitchShadowField | undefined;
 let possibilities: number[] | undefined;
+let percents = new Array(101).fill(0).map((_, i) => i);
 
 const hoveredField = ref<GlitchShadowField>();
 const fieldPropertiesToShow = ref<GlitchShadowField>();
 const draggingFieldIndex = ref(-1);
+const displaySelectableField = ref(false);
+
+const onField = {
+    dragStart,
+    dragEnd,
+    displayProperties,
+    drag,
+    selectField
+}
+
+function showSelectableField(e: MouseEvent) {
+    displaySelectableField.value = true;
+}
+
+function hideSelectableField() {
+    displaySelectableField.value = false;
+}
+
+function chooseFieldOffset(e: MouseEvent, offset: number) {
+    hideSelectableField();
+    emit('insertField', offset);
+}
 
 function changeFieldOffset(modifier: number) {
     if (jump >= jumpResize) {
@@ -151,7 +175,7 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties">
+    <div class="relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties" v-click-outside="hideSelectableField">
         <div class="h-full w-[calc(100%-36px)]">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
                 :style="propertyPosition">
@@ -159,9 +183,15 @@ const nextHoveredFrameOffset = computed(() => {
                     :nextHoveredFrameOffset="nextHoveredFrameOffset" />
             </UiTooltipContent>
             <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" :textFontSize="textFontSize"
-                :field="field" :nextField="range[index + 1]" @drag="drag" :draggingFieldIndex="draggingFieldIndex"
-                :isSelected="isFieldSelected(field)" @displayProperties="displayProperties" @dragStart="dragStart"
-                @dragEnd="dragEnd" @selectField="selectField" />
+                :field="field" :nextField="range[index + 1]" :draggingFieldIndex="draggingFieldIndex"
+                :isSelected="isFieldSelected(field)" v-on="onField" @contextmenu.prevent.stop
+                @mousedown.right="showSelectableField" />
+
+            <div v-if="displaySelectableField" class="absolute z-10 h-full w-full whitespace-nowrap">
+                <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"
+                    :style="{ left: p + '%' }" @contextmenu.prevent.stop @mouseup.right="chooseFieldOffset($event, p)"
+                    v-for="(p, index) in percents"></div>
+            </div>
         </div>
     </div>
 </template>

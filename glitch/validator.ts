@@ -24,14 +24,6 @@ export default class GlitchValidator {
     }
 
     validateConfig(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
-        if (this.hasErrorOrRemoveExisting(!newConfig, {
-            path: 'Glitch',
-            code: 'invalid_object',
-            message: `The Glitch configuration is not defined.`
-        })) {
-            return false;
-        }
-
         const success = this.validateConfigLeafs(newConfig, oldConfig);
 
         this.onValidated(newConfig);
@@ -43,7 +35,19 @@ export default class GlitchValidator {
         return true;
     }
 
-    computeFields(config: GlitchConfig, fields: GlitchShadowField[]) {
+    validateFields(config: GlitchConfig, fields: GlitchShadowField[]) {
+        const success = this.validateFieldsLeafs(config, fields);
+
+        this.onValidated(config);
+
+        if (!success) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private validateFieldsLeafs(config: GlitchConfig, fields: GlitchShadowField[]) {
         const results: boolean[] = [];
         const configRanges = config.ranges;
         const pathRanges = 'ranges';
@@ -87,6 +91,14 @@ export default class GlitchValidator {
     }
 
     private validateConfigLeafs(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
+        if (this.hasErrorOrRemoveExisting(!newConfig, {
+            path: 'Glitch',
+            code: 'invalid_object',
+            message: `The Glitch configuration is not defined.`
+        })) {
+            return false;
+        }
+
         const newTextLeaf = newConfig.text;
         const newTextColorLeaf = newTextLeaf?.color;
         const newAnimationLeaf = newConfig.animation;
@@ -236,8 +248,7 @@ export default class GlitchValidator {
 
     private validateFieldProperties(properties: GlitchShadowProperties, oldProperties: GlitchShadowProperties | undefined, fieldPath: string) {
         const propertiesPath = `${fieldPath}.properties`;
-        const existingProperties = [GlitchAnimationProperty.BoxShadow, GlitchAnimationProperty.TextShadow];
-        const results: boolean[] = [];
+        let results: boolean[] = [];
         let propertyName: keyof typeof properties;
 
         if (this.hasErrorOrRemoveExisting(!properties, {
@@ -254,23 +265,25 @@ export default class GlitchValidator {
             if (this.hasErrorOrRemoveExisting(!properties[propertyName], {
                 path: propertiesPath,
                 code: 'invalid_object',
-                message: `The property ${propertyName} must exists.`
+                message: `The property ${propertyName} is null or undefined.`
             })) {
                 results.push(false);
+
                 continue;
             }
 
-            results.concat([
-                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'enabled', `${propertiesPath}.enabled`),
-                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetX', `${propertiesPath}.offsetX`),
-                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetY', `${propertiesPath}.offsetY`),
-                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'blur', `${propertiesPath}.blur`),
-                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'spread', `${propertiesPath}.spread`),
-                this.validateConfigLeaf(properties[propertyName]?.color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'hex', `${propertiesPath}.color.hex`),
-                this.validateConfigLeaf(properties[propertyName]?.color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'alphaPercent', `${propertiesPath}.color.alphaPercent`),
+            results = results.concat(...[
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'enabled', `${propertyPath}.enabled`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetX', `${propertyPath}.offsetX`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'offsetY', `${propertyPath}.offsetY`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'blur', `${propertyPath}.blur`),
+                this.validateConfigLeaf(properties[propertyName], oldProperties?.[propertyName], glitchShadowPropertySchemas, 'spread', `${propertyPath}.spread`),
+                this.validateConfigLeaf(properties[propertyName]?.color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'hex', `${propertyPath}.color.hex`),
+                this.validateConfigLeaf(properties[propertyName]?.color, oldProperties?.[propertyName]?.color, glitchColorSchemas, 'alphaPercent', `${propertyPath}.color.alphaPercent`),
             ]);
+
         }
-        
+
         return results.every(result => result);
     }
 
@@ -319,9 +332,9 @@ export default class GlitchValidator {
             }
 
             config.onValidated(params);
-        } else {
-            this.logErrors();
         }
+
+        this.logErrors();
     }
 
     private logErrors() {

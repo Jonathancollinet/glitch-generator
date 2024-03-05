@@ -11,11 +11,12 @@ const props = defineProps<{
 const emit = defineEmits<{
     selectField: [field: GlitchShadowField],
     addEmptyRange: [],
-    duplicateRange: [index: number],
-    reversePositions: [index: number],
-    reverseColors: [index: number],
+    duplicateRange: [rangeIndex: number],
+    reversePositions: [rangeIndex: number],
+    reverseColors: [rangeIndex: number],
     addField: [rangeIndex: number],
-    removeRange: [index: number]
+    removeRange: [rangeIndex: number],
+    insertField: [rangeIndex: number, offset: number],
 }>()
 
 const openAddRangeOptions = ref(false);
@@ -44,23 +45,28 @@ function addField(rangeIndex: number) {
     resetRangeOptions();
 }
 
-function removeRange(index: number) {
-    emit('removeRange', index);
+function insertField(rangeIndex: number, offset: number) {
+    emit('insertField', rangeIndex, offset);
     resetRangeOptions();
 }
 
-function duplicateRange(index: number) {
-    emit('duplicateRange', index);
+function removeRange(rangeIndex: number) {
+    emit('removeRange', rangeIndex);
     resetRangeOptions();
 }
 
-function reversePositions(index: number) {
-    emit('reversePositions', index);
+function duplicateRange(rangeIndex: number) {
+    emit('duplicateRange', rangeIndex);
     resetRangeOptions();
 }
 
-function reverseColors(index: number) {
-    emit('reverseColors', index);
+function reversePositions(rangeIndex: number) {
+    emit('reversePositions', rangeIndex);
+    resetRangeOptions();
+}
+
+function reverseColors(rangeIndex: number) {
+    emit('reverseColors', rangeIndex);
     resetRangeOptions();
 }
 
@@ -91,13 +97,13 @@ const cursorStyle = computed(() => {
                     <div v-if="config.controls" class="absolute z-20 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in config.ranges" :key="index" :selectedField="selectedField"
-                    :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @selectField="selectField" />
+                    :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @selectField="selectField" @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
                 <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
                     <UiButtonIconTooltip @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
-                            <UiButton variant="link" size="link" @click="addField(index)">Add a frame</UiButton>
+                            <!-- <UiButton variant="link" size="link" @click="addField(index)">Append a frame</UiButton> -->
                             <UiButton variant="link" size="link" @click="reversePositions(index)">Reverse positions</UiButton>
                             <UiButton variant="link" size="link" @click="reverseColors(index)">Reverse colors</UiButton>
                             <UiButton variant="link" size="link" @click="duplicateRange(index)">Duplicate range</UiButton>

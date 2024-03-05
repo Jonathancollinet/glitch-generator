@@ -81,7 +81,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="mb-2 px-5 w-full select-none">
+    <div class="mb-2 px-5 w-full max-w-[600px] select-none">
         <Transition name="fade" mode="out-in">
             <div class="text-center" v-if="displayTitle">
                 {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%

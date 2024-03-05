@@ -55,7 +55,6 @@ function updateValue<Container>({
                 targetValue = target.value;
             } else if (target.tagName === 'INPUT') {
                 if (isCheckbox) {
-                    // Boolean('false') === true, so we need to provide an empty string if !checked
                     targetValue = target.checked ? "true" : "";
                 } else {
                     targetValue = target.value;
@@ -93,11 +92,14 @@ export function applyUpdater<Container>({
     }
 }
 
-export function getErrorMessage(errors: Partial<GlitchErrors>, path: string) {
+export function getErrorMessage(errors: Partial<GlitchErrors>, path: string, withPrecision: boolean = false) {
     const e = errors[path];
 
     if (e) {
-        return `errors.config.${e.path}.${e.code}`;
+        if (withPrecision) {
+            return `errors.config.${path}.${e.code}`;
+        }
+        return `errors.config.${e.code}`;
     }
 }
 
