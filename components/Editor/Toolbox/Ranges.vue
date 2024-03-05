@@ -81,7 +81,6 @@ const cursorStyle = computed(() => {
         height: `calc(${24 * rangeNb}px + ${1 * rangeNb - 1}rem)`
     }
 })
-
 </script>
 
 <template>

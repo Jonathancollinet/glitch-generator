@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-defineProps<{
-    currentPercent: number
+const props = defineProps<{
+    currentPercent: number,
+    precision: number
 }>()
 
 const emit = defineEmits<{
@@ -10,8 +11,6 @@ const emit = defineEmits<{
 const moveContainer = ref<HTMLElement | null>(null);
 const currentWidth = ref(0);
 const displayTitle = ref(false);
-
-// todo: handle touch events
 
 function selectAnimationAt(e: MouseEvent | TouchEvent) {
     if (moveContainer.value) {
@@ -29,7 +28,7 @@ function selectAnimationAt(e: MouseEvent | TouchEvent) {
         }
 
         if (takeValue) {
-            let percent = (x / rect.width) * 100;
+            let percent = Math.round((x / rect.width) * 100 * props.precision) / props.precision;
 
             if (percent < 0) {
                 percent = 0;
@@ -37,7 +36,7 @@ function selectAnimationAt(e: MouseEvent | TouchEvent) {
             if (percent > 100) {
                 percent = 100;
             }
-            if (percent >= 0 && percent <= 100) {
+            if (percent >= 0 && percent <= 100 && props.currentPercent !== percent) {
                 emit('selectAnimationAt', percent);
             }
         }
