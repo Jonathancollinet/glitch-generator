@@ -15,7 +15,7 @@ export default deepCopy({
             hex: '#000000',
             alphaPercent: 100
         },
-        message: 'Animate me!'
+        message: '👽 🔊 🌎'
     },
     animation: {
         duration: 3000

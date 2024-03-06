@@ -65,7 +65,7 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
             <div class="flex items-center justify-between">
                 <div class="flex">
                     <UiHeading class="m-0" variant="h3">{{ $t('pages.editor.config.field.offsetFrame') }}</UiHeading>
-                    <UiFormGroup class="m-0 ml-2" variant="inline" name="offsetFrame">
+                    <UiFormGroup data-v-step="8" class="m-0 ml-2" variant="inline" name="offsetFrame">
                         <select class="bg-transparent" id="offsetFrame" name="offsetFrame" :value="localField.offsetFrame"
                             @change="updateOffsetFrame">
                             <option v-for="frame in getPossibleOffsetFrames(localField, range)" :key="frame" :value="frame">
@@ -74,7 +74,7 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                         </select>
                     </UiFormGroup>
                 </div>
-                <div class="flex">
+                <div class="flex" data-v-step="15">
                     <UiIcon class="stroke-neutral-50 cursor-pointer hover:stroke-primary-200" :icon="Icons.Trash" @click="removeField" />
                     <!-- <UiIcon :icon="Icons.Close" class="cursor-pointer" @click="closeField" /> -->
                 </div>

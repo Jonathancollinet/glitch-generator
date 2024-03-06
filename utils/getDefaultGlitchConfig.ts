@@ -21,9 +21,7 @@ const defaultGlitchConfig: GlitchConfig = {
     animation: {
         duration: 3000
     },
-    ranges: [
-        [getDefaultField(0, 0, 0)]
-    ]
+    ranges: [[getDefaultField(0, 0, 0)]]
 }
 
 export function getDefaultGlitchConfig() {

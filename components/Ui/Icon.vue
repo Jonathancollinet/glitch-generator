@@ -14,7 +14,10 @@ import {
     ArrowsRightLeftIcon,
     ArrowsPointingOutIcon,
     ChevronUpIcon,
-    ChevronDownIcon
+    ChevronDownIcon,
+    InboxArrowDownIcon,
+    CodeBracketSquareIcon,
+    QuestionMarkCircleIcon
 } from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
@@ -45,6 +48,9 @@ const IconMap = {
     [Icons.Move]: ArrowsPointingOutIcon,
     [Icons.ChevronUp]: ChevronUpIcon,
     [Icons.ChevronDown]: ChevronDownIcon,
+    [Icons.Save]: InboxArrowDownIcon,
+    [Icons.Download]: CodeBracketSquareIcon,
+    [Icons.Help]: QuestionMarkCircleIcon,
 };
 
 const icon = computed(() => IconMap[props.icon]);

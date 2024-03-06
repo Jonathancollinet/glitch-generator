@@ -100,8 +100,8 @@ const cursorStyle = computed(() => {
                     :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @selectField="selectField" @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
-                <div class="relative top-0 h-[24px] mb-4 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
-                    <UiButtonIconTooltip @click="displayRangeOptions(index)">
+                <div class="relative top-0 w-full h-[24px] mb-4 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
+                    <UiButtonIconTooltip data-v-step="18,19,20" @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
                             <!-- <UiButton variant="link" size="link" @click="addField(index)">Append a frame</UiButton> -->
                             <UiButton variant="link" size="link" @click="reversePositions(index)">Reverse positions</UiButton>
@@ -114,7 +114,7 @@ const cursorStyle = computed(() => {
             </div>
         </div>
         <div class="relative">
-            <UiButton variant="link" size="link" @click="addEmptyRange">Add an empty range</UiButton>
+            <UiButton data-v-step="17" variant="link" size="link" @click="addEmptyRange">Add an empty range</UiButton>
         </div>
     </div>
 </template>

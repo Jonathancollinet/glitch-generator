@@ -29,7 +29,7 @@
             },
             "config": {
                 "color": {
-                    "textBgColorHex": "Bg Color",
+                    "textBgColorHex": "Background",
                     "textColorHex": "Color",
                     "textShadow": {
                         "fieldColorHex": "Color"
@@ -43,7 +43,7 @@
                     "animationDuration": "Duration"
                 },
                 "text": {
-                    "title": "Text",
+                    "title": "Style",
                     "padding": "Padding",
                     "height": "Height",
                     "fontSize": "Size",
@@ -52,14 +52,14 @@
                 "field": {
                     "title": "Field",
                     "shadow": "Shadow",
-                    "offsetX": "Offset X",
-                    "offsetY": "Offset Y",
+                    "offsetX": "X",
+                    "offsetY": "Y",
                     "blur": "Blur",
                     "spread": "Spread",
                     "enabled": "Enabled",
                     "fillAllFrames": "Fill",
                     "fillAllFramesDescription": "If enabled, the shadow will be applied to all frames until the next field or animation's end. If disabled, the shadow will be applied to the current frame offset only.",
-                    "offsetFrame": "Offset",
+                    "offsetFrame": "Frame",
                     "textShadow": "Text shadow",
                     "boxShadow": "Box shadow"
                 }

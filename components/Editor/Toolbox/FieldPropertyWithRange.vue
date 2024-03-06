@@ -3,7 +3,7 @@ import type { applyUpdater } from '~/utils/Toobox/utils';
 
 withDefaults(defineProps<{
     label: string,
-    value: number,
+    value: string | number | undefined,
     name: string,
     min?: string | number,
     max?: string | number,

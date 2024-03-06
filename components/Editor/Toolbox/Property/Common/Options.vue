@@ -33,10 +33,10 @@ function getName(key: string) {
 </script>
 
 <template>
-    <div class="flex justify-between">
-        <UiCheckbox :label="`pages.editor.config.field.${name}`" :name="getName('enabled')" :checked="localProperty.enabled"
+    <div class="flex justify-between mb-2 *:m-0 last:mb-0">
+        <UiCheckbox data-v-step="9" :label="`pages.editor.config.field.${name}`" :name="getName('enabled')" :checked="localProperty.enabled"
             :updateFn="updateEnabled" :error="enabledError" />
-        <UiCheckbox :label="`pages.editor.config.field.fillAllFrames`" :name="getName('fillAllFrames')"
+        <UiCheckbox data-v-step="10" :label="`pages.editor.config.field.fillAllFrames`" :name="getName('fillAllFrames')"
             :checked="localProperty.fillAllFrames" :updateFn="updateFillAllFrames" :error="fillAllFramesError" />
     </div>
 </template>

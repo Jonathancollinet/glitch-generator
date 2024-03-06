@@ -21,17 +21,18 @@ const updateSpread = applyUpdater<GlitchShadowProperty>({
     debounced: 100
 });
 
+function getName(key: string) {
+    return `${props.name}.${key}`;
+}
+
 </script>
 
 <template>
     <div>
         <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty"
             propertyName="boxShadow" :name="name" :errors="errors">
-            <UiFormGroup alignment="center" size="tiny" label="pages.editor.config.field.spread" :error="spreadError"
-                name="spread">
-                <UiInput alignment="center" type="number" name="spread" :modelValue="localProperty.spread"
-                    @update:modelValue="updateSpread" />
-            </UiFormGroup>
+            <EditorToolboxFieldPropertyWithRange label="pages.editor.config.field.spread" min="0"
+                :value="localProperty.spread" :name="getName('spread')" :error="spreadError" :update="updateSpread" />
         </EditorToolboxPropertyCommonShadow>
     </div>
 </template>

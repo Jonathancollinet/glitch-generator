@@ -15,6 +15,9 @@ export enum Icons {
     Move = 'MoveIcon',
     ChevronUp = 'ChevronUpIcon',
     ChevronDown = 'ChevronDownIcon',
+    Download = 'DownloadIcon',
+    Save = 'SaveIcon',
+    Help = 'HelpIcon',
 }
 
 export enum Urls {

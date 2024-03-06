@@ -1,4 +1,5 @@
 import type { GlitchAnimationProperty, GlitchConfig, GlitchShadowField, GlitchShadowProperty } from "~/glitch/types";
+import type { Preset } from "../Toobox/presets";
 
 export function removeRange(config: GlitchConfig, rangeIndex: number) {
     applyToUpperRanges(rangeIndex, config, (range, index) => {
@@ -34,6 +35,12 @@ export function removeField(config: GlitchConfig, field: GlitchShadowField) {
     const fieldNb = range.length;
     const index = field.index;
 
+    if (fieldNb === 1) {
+        config.ranges.splice(field.range, 1);
+
+        return;
+    }
+
     if (index < (fieldNb - 1)) {
         const length = (fieldNb - 1) - index;
 
@@ -68,16 +75,16 @@ export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number,
 
     closestIndex = closestIndex !== -1 ? closestIndex : range.length;
 
+    const previousField = range[range.length === 1 ? 0 : closestIndex - 1];
+    const previousParams = deepCopy(previousField);
+    const newField = getDefaultField(rangeIndex, range.length === 1 ? 1 : closestIndex, offset);
+
+    newField.properties = previousParams.properties;
+
     if (range.length === 1) {
-        range.push(getDefaultField(rangeIndex, 1, offset));
+        range.push(newField);
         return true;
     }
-    
-    const previousField = range[closestIndex - 1];
-    const previousParams = deepCopy(previousField);
-    const newField = getDefaultField(rangeIndex, closestIndex, offset);
-
-    newField.properties = deepCopy(previousParams.properties);
 
     if (previousField.offsetFrame !== offset) {
         range.splice(closestIndex, 0, newField);
@@ -129,6 +136,17 @@ export function reverseRangePositions(range: GlitchShadowField[]) {
         property.offsetX = reverseNumber(property.offsetX);
         property.offsetY = reverseNumber(property.offsetY);
     })
+}
+
+export function setConfigFromPreset(config: GlitchConfig, preset: Preset) {
+    config.text.bgColor = preset.config.text.bgColor;
+    config.text.color = preset.config.text.color;
+    config.text.size = preset.config.text.size;
+    config.text.padding = preset.config.text.padding;
+    config.text.height = preset.config.text.height;
+    config.text.message = preset.config.text.message;
+    config.animation.duration = preset.config.animation.duration;
+    config.ranges = deepCopy(preset.config.ranges);
 }
 
 function incrementUpperFieldIndexesFrom(range: GlitchShadowField[], index: number) {

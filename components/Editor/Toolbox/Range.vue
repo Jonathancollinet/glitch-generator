@@ -176,7 +176,7 @@ const nextHoveredFrameOffset = computed(() => {
 
 <template>
     <div class="relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties" v-click-outside="hideSelectableField">
-        <div class="h-full w-[calc(100%-36px)]">
+        <div class="h-full w-[calc(100%-36px)]" data-v-step="6,11,12,13,14">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
                 :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"

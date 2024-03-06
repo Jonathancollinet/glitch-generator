@@ -57,12 +57,12 @@ watch(config.value.ranges, () => {
 <template>
     <div>
         <div class="mb-4" v-if="selectedField && localSelectedField">
-            <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
+            <EditorToolboxField data-v-step="7" :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
                 v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField"
                 @closeField="closeField" />
         </div>
-        <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
+        <EditorToolboxAnimation data-v-step="4" v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />
-        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
+        <EditorToolboxText data-v-step="3" v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
     </div>
 </template>

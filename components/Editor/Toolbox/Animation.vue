@@ -27,9 +27,9 @@ const updateAnimationDuration = applyUpdater<GlitchAnimation>({
         </template>
 
         <template #content>
-            <UiFormGroup label="pages.editor.config.animation.animationDuration" :error="animationDurationError"
+            <UiFormGroup inline label="pages.editor.config.animation.animationDuration" :error="animationDurationError"
                 name="animationDuration">
-                <UiInput size="medium" :debounceFn="updateAnimationDuration" name="animationDuration"
+                <UiInput class="w-[70px]" alignment="center" size="medium" :debounceFn="updateAnimationDuration" name="animationDuration"
                     :modelValue="localAnimation.duration" />
             </UiFormGroup>
         </template>

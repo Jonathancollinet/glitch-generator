@@ -145,7 +145,7 @@ const fieldClass = computed(() => {
 
 <template>
     <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
-        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" :style="fieldStyle">
+        :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" @mousedown="selectField" :style="fieldStyle">
         <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
             <div class="h-full" :style="{ ...textShadowStyle }" />
         </div>
