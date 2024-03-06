@@ -175,18 +175,20 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="relative bg-neutral-50 mb-4 h-[24px] last:mb-0" @mouseout="removeProperties" v-click-outside="hideSelectableField">
+    <div class="relative mb-2 h-[24px] last:mb-0" @mouseout="removeProperties" v-click-outside="hideSelectableField">
         <div class="h-full w-[calc(100%-36px)]" data-v-step="6,11,12,13,14">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
                 :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
                     :nextHoveredFrameOffset="nextHoveredFrameOffset" />
             </UiTooltipContent>
-            <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" :textFontSize="textFontSize"
-                :field="field" :nextField="range[index + 1]" :draggingFieldIndex="draggingFieldIndex"
-                :isSelected="isFieldSelected(field)" v-on="onField" @contextmenu.prevent.stop
-                @mousedown.right="showSelectableField" />
+            <div>
+                <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" :textFontSize="textFontSize"
+                    :field="field" :nextField="range[index + 1]" :draggingFieldIndex="draggingFieldIndex"
+                    :isSelected="isFieldSelected(field)" v-on="onField" @contextmenu.prevent.stop
+                    @mousedown.right="showSelectableField" />
 
+            </div>
             <div v-if="displaySelectableField" class="absolute z-10 h-full w-full whitespace-nowrap">
                 <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"
                     :style="{ left: p + '%' }" @contextmenu.prevent.stop @mouseup.right="chooseFieldOffset($event, p)"

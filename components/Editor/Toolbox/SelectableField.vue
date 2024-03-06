@@ -2,6 +2,7 @@
 import type { ClassValue } from 'class-variance-authority/types';
 import { GlitchAnimationProperty } from '~/glitch/types';
 import type { GlitchShadowField, GlitchShadowProperty } from '~/glitch/types';
+import { Icons } from '~/types/enums';
 
 type StyleAttrs = { background?: string, filter?: string };
 type Style = { [key in GlitchAnimationProperty]: StyleAttrs };
@@ -107,6 +108,7 @@ function displayProperties() {
 
 const textShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.TextShadow]);
 const boxShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.BoxShadow]);
+const textShadowEnabled = computed(() => props.field.properties[GlitchAnimationProperty.TextShadow]?.enabled);
 
 const hasShadowBox = computed(() => {
     return props.field.properties[GlitchAnimationProperty.BoxShadow]?.enabled;
@@ -124,11 +126,11 @@ const fieldClass = computed(() => {
     const draggingOther = props.draggingFieldIndex !== props.field.index;
 
     const classes: ClassValue[] = [
-        'absolute overflow-hidden h-full cursor-pointer select-none inline-block border-l border-transparent',
+        'absolute overflow-hidden h-full cursor-pointer select-none inline-block',
         'hover:bg-primary-50 hover:opacity-50',
-        'first:border-l-0',
-        props.isSelected ? ' border border-l-2' : '',
-
+        'border border-l-0',
+        'first:border-l',
+        props.isSelected ? 'first:border-2 border-2 border-l' : '',
     ]
 
     if (isDragging) {
@@ -147,9 +149,11 @@ const fieldClass = computed(() => {
     <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
         :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" @mousedown="selectField" :style="fieldStyle">
         <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
-            <div class="h-full" :style="{ ...textShadowStyle }" />
+            <div class="h-full flex items-center justify-center" :style="{ ...textShadowStyle }">
+                <UiIcon class="max-w-[12px]" v-if="!textShadowEnabled" :icon="Icons.EyeSlash" />
+            </div>
         </div>
-        <div class="h-[30%] w-full border-t-2 border-t-neutral-50 overflow-hidden">
+        <div class="h-[30%] w-full border-t-2 overflow-hidden">
             <div class="h-full" v-if="hasShadowBox" :style="{ ...boxShadowStyle }" />
         </div>
     </div>

@@ -83,8 +83,7 @@ const cursorStyle = computed(() => {
     const rangeNb = props.config.ranges.length;
     
     return {
-        left: `calc(${props.currentPercent}% - 1px)`,
-        height: `calc(${24 * rangeNb}px + ${1 * rangeNb - 1}rem)`
+        left: `calc(${props.currentPercent}% - 1px)`
     }
 })
 </script>
@@ -94,13 +93,13 @@ const cursorStyle = computed(() => {
         <div class="flex mb-4">
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <div v-if="config.controls" class="absolute z-20 pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto" :style="cursorStyle" />
+                    <div v-if="config.controls" class="absolute z-20 h-full pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto dark:bg-neutral-50" :style="cursorStyle" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in config.ranges" :key="index" :selectedField="selectedField"
                     :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @selectField="selectField" @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
-                <div class="relative top-0 w-full h-[24px] mb-4 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
+                <div class="relative top-0 w-full h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
                     <UiButtonIconTooltip data-v-step="18,19,20" @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
                             <!-- <UiButton variant="link" size="link" @click="addField(index)">Append a frame</UiButton> -->

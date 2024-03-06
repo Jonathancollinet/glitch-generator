@@ -18,6 +18,7 @@ export enum Icons {
     Download = 'DownloadIcon',
     Save = 'SaveIcon',
     Help = 'HelpIcon',
+    EyeSlash = 'EyeSlashIcon',
 }
 
 export enum Urls {
