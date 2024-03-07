@@ -4,7 +4,7 @@ export const tourSteps = [
         header: {
             title: 'Welcome to the Glitch Editor'
         },
-        content: 'This tool allows you to create and customize animations.<br><br>This tour will guide you through the different features.',
+        content: 'This tool allows you to create and customize animations.<br><br>This tutorial will guide you through the different features.',
         params: {
             highlight: false
         }
@@ -31,7 +31,7 @@ export const tourSteps = [
         header: {
             title: 'Text & Container settings'
         },
-        content: 'This area contains the text settings.<br>You can change the text and his container properties.',
+        content: 'This area contains the styles settings.<br>You can change the text and his container properties.<br><br>Note: You have to open it by clicking on the title.',
         params: {
             placement: 'top'
         }
@@ -51,7 +51,7 @@ export const tourSteps = [
         header: {
             title: 'Ranges and fields'
         },
-        content: 'This area represents the animation\'s frames.<br>The entire bar represent a range and can contains 101 fields maximum.<br>Each inner field represents one or more frames.'
+        content: 'This area represents the animation\'s frames.<br>The horizontal bar represent a range and can contain 101 fields maximum.<br>Each inner field represents one or more frames.'
     },
     {
         target: '[data-v-step*="6"]',
@@ -65,7 +65,10 @@ export const tourSteps = [
         header: {
             title: 'Field configuration'
         },
-        content: 'This area contains the field\'s properties.'
+        content: 'This area contains the field\'s properties.',
+        params: {
+            placement: 'left'
+        }
     },
     {
         target: '[data-v-step="8"]',
@@ -89,7 +92,7 @@ export const tourSteps = [
         header: {
             title: 'Fill'
         },
-        content: 'This button will fill all the frames with the current properties, starting from the current offset until the next field or range end.'
+        content: 'This button will fill all the frames with the current shadow values, starting from the current offset until the next field or range\'s end.'
     },
     {
         target: '[data-v-step*="11"]',
@@ -176,7 +179,7 @@ export const tourSteps = [
         header: {
             title: 'Add a range'
         },
-        content: 'When duplicating a range, the range\'s options took sense.<br>You can reverse every x/y field\'s position, or reverse colors.<br><br>Give it a try on the duplicated range!',
+        content: 'When duplicating a range, the range\'s options take all his sense.<br>You can reverse every x/y field\'s position, or reverse colors.<br><br>Give it a try on the duplicated range!',
         params: {
             placement: 'top',
             highlight: false
@@ -192,9 +195,9 @@ export const tourSteps = [
     {
         target: '[data-v-step="22"]',
         header: {
-            title: 'Oof!'
+            title: 'Great!'
         },
-        content: 'Now your work is saved under presets, you can reload the page without losing it.'
+        content: 'Now your work is saved under a custom preset, you can reload the page without losing it.<br><br>Each time you edit a custom preset, the changes are saved automatically.<br><br>Be careful, the built-in presets can\'t be edited, so it\'s advised to immediatly create a custom preset from it to avoid accidentaly loose your work.'
     },
     {
         target: '[data-v-step="23"]',

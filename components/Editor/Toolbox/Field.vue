@@ -35,12 +35,12 @@ const updateOffsetFrame = applyUpdater<GlitchShadowField>({
 
 function propertyCardClass(property: GlitchShadowProperty) {
     const cls: ClassValue[] = [
-        'transition-[background-color]',
-        'border-transparent'
+        'border-transparent',
+        'py-4'
     ]
 
     if (property.enabled) {
-        cls.push('bg-primary-200 dark:bg-primary-800');
+        cls.push('bg-primary-600 text-primary-50 dark:bg-primary-800');
     } else {
         cls.push('bg-neutral-200 dark:bg-neutral-600');
     }
@@ -60,22 +60,17 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
 </script>
 
 <template>
-    <UiCard class="bg-primary-100">
+    <UiCard>
         <template #title>
             <div class="flex items-center justify-between">
                 <div class="flex">
                     <UiHeading class="m-0" variant="h3">{{ $t('pages.editor.config.field.offsetFrame') }}</UiHeading>
                     <UiFormGroup data-v-step="8" class="m-0 ml-2" variant="inline" name="offsetFrame">
-                        <select class="bg-transparent" id="offsetFrame" name="offsetFrame" :value="localField.offsetFrame"
-                            @change="updateOffsetFrame">
-                            <option v-for="frame in getPossibleOffsetFrames(localField, range)" :key="frame" :value="frame">
-                                {{ frame }}
-                            </option>
-                        </select>
+                        <UiSelect class="bg-transparent" :modelValue="localField.offsetFrame" :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
                     </UiFormGroup>
                 </div>
                 <div class="flex" data-v-step="15">
-                    <UiIcon class="stroke-neutral-50 cursor-pointer hover:stroke-primary-200" :icon="Icons.Trash" @click="removeField" />
+                    <UiIcon class="cursor-pointer" :icon="Icons.Trash" @click="removeField" />
                     <!-- <UiIcon :icon="Icons.Close" class="cursor-pointer" @click="closeField" /> -->
                 </div>
             </div>

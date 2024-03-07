@@ -21,7 +21,7 @@ defineExpose({
 </script>
 
 <template>
-    <UiCard class="dark:bg-transparent">
+    <UiCard noContentPad class="bg-primary-50 dark:bg-neutral-900">
         <template #content>
             <div class="relative h-[50vw] min-h-72 max-h-[400px] lg:max-h-[500px]">
                 <div class="flex h-full items-center justify-center select-none overflow-hidden">
@@ -30,7 +30,7 @@ defineExpose({
                     </div>
                 </div>
                 <ClientOnly>
-                    <div data-v-step="2" class="absolute w-full bottom-1 flex flex-col justify-center items-center"
+                    <div data-v-step="2" class="absolute w-full bottom-4 flex flex-col justify-center items-center"
                         v-if="controller && hasControls">
                         <EditorKeyframesController v-model="currentPercent" :controller="controller"
                             :animationDuration="animationDuration" />

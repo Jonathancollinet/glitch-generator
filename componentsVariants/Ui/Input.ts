@@ -11,8 +11,8 @@ export const InputVariants = cva(
         variants: {
             variant: {
                 default: [
-                    "bg-primary-50 text-neutral-900 placeholder-neutral-500",
-                    "dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder-neutral-400",
+                    "bg-primary-200 text-neutral-900 placeholder-neutral-500",
+                    "dark:bg-primary-200",
                 ]
             },
             alignment: {

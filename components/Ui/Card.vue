@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<{
     class?: HTMLAttributes['class'],
     openable?: boolean,
     isOpen?: boolean,
+    noContentPad?: boolean,
 }>(), {
     openable: false,
     isOpen: true,
@@ -16,19 +17,18 @@ const openToggle = ref(props.isOpen);
 
 const cardClasses: ClassValue[] = [
     'rounded-tl-2xl rounded-br-2xl mb-4 last:mb-0 transition-[background-color]',
-    'bg-primary-100',
-    'dark:bg-neutral-700',
 ]
 
 const titleClass = computed(() => cn([
-    '*:m-0 px-4 py-2 rounded-tl-2xl',
-    'bg-primary-500 text-neutral-50',
-    props.openable ? 'transition-colors cursor-pointer hover:bg-primary-600' : '',
+    '*:m-0 px-4 py-2 rounded-tl-2xl select-none',
+    props.openable ? 'cursor-pointer hover:opacity-60' : '',
     !openToggle.value ? 'rounded-br-2xl' : '',
 ]));
 
 const contentClass = computed(() => cn([
-    'p-4 rounded-br-2xl',
+    'rounded-br-2xl',
+    props.noContentPad ? '' : 'px-4',
+    props.openable && openToggle.value ? 'ml-4 border-l' : ''
 ]));
 </script>
 
@@ -41,7 +41,7 @@ const contentClass = computed(() => cn([
         <template v-else>
             <div class="*:m-0 flex items-center justify-between select-none" @click="openToggle = !openToggle">
                 <slot name="title" />
-                <UiIcon class="stroke-neutral-50" :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown" />
+                <UiIcon :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown" />
             </div>
         </template>
     </div>

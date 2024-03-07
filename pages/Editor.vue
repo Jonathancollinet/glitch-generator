@@ -95,6 +95,14 @@ function bindGlitch(newBindings: any) {
     }
 }
 
+function selectFirstRangeField(range?: GlitchShadowField[]) {
+    const firstFieldRange = (range || gconfig.ranges[0])?.[0];
+
+    if (firstFieldRange) {
+        selectField(firstFieldRange);
+    }
+}
+
 function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
         if (isCustomPreset.value) {
@@ -214,6 +222,7 @@ function removeField(field: GlitchShadowField) {
     }
 
     EditorUtils.removeField(gconfig, field);
+    selectFirstRangeField(gconfig.ranges[field.range]);
     computeConfig(gconfig, true);
 }
 
@@ -226,9 +235,7 @@ function removeRange(rangeIndex: number) {
     computeConfig(gconfig, true);
 
     nextTick(() => {
-        if (gconfig.ranges[0]?.[0]) {
-            selectField(gconfig.ranges[0][0]);
-        }
+        selectFirstRangeField();
     })
 }
 
@@ -317,10 +324,7 @@ onBeforeUnmount(() => {
             <div class="flex items-end justify-between lg:w-[25%] lg:ml-2">
                 <ClientOnly>
                     <UiFormGroup label="pages.editor.presets.title">
-                        <select data-v-step="22" v-model="currentPreset" class="w-full">
-                            <option v-for="(preset, index) in presets" :key="index" :value="preset">{{ preset.name }}
-                            </option>
-                        </select>
+                        <UiSelect data-v-step="22" :options="presets" v-model="currentPreset" labelKey="name" />
                     </UiFormGroup>
                 </ClientOnly>
                 <div class="flex ml-4 mb-2 *:ml-2">
@@ -346,9 +350,9 @@ onBeforeUnmount(() => {
             <EditorToolbox class="lg:w-[25%] lg:ml-2" v-model:config="gconfig" v-model:field="selectedField"
                 :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
         </div>
-
         <template v-if="mounted">
-            <v-tour name="tutorial" :steps="tourSteps" :callbacks="tourCallbacks" />
+            <v-tour name="tutorial" :steps="tourSteps" :callbacks="tourCallbacks"
+                :options="{ useKeyboardNavigation: false }" />
         </template>
 
     </div>

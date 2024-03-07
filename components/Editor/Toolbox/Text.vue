@@ -62,29 +62,38 @@ const updateHeight = applyUpdater<GlitchBaseText>({
 
         <template #content>
             <UiHeading class="mt-0" variant="h5">Text</UiHeading>
-            <UiFormGroup class="ml-0" :error="textMessageError" name="message">
-                <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
-            </UiFormGroup>
-            <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.fontSize"
-                :error="textSizeError" name="textSize">
-                <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updateTextSize" name="textSize"
-                    :modelValue="localConfig.size" />
-            </UiFormGroup>
-            <EditorToolboxPropertyColor class="ml-0 " v-model:config="config.color" v-model:localConfig="localConfig.color"
-                name="textColor" :errors="errors" />
+            <UiCard openable>
+                <template #content>
+                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.fontSize"
+                        :error="textSizeError" name="textSize">
+                        <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updateTextSize"
+                            name="textSize" :modelValue="localConfig.size" />
+                    </UiFormGroup>
+                    <EditorToolboxPropertyColor class="ml-0 " v-model:config="config.color"
+                        v-model:localConfig="localConfig.color" name="textColor" :errors="errors" />
+                    <UiFormGroup class="ml-0" :error="textMessageError" name="message">
+                        <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
+                    </UiFormGroup>
+                </template>
+            </UiCard>
             <UiHeading variant="h5">Container</UiHeading>
-            <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
-                :error="textPaddingError" name="textPadding">
-                <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updatePadding" name="textPadding"
-                    :modelValue="localConfig.padding" />
-            </UiFormGroup>
-            <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
-                :error="textHeightError" name="textHeight">
-                <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updateHeight" name="textHeight"
-                    :modelValue="localConfig.height" />
-            </UiFormGroup>
-            <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor" v-model:localConfig="localConfig.bgColor"
-                name="textBgColor" :errors="errors" />
+            <UiCard openable>
+
+                <template #content>
+                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
+                        :error="textPaddingError" name="textPadding">
+                        <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updatePadding"
+                            name="textPadding" :modelValue="localConfig.padding" />
+                    </UiFormGroup>
+                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
+                        :error="textHeightError" name="textHeight">
+                        <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updateHeight"
+                            name="textHeight" :modelValue="localConfig.height" />
+                    </UiFormGroup>
+                    <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor"
+                        v-model:localConfig="localConfig.bgColor" name="textBgColor" :errors="errors" />
+                </template>
+            </UiCard>
         </template>
     </UiCard>
 </template>
