@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<{
 const openToggle = ref(props.isOpen);
 
 const cardClasses: ClassValue[] = [
-    'border border-primary-900 rounded-tl-2xl rounded-br-2xl mb-4 last:mb-0 transition-[background-color]',
+    'rounded-tl-2xl rounded-br-2xl mb-4 last:mb-0 transition-[background-color]',
     'bg-primary-100',
     'dark:bg-neutral-700',
 ]
@@ -26,11 +26,15 @@ const titleClass = computed(() => cn([
     props.openable ? 'transition-colors cursor-pointer hover:bg-primary-600' : '',
     !openToggle.value ? 'rounded-br-2xl' : '',
 ]));
+
+const contentClass = computed(() => cn([
+    'p-4 rounded-br-2xl',
+]));
 </script>
 
 <template>
   <div :class="cn(cardClasses, props.class)">
-    <div v-if="$slots.title" :class="cn(titleClass)">
+    <div v-if="$slots.title" :class="titleClass">
         <template v-if="!openable">
             <slot name="title" />
         </template>
@@ -41,7 +45,7 @@ const titleClass = computed(() => cn([
             </div>
         </template>
     </div>
-    <div class="p-4 rounded-br-2xl" v-if="openToggle">
+    <div :class="cn(contentClass)" v-if="openToggle">
             <slot name="content" />
         </div>
   </div>

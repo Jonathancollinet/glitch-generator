@@ -101,7 +101,7 @@ const cursorStyle = computed(() => {
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
                 <div class="relative top-0 w-full h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
                     <UiButtonIconTooltip data-v-step="18,19,20" @click="displayRangeOptions(index)">
-                        <UiTooltipContent class="whitespace-nowrap -translate-x-[75%]" v-if="showRangeOptions[index]">
+                        <UiTooltipContent class="whitespace-nowrap -translate-x-[90%]" v-if="showRangeOptions[index]">
                             <!-- <UiButton variant="link" size="link" @click="addField(index)">Append a frame</UiButton> -->
                             <UiButton variant="link" size="link" @click="reversePositions(index)">Reverse positions</UiButton>
                             <UiButton variant="link" size="link" @click="reverseColors(index)">Reverse colors</UiButton>

@@ -27,7 +27,8 @@ let percents = new Array(101).fill(0).map((_, i) => i);
 const hoveredField = ref<GlitchShadowField>();
 const fieldPropertiesToShow = ref<GlitchShadowField>();
 const draggingFieldIndex = ref(-1);
-const displaySelectableField = ref(false);
+const displaySelectableFields = ref(false);
+const translationModifier = ref('');
 
 const onField = {
     dragStart,
@@ -38,11 +39,11 @@ const onField = {
 }
 
 function showSelectableField(e: MouseEvent) {
-    displaySelectableField.value = true;
+    displaySelectableFields.value = true;
 }
 
 function hideSelectableField() {
-    displaySelectableField.value = false;
+    displaySelectableFields.value = false;
 }
 
 function chooseFieldOffset(e: MouseEvent, offset: number) {
@@ -124,7 +125,20 @@ function saveX(e: DragEvent, x?: number) {
     oldX = x ?? e.pageX;
 }
 
-function displayProperties(field: GlitchShadowField) {
+function displayProperties(e: MouseEvent, field: GlitchShadowField) {
+    const target = e.target as HTMLElement;
+    const middle = target.scrollWidth / 2 + 16;
+    const left = target.offsetLeft;
+    const arbitraryTooltipSize = 180 / 2;
+    
+    if ((document.body.scrollWidth - 16 - left) < arbitraryTooltipSize) {
+        translationModifier.value = '-100%';
+    } else if ((middle + left) > arbitraryTooltipSize) {
+        translationModifier.value = '';
+    } else {
+        translationModifier.value = '0%';
+    }
+    
     hoveredField.value = field;
 }
 
@@ -158,9 +172,11 @@ const propertyPosition = computed(() => {
         const currentOffset = field.offsetFrame;
         const middleOffset = ((props.range[field.index + 1]?.offsetFrame ?? 101) - currentOffset) / 2;
         const left = currentOffset + middleOffset;
+        const finalTranslateX = translationModifier.value ? translationModifier.value : '-50%';
 
         return {
             left: `${left}%`,
+            transform: `translate(${finalTranslateX}, calc(-100% - 5px))`
         }
     }
 })
@@ -175,9 +191,9 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="relative mb-2 h-[24px] last:mb-0" @mouseout="removeProperties" v-click-outside="hideSelectableField">
+    <div class="relative mb-2 h-[24px] last:mb-0" @mouseleave="removeProperties" v-click-outside="hideSelectableField">
         <div class="h-full w-[calc(100%-36px)]" data-v-step="6,11,12,13,14">
-            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap -translate-x-1/2 -translate-y-full"
+            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap"
                 :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
                     :nextHoveredFrameOffset="nextHoveredFrameOffset" />
@@ -189,7 +205,7 @@ const nextHoveredFrameOffset = computed(() => {
                     @mousedown.right="showSelectableField" />
 
             </div>
-            <div v-if="displaySelectableField" class="absolute z-10 h-full w-full whitespace-nowrap">
+            <div v-if="displaySelectableFields" class="absolute z-10 h-full w-full whitespace-nowrap">
                 <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"
                     :style="{ left: p + '%' }" @contextmenu.prevent.stop @mouseup.right="chooseFieldOffset($event, p)"
                     v-for="(p, index) in percents"></div>

@@ -48,7 +48,7 @@ const formatBoxShadow = computed(() => {
                 <template v-else>all</template>
             </div>
         </div>
-        <div class="flex pl-1">-> {{ formatTextShadow }}<div class="ml-1 h-3 w-3" :style="{background: hexToRGB(textShadow.color.hex, textShadow.color.alphaPercent)}" /></div>
+        <div class="flex pl-1">{{ formatTextShadow }}<div class="ml-1 h-3 w-3" :style="{background: hexToRGB(textShadow.color.hex, textShadow.color.alphaPercent)}" /></div>
     </div>
     <div class="text-xs" v-if="boxShadow?.enabled">
         <div class="flex">
@@ -60,7 +60,7 @@ const formatBoxShadow = computed(() => {
                 <template v-else>all</template>
             </div>
         </div>
-        <div class="flex pl-1">-> {{ formatBoxShadow }}<div class="ml-1 h-3 w-3" :style="{background: hexToRGB(boxShadow.color.hex, boxShadow.color.alphaPercent)}" /></div>
+        <div class="flex pl-1">{{ formatBoxShadow }}<div class="ml-1 h-3 w-3" :style="{background: hexToRGB(boxShadow.color.hex, boxShadow.color.alphaPercent)}" /></div>
     </div>
   </div>
 </template>

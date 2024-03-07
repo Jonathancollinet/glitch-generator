@@ -22,7 +22,7 @@ const emit = defineEmits<{
     selectField: [field: GlitchShadowField],
     dragStart: [e: DragEvent, field: GlitchShadowField],
     dragEnd: [e: DragEvent],
-    displayProperties: [field: GlitchShadowField]
+    displayProperties: [e: MouseEvent, field: GlitchShadowField]
 }>()
 
 function getPercentWidth() {
@@ -89,7 +89,6 @@ function getStyle() {
     return style;
 }
 
-
 function selectField() {
     emit('selectField', props.field);
 }
@@ -102,8 +101,8 @@ function dragEnd(e: DragEvent) {
     emit('dragEnd', e);
 }
 
-function displayProperties() {
-    emit('displayProperties', props.field);
+function displayProperties(e: MouseEvent) {
+    emit('displayProperties', e, props.field);
 }
 
 const textShadowStyle = computed(() => getStyle()[GlitchAnimationProperty.TextShadow]);
@@ -146,7 +145,7 @@ const fieldClass = computed(() => {
 </script>
 
 <template>
-    <div :draggable="true" @mouseover="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
+    <div :draggable="true" @mouseenter="displayProperties" @dragstart="dragStart" @dragend="dragEnd"
         :class="cn(fieldClass, $attrs.class ?? '')" @click="selectField" @mousedown="selectField" :style="fieldStyle">
         <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
             <div class="h-full flex items-center justify-center" :style="{ ...textShadowStyle }">
