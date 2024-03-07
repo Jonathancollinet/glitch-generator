@@ -113,7 +113,9 @@ const cursorStyle = computed(() => {
             </div>
         </div>
         <div class="relative">
-            <UiButton data-v-step="17" variant="link" size="link" @click="addEmptyRange">Add an empty range</UiButton>
+            <UiButton data-v-step="17" variant="link" size="link" @click="addEmptyRange">
+                <UiIcon :icon="Icons.Add" />
+            </UiButton>
         </div>
     </div>
 </template>

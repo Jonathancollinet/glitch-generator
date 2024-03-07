@@ -258,7 +258,6 @@ function insertField(rangeIndex: number, offset: number) {
 }
 
 watch(() => currentPreset.value.id, () => {
-    console.log("id changed")
     saveLastSelectedPreset(currentPreset.value.id);
     presetChanged(currentPreset.value);
 });
