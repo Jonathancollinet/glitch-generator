@@ -65,6 +65,8 @@ export function addPreset(name: string, config: PresetConfig) {
     if (process.client) {
         savePresetToLocalStorage(preset);
     }
+
+    return deepCopy(preset);
 }
 
 export function updatePreset(preset: Preset) {

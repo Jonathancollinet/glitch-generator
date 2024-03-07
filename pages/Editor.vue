@@ -117,9 +117,10 @@ function createPreset() {
     const name = prompt("Enter a name for the preset");
 
     if (name) {
-        addPreset(name, gconfig);
+        const preset = addPreset(name, gconfig);
+
         presets.value = getPresets();
-        currentPreset.value = presets.value[presets.value.length - 1];
+        currentPreset.value = preset;
         EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
     }
 }
