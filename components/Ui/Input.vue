@@ -1,11 +1,8 @@
 <script lang="ts" setup>
 import { type InputVariantsProps, InputVariants } from '~/componentsVariants/Ui/Input';
-import vueDebounce from 'vue-debounce';
 import type { HTMLAttributes } from 'vue';
 
-const vDebounce = vueDebounce({});
-
-type acceptedTypes = 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url' | 'color';
+type acceptedTypes = 'textarea' | 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url' | 'color';
 
 const props = withDefaults(defineProps<{
     variant?: InputVariantsProps['variant'],
@@ -13,27 +10,34 @@ const props = withDefaults(defineProps<{
     size?: InputVariantsProps['size'],
     type?: acceptedTypes,
     name: string,
+    readonly?: boolean,
     class?: HTMLAttributes['class'],
-    debounceFn?: (value: any) => void,
+    onUpdate?: (value: any) => void,
 }>(), {
     type: 'text',
     debounce: false,
+    readonly: false
 });
 
-const modelValue = defineModel();
-
-const isColor = computed(() => props.type === 'color');
+const modelValue = defineModel<string | number>();
 
 function updateModelValue(e: Event) {
-    if (props.debounceFn) {
-        props.debounceFn(e);
+    if (props.onUpdate) {
+        props.onUpdate(e);
     } else {
         modelValue.value = (e.target as HTMLInputElement)?.value;
     }
 }
+
+const isColor = computed(() => props.type === 'color');
+const isTextArea = computed(() => props.type === 'textarea');
 </script>
 
 <template>
-    <input :class="cn(isColor ? 'cursor-pointer': '', InputVariants({ variant, alignment, size }), props.class ?? '')" autocomplete="off" :type="type" :id="name" :name="name"
-        :value="modelValue" @input="updateModelValue">
+    <textarea v-if="isTextArea" :readonly="readonly"
+        :class="cn('resize', isColor ? 'cursor-pointer' : '', InputVariants({ variant, alignment, size }), props.class ?? '')"
+        autocomplete="off" :type="type" :id="name" :name="name" :value="modelValue" @input="updateModelValue" />
+    <input v-else :readonly="readonly"
+        :class="cn(isColor ? 'cursor-pointer' : '', InputVariants({ variant, alignment, size }), props.class ?? '')"
+        autocomplete="off" :type="type" :id="name" :name="name" :value="modelValue" @input="updateModelValue">
 </template>

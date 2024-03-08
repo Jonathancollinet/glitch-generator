@@ -16,11 +16,11 @@ const props = withDefaults(defineProps<{
 const openToggle = ref(props.isOpen);
 
 const cardClasses: ClassValue[] = [
-    'rounded-tl-2xl rounded-br-2xl mb-4 last:mb-0 transition-[background-color]',
+    'mb-4 last:mb-0 transition-[background-color]',
 ]
 
 const titleClass = computed(() => cn([
-    '*:m-0 px-4 py-2 rounded-tl-2xl select-none',
+    '*:m-0 mb-2 rounded-tl-2xl select-none',
     props.openable ? 'cursor-pointer hover:opacity-60' : '',
     !openToggle.value ? 'rounded-br-2xl' : '',
 ]));

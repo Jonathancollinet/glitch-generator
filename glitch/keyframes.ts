@@ -71,7 +71,18 @@ export default class GlitchKeyframes {
         );
 
         if (this.animation) {
+            let restart = false;
+
+            if (this.animation.playState === 'running') {
+                restart = true;
+            }
+
+            this.animation.pause();
             this.animation.effect = effect;
+
+            if (restart) {
+                this.animation.play();
+            }
         }
     }
 
@@ -204,8 +215,11 @@ export default class GlitchKeyframes {
         return effect;
     }
 
-    getKeyframesString(config: GlitchConfig) {
-        let keyframes = '@keyframes glitch {';
+    getKeyframesString(config: GlitchConfig, formatted: boolean = false) {
+        const newLine = formatted ? '\n' : '';
+        const tab = formatted ? '\t' : '';
+        const doubleTab = formatted ? '\t\t' : '';
+        let keyframes = `@keyframes glitch {${newLine}`;
 
         for (const percent in this.generatedFrames) {
             const framesAt = this.generatedFrames[percent];
@@ -220,11 +234,11 @@ export default class GlitchKeyframes {
                     const lastFrameIndex = filteredProperty.length - 1;
 
                     if (!percentPushed) {
-                        keyframes += ` ${percent}% { `;
+                        keyframes += `${tab}${percent}% { ${newLine}`;
                         percentPushed = true;
                     }
 
-                    keyframes += `${property}: `;
+                    keyframes += `${doubleTab}${property}: `;
 
                     filteredProperty.forEach((frame, frameIndex) => {
                         if (frame) {
@@ -235,12 +249,12 @@ export default class GlitchKeyframes {
                             }
                         }
                     });
-                    keyframes += '; ';
+                    keyframes += `; ${newLine}`;
                 }
             }
 
             if (percentPushed) {
-                keyframes += '}';
+                keyframes += `${tab}}${newLine}`;
             }
         }
 

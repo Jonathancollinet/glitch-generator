@@ -7,6 +7,10 @@ import { EditorDisplayedText } from '#components';
 import * as EditorUtils from '~/utils/Editor/utils';
 import { saveLastSelectedPreset, getPresets, isCustomPresetId, addPreset, updatePreset, removePreset, type Preset, type PresetConfig, getLastSelectedPreset } from '~/utils/Toobox/presets';
 import { isTourDone, setTourDone, tourSteps } from '~/utils/Editor/tour';
+import { useModal } from 'vue-final-modal';
+import AddPreset from '~/components/Ui/Modal/AddPreset.vue';
+import DeletePreset from '~/components/Ui/Modal/DeletePreset.vue';
+import Export from '~/components/Ui/Modal/Export.vue';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
@@ -76,6 +80,45 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     }
 }
 
+
+const addPresetModal = useModal({
+    component: AddPreset,
+    attrs: {
+        onConfirm(name: string) {
+            if (name) {
+                createPreset(name);
+                addPresetModal.close();
+            }
+        },
+        onCancel() {
+            addPresetModal.close();
+        }
+    }
+});
+
+const deletePresetModal = useModal({
+    component: DeletePreset,
+    attrs: {
+        onConfirm() {
+            deletePreset();
+            deletePresetModal.close();
+        },
+        onCancel() {
+            addPresetModal.close();
+        }
+    }
+});
+
+const exportModal = useModal({
+    component: Export,
+    attrs: {
+        glitch,
+        onCancel() {
+            exportModal.close();
+        }
+    }
+});
+
 function initConfig() {
     if (displayedText.value?.glitchedEl) {
         glitchedEl.value = displayedText.value?.glitchedEl;
@@ -117,20 +160,12 @@ function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     }
 }
 
-function exportKeyframe() {
-    console.log(glitch?.exportKeyframes());
-}
+function createPreset(name: string) {
+    const preset = addPreset(name, gconfig);
 
-function createPreset() {
-    const name = prompt("Enter a name for the preset");
-
-    if (name) {
-        const preset = addPreset(name, gconfig);
-
-        presets.value = getPresets();
-        currentPreset.value = preset;
-        EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
-    }
+    presets.value = getPresets();
+    currentPreset.value = preset;
+    EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
 }
 
 function savePreset() {
@@ -144,12 +179,10 @@ function savePreset() {
 }
 
 function deletePreset() {
-    if (confirm("Are you sure you want to delete this preset?")) {
-        removePreset(currentPreset.value.id);
-        presets.value = getPresets();
-        currentPreset.value = presets.value[presets.value.length - 1];
-        EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
-    }
+    removePreset(currentPreset.value.id);
+    presets.value = getPresets();
+    currentPreset.value = presets.value[presets.value.length - 1];
+    EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
 }
 
 function updateField(newField: GlitchShadowField) {
@@ -298,7 +331,6 @@ onMounted(() => {
     nextTick(() => {
         if (process.client) {
             if (!isTourDone()) {
-
                 initTour();
             }
         }
@@ -315,39 +347,43 @@ onBeforeUnmount(() => {
 <template>
     <div>
         <div class="flex items-center justify-between flex-col mb-4 md:flex-row" data-v-step="0,24">
-            <UiHeading class="flex items-center md:m-0 lg:w-[75%] lg:mr-2">
+            <UiHeading class="flex items-center md:m-0 lg:w-[75%] lg:mr-4">
                 <span>{{ $t('pages.editor.title') }}</span>
                 <UiButton class="ml-4" variant="icon" size="icon" @click="initTour">
                     <UiIcon :icon="Icons.Help" @click="initTour" />
                 </UiButton>
             </UiHeading>
-            <div class="flex items-end justify-between lg:w-[25%] lg:ml-2">
+            <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
                 <ClientOnly>
-                    <UiFormGroup label="pages.editor.presets.title">
-                        <UiSelect data-v-step="22" :options="presets" v-model="currentPreset" labelKey="name" />
+                    <UiFormGroup class="mb-0">
+                        <UiSelect :title="$t('pages.editor.selectPreset')" class="max-w-[150px]" data-v-step="22"
+                            :options="presets" v-model="currentPreset" labelKey="name" />
                     </UiFormGroup>
                 </ClientOnly>
-                <div class="flex ml-4 mb-2 *:ml-2">
-                    <UiButton data-v-step="21" variant="icon" size="icon" @click="createPreset">
+                <div class="flex ml-4 *:ml-2">
+                    <UiButton :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon" size="icon"
+                        @click="addPresetModal.open">
                         <UiIcon :icon="Icons.Add" />
                     </UiButton>
-                    <UiButton v-if="isCustomPreset" variant="icon" size="icon" @click="deletePreset">
+                    <UiButton :title="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
+                        @click="deletePresetModal.open">
                         <UiIcon :icon="Icons.Trash" />
                     </UiButton>
-                    <UiButton data-v-step="23" variant="icon" size="icon" @click="exportKeyframe">
+                    <UiButton :title="$t('pages.editor.export')" data-v-step="23" variant="icon" size="icon"
+                        @click="exportModal.open">
                         <UiIcon :icon="Icons.Download" />
                     </UiButton>
                 </div>
             </div>
         </div>
         <div class="lg:flex" :key="currentPreset.id">
-            <div class="lg:w-[75%] lg:mr-2">
+            <div class="lg:w-[75%] lg:mr-4">
                 <EditorDisplayedText data-v-step="1" ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
                 <EditorToolboxRanges data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
                     :selectedField="selectedField" v-on="onRangesEvents" />
             </div>
-            <EditorToolbox class="lg:w-[25%] lg:ml-2" v-model:config="gconfig" v-model:field="selectedField"
+            <EditorToolbox class="lg:w-[25%] lg:ml-4" v-model:config="gconfig" v-model:field="selectedField"
                 :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
         </div>
         <template v-if="mounted">

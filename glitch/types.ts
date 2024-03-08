@@ -82,7 +82,19 @@ export type GlitchBindings = {
     } & AnimationBindings
 }
 
+export type ContainerBindings = Partial<{
+    display: string,
+    alignItems: string,
+    justifyContent: string,
+}>
+
+export type GlitchExport = {
+    keyframes: string,
+    style: GlitchBindings & ContainerBindings
+}
+
 export type AnimationBindings = {
+    animationName?: string,
     animationDuration?: string,
     animationTimingFunction?: string,
     animationIterationCount?: string,

@@ -4,7 +4,7 @@ export type ButtonVariantsProps = VariantProps<typeof ButtonVariants>;
 
 export const ButtonVariants = cva(
     [
-        'inline-flex items-center justify-center rounded-tl-2xl rounded-br-2xl',
+        'inline-flex items-center justify-center rounded-md',
         'text-base font-medium select-none',
         'disabled:pointer-events-none disabled:opacity-50'
     ],

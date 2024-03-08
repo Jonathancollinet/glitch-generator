@@ -66,13 +66,13 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.fontSize"
                         :error="textSizeError" name="textSize">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updateTextSize"
+                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateTextSize"
                             name="textSize" :modelValue="localConfig.size" />
                     </UiFormGroup>
                     <EditorToolboxPropertyColor class="ml-0 " v-model:config="config.color"
                         v-model:localConfig="localConfig.color" name="textColor" :errors="errors" />
                     <UiFormGroup class="ml-0" :error="textMessageError" name="message">
-                        <UiInput :debounceFn="updateMessage" name="message" :modelValue="localConfig.message" />
+                        <UiInput :onUpdate="updateMessage" name="message" :modelValue="localConfig.message" />
                     </UiFormGroup>
                 </template>
             </UiCard>
@@ -82,12 +82,12 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
                         :error="textPaddingError" name="textPadding">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updatePadding"
+                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updatePadding"
                             name="textPadding" :modelValue="localConfig.padding" />
                     </UiFormGroup>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
                         :error="textHeightError" name="textHeight">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :debounceFn="updateHeight"
+                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateHeight"
                             name="textHeight" :modelValue="localConfig.height" />
                     </UiFormGroup>
                     <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor"

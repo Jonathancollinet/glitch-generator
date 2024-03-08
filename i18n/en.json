@@ -17,16 +17,17 @@
                 "result2": "👽 🔊 🌎"
             },
             "share": {
-                "title": "Exportable result",
+                "title": "Export",
                 "description": "Retrieve your animation as a CSS keyframe.",
-                "button": "Let me in!"
+                "button": "Editor"
             }
         },
         "editor": {
             "title": "Glitch Editor",
-            "presets": {
-                "title": "Presets"
-            },
+            "selectPreset": "Choose a built-in or custom preset",
+            "savePreset": "Save current settings as a custom preset",
+            "removePreset": "Delete current custom preset",
+            "export": "Export",
             "config": {
                 "color": {
                     "textBgColorHex": "Background",
@@ -64,6 +65,22 @@
                     "boxShadow": "Box shadow"
                 }
             }
+        }
+    },
+    "modals": {
+        "addPreset": {
+            "title": "Custom preset name"
+        },
+        "confirm": {
+            "cancel": "Cancel",
+            "confirm": "Confirm"
+        },
+        "deletePreset": {
+            "text": "Are you sure you want to delete this preset?"
+        },
+        "export": {
+            "description": "Copy the following CSS code to use the animation in your project.",
+            "code": "CSS code"
         }
     },
     "errors": {

@@ -67,7 +67,7 @@ export const tourSteps = [
         },
         content: 'This area contains the field\'s properties.',
         params: {
-            placement: 'left'
+            placement: 'top'
         }
     },
     {

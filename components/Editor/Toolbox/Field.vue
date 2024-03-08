@@ -22,8 +22,7 @@ const localBoxShadow = ref(deepCopy(boxShadow.value));
 
 const emit = defineEmits<{
     onSelectedTab: [tab: GlitchAnimationProperty],
-    removeField: [field: GlitchShadowField],
-    closeField: []
+    removeField: [field: GlitchShadowField]
 }>();
 
 const updateOffsetFrame = applyUpdater<GlitchShadowField>({
@@ -36,13 +35,12 @@ const updateOffsetFrame = applyUpdater<GlitchShadowField>({
 function propertyCardClass(property: GlitchShadowProperty) {
     const cls: ClassValue[] = [
         'border-transparent',
-        'py-4'
     ]
 
     if (property.enabled) {
-        cls.push('bg-primary-600 text-primary-50 dark:bg-primary-800');
+        cls.push('');
     } else {
-        cls.push('bg-neutral-200 dark:bg-neutral-600');
+        cls.push('opacity-70');
     }
 
     return cn(cls);
@@ -52,15 +50,11 @@ function removeField() {
     emit('removeField', field.value);
 }
 
-function closeField() {
-    emit('closeField');
-}
-
 const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
 </script>
 
 <template>
-    <UiCard>
+    <UiCard noContentPad>
         <template #title>
             <div class="flex items-center justify-between">
                 <div class="flex">
@@ -71,19 +65,18 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                 </div>
                 <div class="flex" data-v-step="15">
                     <UiIcon class="cursor-pointer" :icon="Icons.Trash" @click="removeField" />
-                    <!-- <UiIcon :icon="Icons.Close" class="cursor-pointer" @click="closeField" /> -->
                 </div>
             </div>
         </template>
 
         <template #content>
-            <UiCard :class="propertyCardClass(textShadow)">
+            <UiCard openable :class="propertyCardClass(textShadow)">
                 <template #content>
                     <EditorToolboxPropertyTextShadow v-model:config="textShadow" v-model:localConfig="localTextShadow"
                         :errors="errors" :name="`${fieldName}.properties.text-shadow`" />
                 </template>
             </UiCard>
-            <UiCard :class="propertyCardClass(boxShadow)">
+            <UiCard openable :class="propertyCardClass(boxShadow)">
                 <template #content>
                     <EditorToolboxPropertyBoxShadow v-model:config="boxShadow" v-model:localConfig="localBoxShadow"
                         :errors="errors" :name="`${fieldName}.properties.box-shadow`" />

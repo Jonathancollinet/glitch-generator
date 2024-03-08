@@ -20,6 +20,7 @@ export default defineNuxtConfig({
             'vue-debounce'
         ]
     },
+    css: ['vue-final-modal/style.css'],
     i18n: {
         vueI18n: './i18n/i18n.config.ts',
         detectBrowserLanguage: {

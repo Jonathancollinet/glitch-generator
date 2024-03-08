@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { ClassValue } from 'class-variance-authority/types';
 import type { HTMLAttributes } from 'vue';
 
 type Option = string | number | { [key: string]: any };
@@ -35,10 +36,17 @@ const optionValue = (option: Option) => {
 
     return option;
 }
+
+const selectClass: ClassValue[] = [
+    'bg-transparent rounded',
+    'ring-2 ring-neutral-600',
+    'dark:ring-primary-50'
+]
 </script>
 
 <template>
-    <select v-model="value" :class="cn('bg-transparent', props.class ?? '')" @change="onChange">
-        <option class="text-neutral-900" v-for="(option, index) in props.options" :key="index" :value="optionValue(option)">{{ optionLabel(option) }}</option>
+    <select v-model="value" :class="cn(selectClass, props.class ?? '')" @change="onChange">
+        <option class="text-neutral-900" v-for="(option, index) in props.options" :key="index"
+            :value="optionValue(option)">{{ optionLabel(option) }}</option>
     </select>
 </template>

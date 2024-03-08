@@ -1,5 +1,6 @@
 import type {
     AnimationBindings,
+    ContainerBindings,
     GlitchConfig,
     GlitchShadowField
 } from './types';
@@ -68,8 +69,21 @@ export default class Glitch {
         return false;
     }
 
-    exportKeyframes() {
-        return this.keyframes.getKeyframesString(this.config)
+    getDataToExport() {
+        const style = this.generateStyle(true);
+        let elementStyle = "";
+
+        let property: keyof typeof style;
+        for (property in style) {
+            const kebabProperty = property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+            
+            elementStyle += `\t${kebabProperty}: ${style[property]};\n`;
+        }
+        
+        return {
+            elementStyle,
+            keyframes: this.keyframes.getKeyframesString(this.config, true)
+        }
     }
 
     replaceAnimationDuration(duration: number) {
@@ -109,17 +123,26 @@ export default class Glitch {
         }
     }
 
-    private generateStyle() {
+    private generateStyle(forExport: boolean = false) {
         const animation: AnimationBindings = {};
+        const containerStyle: ContainerBindings = {};
 
-        if (!this.keyframes.animation) {
+        if (!this.keyframes.animation || forExport) {
+            animation.animationName = 'glitch';
             animation.animationDuration = `${this.config.animation.duration}ms`;
             animation.animationTimingFunction = 'steps(100)';
             animation.animationIterationCount = 'infinite';
             animation.animationPlayState = 'running';
         }
 
+        if (forExport) {
+            containerStyle.display = 'flex';
+            containerStyle.alignItems = 'center';
+            containerStyle.justifyContent = 'center';
+        }
+
         return {
+            ...containerStyle,
             fontSize: `${this.config.text.size}${this.config.text.unit}`,
             color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),
             height: `${this.config.text.height}px`,

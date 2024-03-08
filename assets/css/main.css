@@ -55,6 +55,7 @@
 
     main>div {
         @apply container mx-auto p-4 h-full max-w-[1280px];
+        @apply lg:p-12
     }
 
     /* 
