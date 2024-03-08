@@ -11,7 +11,7 @@ export const FormGroupVariants = cva(
             variant: {
                 default: [],
                 inline: [
-                    "flex flex-row items-center *:ml-2 [&>*:first-child]:ml-0"
+                    "flex flex-row items-center space-x-2"
                 ]
             },
             alignment: {

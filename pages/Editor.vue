@@ -11,6 +11,7 @@ import { useModal } from 'vue-final-modal';
 import AddPreset from '~/components/Ui/Modal/AddPreset.vue';
 import DeletePreset from '~/components/Ui/Modal/DeletePreset.vue';
 import Export from '~/components/Ui/Modal/Export.vue';
+import Import from '~/components/Ui/Modal/Import.vue';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
@@ -104,7 +105,7 @@ const deletePresetModal = useModal({
             deletePresetModal.close();
         },
         onCancel() {
-            addPresetModal.close();
+            deletePresetModal.close();
         }
     }
 });
@@ -113,8 +114,31 @@ const exportModal = useModal({
     component: Export,
     attrs: {
         glitch,
+        config: gconfig,
         onCancel() {
             exportModal.close();
+        }
+    }
+});
+
+const importModal = useModal({
+    component: Import,
+    attrs: {
+        onImport(presetName: string, keyframe: string) {
+            if (presetName && keyframe) {
+                const config = getDefaultGlitchConfig();
+
+                config.ranges = kfStringToRanges(keyframe);
+                createPreset(presetName, {
+                    text: config.text,
+                    animation: config.animation,
+                    ranges: config.ranges
+                });
+                importModal.close();
+            }
+        },
+        onCancel() {
+            importModal.close();
         }
     }
 });
@@ -146,22 +170,24 @@ function selectFirstRangeField(range?: GlitchShadowField[]) {
     }
 }
 
-function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
+async function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
         if (isCustomPreset.value) {
             savePreset();
         }
 
-        glitch.computeConfig(gconfig, forceRangeCompute)
-            .then(bindGlitch)
-            .catch((err: Error) => {
-                console.error(err);
-            });
+        const bindings = await glitch.computeConfig(gconfig, forceRangeCompute);
+
+        bindGlitch(bindings);
     }
 }
 
-function createPreset(name: string) {
-    const preset = addPreset(name, gconfig);
+function createPreset(name: string, config?: PresetConfig) {
+    const preset = addPreset(name, config || deepCopy({
+        text: gconfig.text,
+        animation: gconfig.animation,
+        ranges: gconfig.ranges
+    }));
 
     presets.value = getPresets();
     currentPreset.value = preset;
@@ -347,12 +373,12 @@ onBeforeUnmount(() => {
 <template>
     <div>
         <div class="flex items-center justify-between flex-col mb-4 md:flex-row" data-v-step="0,24">
-            <UiHeading class="flex items-center md:m-0 lg:w-[75%] lg:mr-4">
-                <span>{{ $t('pages.editor.title') }}</span>
+            <div class="flex items-center md:m-0 lg:w-[75%] lg:mr-4">
+                <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
                 <UiButton class="ml-4" variant="icon" size="icon" @click="initTour">
                     <UiIcon :icon="Icons.Help" @click="initTour" />
                 </UiButton>
-            </UiHeading>
+            </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
                 <ClientOnly>
                     <UiFormGroup class="mb-0">
@@ -369,9 +395,13 @@ onBeforeUnmount(() => {
                         @click="deletePresetModal.open">
                         <UiIcon :icon="Icons.Trash" />
                     </UiButton>
+                    <UiButton :title="$t('pages.editor.import')" data-v-step="23" variant="icon" size="icon"
+                        @click="importModal.open">
+                        <UiIcon :icon="Icons.ImportCode" />
+                    </UiButton>
                     <UiButton :title="$t('pages.editor.export')" data-v-step="23" variant="icon" size="icon"
                         @click="exportModal.open">
-                        <UiIcon :icon="Icons.Download" />
+                        <UiIcon :icon="Icons.ExportCode" />
                     </UiButton>
                 </div>
             </div>

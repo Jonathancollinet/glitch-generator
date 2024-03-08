@@ -19,7 +19,7 @@
             "share": {
                 "title": "Export",
                 "description": "Retrieve your animation as a CSS keyframe.",
-                "button": "Editor"
+                "button": "Try it!"
             }
         },
         "editor": {
@@ -27,7 +27,8 @@
             "selectPreset": "Choose a built-in or custom preset",
             "savePreset": "Save current settings as a custom preset",
             "removePreset": "Delete current custom preset",
-            "export": "Export",
+            "export": "Get code",
+            "import": "Import",
             "config": {
                 "color": {
                     "textBgColorHex": "Background",
@@ -80,7 +81,21 @@
         },
         "export": {
             "description": "Copy the following CSS code to use the animation in your project.",
-            "code": "CSS code"
+            "code": "CSS code",
+            "close": "Close",
+            "config": "Config",
+            "style": "CSS"
+        },
+        "import": {
+            "name": "Preset name",
+            "description": "Paste the CSS keyframe to import the animation under the preset name.",
+            "rules": {
+                "size": "Sizes and positions must be exprimed in 'px'.",
+                "noInset": "The keyframe must not contain 'inset' values.",
+                "disclaimer": "The keyframe must be a valid CSS keyframe."
+            },
+            "code": "CSS keyframe",
+            "action": "Import"
         }
     },
     "errors": {

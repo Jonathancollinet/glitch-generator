@@ -15,7 +15,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div :class="cn(FormGroupVariants({ variant, alignment, size }), props.class ?? '')">
+    <div :class="cn('FormGroup', FormGroupVariants({ variant, alignment, size }), props.class ?? '')">
         <slot name="before" />
         <template v-if="inline">
             <div class="flex items-center justify-between">
@@ -33,3 +33,9 @@ const props = defineProps<{
         </template>
     </div>
 </template>
+
+<style scoped>
+.FormGroup {
+    font-family: "Signika Negative", sans-serif;
+}
+</style>

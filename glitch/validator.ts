@@ -47,6 +47,10 @@ export default class GlitchValidator {
         return true;
     }
 
+    analyseImportedCode(code: string) {
+        
+    }
+
     private validateFieldsLeafs(config: GlitchConfig, fields: GlitchShadowField[]) {
         const results: boolean[] = [];
         const configRanges = config.ranges;

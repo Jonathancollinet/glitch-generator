@@ -38,7 +38,7 @@ const optionValue = (option: Option) => {
 }
 
 const selectClass: ClassValue[] = [
-    'bg-transparent rounded',
+    'bg-transparent',
     'ring-2 ring-neutral-600',
     'dark:ring-primary-50'
 ]

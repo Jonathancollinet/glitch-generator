@@ -76,7 +76,7 @@ export default class Glitch {
         let property: keyof typeof style;
         for (property in style) {
             const kebabProperty = property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
-            
+
             elementStyle += `\t${kebabProperty}: ${style[property]};\n`;
         }
         
@@ -101,6 +101,10 @@ export default class Glitch {
     removeRange(range: number) {
         this.config.ranges.splice(range, 1);
         this.keyframes.generate(this.config);
+    }
+
+    analyseImportedCode(code: string) {
+        return this.validator.analyseImportedCode(code);
     }
 
     private getConfigCopy(config: GlitchConfig) {

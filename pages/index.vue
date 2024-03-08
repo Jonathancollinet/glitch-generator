@@ -24,9 +24,9 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
         <!-- <UiText as="p" class="text-center">
             {{ $t('pages.home.why.also') }}
         </UiText> -->
-        <UiText as="div" class="exemple2 text-center text-4xl m-32 font-bold tracking-widest">
+        <!-- <UiText as="div" class="exemple2 text-center text-4xl m-32 font-bold tracking-widest">
             {{ $t('pages.home.why.result2') }}
-        </UiText>
+        </UiText> -->
         <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
             {{ $t('pages.home.share.title') }}
         </UiHeading>

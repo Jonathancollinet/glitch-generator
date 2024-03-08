@@ -41,21 +41,6 @@ const updateFps = (e: Event) => {
                 <UiIcon :icon="Icons.Pause" />
             </UiButton>
         </div>
-        <!-- <div class="flex items-center">
-            <select :value="precision" @change="applyPrecision" class="rounded-md border border-gray-300 bg-white text-sm text-gray-700">
-                <option value="1">1</option>
-                <option value="10">0.1</option>
-                <option value="100">0.01</option>
-            </select>
-            <select :value="fps" @change="updateFps" class="rounded-md border border-gray-300 bg-white text-sm text-gray-700">
-                <option value="60">60</option>
-                <option value="75">75</option>
-                <option value="120">120</option>
-                <option value="144">144</option>
-                <option value="240">240</option>
-                <option value="360">360</option>
-            </select>
-        </div> -->
     </div>
 </template>
 

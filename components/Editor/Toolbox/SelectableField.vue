@@ -129,7 +129,7 @@ const fieldClass = computed(() => {
         'hover:bg-primary-50 hover:opacity-50',
         'border border-l-0',
         'first:border-l',
-        props.isSelected ? 'first:border-2 border-2 border-l' : '',
+        props.isSelected ? 'first:border-4 border-4' : '',
     ]
 
     if (isDragging) {
@@ -152,8 +152,8 @@ const fieldClass = computed(() => {
                 <UiIcon class="max-w-[12px]" v-if="!textShadowEnabled" :icon="Icons.EyeSlash" />
             </div>
         </div>
-        <div class="h-[30%] w-full border-t-2 overflow-hidden">
-            <div class="h-full" v-if="hasShadowBox" :style="{ ...boxShadowStyle }" />
+        <div class="h-[30%] w-full border-t-2 overflow-hidden" v-if="hasShadowBox">
+            <div class="h-full" :style="{ ...boxShadowStyle }" />
         </div>
     </div>
 </template>

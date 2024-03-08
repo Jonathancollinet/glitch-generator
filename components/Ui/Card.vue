@@ -20,13 +20,11 @@ const cardClasses: ClassValue[] = [
 ]
 
 const titleClass = computed(() => cn([
-    '*:m-0 mb-2 rounded-tl-2xl select-none',
+    '*:m-0 mb-2 select-none',
     props.openable ? 'cursor-pointer hover:opacity-60' : '',
-    !openToggle.value ? 'rounded-br-2xl' : '',
 ]));
 
 const contentClass = computed(() => cn([
-    'rounded-br-2xl',
     props.noContentPad ? '' : 'px-4',
     props.openable && openToggle.value ? 'ml-4 border-l' : ''
 ]));

@@ -55,7 +55,7 @@ watch(config.value.ranges, () => {
 </script>
 
 <template>
-    <div>
+    <div class="sm:flex sm:space-x-4 lg:block lg:space-x-0">
         <div class="mb-4" v-if="selectedField && localSelectedField">
             <EditorToolboxField data-v-step="7" :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
                 v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField"

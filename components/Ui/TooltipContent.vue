@@ -7,9 +7,9 @@ const props = defineProps<{
 
 const TooltipContentClass = [
     "absolute z-30 inline-flex flex-col p-2 transition-[background-color] select-none",
-    "rounded-xl border-2 border-primary-500",
+    "border-2 border-primary-500",
     "bg-primary-50",
-    "*:mb-1 [&>*:last-child]:mb-0",
+    "space-y-1",
     "dark:bg-neutral-800",
 ]
 </script>

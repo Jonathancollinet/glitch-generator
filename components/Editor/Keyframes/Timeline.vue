@@ -83,7 +83,7 @@ onUnmounted(() => {
 <template>
     <div class="mb-2 px-5 w-full max-w-[600px] select-none">
         <Transition name="fade" mode="out-in">
-            <div class="text-center" v-if="displayTitle">
+            <div class="text-center mb-2 font-bold" v-if="displayTitle">
                 {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
             </div>
         </Transition>
@@ -95,7 +95,7 @@ onUnmounted(() => {
                 <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost"
                     @touchstart.stop="hideGhost" @drag.stop="selectAnimationAt" @mouseup.stop draggable="true"
                     :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
-                    <div class="w-full h-full bg-primary-600 rounded-full -translate-x-1/2 hover:cursor-grab dark:bg-primary-50"></div>
+                    <div class="w-full h-full bg-primary-600 -translate-x-1/2 hover:cursor-grab dark:bg-primary-50"></div>
                 </div>
             </div>
         </div>

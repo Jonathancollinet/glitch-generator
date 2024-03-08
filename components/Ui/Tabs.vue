@@ -21,20 +21,18 @@ function activateTab(key: keyof typeof props.tabs) {
 <template>
     <div>
         <div class="flex">
-            <UiButton v-for="(tab, key) in   tabs  " :key="key" variant="ghost" :class="cn([
+            <UiButton v-for="(tab, key) in tabs" :key="key" variant="outline" :class="cn([
                 'w-full border-b rounded-none',
-                'first:border-l-0',
-                'last:border-r-0',
+                'first:border-r-0',
+                'hover:bg-primary-100',
                 isActive(key) && [
-                    'bg-primary-200 hover:bg-primary-200 border border-b-transparent *:text-primary-500',
+                    'bg-primary-400 hover:bg-primary-400 *:text-primary-50',
                 ]
             ])" @click="activateTab(key)">
                 <UiIcon v-if="tab.icon" :icon="tab.icon" />
                 <UiText as="span">{{ $t(tab.label) }} </UiText>
             </UiButton>
         </div>
-        <div class="p-4">
-            <slot :activeTab="activeTab" />
-        </div>
+        <slot :activeTab="activeTab" />
     </div>
 </template>

@@ -15,7 +15,13 @@ const props = withDefaults(defineProps<{
     <component
         :data-tag="as"
         :is="as"
-        :class="cn(TextVariants(), props.class ?? '')">
+        :class="cn('text', TextVariants(), props.class ?? '')">
         <slot />
     </component>
 </template>
+
+<style scoped>
+.text {
+    font-family: "Signika Negative", sans-serif;
+}
+</style>

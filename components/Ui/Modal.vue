@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const finalContentClass = computed(() => {
     return cn([
-        'max-w-xl mx-4 p-4 bg-primary-50 rounded-lg space-y-2',
+        'max-w-xl p-6 bg-primary-50',
         'dark:bg-primary-950 border dark:border-neutral-700'
     ], props.contentClass)
 });
@@ -20,5 +20,8 @@ const finalContentClass = computed(() => {
         :content-class="finalContentClass"
         overlay-transition="vfm-fade" content-transition="vfm-fade">
         <slot />
+        <div class="flex items-center justify-end mt-4 space-x-2">
+            <slot name="footer" />
+        </div>
     </VueFinalModal>
 </template>

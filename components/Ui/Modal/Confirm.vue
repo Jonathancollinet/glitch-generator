@@ -17,9 +17,9 @@ function onCancel() {
 <template>
     <UiModal>
         <slot />
-        <div class="flex items-center justify-between *:mr-4 [&>*]:last:mr-0">
+        <template #footer>
             <UiButton variant="link" size="sm" @click="onCancel">{{ $t('modals.confirm.cancel') }}</UiButton>
             <UiButton @click="onConfirm">{{ $t('modals.confirm.confirm') }}</UiButton>
-        </div>
+        </template>
     </UiModal>
 </template>

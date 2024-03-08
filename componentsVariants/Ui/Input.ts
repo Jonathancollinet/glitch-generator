@@ -4,7 +4,7 @@ export type InputVariantsProps = VariantProps<typeof InputVariants>;
 
 export const InputVariants = cva(
     [
-        'px-1 rounded-md',
+        'px-1',
         'transition-colors'
     ],
     {
