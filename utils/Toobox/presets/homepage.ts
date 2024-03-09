@@ -7,6 +7,7 @@ export default deepCopy({
         unit: GlitchUnit.Pixel,
         height: 0,
         padding: 0,
+        borderRadius: 0,
         bgColor: {
             hex: '#ffffff',
             alphaPercent: 0

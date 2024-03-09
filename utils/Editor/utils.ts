@@ -130,6 +130,7 @@ export function setConfigFromPreset(config: GlitchConfig, preset: Preset) {
     config.text.size = preset.config.text.size;
     config.text.padding = preset.config.text.padding;
     config.text.height = preset.config.text.height;
+    config.text.borderRadius = preset.config.text.borderRadius;
     config.text.message = preset.config.text.message;
     config.animation.duration = preset.config.animation.duration;
     config.ranges = deepCopy(preset.config.ranges);

@@ -36,6 +36,7 @@ export const glitchTextSchemas = {
     size: z.number().positive().lte(256),
     height: z.number().gte(0).lte(256),
     padding: z.number().gte(0).lte(256),
+    borderRadius: z.number().gte(0).lte(256),
     unit: z.nativeEnum(GlitchUnit),
     message: z.string()
 };

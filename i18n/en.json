@@ -47,6 +47,7 @@
                 "text": {
                     "title": "Styles",
                     "padding": "Padding",
+                    "borderRadius": "Round",
                     "height": "Height",
                     "fontSize": "Size",
                     "message": "Type your text here"

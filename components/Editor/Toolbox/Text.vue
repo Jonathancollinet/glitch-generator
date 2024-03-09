@@ -10,9 +10,9 @@ const config = defineModel<GlitchBaseText>('config', { required: true });
 const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });
 
 const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size', true));
-const textUnitError = computed(() => getErrorMessage(props.errors, 'text.unit'));
 const textMessageError = computed(() => getErrorMessage(props.errors, 'text.message'));
 const textPaddingError = computed(() => getErrorMessage(props.errors, 'text.padding'));
+const textBorderRadiusError = computed(() => getErrorMessage(props.errors, 'text.borderRadius'));
 const textHeightError = computed(() => getErrorMessage(props.errors, 'text.height'));
 
 const updateTextSize = applyUpdater<GlitchBaseText>({
@@ -20,13 +20,6 @@ const updateTextSize = applyUpdater<GlitchBaseText>({
     localObj: localConfig.value,
     key: 'size',
     modifier: Number,
-    debounced: 100
-});
-
-const updateTextUnit = applyUpdater<GlitchBaseText>({
-    obj: config.value,
-    localObj: localConfig.value,
-    key: 'unit',
     debounced: 100
 });
 
@@ -41,6 +34,14 @@ const updatePadding = applyUpdater<GlitchBaseText>({
     obj: config.value,
     localObj: localConfig.value,
     key: 'padding',
+    modifier: Number,
+    debounced: 100
+});
+
+const updateBorderRadius = applyUpdater<GlitchBaseText>({
+    obj: config.value,
+    localObj: localConfig.value,
+    key: 'borderRadius',
     modifier: Number,
     debounced: 100
 });
@@ -80,15 +81,20 @@ const updateHeight = applyUpdater<GlitchBaseText>({
             <UiCard openable>
 
                 <template #content>
-                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
-                        :error="textPaddingError" name="textPadding">
-                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updatePadding"
-                            name="textPadding" :modelValue="localConfig.padding" />
-                    </UiFormGroup>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
                         :error="textHeightError" name="textHeight">
                         <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateHeight"
                             name="textHeight" :modelValue="localConfig.height" />
+                    </UiFormGroup>
+                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.borderRadius"
+                        :error="textBorderRadiusError" name="textBorderRadius">
+                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateBorderRadius"
+                            name="textBorderRadius" :modelValue="localConfig.borderRadius" />
+                    </UiFormGroup>
+                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
+                        :error="textPaddingError" name="textPadding">
+                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updatePadding"
+                            name="textPadding" :modelValue="localConfig.padding" />
                     </UiFormGroup>
                     <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor"
                         v-model:localConfig="localConfig.bgColor" name="textBgColor" :errors="errors" />

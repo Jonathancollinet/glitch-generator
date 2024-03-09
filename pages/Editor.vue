@@ -40,6 +40,7 @@ const bindings = ref<GlitchBindings>({
     textStyle: {
         fontSize: "",
         padding: "",
+        borderRadius: "",
         height: "",
         backgroundColor: "",
         color: ""

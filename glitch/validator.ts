@@ -115,6 +115,7 @@ export default class GlitchValidator {
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'unit', 'text.unit'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'height', 'text.height'),
             this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'padding', 'text.padding'),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, 'borderRadius', 'text.borderRadius'),
             this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, 'hex', 'text.color.hex'),
             this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, 'alphaPercent', 'text.color.alphaPercent'),
             this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, 'hex', 'text.bgColor.hex'),

@@ -1,6 +1,7 @@
 import type {
     AnimationBindings,
     ContainerBindings,
+    GlitchBindings,
     GlitchConfig,
     GlitchShadowField
 } from './types';
@@ -127,7 +128,7 @@ export default class Glitch {
         }
     }
 
-    private generateStyle(forExport: boolean = false) {
+    private generateStyle(forExport: boolean = false): GlitchBindings['textStyle'] {
         const animation: AnimationBindings = {};
         const containerStyle: ContainerBindings = {};
 
@@ -151,6 +152,7 @@ export default class Glitch {
             color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),
             height: `${this.config.text.height}px`,
             padding: `${this.config.text.padding}px`,
+            borderRadius: `${this.config.text.borderRadius}px`,
             backgroundColor: hexToRGB(this.config.text.bgColor.hex, this.config.text.bgColor.alphaPercent),
             ...animation
         }
