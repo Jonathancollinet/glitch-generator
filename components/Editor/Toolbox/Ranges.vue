@@ -106,7 +106,7 @@ const cursorStyle = computed(() => {
                             <UiButton variant="link" size="link" @click="duplicateRange(index)">Duplicate range</UiButton>
                             <UiButton variant="link" size="link" @click="reversePositions(index)">Reverse positions</UiButton>
                             <UiButton variant="link" size="link" @click="reverseColors(index)">Reverse colors</UiButton>
-                            <UiButton class="text-red-500" variant="link" size="link" @click="removeRange(index)">Remove range</UiButton>
+                            <UiButton class="text-red-600 dark:text-red-400" variant="link" size="link" @click="removeRange(index)">Remove range</UiButton>
                         </UiTooltipContent>
                     </UiButtonIconTooltip>
                 </div>

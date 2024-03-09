@@ -64,7 +64,7 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                     </UiFormGroup>
                 </div>
                 <div class="flex" data-v-step="15">
-                    <UiIcon class="cursor-pointer" :icon="Icons.Trash" @click="removeField" />
+                    <UiIcon class="cursor-pointer stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" @click="removeField" />
                 </div>
             </div>
         </template>

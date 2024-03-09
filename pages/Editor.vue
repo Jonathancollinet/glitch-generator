@@ -385,16 +385,16 @@ onBeforeUnmount(() => {
                         <UiSelect :title="$t('pages.editor.selectPreset')" class="max-w-[150px]" data-v-step="22"
                             :options="presets" v-model="currentPreset" labelKey="name" />
                     </UiFormGroup>
-                </ClientOnly>
-                <div class="flex ml-4 *:ml-2">
-                    <UiButton :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon" size="icon"
+                    <UiButton class="ml-2" :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon" size="icon"
                         @click="addPresetModal.open">
                         <UiIcon :icon="Icons.Add" />
                     </UiButton>
                     <UiButton :title="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
                         @click="deletePresetModal.open">
-                        <UiIcon :icon="Icons.Trash" />
+                        <UiIcon class="stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" />
                     </UiButton>
+                </ClientOnly>
+                <div class="flex ml-4 *:ml-2">
                     <UiButton :title="$t('pages.editor.import')" data-v-step="23" variant="icon" size="icon"
                         @click="importModal.open">
                         <UiIcon :icon="Icons.ImportCode" />
