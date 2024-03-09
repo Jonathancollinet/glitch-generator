@@ -87,7 +87,7 @@
             "style": "CSS"
         },
         "import": {
-            "name": "Preset name",
+            "presetName": "Preset name",
             "description": "Paste the CSS keyframe to import the animation under the preset name.",
             "rules": {
                 "size": "Sizes and positions must be exprimed in 'px'.",
@@ -112,6 +112,10 @@
                     "too_big": "Must be <= 256."
                 }
             }
+        },
+        "import": {
+            "presetName": "Preset name is required",
+            "keyframes": "Invalid keyframes."
         }
     }
 }

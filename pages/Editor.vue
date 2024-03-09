@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
 import { Icons } from '~/types/enums';
 import Glitch from '~/glitch';
@@ -7,11 +6,6 @@ import { EditorDisplayedText } from '#components';
 import * as EditorUtils from '~/utils/Editor/utils';
 import { saveLastSelectedPreset, getPresets, isCustomPresetId, addPreset, updatePreset, removePreset, type Preset, type PresetConfig, getLastSelectedPreset } from '~/utils/Toobox/presets';
 import { isTourDone, setTourDone, tourSteps } from '~/utils/Editor/tour';
-import { useModal } from 'vue-final-modal';
-import AddPreset from '~/components/Ui/Modal/AddPreset.vue';
-import DeletePreset from '~/components/Ui/Modal/DeletePreset.vue';
-import Export from '~/components/Ui/Modal/Export.vue';
-import Import from '~/components/Ui/Modal/Import.vue';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
@@ -81,67 +75,10 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     }
 }
 
-
-const addPresetModal = useModal({
-    component: AddPreset,
-    attrs: {
-        onConfirm(name: string) {
-            if (name) {
-                createPreset(name);
-                addPresetModal.close();
-            }
-        },
-        onCancel() {
-            addPresetModal.close();
-        }
-    }
-});
-
-const deletePresetModal = useModal({
-    component: DeletePreset,
-    attrs: {
-        onConfirm() {
-            deletePreset();
-            deletePresetModal.close();
-        },
-        onCancel() {
-            deletePresetModal.close();
-        }
-    }
-});
-
-const exportModal = useModal({
-    component: Export,
-    attrs: {
-        glitch,
-        config: gconfig,
-        onCancel() {
-            exportModal.close();
-        }
-    }
-});
-
-const importModal = useModal({
-    component: Import,
-    attrs: {
-        onImport(presetName: string, keyframe: string) {
-            if (presetName && keyframe) {
-                const config = getDefaultGlitchConfig();
-
-                config.ranges = kfStringToRanges(keyframe);
-                createPreset(presetName, {
-                    text: config.text,
-                    animation: config.animation,
-                    ranges: config.ranges
-                });
-                importModal.close();
-            }
-        },
-        onCancel() {
-            importModal.close();
-        }
-    }
-});
+const { addPresetModal } = useModalAddPreset(createPreset);
+const { importModal } = useModalImport(createPreset);
+const { deletePresetModal } = useModalDeletePreset(deletePreset);
+const { exportModal } = useModalExport(glitch, gconfig);
 
 function initConfig() {
     if (displayedText.value?.glitchedEl) {
@@ -385,8 +322,8 @@ onBeforeUnmount(() => {
                         <UiSelect :title="$t('pages.editor.selectPreset')" class="max-w-[150px]" data-v-step="22"
                             :options="presets" v-model="currentPreset" labelKey="name" />
                     </UiFormGroup>
-                    <UiButton class="ml-2" :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon" size="icon"
-                        @click="addPresetModal.open">
+                    <UiButton class="ml-2" :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon"
+                        size="icon" @click="addPresetModal.open">
                         <UiIcon :icon="Icons.Add" />
                     </UiButton>
                     <UiButton :title="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"

@@ -44,10 +44,10 @@ export default function kfStringToRanges(keyframe: string) {
                     field.index = index;
                 });
             });
+
+            return ranges;
         }
     }
-
-    return ranges;
 }
 
 function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAnimationProperty, shadows: string[], offsetFrame: number) {

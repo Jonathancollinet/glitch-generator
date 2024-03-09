@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+const props = defineProps<{
+    errors: Record<string, string>
+}>();
+
 const emit = defineEmits<{
     cancel: [],
     import: [presetName: string, code: string]
@@ -17,13 +21,13 @@ function onImport() {
 </script>
 
 <template>
-    <UiModal contentClass="w-auto">
+    <UiModal contentClass="w-auto" @closed="onCancel">
         <UiText>{{ $t('modals.import.description') }}</UiText>
         <div class="w-full">
-            <UiFormGroup label="modals.import.name" name="name">
-                <UiInput name="name" class="w-full" v-model="presetName" />
+            <UiFormGroup label="modals.import.presetName" name="presetName" :error="errors.presetName">
+                <UiInput name="presetName" class="w-full" v-model="presetName" />
             </UiFormGroup>
-            <UiFormGroup class="ml-0" label="modals.import.code" name="code">
+            <UiFormGroup class="ml-0" label="modals.import.code" name="code" :error="errors.keyframes">
                 <UiInput type="textarea" name="code" class="w-full h-56" v-model="importedCode" />
             </UiFormGroup>
         </div>

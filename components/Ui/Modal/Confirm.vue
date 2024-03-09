@@ -12,10 +12,14 @@ function onConfirm() {
 function onCancel() {
     emit('cancel');
 }
+
+function onClose() {
+    emit('cancel');
+}
 </script>
 
 <template>
-    <UiModal>
+    <UiModal @closed="onClose">
         <slot />
         <template #footer>
             <UiButton variant="link" size="sm" @click="onCancel">{{ $t('modals.confirm.cancel') }}</UiButton>

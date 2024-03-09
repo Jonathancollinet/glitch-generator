@@ -7,6 +7,14 @@ const props = defineProps<{
     contentTransition?: string
 }>();
 
+const emit = defineEmits<{
+    closed: []
+}>();
+
+function onClose() {
+    emit('closed');
+}
+
 const finalContentClass = computed(() => {
     return cn([
         'max-w-xl p-6 bg-primary-50',
@@ -18,7 +26,7 @@ const finalContentClass = computed(() => {
 <template>
     <VueFinalModal class="flex justify-center items-center"
         :content-class="finalContentClass"
-        overlay-transition="vfm-fade" content-transition="vfm-fade">
+        overlay-transition="vfm-fade" content-transition="vfm-fade" @closed="onClose">
         <slot />
         <div class="flex items-center justify-end mt-4 space-x-2">
             <slot name="footer" />

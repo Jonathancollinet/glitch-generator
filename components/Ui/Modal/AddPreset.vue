@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+defineProps<{
+    errors: Record<string, string>
+}>();
+
 const presetName = ref('')
 
 const emit = defineEmits<{
@@ -17,7 +21,7 @@ function onCancel() {
 
 <template>
     <UiModalConfirm @confirm="onConfirm" @cancel="onCancel">
-        <UiFormGroup label="modals.addPreset.title" name="presetName">
+        <UiFormGroup label="modals.addPreset.title" name="presetName" :error="errors.name">
             <UiInput name="presetName" v-model="presetName" />
         </UiFormGroup>
     </UiModalConfirm>
