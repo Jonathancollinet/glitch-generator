@@ -61,7 +61,7 @@ const configString = computed(() => {
             </UiTabs>
         </div>
         <template #footer>
-            <UiButton variant="link" size="sm" @click="onCancel">{{ $t('modals.export.close') }}</UiButton>
+            <UiButton variant="link" size="link" @click="onCancel">{{ $t('modals.export.close') }}</UiButton>
         </template>
     </UiModal>
 </template>

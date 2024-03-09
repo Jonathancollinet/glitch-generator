@@ -51,6 +51,14 @@
                     "fontSize": "Size",
                     "message": "Type your text here"
                 },
+                "ranges": {
+                    "actions": {
+                        "duplicate": "Duplicate range",
+                        "reversePositions": "Reverse positions",
+                        "reverseColors": "Reverse colors",
+                        "removeRange": "Remove range"
+                    }
+                },
                 "field": {
                     "title": "Field",
                     "shadow": "Shadow",
@@ -69,6 +77,7 @@
         }
     },
     "modals": {
+        "close": "Close",
         "addPreset": {
             "title": "Custom preset name"
         },
@@ -96,6 +105,13 @@
             },
             "code": "CSS keyframe",
             "action": "Import"
+        },
+        "shortcuts": {
+            "title": "Mouse shortcuts",
+            "leftClickUp": "Left-click up: select a field.",
+            "rightClickUp": "Right-click up: cut a field.",
+            "leftClickDrag": "Left-click drag: resize a field.",
+            "rightClickDrag": "Right-click drag: select a field to cut."
         }
     },
     "errors": {

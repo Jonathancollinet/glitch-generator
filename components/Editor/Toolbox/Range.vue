@@ -123,8 +123,6 @@ function dragEnd(e: DragEvent) {
     draggingFieldIndex.value = -1;
     isDragging = false;
     currentField = undefined;
-
-    props.ranges[props.range[0].range] = props.range;
 }
 
 function saveX(e: DragEvent, x?: number) {
@@ -166,7 +164,6 @@ const showProperties = computed(() => {
 })
 
 const propertyPosition = computed(() => {
-
     if (hoveredField.value) {
         if (draggingFieldIndex.value !== -1) {
             fieldPropertiesToShow.value = props.range[draggingFieldIndex.value];

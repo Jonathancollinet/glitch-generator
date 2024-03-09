@@ -20,6 +20,7 @@ export enum Icons {
     Save = 'SaveIcon',
     Help = 'HelpIcon',
     EyeSlash = 'EyeSlashIcon',
+    Cursor = 'CursorIcon',
 }
 
 export enum Urls {
