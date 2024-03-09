@@ -127,7 +127,7 @@ const fieldClass = computed(() => {
 
     const classes: ClassValue[] = [
         'absolute overflow-hidden h-full cursor-pointer select-none inline-block',
-        'hover:bg-primary-50 hover:opacity-50',
+        'hover:opacity-50',
         'border border-l-0',
         'first:border-l',
         props.isSelected ? 'first:border-4 border-4' : '',

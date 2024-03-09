@@ -35,12 +35,13 @@ const updateOffsetFrame = applyUpdater<GlitchShadowField>({
 function propertyCardClass(property: GlitchShadowProperty) {
     const cls: ClassValue[] = [
         'border-transparent',
+        'transition-opacity duration-100'
     ]
 
     if (property.enabled) {
         cls.push('');
     } else {
-        cls.push('opacity-70');
+        cls.push('text-neutral-400 opacity-50 hover:opacity-100');
     }
 
     return cn(cls);

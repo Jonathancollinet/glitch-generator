@@ -20,7 +20,7 @@ const cardClasses: ClassValue[] = [
 ]
 
 const titleClass = computed(() => cn([
-    '*:m-0 mb-2 select-none',
+    '*:m-0 mb-2 select-none transition-opacity duration-100',
     props.openable ? 'cursor-pointer hover:opacity-60' : '',
 ]));
 
