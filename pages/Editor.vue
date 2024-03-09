@@ -31,6 +31,7 @@ const selectedField = ref<GlitchShadowField>();
 const presets = ref<Preset[]>(getPresets());
 const currentPreset = ref<Preset>(presets.value[0]);
 const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
+const mounted = ref(false);
 
 const isCustomPreset = computed(() => {
     return isCustomPresetId(currentPreset.value.id);
@@ -284,8 +285,6 @@ watch(gconfig.animation, () => {
         computeConfig(gconfig)
     }
 });
-
-const mounted = ref(false);
 
 onMounted(() => {
     initConfig();

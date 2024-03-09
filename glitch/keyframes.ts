@@ -40,9 +40,9 @@ export default class GlitchKeyframes {
     }
 
     replaceAnimationDuration(duration: number) {
-        if (this.animation) {
-            this.animation.effect?.updateTiming({ duration });
-        }
+        this.mutateAnimation((animation: Animation) => {
+            animation.effect?.updateTiming({ duration });
+        })
     }
 
     setGlitchedElement(element: HTMLElement) {
@@ -70,16 +70,22 @@ export default class GlitchKeyframes {
             }
         );
 
+        this.mutateAnimation((animation: Animation) => {
+            animation.effect = effect;
+        })
+    }
+
+    private mutateAnimation(callback: (animation: Animation) => void) {
         if (this.animation) {
             let restart = false;
 
             if (this.animation.playState === 'running') {
                 restart = true;
             }
-
+    
             this.animation.pause();
-            this.animation.effect = effect;
-
+            callback(this.animation);
+            
             if (restart) {
                 this.animation.play();
             }
