@@ -211,8 +211,6 @@ function insertField(rangeIndex: number, offset: number) {
 
     if (EditorUtils.addFieldAtOffset(range, rangeIndex, offset)) {
         computeConfig(gconfig, true)
-    } else {
-        alert("Can't add a field at the offset: " + offset);
     }
 }
 
