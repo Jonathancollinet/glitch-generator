@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
+    updateField: [field: GlitchShadowField],
     selectField: [field: GlitchShadowField],
     dragStart: [e: DragEvent, field: GlitchShadowField],
     dragEnd: [e: DragEvent],
@@ -142,6 +143,10 @@ const fieldClass = computed(() => {
 
     return classes;
 });
+
+watch(props.field, () => {
+    emit('updateField', props.field);
+})
 </script>
 
 <template>

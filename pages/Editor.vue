@@ -5,13 +5,10 @@ import Glitch from '~/glitch';
 import { EditorDisplayedText } from '#components';
 import * as EditorUtils from '~/utils/Editor/utils';
 import { saveLastSelectedPreset, getPresets, isCustomPresetId, addPreset, updatePreset, removePreset, type Preset, type PresetConfig, getLastSelectedPreset } from '~/utils/Toobox/presets';
-import { isTourDone, setTourDone, tourSteps } from '~/utils/Editor/tour';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
 }
-
-const tours: any = inject('tours')
 
 const errors = ref<Partial<GlitchErrors>>({});
 const bindings = ref<GlitchBindings>({
@@ -31,7 +28,6 @@ const selectedField = ref<GlitchShadowField>();
 const presets = ref<Preset[]>(getPresets());
 const currentPreset = ref<Preset>(presets.value[0]);
 const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
-const mounted = ref(false);
 
 const isCustomPreset = computed(() => {
     return isCustomPresetId(currentPreset.value.id);
@@ -40,6 +36,7 @@ const isCustomPreset = computed(() => {
 EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
 
 const onRangesEvents = {
+    updateField,
     selectField,
     addEmptyRange,
     duplicateRange,
@@ -51,16 +48,9 @@ const onRangesEvents = {
 }
 
 const onToolboxEvents = {
-    updateField,
     removeField,
     closeField,
     presetChanged
-}
-
-const tourCallbacks = {
-    onFinish: setTourDone,
-    onSkip: setTourDone,
-    onStop: setTourDone,
 }
 
 let animationDuration = gconfig.animation.duration;
@@ -88,10 +78,6 @@ function initConfig() {
         computeConfig(gconfig, true);
         selectField(gconfig.ranges[0][0]);
     }
-}
-
-function initTour() {
-    tours['tutorial']?.start();
 }
 
 function bindGlitch(newBindings: any) {
@@ -159,6 +145,7 @@ function updateField(newField: GlitchShadowField) {
         if (previousField) {
             batch.splice(0, 0, previousField);
         }
+        
         if (nextField) {
             batch.push(nextField);
         }
@@ -173,9 +160,11 @@ function updateField(newField: GlitchShadowField) {
 
 function addEmptyRange() {
     gconfig.ranges.push([getDefaultField(gconfig.ranges.length, 0, 0)]);
+
     if (!selectedField.value) {
         selectField(gconfig.ranges[0][0]);
     }
+
     computeConfig(gconfig, true);
 }
 
@@ -289,14 +278,6 @@ watch(gconfig.animation, () => {
 onMounted(() => {
     initConfig();
     currentPreset.value = getLastSelectedPreset();
-    mounted.value = true;
-    nextTick(() => {
-        if (process.client) {
-            if (!isTourDone()) {
-                initTour();
-            }
-        }
-    });
 });
 
 onBeforeUnmount(() => {
@@ -311,9 +292,7 @@ onBeforeUnmount(() => {
         <div class="flex items-center justify-between flex-col mb-4 md:flex-row" data-v-step="0,24">
             <div class="flex items-center md:m-0 lg:w-[75%] lg:mr-4">
                 <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
-                <UiButton class="ml-4" variant="icon" size="icon" @click="initTour">
-                    <UiIcon :icon="Icons.Help" @click="initTour" />
-                </UiButton>
+                <EditorTour />
             </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
                 <ClientOnly>
@@ -352,10 +331,5 @@ onBeforeUnmount(() => {
             <EditorToolbox class="lg:w-[25%] lg:ml-4" v-model:config="gconfig" v-model:field="selectedField"
                 :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
         </div>
-        <template v-if="mounted">
-            <v-tour name="tutorial" :steps="tourSteps" :callbacks="tourCallbacks"
-                :options="{ useKeyboardNavigation: false }" />
-        </template>
-
     </div>
 </template>

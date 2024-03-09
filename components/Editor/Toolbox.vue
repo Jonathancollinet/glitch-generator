@@ -8,7 +8,6 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-    updateField: [field: GlitchShadowField],
     addField: [rangeIndex: number],
     removeRange: [index: number],
     addEmptyRange: [],
@@ -40,17 +39,6 @@ watch(selectedField, (field) => {
         localSelectedField.value = deepCopy(field);
     }
 })
-
-watch(config.value.ranges, () => {
-    if (selectedField.value) {
-        const fieldRangeIndex = selectedField.value.range;
-        const fieldIndex = selectedField.value.index;
-        const field = config.value.ranges[fieldRangeIndex][fieldIndex];
-
-        localSelectedField.value = deepCopy(field);
-        emit('updateField', selectedField.value);
-    }
-}, { deep: true });
 
 </script>
 

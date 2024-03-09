@@ -10,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
+    updateField: [field: GlitchShadowField],
     selectField: [field: GlitchShadowField],
     insertField: [offset: number]
 }>()
@@ -31,6 +32,7 @@ const displaySelectableFields = ref(false);
 const translationModifier = ref('');
 
 const onField = {
+    updateField,
     dragStart,
     dragEnd,
     displayProperties,
@@ -84,6 +86,10 @@ function hideGhost(e: DragEvent) {
     if (e instanceof DragEvent) {
         e.dataTransfer?.setDragImage(new Image(), 0, 0);
     }
+}
+
+function updateField(field: GlitchShadowField) {
+    emit('updateField', field);
 }
 
 function dragStart(e: DragEvent, field: GlitchShadowField) {

@@ -9,12 +9,12 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
+    updateField: [field: GlitchShadowField],
     selectField: [field: GlitchShadowField],
     addEmptyRange: [],
     duplicateRange: [rangeIndex: number],
     reversePositions: [rangeIndex: number],
     reverseColors: [rangeIndex: number],
-    addField: [rangeIndex: number],
     removeRange: [rangeIndex: number],
     insertField: [rangeIndex: number, offset: number],
 }>()
@@ -32,17 +32,12 @@ function displayRangeOptions(index: number) {
     showRangeOptions.value[index] = prev;
 }
 
-function displayAddRangeOptions() {
-    openAddRangeOptions.value = !openAddRangeOptions.value;
-}
-
 function closeAddRangeOptions() {
     openAddRangeOptions.value = false;
 }
 
-function addField(rangeIndex: number) {
-    emit('addField', rangeIndex);
-    resetRangeOptions();
+function updateField(field: GlitchShadowField) {
+    emit('updateField', field);
 }
 
 function insertField(rangeIndex: number, offset: number) {
@@ -96,13 +91,12 @@ const cursorStyle = computed(() => {
                     <div v-if="config.controls" class="absolute z-20 h-full pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto dark:bg-neutral-50" :style="cursorStyle" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in config.ranges" :key="index" :selectedField="selectedField"
-                    :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @selectField="selectField" @insertField="insertField(index, $event)" />
+                    :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @updateField="updateField" @selectField="selectField" @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
                 <div class="relative top-0 w-full h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges" :key="index">
                     <UiButtonIconTooltip data-v-step="18,19,20" @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[90%] *:justify-start" v-if="showRangeOptions[index]">
-                            <!-- <UiButton variant="link" size="link" @click="addField(index)">Append a frame</UiButton> -->
                             <UiButton variant="link" size="link" @click="duplicateRange(index)">Duplicate range</UiButton>
                             <UiButton variant="link" size="link" @click="reversePositions(index)">Reverse positions</UiButton>
                             <UiButton variant="link" size="link" @click="reverseColors(index)">Reverse colors</UiButton>
