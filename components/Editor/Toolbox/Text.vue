@@ -66,7 +66,7 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.fontSize"
                         :error="textSizeError" name="textSize">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateTextSize"
+                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateTextSize"
                             name="textSize" :modelValue="localConfig.size" />
                     </UiFormGroup>
                     <EditorToolboxPropertyColor class="ml-0 " v-model:config="config.color"
@@ -82,12 +82,12 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
                         :error="textPaddingError" name="textPadding">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updatePadding"
+                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updatePadding"
                             name="textPadding" :modelValue="localConfig.padding" />
                     </UiFormGroup>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
                         :error="textHeightError" name="textHeight">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateHeight"
+                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateHeight"
                             name="textHeight" :modelValue="localConfig.height" />
                     </UiFormGroup>
                     <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor"

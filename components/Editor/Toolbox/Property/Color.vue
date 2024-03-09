@@ -15,6 +15,7 @@ const localColor = defineModel<GlitchColor>('localConfig', { required: true });
 
 const hexError = computed(() => getErrorMessage(props.errors, `${props.name}.color.hex`));
 const alphaPercentError = computed(() => getErrorMessage(props.errors, `${props.name}.color.alphaPercent`));
+
 const hexName = `${localName.value}Hex`;
 const alphaPercentName = `${localName.value}AlphaPercent`;
 
@@ -40,7 +41,7 @@ const updateAlphaPercent = applyUpdater<GlitchColor>({
         :error="hexError || alphaPercentError">
         <UiInput class="w-7 h-6" alignment="center" type="color" :name="hexName" :modelValue="localColor.hex"
             :onUpdate="updateHex" />
-        <UiInput class="w-10 ml-1" alignment="center" type="tel" :name="alphaPercentName"
+        <UiInput class="w-10 ml-1" alignment="center" type="number" :name="alphaPercentName"
             :modelValue="localColor.alphaPercent" :onUpdate="updateAlphaPercent" />
     </UiFormGroup>
 </template>
