@@ -86,8 +86,12 @@ export default class Glitch {
         }
     }
 
-    replaceAnimationDuration(duration: number) {
-        this.keyframes.replaceAnimationDuration(duration);
+    async replaceAnimationDuration(config: GlitchConfig) {
+        const validate = await this.computeConfig(config);
+
+        if (validate) {
+            this.keyframes.generateAnimation(config);
+        }
     }
 
     hasAnimationBrowserCompatibility() {
@@ -102,11 +106,7 @@ export default class Glitch {
         this.config.ranges.splice(range, 1);
         this.keyframes.generate(this.config);
     }
-
-    analyseImportedCode(code: string) {
-        return this.validator.analyseImportedCode(code);
-    }
-
+    
     private getConfigCopy(config: GlitchConfig) {
         const rawConfig = toRaw(config);
         const functions = {

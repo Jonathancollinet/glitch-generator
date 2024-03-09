@@ -20,7 +20,7 @@ const updateOffsetX = applyUpdater<GlitchShadowProperty>({
     localObj: localProperty.value,
     key: 'offsetX',
     modifier: Number,
-    debounced: 20
+    debounced: 5
 });
 
 const updateOffsetY = applyUpdater<GlitchShadowProperty>({
@@ -28,7 +28,7 @@ const updateOffsetY = applyUpdater<GlitchShadowProperty>({
     localObj: localProperty.value,
     key: 'offsetY',
     modifier: Number,
-    debounced: 20
+    debounced: 5
 });
 
 const updateBlur = applyUpdater<GlitchShadowProperty>({
@@ -36,7 +36,7 @@ const updateBlur = applyUpdater<GlitchShadowProperty>({
     localObj: localProperty.value,
     key: 'blur',
     modifier: Number,
-    debounced: 20
+    debounced: 5
 });
 
 function getName(key: string) {

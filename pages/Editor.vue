@@ -240,15 +240,17 @@ watch(gconfig.text, () => {
 watch(gconfig.animation, () => {
     const configDuration = gconfig.animation.duration;
 
-    if (glitch.hasAnimationBrowserCompatibility() && configDuration !== animationDuration) {
-        animationDuration = configDuration;
-        glitch.replaceAnimationDuration(configDuration);
+    if (configDuration !== animationDuration) {
+        if (glitch.hasAnimationBrowserCompatibility()) {
+            animationDuration = configDuration;
+            glitch.replaceAnimationDuration(gconfig);
 
-        if (isCustomPreset.value) {
-            presets.value?.savePreset();
+            if (isCustomPreset.value) {
+                presets.value?.savePreset();
+            }
+        } else {
+            computeConfig(gconfig)
         }
-    } else {
-        computeConfig(gconfig)
     }
 });
 

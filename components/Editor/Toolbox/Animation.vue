@@ -15,7 +15,8 @@ const updateAnimationDuration = applyUpdater<GlitchAnimation>({
     obj: animation.value,
     localObj: localAnimation.value,
     key: 'duration',
-    modifier: Number
+    modifier: Number,
+    debounced: 500
 });
 
 </script>

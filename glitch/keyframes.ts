@@ -39,12 +39,6 @@ export default class GlitchKeyframes {
         this.generateAnimation(config);
     }
 
-    replaceAnimationDuration(duration: number) {
-        this.mutateAnimation((animation: Animation) => {
-            animation.effect?.updateTiming({ duration });
-        })
-    }
-
     setGlitchedElement(element: HTMLElement) {
         this.glitchedElement = element;
         if (this.animation?.effect) {
@@ -52,7 +46,7 @@ export default class GlitchKeyframes {
         }
     }
 
-    private generateAnimation(config: GlitchConfig) {
+    generateAnimation(config: GlitchConfig) {
         if (this.animation) {
             this.bindKeyframeEffect(config);
         } else {
