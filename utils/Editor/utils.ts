@@ -56,20 +56,6 @@ export function removeField(config: GlitchConfig, field: GlitchShadowField) {
     config.ranges[field.range].splice(field.index, 1);
 }
 
-export function pushField(range: GlitchShadowField[], rangeIndex: number) {
-    const lastOffsetFrame = range[range.length - 1]?.offsetFrame;
-
-    if (lastOffsetFrame === undefined) {
-        range.push(getDefaultField(rangeIndex, range.length, 0));
-    } else {
-        const nextMidOffset = lastOffsetFrame < 100 ? Math.ceil((lastOffsetFrame + ((100 - lastOffsetFrame) / 2))) : 0;
-
-        if (nextMidOffset) {
-            range.push(getDefaultField(rangeIndex, range.length, nextMidOffset));
-        }
-    }
-}
-
 export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number, offset: number) {
     let closestIndex = range.findIndex((field) => field.offsetFrame > offset);
 

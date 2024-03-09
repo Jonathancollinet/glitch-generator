@@ -1,16 +1,40 @@
 <script setup lang="ts">
-import type { GlitchBindings, GlitchConfig, GlitchErrors, GlitchShadowField } from '~/glitch/types';
-import { Icons } from '~/types/enums';
+import type {
+    GlitchBindings,
+    GlitchConfig,
+    GlitchErrors,
+    GlitchShadowField
+} from '~/glitch/types';
+import {
+    EditorDisplayedText,
+    EditorPresets
+} from '#components';
+import {
+    type Preset,
+    saveLastSelectedPreset,
+    getPresets,
+    isCustomPresetId,
+    getLastSelectedPreset
+} from '~/utils/Toobox/presets';
 import Glitch from '~/glitch';
-import { EditorDisplayedText } from '#components';
 import * as EditorUtils from '~/utils/Editor/utils';
-import { saveLastSelectedPreset, getPresets, isCustomPresetId, addPreset, updatePreset, removePreset, type Preset, type PresetConfig, getLastSelectedPreset } from '~/utils/Toobox/presets';
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
 }
 
+interface EditorPresetsData extends Ref<InstanceType<typeof EditorPresets>> {
+    savePreset: () => void
+}
+
 const errors = ref<Partial<GlitchErrors>>({});
+const displayedText = ref<EditorDisplayedTextData>();
+const glitchedEl = ref<HTMLElement | null>(null);
+const presets = ref<EditorPresetsData>();
+const currentPercent = ref(0);
+const selectedField = ref<GlitchShadowField>();
+const currentPreset = ref<Preset>(getPresets()[0]);
+const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
 const bindings = ref<GlitchBindings>({
     message: '',
     textStyle: {
@@ -21,19 +45,6 @@ const bindings = ref<GlitchBindings>({
         color: ""
     }
 });
-const displayedText = ref<EditorDisplayedTextData>();
-const glitchedEl = ref<HTMLElement | null>(null);
-const currentPercent = ref(0);
-const selectedField = ref<GlitchShadowField>();
-const presets = ref<Preset[]>(getPresets());
-const currentPreset = ref<Preset>(presets.value[0]);
-const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
-
-const isCustomPreset = computed(() => {
-    return isCustomPresetId(currentPreset.value.id);
-});
-
-EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
 
 const onRangesEvents = {
     updateField,
@@ -42,7 +53,6 @@ const onRangesEvents = {
     duplicateRange,
     reversePositions,
     reverseColors,
-    addField,
     removeRange,
     insertField
 }
@@ -66,10 +76,9 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     }
 }
 
-const { addPresetModal } = useModalAddPreset(createPreset);
-const { importModal } = useModalImport(createPreset);
-const { deletePresetModal } = useModalDeletePreset(deletePreset);
-const { exportModal } = useModalExport(glitch, gconfig);
+EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
+
+// -----------------------------------------------------------------
 
 function initConfig() {
     if (displayedText.value?.glitchedEl) {
@@ -97,42 +106,13 @@ function selectFirstRangeField(range?: GlitchShadowField[]) {
 async function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
         if (isCustomPreset.value) {
-            savePreset();
+            presets.value?.savePreset();
         }
 
         const bindings = await glitch.computeConfig(gconfig, forceRangeCompute);
 
         bindGlitch(bindings);
     }
-}
-
-function createPreset(name: string, config?: PresetConfig) {
-    const preset = addPreset(name, config || deepCopy({
-        text: gconfig.text,
-        animation: gconfig.animation,
-        ranges: gconfig.ranges
-    }));
-
-    presets.value = getPresets();
-    currentPreset.value = preset;
-    EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
-}
-
-function savePreset() {
-    currentPreset.value.config = deepCopy({
-        text: gconfig.text,
-        animation: gconfig.animation,
-        ranges: gconfig.ranges
-    });
-    updatePreset(currentPreset.value);
-    presets.value = getPresets();
-}
-
-function deletePreset() {
-    removePreset(currentPreset.value.id);
-    presets.value = getPresets();
-    currentPreset.value = presets.value[presets.value.length - 1];
-    EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
 }
 
 function updateField(newField: GlitchShadowField) {
@@ -145,7 +125,7 @@ function updateField(newField: GlitchShadowField) {
         if (previousField) {
             batch.splice(0, 0, previousField);
         }
-        
+
         if (nextField) {
             batch.push(nextField);
         }
@@ -153,7 +133,7 @@ function updateField(newField: GlitchShadowField) {
         glitch?.computeFields(batch);
 
         if (isCustomPreset.value) {
-            savePreset();
+            presets.value?.savePreset();
         }
     }
 }
@@ -195,13 +175,6 @@ function reverseColors(rangeIndex: number) {
     }
 }
 
-function addField(rangeIndex: number) {
-    const range = gconfig.ranges[rangeIndex];
-
-    EditorUtils.pushField(range, rangeIndex);
-    computeConfig(gconfig, true);
-}
-
 function removeField(field: GlitchShadowField) {
     if (field.index === selectedField.value?.index && field.range === selectedField.value?.range) {
         closeField();
@@ -233,14 +206,6 @@ function closeField() {
     selectedField.value = undefined;
 }
 
-function presetChanged(preset: Preset) {
-    EditorUtils.setConfigFromPreset(gconfig, preset);
-
-    nextTick(() => {
-        initConfig();
-    })
-}
-
 function insertField(rangeIndex: number, offset: number) {
     const range = gconfig.ranges[rangeIndex];
 
@@ -250,6 +215,18 @@ function insertField(rangeIndex: number, offset: number) {
         alert("Can't add a field at the offset: " + offset);
     }
 }
+
+function presetChanged(preset: Preset) {
+    EditorUtils.setConfigFromPreset(gconfig, preset);
+
+    nextTick(() => {
+        initConfig();
+    })
+}
+
+const isCustomPreset = computed(() => {
+    return isCustomPresetId(currentPreset.value.id);
+});
 
 watch(() => currentPreset.value.id, () => {
     saveLastSelectedPreset(currentPreset.value.id);
@@ -265,10 +242,10 @@ watch(gconfig.animation, () => {
 
     if (glitch.hasAnimationBrowserCompatibility() && configDuration !== animationDuration) {
         animationDuration = configDuration;
-        glitch?.replaceAnimationDuration(configDuration);
+        glitch.replaceAnimationDuration(configDuration);
 
         if (isCustomPreset.value) {
-            savePreset();
+            presets.value?.savePreset();
         }
     } else {
         computeConfig(gconfig)
@@ -281,9 +258,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    if (glitch) {
-        glitch.destroy();
-    }
+    glitch.destroy();
 });
 </script>
 
@@ -295,34 +270,12 @@ onBeforeUnmount(() => {
                 <EditorTour />
             </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
-                <ClientOnly>
-                    <UiFormGroup class="mb-0">
-                        <UiSelect :title="$t('pages.editor.selectPreset')" class="max-w-[150px]" data-v-step="22"
-                            :options="presets" v-model="currentPreset" labelKey="name" />
-                    </UiFormGroup>
-                    <UiButton class="ml-2" :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon"
-                        size="icon" @click="addPresetModal.open">
-                        <UiIcon :icon="Icons.Add" />
-                    </UiButton>
-                    <UiButton :title="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
-                        @click="deletePresetModal.open">
-                        <UiIcon class="stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" />
-                    </UiButton>
-                </ClientOnly>
-                <div class="flex ml-4 *:ml-2">
-                    <UiButton :title="$t('pages.editor.import')" data-v-step="23" variant="icon" size="icon"
-                        @click="importModal.open">
-                        <UiIcon :icon="Icons.ImportCode" />
-                    </UiButton>
-                    <UiButton :title="$t('pages.editor.export')" data-v-step="23" variant="icon" size="icon"
-                        @click="exportModal.open">
-                        <UiIcon :icon="Icons.ExportCode" />
-                    </UiButton>
-                </div>
+                <EditorPresets ref="presets" :config="gconfig" v-model="currentPreset" />
+                <EditorActions :config="gconfig" :glitch="glitch" />
             </div>
         </div>
         <div class="lg:flex" :key="currentPreset.id">
-            <div class="lg:w-[75%] lg:mr-4">
+            <div class="lg:w-[75%] lg:mr-4 space-x-1">
                 <EditorDisplayedText data-v-step="1" ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
                 <EditorToolboxRanges data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
