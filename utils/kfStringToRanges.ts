@@ -4,7 +4,7 @@ export default function kfStringToRanges(keyframe: string) {
     const ranges: GlitchShadowField[][] = [];
     const styleSheet = getStyleSheet(keyframe);
 
-    if (styleSheet) {
+    if (styleSheet?.cssRules?.length) {
         const rules = [].slice.call(styleSheet.cssRules) as CSSKeyframesRule[];
         const keyframesRule = rules.filter(rule => {
             return rule.constructor.name === "CSSKeyframesRule";
