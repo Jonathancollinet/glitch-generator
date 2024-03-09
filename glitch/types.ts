@@ -42,7 +42,7 @@ export type GlitchShadowField = {
 
 export type GlitchBaseText = {
     size: number,
-    unit: GlitchUnitUnion,
+    unit: GlitchUnitUnion | string,
     color: GlitchColor,
     bgColor: GlitchColor,
     height: number,
