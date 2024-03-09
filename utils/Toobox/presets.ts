@@ -16,22 +16,22 @@ export type Preset = {
 const presets: Preset[] = [
     {
         id: "basic_glitch",
-        name: "Basic Glitch",
+        name: "* Basic Glitch",
         config: basicExemple
     },
     {
         id: "flash_glitch",
-        name: "Flash Glitch",
+        name: "* Flash Glitch",
         config: flashExemple
     },
     {
         id: "homepage_glitch",
-        name: "Homepage Glitch",
+        name: "* Homepage Glitch",
         config: homepageConfigPreset
     },
     {
         id: "empty_glitch",
-        name: "Empty Glitch",
+        name: "* Empty Glitch",
         config: getDefaultGlitchConfig()
     },
 ]
