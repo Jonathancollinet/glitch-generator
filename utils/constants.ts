@@ -10,3 +10,5 @@ export const navigationItems: NavigationItem[] = [
         to: Urls.Editor
     }
 ];
+
+export const allColors: any[] = [];

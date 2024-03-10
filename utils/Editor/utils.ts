@@ -1,4 +1,4 @@
-import type { GlitchAnimationProperty, GlitchConfig, GlitchShadowField, GlitchShadowProperty } from "~/glitch/types";
+import type { GlitchAnimationProperty, GlitchColor, GlitchConfig, GlitchShadowField, GlitchShadowProperty } from "~/glitch/types";
 import type { Preset } from "../Toobox/presets";
 
 export function removeRange(config: GlitchConfig, rangeIndex: number) {
@@ -134,6 +134,40 @@ export function setConfigFromPreset(config: GlitchConfig, preset: Preset) {
     config.text.message = preset.config.text.message;
     config.animation.duration = preset.config.animation.duration;
     config.ranges = deepCopy(preset.config.ranges);
+}
+
+export function setAllColors(config: GlitchConfig) {
+    const textColor = config.text.color;
+    const colors: { [key: string]: GlitchColor } = {
+        [`${textColor.hex}-${textColor.alphaPercent}`]: textColor,
+    };
+
+    config.ranges.forEach((range) => {
+        return range.forEach((field) => {
+            return Object.keys(field.properties).forEach((key) => {
+                const property = field.properties[key as GlitchAnimationProperty];
+
+                if (property?.enabled && property.color) {
+                    const key = `${property.color.hex}-${property.color.alphaPercent}`;
+
+                    colors[key] = property.color;
+                }
+            });
+        });
+    });
+
+    allColors.length = 0;
+    Object.keys(colors).forEach((key) => {
+        const color = colors[key];
+        const rgba = hexToRGBObject(color.hex, color.alphaPercent);
+
+        if (rgba) {
+            const rgbaString = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
+
+            allColors.push(rgbaString);
+        }
+    });
+    allColors.sort();
 }
 
 function incrementUpperFieldIndexesFrom(range: GlitchShadowField[], index: number) {

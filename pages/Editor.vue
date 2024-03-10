@@ -113,6 +113,7 @@ async function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean)
         const bindings = await glitch.computeConfig(gconfig, forceRangeCompute);
 
         bindGlitch(bindings);
+        EditorUtils.setAllColors(gconfig);
     }
 }
 
@@ -132,6 +133,7 @@ function updateField(newField: GlitchShadowField) {
         }
 
         glitch?.computeFields(batch);
+        EditorUtils.setAllColors(gconfig);
 
         if (isCustomPreset.value) {
             presets.value?.savePreset();
