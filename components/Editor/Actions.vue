@@ -13,7 +13,7 @@ const { exportModal } = useModalExport(props.glitch, props.config);
 
 <template>
     <div class="flex">
-        <UiButton :title="$t('pages.editor.export')" data-v-step="23" variant="icon" size="icon"
+        <UiButton v-tooltip="$t('pages.editor.export')" data-v-step="23" variant="icon" size="icon"
             @click="exportModal.open">
             <UiIcon :icon="Icons.ExportCode" />
         </UiButton>

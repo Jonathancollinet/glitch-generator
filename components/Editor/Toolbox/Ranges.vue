@@ -129,7 +129,7 @@ const cursorStyle = computed(() => {
                 </div>
             </div>
         </div>
-        <UiButton data-v-step="17" variant="link" size="link" @click="addEmptyRange">
+        <UiButton data-v-step="17" variant="link" size="link" v-tooltip.right="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
             <UiIcon :icon="Icons.Add" />
         </UiButton>
     </div>

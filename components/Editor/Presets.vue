@@ -57,20 +57,20 @@ defineExpose({
 
 <template>
     <ClientOnly>
-        <UiFormGroup class="mb-0">
-            <UiSelect :title="$t('pages.editor.selectPreset')" class="max-w-[120px]" data-v-step="22" :options="presets"
+        <UiFormGroup class="mb-0" v-tooltip="$t('pages.editor.selectPreset')">
+            <UiSelect class="max-w-[120px]" data-v-step="22" :options="presets"
                 v-model="currentPreset" labelKey="name" />
         </UiFormGroup>
         <div class="flex items-center space-x-1">
-            <UiButton :title="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
+            <UiButton v-tooltip="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
                 @click="deletePresetModal.open">
                 <UiIcon class="stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" />
             </UiButton>
-            <UiButton :title="$t('pages.editor.savePreset')" data-v-step="21" variant="icon" size="icon"
+            <UiButton v-tooltip="$t('pages.editor.savePreset')" data-v-step="21" variant="icon" size="icon"
                 @click="addPresetModal.open">
                 <UiIcon :icon="Icons.Add" />
             </UiButton>
-            <UiButton :title="$t('pages.editor.import')" data-v-step="23" variant="icon" size="icon"
+            <UiButton v-tooltip="$t('pages.editor.import')" data-v-step="23" variant="icon" size="icon"
                 @click="importModal.open">
                 <UiIcon :icon="Icons.ImportCode" />
             </UiButton>
