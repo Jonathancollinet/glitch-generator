@@ -30,7 +30,7 @@ defineExpose({
                     </div>
                 </div>
                 <ClientOnly>
-                    <div data-v-step="2" class="absolute w-full bottom-4 flex flex-col justify-center items-center"
+                    <div class="absolute w-full bottom-4 flex flex-col justify-center items-center"
                         v-if="controller && hasControls">
                         <EditorKeyframesController v-model="currentPercent" :controller="controller"
                             :animationDuration="animationDuration" />

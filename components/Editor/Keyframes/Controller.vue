@@ -97,6 +97,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <EditorKeyframesTimeline :precision="precision" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
+    <EditorKeyframesTimeline data-v-step="2" :precision="precision" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
     <EditorKeyframesActions :playState="playState" v-model:precision="precision" v-model:fps="fps" v-on="actions" @play="play()" @pause="pause()" />
 </template>

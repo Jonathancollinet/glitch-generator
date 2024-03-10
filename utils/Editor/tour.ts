@@ -4,7 +4,7 @@ export const tourSteps = [
         header: {
             title: 'Welcome to the Glitch Editor'
         },
-        content: 'This tool allows you to create and customize animations.<br><br>This tutorial will guide you through the different features.',
+        content: 'Glitch Generator allows you to create text/box shadow animations and get the result as a CSS Keyframe.<br><br>This tutorial will guide you through the different features.',
         params: {
             highlight: false
         }
@@ -14,14 +14,14 @@ export const tourSteps = [
         header: {
             title: 'Displayed text'
         },
-        content: 'This area contains the animation result.'
+        content: 'This area displays the animation result. There are action buttons and a bar to control the animation timing and play state.'
     },
     {
         target: '[data-v-step="2"]',
         header: {
             title: 'Animation controls'
         },
-        content: 'This bar is the animation\'s control bar.<br>You can click inside or drag the cursor at any location.<br><br>Dragging facilitates frame transition\'s visualization.',
+        content: 'This bar is the animation\'s control bar.<br><br>You can click inside or drag the cursor at any location.<br><br>Dragging facilitates frame transition\'s visualization.',
         params: {
             highlight: false
         }
@@ -31,7 +31,7 @@ export const tourSteps = [
         header: {
             title: 'Text & Container settings'
         },
-        content: 'This area contains the styles settings.<br>You can change the text and his container properties.<br><br>Note: You have to open it by clicking on the title.',
+        content: 'This area contains the styles settings.<br><br>You can change the text and his container properties.<br><br>Note: You have to open it by clicking on the title.',
         params: {
             placement: 'top'
         }
@@ -41,7 +41,7 @@ export const tourSteps = [
         header: {
             title: 'Animation settings'
         },
-        content: 'This area contains the animation settings.<br>You can change the animation duration.<br><br>You see how it affects the reader?',
+        content: 'This area contains the animation settings.<br><br>You can change the animation duration.<br><br>You see how it affects the reader?',
         params: {
             placement: 'top'
         }
@@ -51,7 +51,7 @@ export const tourSteps = [
         header: {
             title: 'Ranges and fields'
         },
-        content: 'This area represents the animation\'s frames.<br>The horizontal bar represent a range and can contain 101 fields maximum.<br>Each inner field represents one or more frames.'
+        content: 'This area contains the animation\'s frames.<br><br>The horizontal bar represent a range and can contain 101 fields maximum.<br><br>Each inner field represents one or more frames.'
     },
     {
         target: '[data-v-step*="6"]',
@@ -75,7 +75,7 @@ export const tourSteps = [
         header: {
             title: 'Offset'
         },
-        content: 'Here you can set the offset, this value represents where the field is in the keyframe, in percentage.<br>Changing this will move the field in the range.<br><br>Note: you can only move it to the previous or next field, there are collisions.'
+        content: 'The offset represents where the field starts in the keyframe, in percentage.<br><br>Changing this will move the field in the range.<br><br>Note: you can only move it to the previous or next field, there are collisions.'
     },
     {
         target: '[data-v-step="9"]',
@@ -92,14 +92,14 @@ export const tourSteps = [
         header: {
             title: 'Fill'
         },
-        content: 'This button will fill all the frames with the current shadow values, starting from the current offset until the next field or range\'s end.'
+        content: 'This button will fill all the frames with the current field values, starting from the field offset until the next field or range\'s end.'
     },
     {
         target: '[data-v-step*="11"]',
         header: {
             title: 'Split a field'
         },
-        content: 'Now we want to add a new field.<br>You can do this by right-clicking any place in the wanted range.',
+        content: 'The only way to add and configure a field, is to cut existing one.<br><br>You can do this by right-clicking any place in the wanted range.<br><br>The new field will be placed at the mouse position and keep in memory every parameters of the hovered field.',
         params: {
             highlight: false
         }
@@ -109,17 +109,10 @@ export const tourSteps = [
         header: {
             title: 'Split a field'
         },
-        content: 'You can also maintain the right-click and drag the mouse in the range to choose a position',
+        content: 'You can also maintain the right-click and drag the mouse in the range to choose a position.',
         params: {
             highlight: false
         }
-    },
-    {
-        target: '[data-v-step*="13"]',
-        header: {
-            title: 'Split a field'
-        },
-        content: 'In fact, it cuts the hovered field in two fields.<br>The new field will be placed at the mouse position and keep in memory every parameters of the hovered field.'
     },
     {
         target: '[data-v-step*="14"]',
@@ -166,9 +159,9 @@ export const tourSteps = [
     {
         target: '[data-v-step*="19"]',
         header: {
-            title: 'Add a range'
+            title: 'Duplicate a range'
         },
-        content: 'Duplicate a range will copy the range and all his fields.<br>It can be useful to create symmetrical animations.',
+        content: 'Duplicate a range will copy the range and all his fields.<br><br>It can be useful to create symmetrical animations.',
         params: {
             placement: 'top',
             highlight: false
@@ -177,9 +170,9 @@ export const tourSteps = [
     {
         target: '[data-v-step*="20"]',
         header: {
-            title: 'Add a range'
+            title: 'Duplicate a range'
         },
-        content: 'When duplicating a range, the range\'s options take all his sense.<br>You can reverse every x/y field\'s position, or reverse colors.<br><br>Give it a try on the duplicated range!',
+        content: 'When duplicating a range, the range\'s options take all his sense.<br><br>You can reverse every x/y field\'s position, or reverse colors.<br><br>Give it a try on the duplicated range!',
         params: {
             placement: 'top',
             highlight: false
@@ -197,7 +190,7 @@ export const tourSteps = [
         header: {
             title: 'Great!'
         },
-        content: 'Now your work is saved under a custom preset, you can reload the page without losing it.<br><br>Each time you edit a custom preset, the changes are saved automatically.<br><br>Be careful, the built-in presets can\'t be edited, so it\'s advised to immediatly create a custom preset from it to avoid accidentaly loose your work.'
+        content: 'Now your work is saved under a custom preset, you can reload the page without losing it.<br><br>Each time you edit a custom preset, the changes are saved automatically.<br><br>Be careful, the built-in presets can\'t be edited, so it\'s advised to immediatly create a custom preset from it to avoid any work loss.'
     },
     {
         target: '[data-v-step="23"]',
@@ -211,7 +204,7 @@ export const tourSteps = [
         header: {
             title: 'Congratulations'
         },
-        content: 'You are now ready to create your own animations.<br>Don\'t forget to read the Help\'s page for an in-depth understanding.<br><br>Thank you & enjoy!'
+        content: 'You are now ready to create your own animations.<br><br>Don\'t forget to read the Help\'s page for an in-depth understanding.<br><br>Thank you & enjoy!'
     }
 ];
 

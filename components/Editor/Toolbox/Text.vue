@@ -79,7 +79,6 @@ const updateHeight = applyUpdater<GlitchBaseText>({
             </UiCard>
             <UiHeading variant="h5">Container</UiHeading>
             <UiCard openable>
-
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
                         :error="textHeightError" name="textHeight">
