@@ -268,7 +268,7 @@ onBeforeUnmount(() => {
     <div>
         <div class="flex items-center justify-between flex-col mb-4 md:flex-row" data-v-step="0,24">
             <div class="flex items-center md:m-0 lg:w-[75%] lg:mr-4">
-                <UiHeading>{{ $t('pages.editor.title') }}</UiHeading>
+                <UiHeading class="m-0">{{ $t('pages.editor.title') }}</UiHeading>
                 <EditorTour />
             </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">

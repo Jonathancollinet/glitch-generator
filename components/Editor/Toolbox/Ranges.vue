@@ -90,7 +90,7 @@ const cursorStyle = computed(() => {
     <div class="relative">
         <div class="flex space-x-2 items-center mb-4">
             <UiHeading class="m-0" variant="h4">Ranges</UiHeading>
-            <UiButton class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
+            <UiButton v-tooltip.right="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
                 <UiIcon class="stroke-neutral-400" :icon="Icons.Cursor" />
             </UiButton>
         </div>
@@ -109,7 +109,7 @@ const cursorStyle = computed(() => {
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
                 <div class="relative top-0 w-full h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges"
                     :key="index">
-                    <UiButtonIconTooltip data-v-step="18,19,20" @click="displayRangeOptions(index)">
+                    <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')" data-v-step="18,19,20" @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[90%] *:justify-start"
                             v-if="showRangeOptions[index]">
                             <UiButton variant="link" size="link" @click="duplicateRange(index)">

@@ -65,8 +65,8 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                             :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
                     </UiFormGroup>
                 </div>
-                <div class="flex">
-                    <UiIcon data-v-step="15" v-tooltip="$t('pages.editor.config.field.removeField')"
+                <div class="flex" data-v-step="15">
+                    <UiIcon v-tooltip="$t('pages.editor.config.field.removeField')"
                         class="cursor-pointer stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash"
                         @click="removeField" />
                 </div>
