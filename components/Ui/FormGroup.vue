@@ -19,8 +19,8 @@ const props = defineProps<{
         <slot name="before" />
         <template v-if="inline">
             <div class="flex items-center justify-between">
-                <label class="select-none block text-neutral-500 dark:text-neutral-400" v-if="label" :for="name">{{ $t(label) }}</label>
-                <div class="flex items-center">
+                <label class="min-w-[40px] select-none block text-left text-neutral-500 dark:text-neutral-400" v-if="label" :for="name">{{ $t(label) }}</label>
+                <div class="flex items-center justify-end">
                     <slot />
                 </div>
             </div>

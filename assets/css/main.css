@@ -64,16 +64,12 @@
         --------------------
     */
 
-    input[type=number] {
-        &,
-        &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button {
-            @apply appearance-none;
-      
-          &:hover,
-          &:focus {
-            @apply appearance-none;
-          }
-        }
-      }
+    input[type=number],
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]:hover,
+    input[type=number]::-webkit-inner-spin-button:hover,
+    input[type=number]::-webkit-outer-spin-button:hover {
+        @apply appearance-none;
+    }
 }

@@ -67,7 +67,6 @@ function changeFieldOffset(modifier: number) {
 
 function drag(e: DragEvent) {
     if (isDragging) {
-
         if (e.screenX && e.screenY) {
             if (e.pageX < oldX) {
                 ++jump;

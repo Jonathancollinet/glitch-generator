@@ -18,8 +18,8 @@ export const glitchShadowPropertySchemas = {
     enabled: z.boolean(),
     offsetX: z.number(),
     offsetY: z.number(),
-    blur: z.number(),
-    spread: z.number().optional()
+    blur: z.number().gte(0),
+    spread: z.number().gte(0).optional()
 };
 
 export const glitchTextShadowFieldSchemas = {
@@ -29,7 +29,7 @@ export const glitchTextShadowFieldSchemas = {
 };
 
 export const glitchAnimationSchemas = {
-    duration: z.number()
+    duration: z.number().gte(0)
 };
 
 export const glitchTextSchemas = {

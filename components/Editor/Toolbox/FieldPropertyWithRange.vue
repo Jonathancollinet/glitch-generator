@@ -16,10 +16,10 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-    <UiFormGroup inline :label="label" class="w-full ml-0" alignment="center" :error="error" :name="name">
-        <UiInput class="w-[40px]" alignment="center" type="number" :name="name" :modelValue="value"
+    <UiFormGroup inline :label="label" class="w-full ml-0" :error="error" :name="name">
+        <UiInput class="w-[40px]" alignment="center" type="tel" :name="name" :modelValue="value"
             :onUpdate="update" />
-        <input class="ml-2 max-w-[75px] xl:max-w-full" type="range" :min="min" :max="max" :value="value"
+        <input class="ml-2 w-[calc(100%-40px)] max-w-[75px] xl:max-w-full" type="range" :min="min" :max="max" :value="value"
             @input="update" />
     </UiFormGroup>
 </template>

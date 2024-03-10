@@ -11,9 +11,9 @@ const props = defineProps<{
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
 const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
 
-const offsetXError = computed(() => getErrorMessage(props.errors, 'offsetX'));
-const offsetYError = computed(() => getErrorMessage(props.errors, 'offsetY'));
-const blurError = computed(() => getErrorMessage(props.errors, 'blur'));
+const offsetXError = computed(() => getErrorMessage(props.errors, `${props.name}.offsetX`));
+const offsetYError = computed(() => getErrorMessage(props.errors, `${props.name}.offsetY`));
+const blurError = computed(() => getErrorMessage(props.errors, `${props.name}.blur`));
 
 const updateOffsetX = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
