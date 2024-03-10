@@ -273,7 +273,9 @@ onBeforeUnmount(() => {
                 <EditorTour />
             </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
-                <EditorPresets ref="presets" :config="gconfig" v-model="currentPreset" />
+                <ClientOnly>
+                    <EditorPresets ref="presets" :config="gconfig" v-model="currentPreset" />
+                </ClientOnly>
                 <EditorActions :config="gconfig" :glitch="glitch" />
             </div>
         </div>

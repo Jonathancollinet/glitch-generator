@@ -72,7 +72,8 @@
                     "fillAllFrames": "Fill",
                     "fillAllFramesDescription": "If enabled, the shadow will be applied to all frames until the next field or animation's end. If disabled, the shadow will be applied to the current frame offset only.",
                     "offsetFrame": "Field",
-                    "offsetFrameDescription": "Offset in keyframes.",
+                    "offsetFrameDescription": "Offset in keyframes",
+                    "removeField": "Remove field",
                     "textShadow": "Text shadow",
                     "boxShadow": "Box shadow"
                 }

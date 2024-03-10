@@ -56,12 +56,12 @@ defineExpose({
 </script>
 
 <template>
-    <ClientOnly>
+    <div class="flex space-x-2">
         <UiFormGroup class="mb-0" v-tooltip="$t('pages.editor.selectPreset')">
-            <UiSelect class="max-w-[120px]" data-v-step="22" :options="presets"
-                v-model="currentPreset" labelKey="name" />
+            <UiSelect class="max-w-[120px]" data-v-step="22" :options="presets" v-model="currentPreset"
+                labelKey="name" />
         </UiFormGroup>
-        <div class="flex items-center space-x-1">
+        <div class="flex items-center">
             <UiButton v-tooltip="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
                 @click="deletePresetModal.open">
                 <UiIcon class="stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" />
@@ -75,5 +75,5 @@ defineExpose({
                 <UiIcon :icon="Icons.ImportCode" />
             </UiButton>
         </div>
-    </ClientOnly>
+    </div>
 </template>
