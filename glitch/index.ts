@@ -36,6 +36,10 @@ export default class Glitch {
         }
     }
 
+    validateConfig(config: GlitchConfig) {
+        return this.validator.validateConfigWithErrors(config, this.config)
+    }
+
     async computeConfig(newConfig: GlitchConfig, forceRangeCompute?: boolean) {
         const success = this.validator.validateConfig(newConfig, this.config);
 

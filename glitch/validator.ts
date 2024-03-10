@@ -23,6 +23,19 @@ export default class GlitchValidator {
         this.errors = {};
     }
 
+    validateConfigWithErrors(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
+        const oldErrors = deepCopy(this.errors);
+
+        this.errors = {};
+        this.validateConfigLeafs(newConfig, oldConfig);
+        
+        const newErrors = deepCopy(this.errors);
+
+        this.errors = oldErrors;
+
+        return newErrors;
+    }
+
     validateConfig(newConfig: GlitchConfig, oldConfig: GlitchConfig | undefined) {
         const success = this.validateConfigLeafs(newConfig, oldConfig);
 

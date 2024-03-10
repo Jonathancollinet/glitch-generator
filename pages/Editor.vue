@@ -273,7 +273,7 @@ onBeforeUnmount(() => {
             </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
                 <ClientOnly>
-                    <EditorPresets ref="presets" :config="gconfig" v-model="currentPreset" />
+                    <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" v-model="currentPreset" />
                 </ClientOnly>
                 <EditorActions :config="gconfig" :glitch="glitch" />
             </div>

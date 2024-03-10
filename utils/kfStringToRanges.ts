@@ -71,7 +71,7 @@ function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAn
             range.push(field);
         }
 
-        const color = getColor(shadow);
+        const color = getColorInStr(shadow);
         const shadowValues = getShadowProps(shadow);
         const shadowProperty: GlitchShadowProperty = {
             enabled: true,
@@ -104,36 +104,4 @@ function getShadowProps(shadow: string) {
     }
 
     return shadowProps;
-}
-
-function getColor(shadow: string) {
-    const fieldColor: GlitchColor = {
-        hex: '',
-        alphaPercent: 100
-    };
-    const colorParse = shadow.match(/rgb[a]?\((.*)\)/)?.[1]?.split(', ');
-
-    if (colorParse) {
-        fieldColor.hex = RGBToHex(+colorParse[0], +colorParse[1], +colorParse[2]);
-
-        if (colorParse.length === 4) {
-            fieldColor.alphaPercent = +colorParse[3] * 100;
-        }
-
-    }
-
-    return fieldColor;
-}
-
-
-function getStyleSheet(keyframe: string) {
-    const style = document.createElement('style');
-    let sheet: CSSStyleSheet | null = null;
-
-    style.textContent = keyframe;
-    document.head.appendChild(style);
-    sheet = style.sheet;
-    style.remove();
-
-    return sheet;
 }

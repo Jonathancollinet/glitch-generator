@@ -105,13 +105,27 @@
         },
         "import": {
             "presetName": "Preset name",
-            "description": "Paste the CSS keyframe to import the animation under the preset name.",
+            "description": "Paste the text style and the keyframe to import the animation under the preset name.",
             "rules": {
-                "size": "Sizes and positions must be exprimed in 'px'.",
-                "noInset": "The keyframe must not contain 'inset' values.",
-                "disclaimer": "The keyframe must be a valid CSS keyframe."
+                "action": "Read import rules",
+                "title": "Import rules",
+                "notSupported": "Not supported",
+                "otherConsiderations": "Other considerations",
+                "colors": "Color names (blue, transparent,...).",
+                "size": "Other units than 'px'.",
+                "noInset": "Inset shadows.",
+                "class": "The text style must be a valid CSS rule with selector.",
+                "keyframes": "Keyframes must be a valid CSS keyframes at-rule.",
+                "autoPrefixes": "Auto-prefixes are supported.",
+                "declarations": "Declarations",
+                "onlyConfigClass": "Only declarations handled by the tool are used. Any other declarations are ignored.",
+                "declarationsList": "Handled declarations",
+                "textDeclarations": "Text style: color, background, font-size, padding, border-radius.",
+                "keyframesDeclarations": "Keyframes at-rules: text-shadow, box-shadow."
             },
+            "textStyle": "Text style",
             "code": "CSS keyframe",
+            "animationDuration": "Animation duration",
             "action": "Import"
         },
         "shortcuts": {
@@ -139,7 +153,8 @@
         },
         "import": {
             "presetName": "Preset name is required",
-            "keyframes": "Invalid keyframes."
+            "keyframes": "Invalid keyframes. Check the rules.",
+            "textStyle": "Invalid text style. Check the rules."
         }
     }
 }

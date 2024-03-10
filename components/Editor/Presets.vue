@@ -3,8 +3,10 @@ import type { GlitchConfig } from '~/glitch/types';
 import { Icons } from '~/types/enums';
 import { getPresets, updatePreset, type Preset, removePreset, addPreset, type PresetConfig } from '~/utils/Toobox/presets';
 import * as EditorUtils from '~/utils/Editor/utils';
+import type Glitch from '~/glitch';
 
 const props = defineProps<{
+    glitch: Glitch,
     config: GlitchConfig,
 }>()
 
@@ -14,7 +16,7 @@ const { addPresetModal } = useModalAddPreset(createPreset);
 const { deletePresetModal } = useModalDeletePreset(deletePreset);
 
 const presets = ref<Preset[]>(getPresets());
-const { importModal } = useModalImport(createPreset);
+const { importModal } = useModalImport(props.glitch, createPreset);
 
 function getPresetConfig() {
     return deepCopy({
