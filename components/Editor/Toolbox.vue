@@ -38,7 +38,7 @@ watch(selectedField, (field) => {
     if (field) {
         localSelectedField.value = deepCopy(field);
     }
-})
+}, {deep: true})
 
 </script>
 

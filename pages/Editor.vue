@@ -120,8 +120,8 @@ function updateField(newField: GlitchShadowField) {
     if (gconfig.ranges[newField.range]) {
         const range = gconfig.ranges[newField.range];
         const previousField = range[newField.index - 1];
-        const batch = [newField];
         const nextField = range[newField.index + 1];
+        const batch = [newField];
 
         if (previousField) {
             batch.splice(0, 0, previousField);

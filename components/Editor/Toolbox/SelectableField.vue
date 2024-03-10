@@ -146,7 +146,7 @@ const fieldClass = computed(() => {
 
 watch(props.field, () => {
     emit('updateField', props.field);
-})
+}, { deep: true })
 </script>
 
 <template>

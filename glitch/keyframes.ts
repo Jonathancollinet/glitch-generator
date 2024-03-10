@@ -239,7 +239,6 @@ export default class GlitchKeyframes {
                     }
 
                     keyframes += `${doubleTab}${property}: `;
-
                     filteredProperty.forEach((frame, frameIndex) => {
                         if (frame) {
                             keyframes += `${frame}`;

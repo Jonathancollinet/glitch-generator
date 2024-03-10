@@ -86,15 +86,15 @@ const updateHeight = applyUpdater<GlitchBaseText>({
                         <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateHeight"
                             name="textHeight" :modelValue="localConfig.height" />
                     </UiFormGroup>
-                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.borderRadius"
-                        :error="textBorderRadiusError" name="textBorderRadius">
-                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateBorderRadius"
-                            name="textBorderRadius" :modelValue="localConfig.borderRadius" />
-                    </UiFormGroup>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
                         :error="textPaddingError" name="textPadding">
                         <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updatePadding"
                             name="textPadding" :modelValue="localConfig.padding" />
+                    </UiFormGroup>
+                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.borderRadius"
+                        :error="textBorderRadiusError" name="textBorderRadius">
+                        <UiInput class="w-[40px]" alignment="center" type="number" :onUpdate="updateBorderRadius"
+                            name="textBorderRadius" :modelValue="localConfig.borderRadius" />
                     </UiFormGroup>
                     <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor"
                         v-model:localConfig="localConfig.bgColor" name="textBgColor" :errors="errors" />

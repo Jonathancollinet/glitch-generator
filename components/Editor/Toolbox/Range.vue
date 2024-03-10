@@ -206,7 +206,6 @@ const nextHoveredFrameOffset = computed(() => {
                     :field="field" :nextField="range[index + 1]" :draggingFieldIndex="draggingFieldIndex"
                     :isSelected="isFieldSelected(field)" v-on="onField" @contextmenu.prevent.stop
                     @mousedown.right="showSelectableField" />
-
             </div>
             <div v-if="displaySelectableFields" class="absolute z-10 h-full w-full whitespace-nowrap">
                 <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"

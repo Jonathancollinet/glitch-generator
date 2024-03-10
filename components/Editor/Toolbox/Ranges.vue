@@ -101,7 +101,7 @@ const cursorStyle = computed(() => {
                         class="absolute z-20 h-full pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto dark:bg-neutral-50"
                         :style="cursorStyle" />
                 </ClientOnly>
-                <EditorToolboxRange v-for="(range, index) in config.ranges" :key="index" :selectedField="selectedField"
+                <EditorToolboxRange v-for="(range, index) in config.ranges" :key="`${index}-${range.length}`" :selectedField="selectedField"
                     :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @updateField="updateField"
                     @selectField="selectField" @insertField="insertField(index, $event)" />
             </div>
