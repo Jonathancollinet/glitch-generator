@@ -13,7 +13,6 @@ import {
     type Preset,
     saveLastSelectedPreset,
     getPresets,
-    isCustomPresetId,
     getLastSelectedPreset
 } from '~/utils/Toobox/presets';
 import Glitch from '~/glitch';
@@ -226,7 +225,7 @@ function presetChanged(preset: Preset) {
 }
 
 const isCustomPreset = computed(() => {
-    return isCustomPresetId(currentPreset.value.id);
+    return !currentPreset.value.builtIn;
 });
 
 watch(() => currentPreset.value.id, () => {

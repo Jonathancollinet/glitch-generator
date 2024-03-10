@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { GlitchConfig } from '~/glitch/types';
 import { Icons } from '~/types/enums';
-import { getPresets, isCustomPresetId, updatePreset, type Preset, removePreset, addPreset, type PresetConfig } from '~/utils/Toobox/presets';
+import { getPresets, updatePreset, type Preset, removePreset, addPreset, type PresetConfig } from '~/utils/Toobox/presets';
 import * as EditorUtils from '~/utils/Editor/utils';
 
 const props = defineProps<{
@@ -35,18 +35,20 @@ function createPreset(name: string, config?: PresetConfig) {
 }
 
 function savePreset() {
-    currentPreset.value.config = getPresetConfig();
-    updatePreset(currentPreset.value);
-    presets.value = getPresets();
+    if (!currentPreset.value.builtIn) {
+        currentPreset.value.config = getPresetConfig();
+        updatePreset(currentPreset.value);
+        presets.value = getPresets();
+    }
 }
 
 function deletePreset() {
     removePreset(currentPreset.value.id);
-    presetChanged(presets.value[presets.value.length - 1]);
+    presetChanged(presets.value[0]);
 }
 
 const isCustomPreset = computed(() => {
-    return isCustomPresetId(currentPreset.value.id);
+    return !currentPreset.value.builtIn;
 });
 
 defineExpose({
@@ -61,7 +63,7 @@ defineExpose({
             <UiSelect class="max-w-[120px]" data-v-step="22" :options="presets" v-model="currentPreset"
                 labelKey="name" />
         </UiFormGroup>
-        <div class="flex items-center">
+        <div class="flex items-center" :key="currentPreset.id">
             <UiButton v-tooltip="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
                 @click="deletePresetModal.open">
                 <UiIcon class="stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" />

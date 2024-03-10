@@ -10,6 +10,7 @@ export type PresetConfig = Pick<GlitchConfig, "text" | "animation" | "ranges">;
 
 export type Preset = {
     id: string,
+    builtIn?: boolean,
     name: string,
     config: PresetConfig
 }
@@ -17,26 +18,31 @@ export type Preset = {
 const presets: Preset[] = [
     {
         id: "basic_glitch",
+        builtIn: true,
         name: "* Basic Glitch",
         config: basicExemple
     },
     {
         id: "flash_glitch",
+        builtIn: true,
         name: "* Flash Glitch",
         config: flashExemple
     },
     {
         id: "homepage_glitch",
+        builtIn: true,
         name: "* Homepage Glitch",
         config: homepageConfigPreset
     },
     {
         id: "neon_glitch",
+        builtIn: true,
         name: "* Neon Glitch",
         config: neons
     },
     {
         id: "empty_glitch",
+        builtIn: true,
         name: "* Empty Glitch",
         config: getDefaultGlitchConfig()
     },
@@ -94,10 +100,6 @@ export function getPresets() {
     }
 
     return deepCopy(presets);
-}
-
-export function isCustomPresetId(id: string) {
-    return !presets.some(p => p.id === id);
 }
 
 function savePresetToLocalStorage(preset: Preset) {
