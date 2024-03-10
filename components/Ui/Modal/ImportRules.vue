@@ -12,7 +12,6 @@ function onClose() {
     <UiModal @closed="onClose" title="modals.import.rules.title">
         <UiText as="div" class="mb-2 underline">{{ $t('modals.import.rules.notSupported') }}:</UiText>
         <div class="space-y-1 mb-4 *:text-neutral-500 *:dark:text-neutral-400">
-            <UiText as="div">- {{ $t('modals.import.rules.colors') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.noInset') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.size') }}</UiText>
         </div>

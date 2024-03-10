@@ -118,7 +118,6 @@
                 "title": "Import rules",
                 "notSupported": "Not supported",
                 "otherConsiderations": "Other considerations",
-                "colors": "Color names (blue, transparent,...).",
                 "size": "Other units than 'px'.",
                 "noInset": "Inset shadows.",
                 "class": "The text style must be a valid CSS rule with any selector.",

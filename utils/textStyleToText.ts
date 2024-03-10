@@ -23,8 +23,8 @@ export default function textStyleToText(style: string) {
 
     if (textCss) {
         text.size = +textCss.fontSize.replace(/px/gmi, '');
-        text.color = getColorInStr(textCss.color);
-        text.bgColor = getColorInStr(textCss.backgroundColor);
+        text.color = getGlitchColorFrom(textCss.color);
+        text.bgColor = getGlitchColorFrom(textCss.backgroundColor);
         text.height = +textCss.height.replace(/px/gmi, '');
         text.padding = +textCss.padding.replace(/px/gmi, '');
         text.borderRadius = +textCss.borderRadius.replace(/px/gmi, '');

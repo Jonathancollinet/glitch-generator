@@ -71,7 +71,7 @@ function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAn
             range.push(field);
         }
 
-        const color = getColorInStr(shadow);
+        const color = getGlitchColorFrom(shadow);
         const shadowValues = getShadowProps(shadow);
         const shadowProperty: GlitchShadowProperty = {
             enabled: true,
@@ -96,7 +96,10 @@ function getShadowProps(shadow: string) {
     if (shadowParse) {
         shadowProps.offsetX = +shadowParse[0].replace(/px/gmi, '');
         shadowProps.offsetY = +shadowParse[1].replace(/px/gmi, '');
-        shadowProps.blur = +shadowParse[2].replace(/px/gmi, '');
+
+        if (shadowParse.length === 3) {
+            shadowProps.blur = +shadowParse[2].replace(/px/gmi, '');
+        }
 
         if (shadowParse.length === 4) {
             shadowProps.spread = +shadowParse[3].replace(/px/gmi, '');
