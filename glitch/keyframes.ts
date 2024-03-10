@@ -220,11 +220,16 @@ export default class GlitchKeyframes {
         const tab = formatted ? '\t' : '';
         const doubleTab = formatted ? '\t\t' : '';
         let keyframes = `@keyframes glitch {${newLine}`;
+        let previousBlock = "";
+        let percentText = "";
+        let block = "";
 
+        debugger;
         for (const percent in this.generatedFrames) {
             const framesAt = this.generatedFrames[percent];
             let property: GlitchAnimationPropertyUnion;
-            let percentPushed = false;
+
+            block = "";
 
             for (property in framesAt) {
                 const frameProperty = framesAt[property];
@@ -233,29 +238,40 @@ export default class GlitchKeyframes {
                 if (filteredProperty?.length) {
                     const lastFrameIndex = filteredProperty.length - 1;
 
-                    if (!percentPushed) {
-                        keyframes += `${tab}${percent}% { ${newLine}`;
-                        percentPushed = true;
-                    }
-
-                    keyframes += `${doubleTab}${property}: `;
+                    block += `${doubleTab}${property}: `;
                     filteredProperty.forEach((frame, frameIndex) => {
                         if (frame) {
-                            keyframes += `${frame}`;
+                            block += `${frame}`;
 
                             if (frameIndex !== lastFrameIndex) {
-                                keyframes += ', ';
+                                block += ', ';
                             }
                         }
                     });
-                    keyframes += `; ${newLine}`;
+                    block += `;${newLine}`;
                 }
             }
 
-            if (percentPushed) {
-                keyframes += `${tab}}${newLine}`;
+            if (!percentText) {
+                percentText += `${tab}${percent}%`;
+            } else {
+                if (block === previousBlock) {
+                    percentText += `,${newLine}${tab}${percent}%`;
+                }
+            }
+
+            if (!previousBlock && block) {
+                previousBlock = block;
+            }
+
+            if (block && block !== previousBlock) {
+                keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
+                previousBlock = block;
+                percentText = `${tab}${percent}%`;
             }
         }
+
+        keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
 
         return keyframes + '}';
     }
