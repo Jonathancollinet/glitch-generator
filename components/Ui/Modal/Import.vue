@@ -29,7 +29,7 @@ function onImport() {
     <UiModal contentClass="w-auto" @closed="onCancel" title="modals.import.title">
         <UiText>
             {{ $t('modals.import.description') }}
-            <UiButton class="font-bold" variant="link" size="link" @click="importRulesModal.open">
+            <UiButton class="font-bold text-red-500 hover:text-red-400" variant="link" size="link" @click="importRulesModal.open">
                 {{ $t('modals.import.rules.action') }}
             </UiButton>
         </UiText>

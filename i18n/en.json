@@ -114,7 +114,7 @@
             "presetName": "Preset name",
             "description": "Paste the text style and the keyframe to import the animation under the preset name.",
             "rules": {
-                "action": "Read import rules",
+                "action": "Please read import rules",
                 "title": "Import rules",
                 "notSupported": "Not supported",
                 "otherConsiderations": "Other considerations",
