@@ -2,6 +2,7 @@
 import { VueFinalModal } from 'vue-final-modal'
 
 const props = defineProps<{
+    title?: string,
     contentClass?: string
     overlayTransition?: string
     contentTransition?: string
@@ -27,7 +28,12 @@ const finalContentClass = computed(() => {
     <VueFinalModal class="flex justify-center items-center"
         :content-class="finalContentClass"
         overlay-transition="vfm-fade" content-transition="vfm-fade" @closed="onClose">
-        <slot />
+        <div class="flex items-center" v-if="title">
+            <UiHeading class="mt-0" variant="h3">{{ $t(title) }}</UiHeading>
+        </div>
+        <div>
+            <slot />
+        </div>
         <div class="flex items-center justify-end mt-4 space-x-2">
             <slot name="footer" />
         </div>

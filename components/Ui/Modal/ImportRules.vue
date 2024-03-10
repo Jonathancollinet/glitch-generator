@@ -9,8 +9,7 @@ function onClose() {
 </script>
 
 <template>
-    <UiModal @closed="onClose">
-        <UiHeading variant="h3">{{ $t('modals.import.rules.title') }}</UiHeading>
+    <UiModal @closed="onClose" title="modals.import.rules.title">
         <UiText as="div" class="mb-2 underline">{{ $t('modals.import.rules.notSupported') }}:</UiText>
         <div class="space-y-1 mb-4 *:text-neutral-500 *:dark:text-neutral-400">
             <UiText as="div">- {{ $t('modals.import.rules.colors') }}</UiText>
@@ -22,10 +21,6 @@ function onClose() {
             <UiText as="div">- {{ $t('modals.import.rules.class') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.keyframes') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.autoPrefixes') }}</UiText>
-        </div>
-        <UiText as="div" class="mb-2 underline">{{ $t('modals.import.rules.declarations') }}:</UiText>
-        <div class="space-y-1 mb-4 *:text-neutral-500 *:dark:text-neutral-400">
-            <UiText as="div">{{ $t('modals.import.rules.onlyConfigClass') }}</UiText>
         </div>
         <UiText as="div" class="mb-2 underline">{{ $t('modals.import.rules.declarationsList') }}:</UiText>
         <div class="space-y-1 *:text-neutral-500 *:dark:text-neutral-400">

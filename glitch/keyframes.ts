@@ -224,7 +224,6 @@ export default class GlitchKeyframes {
         let percentText = "";
         let block = "";
 
-        debugger;
         for (const percent in this.generatedFrames) {
             const framesAt = this.generatedFrames[percent];
             let property: GlitchAnimationPropertyUnion;
@@ -252,22 +251,24 @@ export default class GlitchKeyframes {
                 }
             }
 
-            if (!percentText) {
-                percentText += `${tab}${percent}%`;
-            } else {
-                if (block === previousBlock) {
-                    percentText += `,${newLine}${tab}${percent}%`;
+            if (block) {
+                if (!percentText) {
+                    percentText += `${tab}${percent}%`;
+                } else {
+                    if (block === previousBlock) {
+                        percentText += `,${newLine}${tab}${percent}%`;
+                    }
                 }
-            }
-
-            if (!previousBlock && block) {
-                previousBlock = block;
-            }
-
-            if (block && block !== previousBlock) {
-                keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
-                previousBlock = block;
-                percentText = `${tab}${percent}%`;
+    
+                if (!previousBlock && block) {
+                    previousBlock = block;
+                }
+    
+                if (block && block !== previousBlock) {
+                    keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
+                    previousBlock = block;
+                    percentText = `${tab}${percent}%`;
+                }
             }
         }
 

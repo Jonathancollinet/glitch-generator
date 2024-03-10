@@ -42,7 +42,7 @@ const configString = computed(() => {
 </script>
 
 <template>
-    <UiModal contentClass="w-auto" @cancel="onCancel">
+    <UiModal contentClass="w-auto" @cancel="onCancel" title="modals.export.title">
         <UiText>{{ $t('modals.export.description') }}</UiText>
         <div class="w-full">
             <UiTabs :tabs="tabs">

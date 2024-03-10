@@ -26,21 +26,24 @@ function onImport() {
 </script>
 
 <template>
-    <UiModal contentClass="w-auto" @closed="onCancel">
-        <UiText>{{ $t('modals.import.description') }}</UiText>
-        <UiButton class="mb-4" variant="outline" @click="importRulesModal.open">
-            {{ $t('modals.import.rules.action') }}
-        </UiButton>
+    <UiModal contentClass="w-auto" @closed="onCancel" title="modals.import.title">
+        <UiText>
+            {{ $t('modals.import.description') }}
+            <UiButton class="font-bold" variant="link" size="link" @click="importRulesModal.open">
+                {{ $t('modals.import.rules.action') }}
+            </UiButton>
+        </UiText>
+
         <div class="w-full">
             <UiFormGroup label="modals.import.presetName" name="presetName" :error="errors.presetName">
                 <UiInput name="presetName" class="w-full" v-model="presetName" />
             </UiFormGroup>
             <UiFormGroup class="ml-0" label="modals.import.textStyle" name="textStyle" :error="errors.textStyle">
-                <UiInput placeholder=".className {..." type="textarea" name="textStyle" class="w-full h-32"
+                <UiInput placeholder=".className { ..." type="textarea" name="textStyle" class="w-full h-32"
                     v-model="textStyle" />
             </UiFormGroup>
             <UiFormGroup class="ml-0" label="modals.import.code" name="code" :error="errors.keyframes">
-                <UiInput placeholder="@keyframes animationName {..." type="textarea" name="code" class="w-full h-56"
+                <UiInput placeholder="@keyframes animationName { ..." type="textarea" name="code" class="w-full h-56"
                     v-model="importedCode" />
             </UiFormGroup>
         </div>

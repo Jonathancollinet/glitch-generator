@@ -87,16 +87,19 @@
     "modals": {
         "close": "Close",
         "addPreset": {
-            "title": "Custom preset name"
+            "title": "Add a custom preset",
+            "presetName": "Custom preset name"
         },
         "confirm": {
             "cancel": "Cancel",
             "confirm": "Confirm"
         },
         "deletePreset": {
+            "title": "Delete custom preset",
             "text": "Are you sure you want to delete this preset?"
         },
         "export": {
+            "title": "Export under",
             "description": "Copy the following CSS code to use the animation in your project.",
             "code": "CSS code",
             "close": "Close",
@@ -104,6 +107,7 @@
             "style": "CSS"
         },
         "import": {
+            "title": "Import",
             "presetName": "Preset name",
             "description": "Paste the text style and the keyframe to import the animation under the preset name.",
             "rules": {
@@ -114,16 +118,16 @@
                 "colors": "Color names (blue, transparent,...).",
                 "size": "Other units than 'px'.",
                 "noInset": "Inset shadows.",
-                "class": "The text style must be a valid CSS rule with selector.",
-                "keyframes": "Keyframes must be a valid CSS keyframes at-rule.",
-                "autoPrefixes": "Auto-prefixes are supported.",
+                "class": "The text style must be a valid CSS rule with any selector.",
+                "keyframes": "The keyframe must be a valid CSS keyframes at-rule with any name.",
+                "autoPrefixes": "Auto-prefixes are supported (you don't need to remove them).",
                 "declarations": "Declarations",
-                "onlyConfigClass": "Only declarations handled by the tool are used. Any other declarations are ignored.",
+                "onlyConfigClass": "Only declarations handled by the tool are used.",
                 "declarationsList": "Handled declarations",
                 "textDeclarations": "Text style: color, background, font-size, padding, border-radius.",
                 "keyframesDeclarations": "Keyframes at-rules: text-shadow, box-shadow."
             },
-            "textStyle": "Text style",
+            "textStyle": "Text style (optionnal)",
             "code": "CSS keyframe",
             "animationDuration": "Animation duration",
             "action": "Import"

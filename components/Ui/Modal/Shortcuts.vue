@@ -10,12 +10,13 @@ function onClose() {
 </script>
 
 <template>
-    <UiModal @closed="onClose">
-        <UiHeading class="mb-4 mt-0" variant="h3">{{ $t('modals.shortcuts.title') }}</UiHeading>
-        <UiText>{{ $t('modals.shortcuts.leftClickUp') }}</UiText>
-        <UiText>{{ $t('modals.shortcuts.rightClickUp') }}</UiText>
-        <UiText>{{ $t('modals.shortcuts.leftClickDrag') }}</UiText>
-        <UiText>{{ $t('modals.shortcuts.rightClickDrag') }}</UiText>
+    <UiModal @closed="onClose" title="modals.shortcuts.title">
+        <div class="space-y-1">
+            <UiText as="div">- {{ $t('modals.shortcuts.leftClickUp') }}</UiText>
+            <UiText as="div">- {{ $t('modals.shortcuts.rightClickUp') }}</UiText>
+            <UiText as="div">- {{ $t('modals.shortcuts.leftClickDrag') }}</UiText>
+            <UiText as="div">- {{ $t('modals.shortcuts.rightClickDrag') }}</UiText>
+        </div>
         <template #footer>
             <UiButton variant="link" size="link" @click="onClose">{{ $t('modals.close') }}</UiButton>
         </template>

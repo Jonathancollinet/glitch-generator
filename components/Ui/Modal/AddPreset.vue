@@ -20,8 +20,8 @@ function onCancel() {
 </script>
 
 <template>
-    <UiModalConfirm @confirm="onConfirm" @cancel="onCancel">
-        <UiFormGroup label="modals.addPreset.title" name="presetName" :error="errors.name">
+    <UiModalConfirm @confirm="onConfirm" @cancel="onCancel" title="modals.addPreset.title">
+        <UiFormGroup label="modals.addPreset.presetName" name="presetName" :error="errors.name">
             <UiInput name="presetName" v-model="presetName" />
         </UiFormGroup>
     </UiModalConfirm>

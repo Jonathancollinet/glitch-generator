@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+defineProps<{
+    title?: string
+}>();
 
 const emit = defineEmits<{
     confirm: [],
@@ -19,7 +22,7 @@ function onClose() {
 </script>
 
 <template>
-    <UiModal @closed="onClose">
+    <UiModal @closed="onClose" :title="title">
         <slot />
         <template #footer>
             <UiButton variant="link" size="sm" @click="onCancel">{{ $t('modals.confirm.cancel') }}</UiButton>
