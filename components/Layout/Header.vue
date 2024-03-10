@@ -46,9 +46,6 @@ onMounted(() => {
                     <UiIcon variant="filled" :icon="Icons.Github" />
                 </UiButton>
             </UiLink>
-            <!-- <UiButton variant="icon" size="icon" @click="locale = locale === 'fr' ? 'en' : 'fr'">
-                <UiIcon :icon="Icons.Language" />
-            </UiButton> -->
         </div>
     </header>
 </template>

@@ -45,11 +45,11 @@ watch(colors, (newVal) => {
     if (updateHex) {
         updateHex(newVal.hex.toLowerCase());
     }
-    
+
     if (updateAlphaPercent) {
         updateAlphaPercent(Math.round(newVal.a * 100).toString());
     }
-}, {deep: true});
+}, { deep: true });
 
 onMounted(() => {
     if (color.value.hex) {
@@ -64,13 +64,11 @@ onMounted(() => {
 <template>
     <UiFormGroup inline class="relative w-full mb-2" :label="`pages.editor.config.color.${hexName}`"
         :error="hexError || alphaPercentError" v-click-outside="() => displaySketch = false">
-        <div class="h-6 w-6 cursor-pointer hover:opacity-80 border-4 border-primary-200 bg-[white]" @click="displaySketch = true">
-            <div class="h-full w-full" :style="{background: hexToRGB(localColor.hex, localColor.alphaPercent)}"></div>
+        <div class="h-6 w-6 cursor-pointer hover:opacity-80 border-4 border-primary-200 bg-[white]"
+            @click="displaySketch = true">
+            <div class="h-full w-full" :style="{ background: hexToRGB(localColor.hex, localColor.alphaPercent) }"></div>
         </div>
-        <Sketch :key="presetColors.toString()" class="!absolute z-10 top-0 left-0" v-if="displaySketch" v-model="colors" :presetColors="presetColors"/>
-        <!-- <UiInput class="w-7 h-6" alignment="center" type="color" :name="hexName" :modelValue="localColor.hex"
-            :onUpdate="updateHex" />
-        <UiInput class="w-10 ml-1" alignment="center" type="number" :name="alphaPercentName"
-            :modelValue="localColor.alphaPercent" :onUpdate="updateAlphaPercent" /> -->
+        <Sketch :key="presetColors.toString()" class="!absolute z-10 top-0 left-0" v-if="displaySketch" v-model="colors"
+            :presetColors="presetColors" />
     </UiFormGroup>
 </template>

@@ -5,6 +5,9 @@
             "editor": "Editor"
         }
     },
+    "footer": {
+        "text": "Glitch Generator - Inspiration from"
+    },
     "pages": {
         "home": {
             "title": "Glitch Generator",
@@ -62,6 +65,7 @@
                     }
                 },
                 "field": {
+                    "all": "All",
                     "title": "Field",
                     "shadow": "Shadow",
                     "offsetX": "X",

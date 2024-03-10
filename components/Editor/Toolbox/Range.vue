@@ -134,7 +134,7 @@ function displayProperties(e: MouseEvent, field: GlitchShadowField) {
     const middle = target.scrollWidth / 2 + 16;
     const left = target.offsetLeft;
     const arbitraryTooltipSize = 180 / 2;
-    
+
     if ((document.body.scrollWidth - 16 - left) < arbitraryTooltipSize) {
         translationModifier.value = '-100%';
     } else if ((middle + left) > arbitraryTooltipSize) {
@@ -142,7 +142,7 @@ function displayProperties(e: MouseEvent, field: GlitchShadowField) {
     } else {
         translationModifier.value = '0%';
     }
-    
+
     hoveredField.value = field;
 }
 
@@ -196,8 +196,7 @@ const nextHoveredFrameOffset = computed(() => {
 <template>
     <div class="relative mb-2 h-[24px] last:mb-0" @mouseleave="removeProperties" v-click-outside="hideSelectableField">
         <div class="h-full w-[calc(100%-36px)]" data-v-step="6,11,12,13,14">
-            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap"
-                :style="propertyPosition">
+            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap" :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
                     :nextHoveredFrameOffset="nextHoveredFrameOffset" />
             </UiTooltipContent>

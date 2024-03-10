@@ -101,9 +101,10 @@ const cursorStyle = computed(() => {
                         class="absolute z-20 h-full pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto dark:bg-neutral-50"
                         :style="cursorStyle" />
                 </ClientOnly>
-                <EditorToolboxRange v-for="(range, index) in config.ranges" :key="`${index}-${range.length}`" :selectedField="selectedField"
-                    :textFontSize="config.text.size" :ranges="config.ranges" :range="range" @updateField="updateField"
-                    @selectField="selectField" @insertField="insertField(index, $event)" />
+                <EditorToolboxRange v-for="(range, index) in config.ranges" :key="`${index}-${range.length}`"
+                    :selectedField="selectedField" :textFontSize="config.text.size" :ranges="config.ranges"
+                    :range="range" @updateField="updateField" @selectField="selectField"
+                    @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
                 <div class="relative top-0 w-full h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges"
@@ -129,7 +130,8 @@ const cursorStyle = computed(() => {
                 </div>
             </div>
         </div>
-        <UiButton data-v-step="17" variant="link" size="link" v-tooltip.right="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
+        <UiButton data-v-step="17" variant="link" size="link"
+            v-tooltip.right="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
             <UiIcon :icon="Icons.Add" />
         </UiButton>
     </div>

@@ -59,12 +59,16 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
             <div class="flex items-center justify-between">
                 <div class="flex">
                     <UiHeading class="m-0" variant="h3">{{ $t('pages.editor.config.field.offsetFrame') }}</UiHeading>
-                    <UiFormGroup v-tooltip="$t('pages.editor.config.field.offsetFrameDescription')" data-v-step="8" class="m-0 ml-2" variant="inline" name="offsetFrame">
-                        <UiSelect class="bg-transparent" :modelValue="localField.offsetFrame" :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
+                    <UiFormGroup v-tooltip="$t('pages.editor.config.field.offsetFrameDescription')" data-v-step="8"
+                        class="m-0 ml-2" variant="inline" name="offsetFrame">
+                        <UiSelect class="bg-transparent" :modelValue="localField.offsetFrame"
+                            :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
                     </UiFormGroup>
                 </div>
                 <div class="flex">
-                    <UiIcon data-v-step="15" v-tooltip="$t('pages.editor.config.field.removeField')" class="cursor-pointer stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash" @click="removeField" />
+                    <UiIcon data-v-step="15" v-tooltip="$t('pages.editor.config.field.removeField')"
+                        class="cursor-pointer stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash"
+                        @click="removeField" />
                 </div>
             </div>
         </template>
