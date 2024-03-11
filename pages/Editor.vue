@@ -32,7 +32,7 @@ const glitchedEl = ref<HTMLElement | null>(null);
 const presets = ref<EditorPresetsData>();
 const currentPercent = ref(0);
 const selectedField = ref<GlitchShadowField>();
-const currentPreset = ref<Preset>(getPresets()[0]);
+const currentPreset = ref<Preset>();
 const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
 const bindings = ref<GlitchBindings>({
     message: '',
@@ -76,8 +76,6 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     }
 }
 
-EditorUtils.setConfigFromPreset(gconfig, currentPreset.value);
-
 // -----------------------------------------------------------------
 
 function initConfig() {
@@ -105,14 +103,16 @@ function selectFirstRangeField(range?: GlitchShadowField[]) {
 
 async function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
-        if (isCustomPreset.value) {
-            presets.value?.savePreset();
-        }
-
         const bindings = await glitch.computeConfig(gconfig, forceRangeCompute);
 
         bindGlitch(bindings);
         EditorUtils.setAllColors(gconfig);
+
+        nextTick(() => {
+            if (isCustomPreset.value) {
+                presets.value?.savePreset();
+            }
+        });
     }
 }
 
@@ -217,20 +217,19 @@ function insertField(rangeIndex: number, offset: number) {
 }
 
 function presetChanged(preset: Preset) {
+    currentPreset.value = preset;
     EditorUtils.setConfigFromPreset(gconfig, preset);
 
     nextTick(() => {
-        initConfig();
+        computeConfig(gconfig, true);
+        selectField(gconfig.ranges[0][0]);
     })
 }
 
 const isCustomPreset = computed(() => {
-    return !currentPreset.value.builtIn;
-});
+    const preset = currentPreset.value;
 
-watch(() => currentPreset.value.id, () => {
-    saveLastSelectedPreset(currentPreset.value.id);
-    presetChanged(currentPreset.value);
+    return preset && !preset.builtIn;
 });
 
 watch(gconfig.text, () => {
@@ -245,9 +244,11 @@ watch(gconfig.animation, () => {
             animationDuration = configDuration;
             glitch.replaceAnimationDuration(gconfig);
 
-            if (isCustomPreset.value) {
-                presets.value?.savePreset();
-            }
+            nextTick(() => {
+                if (isCustomPreset.value) {
+                    presets.value?.savePreset();
+                }
+            })
         } else {
             computeConfig(gconfig)
         }
@@ -256,7 +257,6 @@ watch(gconfig.animation, () => {
 
 onMounted(() => {
     initConfig();
-    currentPreset.value = getLastSelectedPreset();
 });
 
 onBeforeUnmount(() => {
@@ -273,19 +273,19 @@ onBeforeUnmount(() => {
             </div>
             <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
                 <ClientOnly>
-                    <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" v-model="currentPreset" />
+                    <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" @presetChange="presetChanged" />
                 </ClientOnly>
                 <EditorActions :config="gconfig" :glitch="glitch" />
             </div>
         </div>
-        <div class="lg:flex" :key="currentPreset.id">
+        <div class="lg:flex">
             <div class="lg:w-[75%] lg:mr-4 space-x-1">
                 <EditorDisplayedText data-v-step="1" ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
                 <EditorToolboxRanges data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
                     :selectedField="selectedField" v-on="onRangesEvents" />
             </div>
-            <EditorToolbox class="lg:w-[25%] lg:ml-4" v-model:config="gconfig" v-model:field="selectedField"
+            <EditorToolbox :key="currentPreset?.id" class="lg:w-[25%] lg:ml-4" v-model:config="gconfig" v-model:field="selectedField"
                 :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
         </div>
     </div>

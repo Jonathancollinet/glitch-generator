@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { GlitchConfig } from '~/glitch/types';
 import { Icons } from '~/types/enums';
-import { getPresets, updatePreset, type Preset, removePreset, addPreset, type PresetConfig } from '~/utils/Toobox/presets';
+import { getPresets, updatePreset, type Preset, removePreset, addPreset, type PresetConfig, getLastSelectedPreset, saveLastSelectedPreset } from '~/utils/Toobox/presets';
 import * as EditorUtils from '~/utils/Editor/utils';
 import type Glitch from '~/glitch';
 
@@ -10,7 +10,11 @@ const props = defineProps<{
     config: GlitchConfig,
 }>()
 
-const currentPreset = defineModel<Preset>({ required: true });
+const emit = defineEmits<{
+    presetChange: [preset: Preset]
+}>()
+
+const currentPreset = ref<Preset>(getLastSelectedPreset());
 
 const { addPresetModal } = useModalAddPreset(createPreset);
 const { deletePresetModal } = useModalDeletePreset(deletePreset);
@@ -37,11 +41,9 @@ function createPreset(name: string, config?: PresetConfig) {
 }
 
 function savePreset() {
-    if (!currentPreset.value.builtIn) {
-        currentPreset.value.config = getPresetConfig();
-        updatePreset(currentPreset.value);
-        presets.value = getPresets();
-    }
+    currentPreset.value.config = getPresetConfig();
+    updatePreset(currentPreset.value);
+    presets.value = getPresets();
 }
 
 function deletePreset() {
@@ -52,6 +54,15 @@ function deletePreset() {
 const isCustomPreset = computed(() => {
     return !currentPreset.value.builtIn;
 });
+
+watch(() => currentPreset.value.id, () => {
+    saveLastSelectedPreset(currentPreset.value.id);
+    emit('presetChange', currentPreset.value);
+});
+
+onMounted(() => {
+    emit('presetChange', currentPreset.value);
+})
 
 defineExpose({
     savePreset,
