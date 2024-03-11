@@ -102,7 +102,7 @@
             }
         },
         "editor": {
-            "title": "Glitch Editor",
+            "title": "Let's glitch!",
             "launchTour": "Start the tutorial",
             "selectPreset": "Choose a built-in or custom preset",
             "savePreset": "Save current settings as a custom preset",

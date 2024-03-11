@@ -2,20 +2,16 @@
 import type { ClassValue } from 'class-variance-authority/types';
 import { Icons } from '~/types/enums';
 
-const { tm, locale } = useI18n();
-
 const colorMode = useColorMode()
 const navigationItems = useNavigationItems();
+const refColorMode = ref(colorMode);
 
-const darkModeIcon = ref(Icons.Moon);
-
-function setDarkModeIcon() {
-    darkModeIcon.value = colorMode.preference === "dark" ? Icons.Sun : Icons.Moon;
-}
+const darkModeIcon = computed(() => {
+    return refColorMode.value.value === "dark" ? Icons.Sun : Icons.Moon;
+});
 
 function onClickColorSheme() {
     toggleDarkMode();
-    setDarkModeIcon();
 }
 
 const headerClass: ClassValue[] = [
@@ -24,10 +20,6 @@ const headerClass: ClassValue[] = [
     "px-8 border-b-2 border-neutral-400",
     "dark:border-primary-50"
 ];
-
-onMounted(() => {
-    setDarkModeIcon();
-});
 </script>
 
 <template>
@@ -38,9 +30,11 @@ onMounted(() => {
             </ul>
         </nav>
         <div class="flex justify-center space-x-4">
-            <UiButton variant="icon" size="icon" @click="onClickColorSheme">
-                <UiIcon :icon="darkModeIcon" />
-            </UiButton>
+            <ClientOnly>
+                <UiButton variant="icon" size="icon" @click="onClickColorSheme">
+                    <UiIcon :icon="darkModeIcon" />
+                </UiButton>
+            </ClientOnly>
             <UiLink variant="icon" as="a" href="https://github.com/Jonathancollinet/glitch-generator" target="_blank">
                 <UiButton as="div" variant="icon" size="icon">
                     <UiIcon variant="filled" :icon="Icons.Github" />
