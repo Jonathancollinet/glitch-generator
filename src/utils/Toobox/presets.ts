@@ -20,8 +20,14 @@ const presets: Preset[] = [
     {
         id: "basic_glitch",
         builtIn: true,
-        name: "* Basic Animation",
+        name: "* Basic",
         config: basicExemple
+    },
+    {
+        id: "empty_glitch",
+        builtIn: true,
+        name: "* Empty Glitch",
+        config: getDefaultGlitchConfig()
     },
     {
         id: "flash_glitch",
@@ -46,12 +52,6 @@ const presets: Preset[] = [
         builtIn: true,
         name: "* Logo",
         config: logo
-    },
-    {
-        id: "empty_glitch",
-        builtIn: true,
-        name: "* Empty Glitch",
-        config: getDefaultGlitchConfig()
     },
 ]
 

@@ -13,7 +13,7 @@ export default deepCopy({
         "hex": "#000000",
         "alphaPercent": 0
       },
-      "message": "Animate me!"
+      "message": "LOCKER ROOM"
     },
     "animation": {
       "duration": 3000
