@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
     sourcemap: true,
     devtools: { enabled: true },
+    srcDir: 'src/',
     typescript: {
         typeCheck: true,
         tsConfig: {
@@ -26,7 +27,7 @@ export default defineNuxtConfig({
         'vue3-tour/dist/vue3-tour.css'
     ],
     i18n: {
-        vueI18n: './i18n/i18n.config.ts',
+        vueI18n: '~/i18n/i18n.config.ts',
         detectBrowserLanguage: {
             useCookie: true,
             cookieKey: 'i18n_redirected',

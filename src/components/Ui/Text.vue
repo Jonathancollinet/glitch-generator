@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import type { ClassValue } from 'class-variance-authority/types';
 import type { HTMLAttributes } from 'vue';
-import { TextVariants, type TextVariantsProps } from '~/componentsVariants/Ui/Text';
+import { TextVariants } from '~/componentsVariants/Ui/Text';
 
 const props = withDefaults(defineProps<{
 	as?: 'div' | 'span' | 'p',

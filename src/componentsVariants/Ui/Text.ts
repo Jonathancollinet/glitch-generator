@@ -7,7 +7,7 @@ export const TextVariants = cva(
         // global
 
         // data-tag="p"
-        "data-[tag=p]:mb-4",
+        "data-[tag=p]:mb-2",
         "last:data-[tag=p]:mb-0",
 
         // data-tag="span"

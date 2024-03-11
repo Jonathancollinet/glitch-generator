@@ -40,6 +40,6 @@ export default <Partial<Config>>{
     theme: themeOverrides,
     configViewer: themeOverrides,
     content: [
-        "./componentsVariants/**/*.{js,ts}"
+        "src/componentsVariants/**/*.{js,ts}"
     ]
 }
