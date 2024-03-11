@@ -1,15 +1,5 @@
 export const tourSteps = [
     {
-        target: '[data-v-step*="0"]',
-        header: {
-            title: 'Welcome to the Glitch Editor'
-        },
-        content: 'Glitch Generator allows you to create text/box shadow animations and get the result as a CSS Keyframe.<br><br>This tutorial will guide you through the different features.',
-        params: {
-            highlight: false
-        }
-    },
-    {
         target: '[data-v-step="1"]',
         header: {
             title: 'Displayed text'

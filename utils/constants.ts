@@ -8,7 +8,11 @@ export const navigationItems: NavigationItem[] = [
     {
         label: 'navigation.links.editor',
         to: Urls.Editor
-    }
+    },
+    {
+        label: 'navigation.links.help',
+        to: Urls.Help
+    },
 ];
 
 export const allColors: any[] = [];

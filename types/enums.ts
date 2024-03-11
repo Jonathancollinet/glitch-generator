@@ -25,7 +25,8 @@ export enum Icons {
 
 export enum Urls {
     Home = '/',
-    Editor = '/editor'
+    Editor = '/editor',
+    Help = '/help',
 }
 
 export enum Modes {

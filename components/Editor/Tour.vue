@@ -5,9 +5,7 @@ import { isTourDone, setTourDone, tourSteps } from '~/utils/Editor/tour';
 const tours: any = inject('tours')
 const mounted = ref(false);
 
-function initTour() {
-    tours['tutorial']?.start();
-}
+const { welcomeModal } = useModalWelcome(setTourDone, initTour);
 
 const tourCallbacks = {
     onFinish: setTourDone,
@@ -15,11 +13,15 @@ const tourCallbacks = {
     onStop: setTourDone,
 }
 
+function initTour() {
+    tours['tutorial']?.start();
+}
+
 onMounted(() => {
     mounted.value = true;
     nextTick(() => {
         if (!isTourDone()) {
-            initTour();
+            welcomeModal.open();            
         }
     })
 })

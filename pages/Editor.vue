@@ -11,9 +11,6 @@ import {
 } from '#components';
 import {
     type Preset,
-    saveLastSelectedPreset,
-    getPresets,
-    getLastSelectedPreset
 } from '~/utils/Toobox/presets';
 import Glitch from '~/glitch';
 import * as EditorUtils from '~/utils/Editor/utils';

@@ -74,13 +74,13 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
         </template>
 
         <template #content>
-            <UiCard openable :class="propertyCardClass(textShadow)">
+            <UiCard openable :class="propertyCardClass(textShadow)" contentClasses="pr-0">
                 <template #content>
                     <EditorToolboxPropertyTextShadow v-model:config="textShadow" v-model:localConfig="localTextShadow"
                         :errors="errors" :name="`${fieldName}.properties.text-shadow`" />
                 </template>
             </UiCard>
-            <UiCard openable :class="propertyCardClass(boxShadow)">
+            <UiCard openable :class="propertyCardClass(boxShadow)" contentClasses="pr-0">
                 <template #content>
                     <EditorToolboxPropertyBoxShadow v-model:config="boxShadow" v-model:localConfig="localBoxShadow"
                         :errors="errors" :name="`${fieldName}.properties.box-shadow`" />
