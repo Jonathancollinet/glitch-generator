@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+useSeoMeta({
+    title: 'Glitch Generator - Help',
+    ogTitle: 'Glitch Generator - Help',
+    description: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    ogDescription: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    ogImage: ''
+});
+
 const activeHelp = ref('tool');
 
 </script>

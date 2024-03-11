@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+useSeoMeta({
+    title: 'Glitch Generator - Home',
+    ogTitle: 'Glitch Generator - Home',
+    description: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    ogDescription: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    ogImage: ''
+});
+
 import { Urls } from '~/types/enums';
 
 const editorRoute = useNavigationItem(Urls.Editor)?.to;
@@ -19,7 +27,7 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
             {{ $t('pages.home.why.description') }}
         </UiText>
         <div class="my-24">
-            <UiText as="div" class="exemple text-center text-4xl mb-12 font-bold tracking-widest">
+            <UiText as="div" class="exemple text-center text-4xl mb-16 font-bold tracking-widest">
                 {{ $t('pages.home.why.result') }}
             </UiText>
             <!-- <UiText as="p" class="text-center">

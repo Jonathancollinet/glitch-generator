@@ -1,4 +1,12 @@
 <script setup lang="ts">
+useSeoMeta({
+    title: 'Glitch Generator - Editor',
+    ogTitle: 'Glitch Generator - Editor',
+    description: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    ogDescription: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    ogImage: ''
+});
+
 import type {
     GlitchBindings,
     GlitchConfig,

@@ -24,11 +24,14 @@ const headerClass: ClassValue[] = [
 
 <template>
     <header :class="cn(headerClass)">
-        <nav>
-            <ul class="flex justify-center space-x-6">
-                <LayoutNavigationList :items="navigationItems" />
-            </ul>
-        </nav>
+        <div class="flex items-center">
+            <LayoutLogo class="cursor-pointer" @click="$router.push('/')" />
+            <nav class="ml-12">
+                <ul class="flex justify-center space-x-6">
+                    <LayoutNavigationList :items="navigationItems" />
+                </ul>
+            </nav>
+        </div>
         <div class="flex justify-center space-x-4">
             <ClientOnly>
                 <UiButton variant="icon" size="icon" @click="onClickColorSheme">

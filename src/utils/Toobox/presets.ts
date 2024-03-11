@@ -5,6 +5,7 @@ import { compress, decompress } from 'lz-string';
 import basicExemple from "./presets/basicExemple";
 import flashExemple from "./presets/flashExemple";
 import neons from "./presets/neons";
+import logo from "./presets/logo";
 
 export type PresetConfig = Pick<GlitchConfig, "text" | "animation" | "ranges">;
 
@@ -19,26 +20,32 @@ const presets: Preset[] = [
     {
         id: "basic_glitch",
         builtIn: true,
-        name: "* Basic Glitch",
+        name: "* Basic Animation",
         config: basicExemple
     },
     {
         id: "flash_glitch",
         builtIn: true,
-        name: "* Flash Glitch",
+        name: "* Flash",
         config: flashExemple
     },
     {
         id: "homepage_glitch",
         builtIn: true,
-        name: "* Homepage Glitch",
+        name: "* Acid",
         config: homepageConfigPreset
     },
     {
         id: "neon_glitch",
         builtIn: true,
-        name: "* Neon Glitch",
+        name: "* Neon",
         config: neons
+    },
+    {
+        id: "logo_glitch",
+        builtIn: true,
+        name: "* Logo",
+        config: logo
     },
     {
         id: "empty_glitch",
