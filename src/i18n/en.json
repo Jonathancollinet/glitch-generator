@@ -73,7 +73,7 @@
             "import": {
                 "title": "Import",
                 "what": "The import feature allows you to import a CSS keyframes to use it in the tool.",
-                "why": "You have worked hard on a keyframes and you want to visualize and edit it in the tool ? This feature is for you.",
+                "why": "You worked hard on a keyframes and you want to visualize and edit it in the tool ? This feature is for you.",
                 "css": "You have to provide at least the preset name and the keyframe at-rule.",
                 "text": "You can optionnaly provide the text style."
             },
@@ -124,7 +124,7 @@
                 },
                 "animation": {
                     "title": "Animation",
-                    "animationDuration": "Duration"
+                    "animationDuration": "Duration (ms)"
                 },
                 "text": {
                     "title": "Styles",
@@ -205,7 +205,7 @@
                 "noInset": "Inset shadows.",
                 "class": "The text style must be a valid CSS rule with any selector.",
                 "keyframes": "The keyframe must be a valid CSS keyframes at-rule with any name.",
-                "autoPrefixes": "Auto-prefixes are supported (you don't need to remove them).",
+                "autoPrefixes": "Vendor prefixes are supported (you don't need to remove them).",
                 "declarations": "Declarations",
                 "onlyConfigClass": "Only declarations handled by the tool are used.",
                 "declarationsList": "Handled declarations",
