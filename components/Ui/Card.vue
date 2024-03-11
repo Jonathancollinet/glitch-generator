@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<{
     class?: HTMLAttributes['class'],
     openable?: boolean,
     isOpen?: boolean,
+    contentClasses?: ClassValue,
     noContentPad?: boolean,
 }>(), {
     openable: false,
@@ -26,7 +27,7 @@ const titleClass = computed(() => cn([
 
 const contentClass = computed(() => cn([
     props.noContentPad ? '' : 'px-4',
-    props.openable && openToggle.value ? 'ml-4 border-l' : ''
+    props.openable && openToggle.value ? 'ml-2 border-l' : ''
 ]));
 </script>
 
@@ -43,7 +44,7 @@ const contentClass = computed(() => cn([
             </div>
         </template>
     </div>
-    <div :class="cn(contentClass)" v-if="openToggle">
+    <div :class="cn(contentClass, props.contentClasses)" v-if="openToggle">
             <slot name="content" />
         </div>
   </div>

@@ -125,8 +125,8 @@ export function reverseRangePositions(range: GlitchShadowField[]) {
 }
 
 export function setConfigFromPreset(config: GlitchConfig, preset: Preset) {
-    config.text.bgColor = preset.config.text.bgColor;
-    config.text.color = preset.config.text.color;
+    config.text.bgColor = deepCopy(preset.config.text.bgColor);
+    config.text.color = deepCopy(preset.config.text.color);
     config.text.size = preset.config.text.size;
     config.text.padding = preset.config.text.padding;
     config.text.height = preset.config.text.height;

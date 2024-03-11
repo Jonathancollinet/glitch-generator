@@ -56,7 +56,7 @@ const updateHeight = applyUpdater<GlitchBaseText>({
 </script>
 
 <template>
-    <UiCard openable :isOpen="false">
+    <UiCard openable contentClasses="border-0 ml-0 px-0" :isOpen="false">
         <template #title>
             <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
         </template>
