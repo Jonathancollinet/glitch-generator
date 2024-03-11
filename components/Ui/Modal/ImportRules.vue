@@ -25,6 +25,7 @@ function onClose() {
         <div class="space-y-1 *:text-neutral-500 *:dark:text-neutral-400">
             <UiText as="div">- {{ $t('modals.import.rules.textDeclarations') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.keyframesDeclarations') }}</UiText>
+            <UiText as="div">- {{ $t('modals.import.rules.otherIgnored') }}</UiText>
         </div>
         <template #footer>
             <UiButton variant="link" size="sm" @click="onClose">{{ $t('modals.close') }}</UiButton>

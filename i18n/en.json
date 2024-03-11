@@ -127,7 +127,8 @@
                 "onlyConfigClass": "Only declarations handled by the tool are used.",
                 "declarationsList": "Handled declarations",
                 "textDeclarations": "Text style: color, background, font-size, padding, border-radius.",
-                "keyframesDeclarations": "Keyframes at-rules: text-shadow, box-shadow."
+                "keyframesDeclarations": "Keyframes at-rules: text-shadow, box-shadow.",
+                "otherIgnored": "Other declarations are ignored (you don't need to remove them)."
             },
             "textStyle": "Text style (optionnal)",
             "code": "CSS keyframe",
@@ -137,9 +138,9 @@
         "shortcuts": {
             "title": "Mouse shortcuts",
             "leftClickUp": "Left-click up: select a field.",
-            "rightClickUp": "Right-click up: cut a field.",
+            "rightClickUp": "Right-click up: cut a field at the mouse emplacement.",
             "leftClickDrag": "Left-click drag: resize a field.",
-            "rightClickDrag": "Right-click drag: select a field to cut."
+            "rightClickDrag": "Right-click drag: choose an offset to cut."
         }
     },
     "errors": {

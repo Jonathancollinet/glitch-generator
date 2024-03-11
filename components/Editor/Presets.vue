@@ -85,7 +85,7 @@ defineExpose({
                 @click="addPresetModal.open">
                 <UiIcon :icon="Icons.Add" />
             </UiButton>
-            <UiButton v-tooltip="$t('pages.editor.import')" data-v-step="23" variant="icon" size="icon"
+            <UiButton v-tooltip="$t('pages.editor.import')" variant="icon" size="icon"
                 @click="importModal.open">
                 <UiIcon :icon="Icons.ImportCode" />
             </UiButton>
