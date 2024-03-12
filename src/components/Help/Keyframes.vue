@@ -163,20 +163,20 @@ const fillEx2 = `@keyframes glitch {
         <UiText>{{ $t('pages.help.keyframes.exemple') }}</UiText>
         <img class="mb-4" src="/help/kf_ex1.png">
         <UiText>{{ $t('pages.help.keyframes.result') }}</UiText>
-        <pre class="mb-4">{{ ex1 }}</pre>
+        <UiPre class="mb-4">{{ ex1 }}</UiPre>
         <UiText>{{ $t('pages.help.keyframes.exemple2') }}</UiText>
         <img class="mb-4" src="/help/kf_ex2.png">
         <UiText>{{ $t('pages.help.keyframes.result2') }}</UiText>
-        <pre class="mb-4">{{ ex2 }}</pre>
+        <UiPre class="mb-4">{{ ex2 }}</UiPre>
         <UiText>{{ $t('pages.help.keyframes.result2bis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.exemple3') }}</UiText>
         <img class="mb-4" src="/help/kf_ex3.png">
         <UiText>{{ $t('pages.help.keyframes.result3') }}</UiText>
-        <pre class="mb-4">{{ ex3 }}</pre>
+        <UiPre class="mb-4">{{ ex3 }}</UiPre>
         <UiText>{{ $t('pages.help.keyframes.result3bis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillExemple3') }}</UiText>
         <img class="mb-4" src="/help/kf_fill2.png">
-        <pre class="mb-4">{{ fillEx1 }}</pre>
+        <UiPre class="mb-4">{{ fillEx1 }}</UiPre>
         <UiText>{{ $t('pages.help.keyframes.fillExemple3result') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.introduceFill') }}</UiText>
         <div class="flex space-x-4 mb-4">
@@ -191,7 +191,7 @@ const fillEx2 = `@keyframes glitch {
         <UiText>{{ $t('pages.help.keyframes.fillExemple4') }}</UiText>
         <img class="mb-4" src="/help/kf_fill3.png">
         <UiText>{{ $t('pages.help.keyframes.fillExemple4result') }}</UiText>
-        <pre class="mb-4 h-[200px] overflow-auto">{{ fillEx2 }}</pre>
+        <UiPre class="mb-4 h-[200px]">{{ fillEx2 }}</UiPre>
         <UiText>{{ $t('pages.help.keyframes.fillExemple4resultbis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillDefault') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillImportant') }}</UiText>

@@ -26,7 +26,7 @@ function activateTab(key: keyof typeof props.tabs) {
                 'border-r-0 last:border-r',
                 'hover:bg-primary-100',
                 isActive(key) && [
-                    'bg-primary-400 hover:bg-primary-400 *:text-primary-50',
+                    'bg-primary-400 hover:bg-primary-400 *:text-primary-50 dark:bg-primary-900 dark:hover:bg-primary-900',
                 ]
             ])" @click="activateTab(key)">
                 <UiIcon v-if="tab.icon" :icon="tab.icon" />

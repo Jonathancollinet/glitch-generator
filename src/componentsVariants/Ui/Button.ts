@@ -26,7 +26,7 @@ export const ButtonVariants = cva(
                     'disabled:bg-transparent',
 
                     'dark:bg-transparent dark:text-primary-300 dark:border-primary-300',
-                    'dark:hover:bg-primary-950 dark:active:bg-primary-900'
+                    'dark:hover:bg-primary-950 dark:active:bg-primary-950'
                 ],
                 ghost: [
                     'text-neutral-50 bg-primary-200',
