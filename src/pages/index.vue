@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Urls } from '~/types/enums';
+
 useSeoMeta({
     title: 'Glitch Generator - Home',
     ogTitle: 'Glitch Generator - Home',
@@ -6,8 +8,6 @@ useSeoMeta({
     ogDescription: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
     ogImage: ''
 });
-
-import { Urls } from '~/types/enums';
 
 const editorRoute = useNavigationItem(Urls.Editor)?.to;
 </script>
