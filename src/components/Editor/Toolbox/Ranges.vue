@@ -90,7 +90,7 @@ const cursorStyle = computed(() => {
             </UiButton>
         </div>
         <div class="flex mb-4">
-            <div class="relative w-[calc(100%-36px)]">
+            <div class="relative z-10 w-[calc(100%-36px)]">
                 <ClientOnly>
                     <div v-if="config.controls"
                         class="absolute z-20 h-full pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto dark:bg-neutral-50"

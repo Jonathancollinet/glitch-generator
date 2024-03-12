@@ -82,7 +82,7 @@ export function addPreset(name: string, config: PresetConfig) {
     };
 
     if (process.client) {
-        savePresetToLocalStorage(preset);
+        savePreset(preset);
     }
 
     return deepCopy(preset);
@@ -90,9 +90,8 @@ export function addPreset(name: string, config: PresetConfig) {
 
 export function updatePreset(preset: Preset) {
     if (process.client) {
-        savePresetToLocalStorage(preset);
+        savePreset(preset);
     }
-
 }
 
 export function removePreset(id: string) {
@@ -109,7 +108,7 @@ export function getPresets() {
     return deepCopy(presets);
 }
 
-function savePresetToLocalStorage(preset: Preset) {
+function savePreset(preset: Preset) {
     localStorage.setItem(`glitch_preset_${preset.id}`, compress(JSON.stringify(preset)));
 }
 

@@ -28,26 +28,30 @@ export default function kfStringToRanges(keyframe: string) {
                 }
             });
 
-            ranges.forEach(range => {
-                range.sort((a, b) => a.offsetFrame - b.offsetFrame);
-                
-                if (range[0].offsetFrame !== 0) {
-                    range.unshift({
-                        range: range[0].range,
-                        index: 0,
-                        offsetFrame: 0,
-                        properties: {}
-                    });
-                }
-
-                range.forEach((field, index) => {
-                    field.index = index;
-                });
-            });
+            prefixRangesOffsetZero(ranges);
 
             return ranges;
         }
     }
+}
+
+function prefixRangesOffsetZero(ranges: GlitchShadowField[][]) {
+    ranges.forEach(range => {
+        range.sort((a, b) => a.offsetFrame - b.offsetFrame);
+        
+        if (range[0].offsetFrame !== 0) {
+            range.unshift({
+                range: range[0].range,
+                index: 0,
+                offsetFrame: 0,
+                properties: {}
+            });
+        }
+
+        range.forEach((field, index) => {
+            field.index = index;
+        });
+    });
 }
 
 function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAnimationProperty, shadows: string[], offsetFrame: number) {
@@ -72,7 +76,7 @@ function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAn
         }
 
         const color = getGlitchColorFrom(shadow);
-        const shadowValues = getShadowProps(shadow);
+        const shadowValues = getShadowProps(shadow, propertyName);
         const shadowProperty: GlitchShadowProperty = {
             enabled: true,
             fillAllFrames: false,
@@ -85,7 +89,7 @@ function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAn
 
 }
 
-function getShadowProps(shadow: string) {
+function getShadowProps(shadow: string, propertyName: GlitchAnimationProperty) {
     const shadowProps: Pick<GlitchShadowProperty, 'offsetX' | 'offsetY' | 'blur' | 'spread'> = {
         offsetX: 0,
         offsetY: 0,
@@ -101,8 +105,12 @@ function getShadowProps(shadow: string) {
             shadowProps.blur = +shadowParse[2].replace(/px/gmi, '');
         }
 
-        if (shadowParse.length === 4) {
-            shadowProps.spread = +shadowParse[3].replace(/px/gmi, '');
+        if (propertyName === GlitchAnimationProperty.BoxShadow) {
+            if (shadowParse.length === 4) {
+                shadowProps.spread = +shadowParse[3].replace(/px/gmi, '');
+            } else {
+                shadowProps.spread = 0;
+            }
         }
     }
 

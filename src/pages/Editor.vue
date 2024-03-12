@@ -83,7 +83,7 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
 
 // -----------------------------------------------------------------
 
-function initConfig() {
+async function initConfig() {
     if (displayedText.value?.glitchedEl) {
         glitchedEl.value = displayedText.value?.glitchedEl;
         glitch.setGlitchedElement(glitchedEl.value);
@@ -226,8 +226,7 @@ function presetChanged(preset: Preset) {
     EditorUtils.setConfigFromPreset(gconfig, preset);
 
     nextTick(() => {
-        computeConfig(gconfig, true);
-        selectField(gconfig.ranges[0][0]);
+        initConfig();
     })
 }
 
@@ -275,7 +274,7 @@ onBeforeUnmount(() => {
             <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
                 <EditorDisplayedText data-v-step="1" ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
-                <EditorToolboxRanges data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
+                <EditorToolboxRanges :key="currentPreset?.id" data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
                     :selectedField="selectedField" v-on="onRangesEvents" />
             </div>
             <div class="md:w-[30%] lg:w-[25%] md:ml-4">
@@ -290,7 +289,6 @@ onBeforeUnmount(() => {
                 </div>
                 <EditorToolbox :key="currentPreset?.id" v-model:config="gconfig" v-model:field="selectedField"
                     :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
-
             </div>
         </div>
     </div>

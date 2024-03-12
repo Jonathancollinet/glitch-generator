@@ -1,7 +1,7 @@
 import { useModal } from "vue-final-modal";
 import Import from "~/components/Ui/Modal/Import.vue";
 import type Glitch from "~/glitch";
-import type { GlitchBaseText } from "~/glitch/types";
+import importKeyframes from "~/utils/Toobox/import";
 import type { PresetConfig } from "~/utils/Toobox/presets";
 
 export const useModalImport = (glitch: Glitch, action: (name: string, config?: PresetConfig) => void) => {
@@ -13,63 +13,37 @@ export const useModalImport = (glitch: Glitch, action: (name: string, config?: P
         importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
         importModal.close();
     }
-    
+
     const importModal = useModal({
         component: Import,
         attrs: {
             errors: importKeyframesErrors,
             onImport(presetName: string, textStyle: string, keyframe: string) {
-                importKeyframesErrors = {};
+                const result = importKeyframes(presetName, textStyle, keyframe);
 
-                if (!presetName) {
-                    importKeyframesErrors.presetName = "errors.import.presetName";
-                    importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
-                } else if (!keyframe) {
-                    importKeyframesErrors.keyframes = "errors.import.keyframes";
+                importKeyframesErrors = result.errors;
+
+                if (Object.keys(importKeyframesErrors).length) {
                     importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
                 } else {
-                    const config = getDefaultGlitchConfig();
-                    const ranges = kfStringToRanges(keyframe);
-                    let text: GlitchBaseText | undefined;
+                    const errors = glitch.validateConfig(result.config);
+                    const errorsKeys = Object.keys(errors);
 
-                    if (textStyle) {
-                        text = textStyleToText(textStyle);
-
-                        if (!text) {
-                            importKeyframesErrors.textStyle = "errors.import.textStyle";
-                            importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
-
-                            return;
-                        }
-                    }
-
-                    if (ranges) {
-                        config.ranges = ranges;
-                        config.text = text || config.text;
-                        const errors = glitch.validateConfig(config);
-                        const errorsKeys = Object.keys(errors);
-
-                        if (!errorsKeys.length) {
-                            action(presetName, {
-                                text: config.text,
-                                animation: config.animation,
-                                ranges: config.ranges
-                            });
-                            closeImportModal();
-                        } else {
-                            if (errorsKeys.findIndex(key => key.includes('text')) !== -1) {
-                                importKeyframesErrors.textStyle = "errors.import.textStyle";
-                            }
-
-                            if (errorsKeys.findIndex(key => key.includes('ranges')) !== -1) {
-                                importKeyframesErrors.keyframes = "errors.import.keyframes";
-                            }
-
-                            importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
-                        }
+                    if (!errorsKeys.length) {
+                        action(presetName, {
+                            text: result.config.text,
+                            animation: result.config.animation,
+                            ranges: result.config.ranges
+                        });
+                        closeImportModal();
                     } else {
-                        importKeyframesErrors.keyframes = "errors.import.keyframes";
-                        importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
+                        if (errorsKeys.findIndex(key => key.includes('text')) !== -1) {
+                            importKeyframesErrors.textStyle = "errors.import.textStyle";
+                        }
+
+                        if (errorsKeys.findIndex(key => key.includes('ranges')) !== -1) {
+                            importKeyframesErrors.keyframes = "errors.import.keyframes";
+                        }
                     }
                 }
             },
@@ -78,7 +52,7 @@ export const useModalImport = (glitch: Glitch, action: (name: string, config?: P
             }
         }
     });
-    
+
     return {
         importModal
     }

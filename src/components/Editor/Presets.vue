@@ -31,8 +31,8 @@ function getPresetConfig() {
 }
 
 function presetChanged(preset: Preset) {
-    presets.value = getPresets();
     currentPreset.value = preset;
+    presets.value = getPresets();
     EditorUtils.setConfigFromPreset(props.config, currentPreset.value);
 }
 
