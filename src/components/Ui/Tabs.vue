@@ -23,7 +23,7 @@ function activateTab(key: keyof typeof props.tabs) {
         <div class="flex">
             <UiButton v-for="(tab, key) in tabs" :key="key" variant="outline" :class="cn([
                 'w-full border-b rounded-none',
-                'first:border-r-0',
+                'border-r-0 last:border-r',
                 'hover:bg-primary-100',
                 isActive(key) && [
                     'bg-primary-400 hover:bg-primary-400 *:text-primary-50',

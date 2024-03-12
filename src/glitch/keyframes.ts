@@ -50,11 +50,11 @@ export default class GlitchKeyframes {
         if (this.animation) {
             this.bindKeyframeEffect(config);
         } else {
-            this.injectHeadStyle(this.getKeyframesString(config));
+            this.injectHeadStyle(this.getKeyframesString());
         }
     }
 
-    getKeyframesEffect(config: GlitchConfig) {
+    getKeyframesEffect() {
         const effect: Keyframe[] = [];
 
         for (const percent in this.generatedFrames) {
@@ -90,7 +90,7 @@ export default class GlitchKeyframes {
         return effect;
     }
 
-    getKeyframesString(config: GlitchConfig, formatted: boolean = false) {
+    getKeyframesString(formatted: boolean = false) {
         const newLine = formatted ? '\n' : '';
         const tab = formatted ? '\t' : '';
         const doubleTab = formatted ? '\t\t' : '';
@@ -157,7 +157,7 @@ export default class GlitchKeyframes {
     private bindKeyframeEffect(config: GlitchConfig) {
         const effect = new KeyframeEffect(
             this.glitchedElement,
-            this.getKeyframesEffect(config),
+            this.getKeyframesEffect(),
             {
                 duration: config.animation.duration,
                 iterations: Infinity

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Icons, Modes } from '~/types/enums';
+import { Icons } from '~/types/enums';
 import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
 import { useModalShortcuts } from '~/composables/modalShortcuts';
 
@@ -20,8 +20,9 @@ const emit = defineEmits<{
     insertField: [rangeIndex: number, offset: number],
 }>()
 
-const openAddRangeOptions = ref(false);
+
 const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
+
 
 const { shortcutsModal } = useModalShortcuts();
 
@@ -33,10 +34,6 @@ function displayRangeOptions(index: number) {
     const prev = !showRangeOptions.value[index];
     resetRangeOptions();
     showRangeOptions.value[index] = prev;
-}
-
-function closeAddRangeOptions() {
-    openAddRangeOptions.value = false;
 }
 
 function updateField(field: GlitchShadowField) {
@@ -70,7 +67,6 @@ function reverseColors(rangeIndex: number) {
 
 function addEmptyRange() {
     emit('addEmptyRange');
-    closeAddRangeOptions();
 }
 
 function selectField(field: GlitchShadowField) {
@@ -78,8 +74,6 @@ function selectField(field: GlitchShadowField) {
 }
 
 const cursorStyle = computed(() => {
-    const rangeNb = props.config.ranges.length;
-
     return {
         left: `calc(${props.currentPercent}% - 1px)`
     }
@@ -90,12 +84,12 @@ const cursorStyle = computed(() => {
     <div class="relative">
         <div class="flex space-x-2 items-center mb-2">
             <UiHeading class="m-0" variant="h4">{{ $t('pages.editor.ranges') }}</UiHeading>
-            <UiButton v-tooltip.right="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
+            <UiButton v-tooltip.right="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon"
+                @click="shortcutsModal.open">
                 <UiIcon class="stroke-neutral-400" :icon="Icons.Cursor" />
             </UiButton>
         </div>
         <div class="flex mb-4">
-            
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
                     <div v-if="config.controls"
@@ -108,9 +102,10 @@ const cursorStyle = computed(() => {
                     @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[36px]" v-click-outside="resetRangeOptions">
-                <div class="relative top-0 w-full pl-[12px] h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges"
-                    :key="index">
-                    <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')" data-v-step="18,19,20" @click="displayRangeOptions(index)">
+                <div class="relative top-0 w-full pl-[12px] h-[24px] mb-2 last:mb-0"
+                    v-for="(range, index) in config.ranges" :key="index">
+                    <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')" data-v-step="18,19,20"
+                        @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[calc(100%+24px)] *:justify-start"
                             v-if="showRangeOptions[index]">
                             <UiButton variant="link" size="link" @click="duplicateRange(index)">
@@ -131,9 +126,11 @@ const cursorStyle = computed(() => {
                 </div>
             </div>
         </div>
-        <UiButton data-v-step="17" variant="link" size="link"
-            v-tooltip.right="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
-            <UiIcon :icon="Icons.Add" />
-        </UiButton>
+        <div class="flex space-x-2">
+            <UiButton data-v-step="17" variant="link" size="link"
+                v-tooltip="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
+                <UiIcon :icon="Icons.Add" />
+            </UiButton>
+        </div>
     </div>
 </template>

@@ -76,7 +76,7 @@ export default class Glitch {
 
     getDataToExport() {
         return {
-            css: `${this.getTextClassText()}\n\n${this.keyframes.getKeyframesString(this.config, true)}`,
+            css: `${this.getTextClassText()}\n\n${this.getKeyframesString()}`,
             js: this.getAnimationText(),
             config: JSON.stringify({
                 text: this.config.text,
@@ -84,6 +84,10 @@ export default class Glitch {
                 ranges: this.config.ranges,
             }, null, 2)
         }
+    }
+
+    getKeyframesString() {
+        return this.keyframes.getKeyframesString(true);
     }
 
     async replaceAnimationDuration(config: GlitchConfig) {
@@ -173,7 +177,7 @@ export default class Glitch {
 
     private getAnimationText() {
         return `const target = document.querySelector('.my-text-element');
-const effect = ${JSON.stringify(this.keyframes.getKeyframesEffect(this.config), null, 2)};
+const effect = ${JSON.stringify(this.keyframes.getKeyframesEffect(), null, 2)};
 const options = {
     duration: ${this.config.animation.duration},
     iterations: Infinity
