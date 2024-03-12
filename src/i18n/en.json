@@ -191,7 +191,8 @@
             "code": "CSS code",
             "close": "Close",
             "config": "Configuration",
-            "style": "CSS"
+            "style": "CSS",
+            "js": "JavaScript"
         },
         "import": {
             "title": "Import",

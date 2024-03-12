@@ -54,6 +54,106 @@ export default class GlitchKeyframes {
         }
     }
 
+    getKeyframesEffect(config: GlitchConfig) {
+        const effect: Keyframe[] = [];
+
+        for (const percent in this.generatedFrames) {
+            const frame = this.generatedFrames[percent];
+            const keyframe: Keyframe = {};
+            let propertyName: GlitchAnimationPropertyUnion;
+
+            for (propertyName in frame) {
+                const frameProperty = frame[propertyName];
+                const filteredProperty = frameProperty?.filter((frame) => frame);
+
+                if (filteredProperty?.length) {
+                    filteredProperty.forEach((frame, index) => {
+                        if (frame) {
+                            const camelProperty = propertyName.replace(/-./g, x => x[1].toUpperCase());
+
+                            if (!keyframe[camelProperty]) {
+                                keyframe[camelProperty] = frame;
+                            } else {
+                                keyframe[camelProperty] += `, ${frame}`;
+                            }
+                        }
+                    });
+                }
+            }
+
+            if (Object.keys(keyframe).length) {
+                keyframe.offset = Number(percent) / 100;
+                effect.push(keyframe);
+            }
+        }
+
+        return effect;
+    }
+
+    getKeyframesString(config: GlitchConfig, formatted: boolean = false) {
+        const newLine = formatted ? '\n' : '';
+        const tab = formatted ? '\t' : '';
+        const doubleTab = formatted ? '\t\t' : '';
+        let keyframes = `@keyframes glitch {${newLine}`;
+        let previousBlock = "";
+        let percentText = "";
+        let block = "";
+
+        for (const percent in this.generatedFrames) {
+            const framesAt = this.generatedFrames[percent];
+            let property: GlitchAnimationPropertyUnion;
+
+            block = "";
+
+            for (property in framesAt) {
+                const frameProperty = framesAt[property];
+                const filteredProperty = frameProperty?.filter((frame) => frame);
+
+                if (filteredProperty?.length) {
+                    const lastFrameIndex = filteredProperty.length - 1;
+
+                    block += `${doubleTab}${property}: `;
+                    filteredProperty.forEach((frame, frameIndex) => {
+                        if (frame) {
+                            block += `${frame}`;
+
+                            if (frameIndex !== lastFrameIndex) {
+                                block += ', ';
+                            }
+                        }
+                    });
+                    block += `;${newLine}`;
+                }
+            }
+
+            if (block) {
+                if (!percentText) {
+                    percentText += `${tab}${percent}%`;
+                } else {
+                    if (block === previousBlock) {
+                        percentText += `,${newLine}${tab}${percent}%`;
+                    }
+                }
+
+                if (!previousBlock && block) {
+                    previousBlock = block;
+                }
+
+                if (block && block !== previousBlock) {
+                    keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
+                    previousBlock = block;
+                    percentText = `${tab}${percent}%`;
+                }
+            }
+        }
+
+        if (previousBlock) {
+            keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
+        }
+
+        return keyframes + '}';
+    }
+
     private bindKeyframeEffect(config: GlitchConfig) {
         const effect = new KeyframeEffect(
             this.glitchedElement,
@@ -76,10 +176,10 @@ export default class GlitchKeyframes {
             if (this.animation.playState === 'running') {
                 restart = true;
             }
-    
+
             this.animation.pause();
             callback(this.animation);
-            
+
             if (restart) {
                 this.animation.play();
             }
@@ -178,103 +278,6 @@ export default class GlitchKeyframes {
         }
 
         return value + ` ${color}`;
-    }
-
-    private getKeyframesEffect(config: GlitchConfig) {
-        const effect: Keyframe[] = [];
-
-        for (const percent in this.generatedFrames) {
-            const frame = this.generatedFrames[percent];
-            const keyframe: Keyframe = {};
-            let propertyName: GlitchAnimationPropertyUnion;
-
-            for (propertyName in frame) {
-                const frameProperty = frame[propertyName];
-                const filteredProperty = frameProperty?.filter((frame) => frame);
-
-                if (filteredProperty?.length) {
-                    filteredProperty.forEach((frame, index) => {
-                        if (frame) {
-                            const camelProperty = propertyName.replace(/-./g, x => x[1].toUpperCase());
-
-                            if (!keyframe[camelProperty]) {
-                                keyframe[camelProperty] = frame;
-                            } else {
-                                keyframe[camelProperty] += `, ${frame}`;
-                            }
-                        }
-                    });
-                }
-            }
-
-            keyframe.offset = Number(percent) / 100;
-
-            effect.push(keyframe);
-        }
-
-        return effect;
-    }
-
-    getKeyframesString(config: GlitchConfig, formatted: boolean = false) {
-        const newLine = formatted ? '\n' : '';
-        const tab = formatted ? '\t' : '';
-        const doubleTab = formatted ? '\t\t' : '';
-        let keyframes = `@keyframes glitch {${newLine}`;
-        let previousBlock = "";
-        let percentText = "";
-        let block = "";
-
-        for (const percent in this.generatedFrames) {
-            const framesAt = this.generatedFrames[percent];
-            let property: GlitchAnimationPropertyUnion;
-
-            block = "";
-
-            for (property in framesAt) {
-                const frameProperty = framesAt[property];
-                const filteredProperty = frameProperty?.filter((frame) => frame);
-
-                if (filteredProperty?.length) {
-                    const lastFrameIndex = filteredProperty.length - 1;
-
-                    block += `${doubleTab}${property}: `;
-                    filteredProperty.forEach((frame, frameIndex) => {
-                        if (frame) {
-                            block += `${frame}`;
-
-                            if (frameIndex !== lastFrameIndex) {
-                                block += ', ';
-                            }
-                        }
-                    });
-                    block += `;${newLine}`;
-                }
-            }
-
-            if (block) {
-                if (!percentText) {
-                    percentText += `${tab}${percent}%`;
-                } else {
-                    if (block === previousBlock) {
-                        percentText += `,${newLine}${tab}${percent}%`;
-                    }
-                }
-    
-                if (!previousBlock && block) {
-                    previousBlock = block;
-                }
-    
-                if (block && block !== previousBlock) {
-                    keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
-                    previousBlock = block;
-                    percentText = `${tab}${percent}%`;
-                }
-            }
-        }
-
-        keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
-
-        return keyframes + '}';
     }
 
     private injectHeadStyle(keyframes: string) {

@@ -8,7 +8,7 @@ const props = defineProps<{
     config: GlitchConfig;
 }>();
 
-const { exportModal } = useModalExport(props.glitch, props.config);
+const { exportModal } = useModalExport(props.glitch);
 </script>
 
 <template>

@@ -27,7 +27,7 @@ const titleClass = computed(() => cn([
 
 const contentClass = computed(() => cn([
     props.noContentPad ? '' : 'px-4',
-    props.openable && openToggle.value ? 'mt-2 ml-2 border-l' : ''
+    props.openable && openToggle.value ? 'mt-2 ml-2 border-l-2 border-neutral-600' : ''
 ]));
 </script>
 

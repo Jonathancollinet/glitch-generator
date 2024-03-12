@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import type Glitch from '~/glitch';
-import type { GlitchConfig } from '~/glitch/types';
 
 const props = defineProps<{
-    glitch: Glitch,
-    config: GlitchConfig,
+    glitch: Glitch
 }>();
 
 const emit = defineEmits<{
@@ -21,40 +19,33 @@ const tabs = computed(() => ({
     "style": {
         label: 'modals.export.style',
     },
+    "js": {
+        label: 'modals.export.js',
+    },
     "config": {
         label: 'modals.export.config',
     },
 }));
-
-const cssString = computed(() => {
-    return `#text {\n${data.elementStyle}}\n\n${data.keyframes}`;
-});
-
-const configString = computed(() => {
-    const config = props.config;
-
-    return JSON.stringify({
-        text: config.text,
-        animation: config.animation,
-        ranges: config.ranges,
-    }, null, 2);
-});
 </script>
 
 <template>
-    <UiModal contentClass="w-auto" @cancel="onCancel" title="modals.export.title">
+    <UiModal contentClass="w-full" @cancel="onCancel" title="modals.export.title">
         <UiText>{{ $t('modals.export.description') }}</UiText>
         <div class="w-full">
             <UiTabs :tabs="tabs">
                 <template v-slot="{ activeTab }">
                     <div class="pt-4">
                         <UiFormGroup v-if="activeTab === 'style'" label="modals.export.style" name="style">
-                            <UiInput type="textarea" name="style" class="w-full h-56" readonly
-                                :modelValue="cssString" />
+                            <UiInput type="textarea" name="style" class="w-full h-64" readonly
+                                :modelValue="data.css" />
+                        </UiFormGroup>
+                        <UiFormGroup v-if="activeTab === 'js'" label="modals.export.js" name="js">
+                            <UiInput type="textarea" name="js" class="w-full h-64" readonly
+                                :modelValue="data.js" />
                         </UiFormGroup>
                         <UiFormGroup v-if="activeTab === 'config'" label="modals.export.config" name="config">
-                            <UiInput type="textarea" name="config" class="w-full h-56" readonly
-                                :modelValue="configString" />
+                            <UiInput type="textarea" name="config" class="w-full h-64" readonly
+                                :modelValue="data.config" />
                         </UiFormGroup>
                     </div>
                 </template>

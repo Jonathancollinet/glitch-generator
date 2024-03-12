@@ -40,7 +40,7 @@ const optionValue = (option: Option) => {
 const selectClass: ClassValue[] = [
     'outline-none',
     'bg-transparent select-none',
-    'ring-2 ring-neutral-600',
+    'border-b-2 border-r-2',
     'dark:ring-primary-50'
 ]
 </script>

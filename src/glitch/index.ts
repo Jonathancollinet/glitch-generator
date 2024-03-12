@@ -75,19 +75,14 @@ export default class Glitch {
     }
 
     getDataToExport() {
-        const style = this.generateStyle(true);
-        let elementStyle = "";
-
-        let property: keyof typeof style;
-        for (property in style) {
-            const kebabProperty = property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
-
-            elementStyle += `\t${kebabProperty}: ${style[property]};\n`;
-        }
-        
         return {
-            elementStyle,
-            keyframes: this.keyframes.getKeyframesString(this.config, true)
+            css: `${this.getTextClassText()}\n\n${this.keyframes.getKeyframesString(this.config, true)}`,
+            js: this.getAnimationText(),
+            config: JSON.stringify({
+                text: this.config.text,
+                animation: this.config.animation,
+                ranges: this.config.ranges,
+            }, null, 2)
         }
     }
 
@@ -111,7 +106,7 @@ export default class Glitch {
         this.config.ranges.splice(range, 1);
         this.keyframes.generate(this.config);
     }
-    
+
     private getConfigCopy(config: GlitchConfig) {
         const rawConfig = toRaw(config);
         const functions = {
@@ -160,5 +155,36 @@ export default class Glitch {
             backgroundColor: hexToRGB(this.config.text.bgColor.hex, this.config.text.bgColor.alphaPercent),
             ...animation
         }
+    }
+
+    private getTextClassText() {
+        const style = this.generateStyle(true);
+        let elementStyle = "";
+
+        let property: keyof typeof style;
+        for (property in style) {
+            const kebabProperty = property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+
+            elementStyle += `\t${kebabProperty}: ${style[property]};\n`;
+        }
+
+        return `#text {\n${elementStyle}}`;
+    }
+
+    private getAnimationText() {
+        return `const target = document.querySelector('.my-text-element');
+const effect = ${JSON.stringify(this.keyframes.getKeyframesEffect(this.config), null, 2)};
+const options = {
+    duration: ${this.config.animation.duration},
+    iterations: Infinity
+};
+const keyframeEffect = new KeyframeEffect(
+    target,
+    effect,
+    options
+);
+const animation = new Animation(keyframeEffect);
+
+animation.play();`;
     }
 }
