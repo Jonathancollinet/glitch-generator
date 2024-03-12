@@ -39,7 +39,7 @@
     }
 
     body {
-        @apply box-border transition-colors text-neutral-800 bg-primary-100;
+        @apply box-border transition-colors text-neutral-700 bg-primary-100;
         @apply dark:text-neutral-100 dark:bg-neutral-950;
     }
 

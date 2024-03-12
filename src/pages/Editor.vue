@@ -271,27 +271,27 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <div class="flex items-center justify-between flex-col mb-4 md:flex-row" data-v-step="0,24">
-            <div class="flex items-center md:m-0 lg:w-[75%] lg:mr-4">
-                <UiHeading class="m-0">{{ $t('pages.editor.title') }}</UiHeading>
-                <EditorTour />
-            </div>
-            <div class="flex items-center justify-between lg:w-[25%] lg:ml-4">
-                <ClientOnly>
-                    <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" @presetChange="presetChanged" />
-                </ClientOnly>
-                <EditorActions :config="gconfig" :glitch="glitch" />
-            </div>
-        </div>
-        <div class="lg:flex">
-            <div class="lg:w-[75%] lg:mr-4 space-x-1">
+        <div class="md:flex space-y-4 md:space-y-0">
+            <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
                 <EditorDisplayedText data-v-step="1" ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
                 <EditorToolboxRanges data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
                     :selectedField="selectedField" v-on="onRangesEvents" />
             </div>
-            <EditorToolbox :key="currentPreset?.id" class="lg:w-[25%] lg:ml-4" v-model:config="gconfig" v-model:field="selectedField"
-                :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
+            <div class="md:w-[30%] lg:w-[25%] md:ml-4">
+                <div class="flex items-center justify-between mb-4">
+                    <ClientOnly>
+                        <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" @presetChange="presetChanged" />
+                    </ClientOnly>
+                    <div class="flex">
+                        <EditorTour />
+                        <EditorActions :config="gconfig" :glitch="glitch" />
+                    </div>
+                </div>
+                <EditorToolbox :key="currentPreset?.id" v-model:config="gconfig" v-model:field="selectedField"
+                    :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
+
+            </div>
         </div>
     </div>
 </template>

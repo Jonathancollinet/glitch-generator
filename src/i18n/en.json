@@ -102,13 +102,14 @@
             }
         },
         "editor": {
-            "title": "Let's glitch!",
+            "title": "Editor",
             "launchTour": "Start the tutorial",
             "selectPreset": "Choose a built-in or custom preset",
             "savePreset": "Save current settings as a custom preset",
             "removePreset": "Delete current custom preset",
             "rangeOptions": "Range options",
             "rangeShortcuts": "Mouse shortcuts",
+            "ranges": "Shadow's ranges",
             "export": "Get code",
             "import": "Import",
             "config": {

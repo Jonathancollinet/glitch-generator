@@ -89,12 +89,13 @@ const cursorStyle = computed(() => {
 <template>
     <div class="relative">
         <div class="flex space-x-2 items-center mb-4">
-            <UiHeading class="m-0" variant="h4">Ranges</UiHeading>
-            <UiButton v-tooltip.right="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
+            <UiHeading class="m-0" variant="h4">{{ $t('pages.editor.ranges') }}</UiHeading>
+            <UiButton v-tooltip="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
                 <UiIcon class="stroke-neutral-400" :icon="Icons.Cursor" />
             </UiButton>
         </div>
         <div class="flex mb-4">
+            
             <div class="relative w-[calc(100%-36px)]">
                 <ClientOnly>
                     <div v-if="config.controls"

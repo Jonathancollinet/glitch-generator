@@ -28,7 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <UiButton v-tooltip.right="$t('pages.editor.launchTour')" class="ml-4" variant="icon" size="icon" @click="initTour">
+    <UiButton v-tooltip="$t('pages.editor.launchTour')" class="ml-4" variant="icon" size="icon" @click="initTour">
         <UiIcon :icon="Icons.Help" @click="initTour" />
     </UiButton>
     <template v-if="mounted">

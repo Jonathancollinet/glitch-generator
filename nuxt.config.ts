@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
-    sourcemap: true,
-    devtools: { enabled: true },
+    sourcemap: false,
+    devtools: { enabled: false },
     srcDir: 'src/',
     typescript: {
         typeCheck: true,

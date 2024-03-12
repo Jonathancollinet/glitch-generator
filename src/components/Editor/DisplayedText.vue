@@ -23,9 +23,9 @@ defineExpose({
 <template>
     <UiCard noContentPad class="bg-primary-50 dark:bg-neutral-900">
         <template #content>
-            <div class="relative h-[50vw] min-h-72 max-h-[400px] lg:max-h-[500px]">
+            <div class="relative h-[50vw] min-h-72 md:max-h-[400px] lg:max-h-[500px] xl:max-h-[50vh]">
                 <div class="flex h-full items-center justify-center select-none overflow-hidden">
-                    <div class="displayedText flex items-center justify-center h-0" ref="glitchedEl" :style="bindings.textStyle">
+                    <div class="displayedText flex text-center items-center justify-center h-0" ref="glitchedEl" :style="bindings.textStyle">
                         {{ bindings.message }}
                     </div>
                 </div>
