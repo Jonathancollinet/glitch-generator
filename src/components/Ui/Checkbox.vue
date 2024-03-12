@@ -6,12 +6,17 @@ defineProps<{
     checked: boolean,
     updateFn: ((event: Event) => void) | undefined,
 }>();
+
+const checkbox = ref<HTMLInputElement | null>(null);
 </script>
 
 <template>
-    <UiFormGroup class="flex *:cursor-pointer select-none" :label="label" :error="error" :name="name">
+    <UiFormGroup class="flex items-center space-x-1 cursor-pointer *:cursor-pointer select-none" :label="label" :error="error" :name="name">
         <template #before>
-            <input class="mr-1" type="checkbox" :id="name" :name="name" :checked="checked" @change="updateFn">
+            <div class="w-3 h-3 border bg-neutral-50" @click="checkbox?.click()">
+                <div v-if="checked" class="h-full w-full bg-primary-600" />
+            </div>
+            <input ref="checkbox" class="hidden" type="checkbox" :id="name" :name="name" :checked="checked" @change="updateFn">
         </template>
     </UiFormGroup>
 </template>

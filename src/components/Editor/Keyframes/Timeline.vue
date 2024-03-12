@@ -99,7 +99,7 @@ onUnmounted(() => {
                 <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost"
                     @touchstart.stop="hideGhost" @drag.stop="updateTiming" @mouseup.stop draggable="true"
                     :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
-                    <div class="w-full h-full bg-primary-600 -translate-x-1/2 hover:cursor-grab dark:bg-primary-50"></div>
+                    <div class="w-full h-full bg-primary-600 -translate-x-1/2 hover:cursor-grab active:cursor-grabbing dark:bg-primary-50"></div>
                 </div>
             </div>
         </div>
