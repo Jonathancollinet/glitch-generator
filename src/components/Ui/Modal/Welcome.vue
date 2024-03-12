@@ -20,7 +20,7 @@ function onCancel() {
 </script>
 
 <template>
-    <UiModal @closed="onClose" title="modals.welcome.title">
+    <UiModal @closed="onClose" title="modals.welcome.title" :escToClose="false" :clickToClose="false">
         <UiText>{{ $t('modals.welcome.content') }}</UiText>
         <UiText>{{ $t('modals.welcome.tutorial') }}</UiText>
         <template #footer>

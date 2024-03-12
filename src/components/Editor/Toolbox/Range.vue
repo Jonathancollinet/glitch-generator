@@ -6,7 +6,8 @@ const props = defineProps<{
     textFontSize: number,
     ranges: GlitchShadowField[][],
     range: GlitchShadowField[],
-    selectedField?: GlitchShadowField
+    selectedField?: GlitchShadowField,
+    noProperties?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -159,7 +160,7 @@ function isFieldSelected(field: GlitchShadowField) {
 }
 
 const showProperties = computed(() => {
-    return hoveredField.value;
+    return !props.noProperties && hoveredField.value;
 })
 
 const propertyPosition = computed(() => {

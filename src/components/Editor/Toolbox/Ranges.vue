@@ -88,9 +88,9 @@ const cursorStyle = computed(() => {
 
 <template>
     <div class="relative">
-        <div class="flex space-x-2 items-center mb-4">
+        <div class="flex space-x-2 items-center mb-2">
             <UiHeading class="m-0" variant="h4">{{ $t('pages.editor.ranges') }}</UiHeading>
-            <UiButton v-tooltip="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
+            <UiButton v-tooltip.right="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon" @click="shortcutsModal.open">
                 <UiIcon class="stroke-neutral-400" :icon="Icons.Cursor" />
             </UiButton>
         </div>
@@ -107,11 +107,11 @@ const cursorStyle = computed(() => {
                     :range="range" @updateField="updateField" @selectField="selectField"
                     @insertField="insertField(index, $event)" />
             </div>
-            <div class="w-[24px] pl-[12px]" v-click-outside="resetRangeOptions">
-                <div class="relative top-0 w-full h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges"
+            <div class="w-[36px]" v-click-outside="resetRangeOptions">
+                <div class="relative top-0 w-full pl-[12px] h-[24px] mb-2 last:mb-0" v-for="(range, index) in config.ranges"
                     :key="index">
                     <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')" data-v-step="18,19,20" @click="displayRangeOptions(index)">
-                        <UiTooltipContent class="whitespace-nowrap -translate-x-[90%] *:justify-start"
+                        <UiTooltipContent class="whitespace-nowrap -translate-x-[calc(100%+24px)] *:justify-start"
                             v-if="showRangeOptions[index]">
                             <UiButton variant="link" size="link" @click="duplicateRange(index)">
                                 {{ $t('pages.editor.config.ranges.actions.duplicate') }}

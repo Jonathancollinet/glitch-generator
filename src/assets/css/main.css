@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-    --------------------
-    GLOBAL DEFINITIONS
-    --------------------
-*/
-
-/* 
-    --------------------
-    -- Transitions
-    --------------------
-*/
-
 .fade-enter-active,
 .fade-leave-active {
     transition-duration: 0.1s;
@@ -27,13 +15,6 @@
 }
 
 @layer base {
-
-    /* 
-        --------------------
-        -- Top-level elements
-        --------------------
-    */
-
     html {
         font-family: 'Space Grotesk', Arial, sans-serif;
     }
@@ -57,12 +38,6 @@
         @apply container mx-auto p-4 h-full max-w-[1280px];
         @apply lg:p-12
     }
-
-    /* 
-        --------------------
-        -- Other elements
-        --------------------
-    */
 
     input[type=number],
     input[type=number]::-webkit-inner-spin-button,

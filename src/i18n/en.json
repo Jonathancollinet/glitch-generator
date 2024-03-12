@@ -124,7 +124,7 @@
                     }
                 },
                 "animation": {
-                    "title": "Animation",
+                    "title": "Options",
                     "animationDuration": "Duration (ms)"
                 },
                 "text": {
@@ -155,11 +155,11 @@
                     "enabled": "Enabled",
                     "fillAllFrames": "Fill",
                     "fillAllFramesDescription": "If enabled, the shadow will be applied to all frames until the next field or animation's end. If disabled, the shadow will be applied to the current frame offset only.",
-                    "offsetFrame": "Field",
+                    "offsetFrame": "Shadow",
                     "offsetFrameDescription": "Offset in keyframes",
                     "removeField": "Remove field",
-                    "textShadow": "Text shadow",
-                    "boxShadow": "Box shadow"
+                    "textShadow": "Text",
+                    "boxShadow": "Box"
                 }
             }
         }
@@ -222,7 +222,7 @@
         "shortcuts": {
             "title": "Mouse shortcuts",
             "leftClickUp": "Left-click up: select a field.",
-            "rightClickUp": "Right-click up: cut a field at the mouse emplacement.",
+            "rightClickUp": "Right-click up: cut a field at the mouse position.",
             "leftClickDrag": "Left-click drag: resize a field.",
             "rightClickDrag": "Right-click drag: choose an offset to cut."
         }

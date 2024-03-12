@@ -1,12 +1,17 @@
 <script lang="ts" setup>
 import { VueFinalModal } from 'vue-final-modal'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     title?: string,
     contentClass?: string
     overlayTransition?: string
-    contentTransition?: string
-}>();
+    contentTransition?: string,
+    clickToClose?: boolean,
+    escToClose?: boolean
+}>(), {
+    clickToClose: true,
+    escToClose: true
+});
 
 const emit = defineEmits<{
     closed: []
@@ -25,9 +30,9 @@ const finalContentClass = computed(() => {
 </script>
 
 <template>
-    <VueFinalModal class="flex justify-center items-center"
-        :content-class="finalContentClass"
-        overlay-transition="vfm-fade" content-transition="vfm-fade" @closed="onClose">
+    <VueFinalModal class="flex justify-center items-center" :content-class="finalContentClass"
+        :clickToClose="clickToClose" :escToClose="escToClose" overlay-transition="vfm-fade" content-transition="vfm-fade"
+        @closed="onClose">
         <div class="flex items-center" v-if="title">
             <UiHeading class="mt-0" variant="h3">{{ $t(title) }}</UiHeading>
         </div>

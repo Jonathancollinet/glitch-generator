@@ -2,6 +2,19 @@ import type { Config } from 'tailwindcss'
 import twColors from 'tailwindcss/colors';
 
 const customColors = {
+    red: {
+        '50': '#fff1f1',
+        '100': '#ffe4e4',
+        '200': '#fecdcf',
+        '300': '#fca5a9',
+        '400': '#fa727b',
+        '500': '#f45b69',
+        '600': '#df1f3a',
+        '700': '#bc1430',
+        '800': '#9e132f',
+        '900': '#87142e',
+        '950': '#4b0613',
+    },
     purple: {
         '50': '#f4f3ff',
         '100': '#ebe9fe',
@@ -23,7 +36,7 @@ const colors = {
     primary: customColors.purple,       // primary
     neutral: twColors.neutral,          // white/gray/black
     green: twColors.green,              // success
-    red: twColors.red,                  // error
+    red: customColors.red,              // error
 }
 
 const themeOverrides: Partial<Config> = {

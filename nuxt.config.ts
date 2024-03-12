@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
-    sourcemap: false,
-    devtools: { enabled: false },
+    sourcemap: process.env.NODE_ENV !== 'production',
+    devtools: { enabled: process.env.NODE_ENV !== 'production' },
     srcDir: 'src/',
     typescript: {
         typeCheck: true,

@@ -21,13 +21,13 @@ const cardClasses: ClassValue[] = [
 ]
 
 const titleClass = computed(() => cn([
-    '*:m-0 mb-2 select-none transition-opacity duration-100',
+    '*:m-0 select-none transition-opacity duration-100',
     props.openable ? 'cursor-pointer hover:opacity-60' : '',
 ]));
 
 const contentClass = computed(() => cn([
     props.noContentPad ? '' : 'px-4',
-    props.openable && openToggle.value ? 'ml-2 border-l' : ''
+    props.openable && openToggle.value ? 'mt-2 ml-2 border-l' : ''
 ]));
 </script>
 

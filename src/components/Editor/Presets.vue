@@ -72,7 +72,7 @@ defineExpose({
 
 <template>
     <div class="flex space-x-2">
-        <UiFormGroup class="mb-0" v-tooltip="$t('pages.editor.selectPreset')">
+        <UiFormGroup class="mb-0" v-tooltip="{content: $t('pages.editor.selectPreset')}">
             <UiSelect class="max-w-[120px]" data-v-step="22" :options="presets" v-model="currentPreset"
                 labelKey="name" />
         </UiFormGroup>
