@@ -116,6 +116,7 @@ const hasShadowBox = computed(() => {
 
 const fieldStyle = computed(() => {
     return {
+        height: '100%',
         width: getPercentWidth(),
         left: `${props.field.offsetFrame}%`
     }

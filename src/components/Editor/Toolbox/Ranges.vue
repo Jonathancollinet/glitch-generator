@@ -2,6 +2,7 @@
 import { Icons } from '~/types/enums';
 import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
 import { useModalShortcuts } from '~/composables/modalShortcuts';
+import { rangeHeight } from '~/utils/constants';
 
 const props = defineProps<{
     selectedField?: GlitchShadowField,
@@ -100,9 +101,10 @@ const cursorStyle = computed(() => {
                     @insertField="insertField(index, $event)" />
             </div>
             <div class="w-[36px]" v-click-outside="resetRangeOptions">
-                <div class="relative top-0 w-full pl-[12px] h-[24px] mb-2 last:mb-0"
+                <div class="relative top-0 w-full pl-[12px] mb-2 last:mb-0 flex items-center"
+                    :style="{height: rangeHeight + 'px'}"
                     v-for="(range, index) in config.ranges" :key="index">
-                    <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')" data-v-step="18,19,20"
+                    <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')"
                         @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[calc(100%+24px)] *:justify-start"
                             v-if="showRangeOptions[index]">

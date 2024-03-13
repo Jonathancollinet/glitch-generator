@@ -16,3 +16,7 @@ export const navigationItems: NavigationItem[] = [
 ];
 
 export const allColors: any[] = [];
+
+export const rangeHeight = 32;
+
+export const timelineFPS = 144;

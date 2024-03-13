@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type GlitchController from '~/glitch/controller';
+import { timelineFPS } from '~/utils/constants';
 
 const props = defineProps<{
     controller: GlitchController,
@@ -12,8 +13,7 @@ let currentReq: number;
 let now, elapsed, then = Date.now();
 
 const playState = ref<AnimationPlayState>("idle");
-const precision = ref(100);
-const fps = ref(144);
+const fps = 1000 / timelineFPS;
 
 function selectAnimationAt(percent: number) {
     if (props.controller) {
@@ -30,7 +30,6 @@ function bindTimelineWatcher() {
         currentReq = window.requestAnimationFrame(bindTimelineWatcher);
         now = Date.now();
         elapsed = now - then;
-        const fps = fpsInterval.value;
 
         if (elapsed > fps) {
             then = now - (elapsed % fps);
@@ -81,7 +80,6 @@ function backward() {
 }
 
 const isRunning = computed(() => playState.value === "running");
-const fpsInterval = computed(() => 1000 / fps.value);
 
 const actions = {
     play,
@@ -96,6 +94,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <EditorKeyframesTimeline :precision="precision" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
-    <EditorKeyframesActions :playState="playState" v-model:precision="precision" v-model:fps="fps" v-on="actions" @play="play()" @pause="pause()" />
+    <EditorKeyframesTimeline :precision="100" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
+    <EditorKeyframesActions :playState="playState" v-on="actions" @play="play()" @pause="pause()" />
 </template>

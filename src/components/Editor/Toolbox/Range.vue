@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { GlitchShadowField } from '~/glitch/types';
 import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
+import { rangeHeight } from '~/utils/constants';
 
 const props = defineProps<{
     textFontSize: number,
@@ -188,8 +189,8 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="relative mb-2 h-[24px] last:mb-0" @mouseleave="removeProperties" v-click-outside="hideSelectableField">
-        <div class="h-full w-[calc(100%-36px)]" data-v-step="6,11,12,13,14">
+    <div class="relative mb-2 last:mb-0" :style="{height: rangeHeight + 'px'}" @mouseleave="removeProperties" v-click-outside="hideSelectableField">
+        <div class="h-full w-[calc(100%-36px)]">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap" :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
                     :nextHoveredFrameOffset="nextHoveredFrameOffset" />

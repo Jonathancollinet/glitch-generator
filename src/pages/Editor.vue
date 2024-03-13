@@ -281,7 +281,7 @@ onBeforeUnmount(() => {
             <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
                 <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
-                <EditorToolboxRanges :key="currentPreset?.id" data-v-step="5,16" :config="gconfig"
+                <EditorToolboxRanges :key="currentPreset?.id" :config="gconfig"
                     :currentPercent="currentPercent" :selectedField="selectedField" v-on="onRangesEvents" />
             </div>
             <div class="md:w-[30%] lg:w-[25%] md:ml-4">
