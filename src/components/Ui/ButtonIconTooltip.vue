@@ -3,12 +3,12 @@ import { Icons } from '~/types/enums';
 
 defineProps<{
     icon?: Icons
-}>()
+}>();
 
 const emit = defineEmits<{
     click: [],
     clickOutside: []
-}>()
+}>();
 
 function onClick() {
     emit('click');

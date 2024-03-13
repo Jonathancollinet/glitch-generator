@@ -8,11 +8,11 @@ import type Glitch from '~/glitch';
 const props = defineProps<{
     glitch: Glitch,
     config: GlitchConfig,
-}>()
+}>();
 
 const emit = defineEmits<{
     presetChange: [preset: Preset]
-}>()
+}>();
 
 const currentPreset = ref<Preset>(getLastSelectedPreset());
 
@@ -62,12 +62,11 @@ watch(() => currentPreset.value.id, () => {
 
 onMounted(() => {
     emit('presetChange', currentPreset.value);
-})
+});
 
 defineExpose({
     savePreset,
-})
-
+});
 </script>
 
 <template>

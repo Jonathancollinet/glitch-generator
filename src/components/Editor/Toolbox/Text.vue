@@ -4,7 +4,7 @@ import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
-}>()
+}>();
 
 const config = defineModel<GlitchBaseText>('config', { required: true });
 const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });

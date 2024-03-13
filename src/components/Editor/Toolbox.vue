@@ -5,7 +5,7 @@ import { type GlitchConfig, type GlitchErrors, type GlitchShadowField } from '~/
 defineProps<{
     errors: Partial<GlitchErrors>,
     currentPercent: number,
-}>()
+}>();
 
 const emit = defineEmits<{
     addField: [rangeIndex: number],
@@ -14,7 +14,7 @@ const emit = defineEmits<{
     duplicateRange: [],
     removeField: [field: GlitchShadowField],
     closeField: []
-}>()
+}>();
 
 const config = defineModel<GlitchConfig>('config', { required: true });
 const selectedField = defineModel<GlitchShadowField | undefined>('field', { required: true });

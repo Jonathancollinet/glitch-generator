@@ -4,7 +4,7 @@ import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
 defineProps<{
     errors: Partial<GlitchErrors>,
     name: string
-}>()
+}>();
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
 const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });

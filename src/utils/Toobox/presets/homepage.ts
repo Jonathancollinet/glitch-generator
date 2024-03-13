@@ -22,4 +22,4 @@ export default deepCopy({
         duration: 3000
     },
     ranges: homepageRanges
-})
+});

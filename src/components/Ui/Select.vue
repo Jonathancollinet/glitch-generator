@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { ClassValue } from 'class-variance-authority/types';
 import type { HTMLAttributes } from 'vue';
 import { SelectVariants, type SelectVariantsProps } from '~/componentsVariants/Ui/Select';
 
@@ -12,11 +11,11 @@ const props = defineProps<{
     options: Array<Option>,
     labelKey?: string,
     valueKey?: string
-}>()
+}>();
 
 const emit = defineEmits<{
     change: [e: Event]
-}>()
+}>();
 
 const value = defineModel<Option>({ required: true });
 

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const emit = defineEmits<{
     cancel: [],
     start: [],

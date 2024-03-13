@@ -8,7 +8,6 @@ useSeoMeta({
 });
 
 const activeHelp = ref('tool');
-
 </script>
 
 <template>

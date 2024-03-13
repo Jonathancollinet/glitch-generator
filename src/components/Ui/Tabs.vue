@@ -25,7 +25,7 @@ const actionClasses: (key: string | number) => ClassValue[] = (key: string | num
     isActive(key) && [
         'bg-primary-400 hover:bg-primary-400 *:text-primary-50 dark:bg-primary-900 dark:hover:bg-primary-900',
     ]
-]
+];
 </script>
 
 <template>

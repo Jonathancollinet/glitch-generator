@@ -5,8 +5,7 @@ import { applyUpdater, getErrorMessage } from '~/utils/Toobox/utils';
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
     name: string
-
-}>()
+}>();
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
 const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
@@ -27,7 +26,6 @@ const updateSpread = updateBoxShadow({
 function getName(key: string) {
     return `${props.name}.${key}`;
 }
-
 </script>
 
 <template>

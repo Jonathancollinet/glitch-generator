@@ -17,7 +17,6 @@ const formatProperty = computed(() => {
         return `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px`;
     }
 });
-
 </script>
 
 <template>

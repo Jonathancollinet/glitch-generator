@@ -4,13 +4,12 @@ import { NuxtLink } from "#components";
 import type { HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<{
-    as?: "a" | typeof NuxtLink
+    as?: "a" | typeof NuxtLink,
     variant?: LinkVariantsProps['variant'],
     class?: HTMLAttributes['class']
 }>(), {
     as: NuxtLink
 });
-
 </script>
 
 <template>
@@ -18,7 +17,3 @@ const props = withDefaults(defineProps<{
         <slot />
     </component>
 </template>
-
-<style>
-
-</style>

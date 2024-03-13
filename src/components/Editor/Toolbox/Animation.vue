@@ -4,7 +4,7 @@ import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
-}>()
+}>();
 
 const animation = defineModel<GlitchAnimation>('config', { required: true });
 const localAnimation = defineModel<GlitchAnimation>('localConfig', { required: true });
@@ -21,7 +21,6 @@ const updateAnimationDuration = updateAnimation({
     modifier: Number,
     debounced: 300
 });
-
 </script>
 
 <template>

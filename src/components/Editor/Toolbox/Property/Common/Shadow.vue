@@ -6,7 +6,7 @@ const props = defineProps<{
     errors: Partial<GlitchErrors>,
     name: string,
     propertyName: string
-}>()
+}>();
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
 const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
@@ -41,7 +41,6 @@ const updateBlur = updateShadow({
 function getName(key: string) {
     return `${props.name}.${key}`;
 }
-
 </script>
 
 <template>

@@ -5,7 +5,7 @@ import { timelineFPS } from '~/utils/constants';
 const props = defineProps<{
     controller: GlitchController,
     animationDuration: number
-}>()
+}>();
 
 const currentPercent = defineModel<number>({ required: true });
 
@@ -86,7 +86,7 @@ const actions = {
     pause,
     forward,
     backward
-}
+};
 
 onMounted(() => {
     play();

@@ -9,7 +9,3 @@ defineProps<{
         <slot />
     </UiLink>
 </template>
-
-<style>
-
-</style>

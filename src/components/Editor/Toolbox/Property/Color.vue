@@ -7,7 +7,7 @@ const props = defineProps<{
     errors: Partial<GlitchErrors>,
     name: string
     labelName?: string
-}>()
+}>();
 
 const localName = computed(() => props.labelName || props.name);
 
@@ -18,7 +18,6 @@ const displaySketch = ref(false);
 const colors = ref<any>();
 
 const hexName = `${localName.value}Hex`;
-const alphaPercentName = `${localName.value}AlphaPercent`;
 
 const hexError = computed(() => getErrorMessage(props.errors, `${props.name}.color.hex`));
 const alphaPercentError = computed(() => getErrorMessage(props.errors, `${props.name}.color.alphaPercent`));

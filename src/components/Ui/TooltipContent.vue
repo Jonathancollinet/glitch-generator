@@ -6,7 +6,7 @@ const props = defineProps<{
     class?: HTMLAttributes['class'],
     variant?: TooltipContentVariantsProps['variant'],
     size?: TooltipContentVariantsProps['size'],
-}>()
+}>();
 </script>
 
 <template>

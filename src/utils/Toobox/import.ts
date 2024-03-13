@@ -150,7 +150,6 @@ function setShadowInRanges(ranges: GlitchShadowField[][], propertyName: GlitchAn
 
         field.properties[propertyName] = shadowProperty;
     });
-
 }
 
 function getShadowProps(shadow: string, propertyName: GlitchAnimationProperty) {

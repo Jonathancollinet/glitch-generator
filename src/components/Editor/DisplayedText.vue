@@ -8,7 +8,7 @@ const props = defineProps<{
     config: GlitchConfig,
     controller: GlitchController | null,
     bindings: GlitchBindings,
-}>()
+}>();
 
 const currentPercent = defineModel<number>({ required: true });
 
@@ -17,7 +17,7 @@ const animationDuration = computed(() => props.config.animation.duration);
 
 defineExpose({
     glitchedEl
-})
+});
 </script>
 
 <template>

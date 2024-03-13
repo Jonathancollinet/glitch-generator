@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-
 const emit = defineEmits<{
     cancel: []
 }>();
+
 function onClose() {
     emit('cancel');
 }

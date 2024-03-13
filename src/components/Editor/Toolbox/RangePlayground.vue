@@ -83,7 +83,6 @@ function insertField(rangeIndex: number, offset: number) {
 
     addFieldAtOffset(range, rangeIndex, offset)
 }
-
 </script>
 
 <template>

@@ -8,7 +8,7 @@ const props = defineProps<{
     selectedField?: GlitchShadowField,
     config: GlitchConfig,
     currentPercent: number
-}>()
+}>();
 
 const emit = defineEmits<{
     updateField: [field: GlitchShadowField],
@@ -19,7 +19,7 @@ const emit = defineEmits<{
     reverseColors: [rangeIndex: number],
     removeRange: [rangeIndex: number],
     insertField: [rangeIndex: number, offset: number],
-}>()
+}>();
 
 const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
 
@@ -76,7 +76,7 @@ const cursorStyle = computed(() => {
     return {
         left: `calc(${props.currentPercent}% - 1px)`
     }
-})
+});
 </script>
 
 <template>

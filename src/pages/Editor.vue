@@ -63,18 +63,18 @@ const onRangesEvents = {
     reverseColors,
     removeRange,
     insertField
-}
+};
 
 const onToolboxEvents = {
     removeField,
     closeField,
     presetChanged
-}
+};
 
 let animationDuration = gconfig.animation.duration;
 let glitch = new Glitch(gconfig);
 
-gconfig.preventRangesCompute = true
+gconfig.preventRangesCompute = true;
 
 gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     if (errs) {
@@ -82,7 +82,7 @@ gconfig.onValidated = (errs: GlitchErrors | undefined) => {
     } else {
         errors.value = {};
     }
-}
+};
 
 // -----------------------------------------------------------------
 

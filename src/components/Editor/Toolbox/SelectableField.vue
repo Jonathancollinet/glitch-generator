@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<{
     draggingFieldIndex: number
 }>(), {
     width: '100%'
-})
+});
 
 const emit = defineEmits<{
     updateField: [field: GlitchShadowField],
@@ -24,7 +24,7 @@ const emit = defineEmits<{
     dragStart: [e: DragEvent, field: GlitchShadowField],
     dragEnd: [e: DragEvent],
     displayProperties: [e: MouseEvent, field: GlitchShadowField]
-}>()
+}>();
 
 function getPercentWidth() {
     const length = ((props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame);
@@ -148,7 +148,7 @@ const fieldClass = computed(() => {
 
 watch(props.field, () => {
     emit('updateField', props.field);
-}, { deep: true })
+}, { deep: true });
 </script>
 
 <template>

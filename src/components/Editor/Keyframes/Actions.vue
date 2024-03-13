@@ -3,16 +3,15 @@ import { Icons } from '~/types/enums';
 
 const props = defineProps<{
     playState: AnimationPlayState | undefined
-}>()
+}>();
 
 const emit = defineEmits<{
     play: []
     pause: []
-}>()
+}>();
 
 const isRunning = computed(() => props.playState === 'running');
 const isPaused = computed(() => props.playState === 'paused' || props.playState === 'idle');
-
 </script>
 
 <template>
@@ -27,5 +26,3 @@ const isPaused = computed(() => props.playState === 'paused' || props.playState 
         </div>
     </div>
 </template>
-
-<style></style>

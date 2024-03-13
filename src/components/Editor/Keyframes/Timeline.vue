@@ -4,11 +4,11 @@ import { debounce } from 'vue-debounce';
 const props = defineProps<{
     currentPercent: number,
     precision: number
-}>()
+}>();
 
 const emit = defineEmits<{
     selectAnimationAt: [percent: number]
-}>()
+}>();
 
 const moveContainer = ref<HTMLElement | null>(null);
 const currentWidth = ref(0);
@@ -65,13 +65,13 @@ onMounted(() => {
     if (process.client) {
         window.addEventListener('resize', adaptCurrentWidth);
     }
-})
+});
 
 onUnmounted(() => {
     if (process.client) {
         window.removeEventListener('resize', adaptCurrentWidth);
     }
-})
+});
 </script>
 
 <template>
@@ -81,15 +81,15 @@ onUnmounted(() => {
                 {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
             </div>
         </Transition>
-        <div class="relative w-full py-1 px-4 overflow-hidden cursor-pointer group"
-            @mousedown="updateTiming" @touchstart="updateTiming" @touchmove="updateTiming"
-            @touchend="removeTitle" @mouseenter="setTitle" @mouseleave="removeTitle">
+        <div class="relative w-full py-1 px-4 overflow-hidden cursor-pointer group" @mousedown="updateTiming"
+            @touchstart="updateTiming" @touchmove="updateTiming" @touchend="removeTitle" @mouseenter="setTitle"
+            @mouseleave="removeTitle">
             <div ref="moveContainer"
                 class="relative flex items-center w-full h-2 transition-[background-color] bg-primary-200 group-hover:bg-primary-300 dark:bg-primary-400">
                 <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost"
                     @touchstart.stop="hideGhost" @drag.stop="updateTiming" @mouseup.stop draggable="true"
                     :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
-                    <div class="w-full h-full bg-primary-600 -translate-x-1/2 hover:cursor-grab active:cursor-grabbing dark:bg-primary-50"></div>
+                    <div class="w-full h-full bg-primary-600 -translate-x-1/2 hover:cursor-grab active:cursor-grabbing dark:bg-primary-50" />
                 </div>
             </div>
         </div>
