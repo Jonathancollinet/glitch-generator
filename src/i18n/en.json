@@ -89,12 +89,16 @@
         "home": {
             "title": "Glitch Generator",
             "description": "Glitch editor based on the text-shadow & box-shadow CSS properties.",
-            "why": {
-                "title": "Why?",
-                "description": "Because it's fun! I wanted a user-friendly tool to generate glitch effects.",
+            "create": {
+                "title": "Create",
+                "description": "The editor provides you many tools to work on a CSS keyframes at-rule.",
                 "result": "This is the result.",
                 "also": "Type whatever you want and see the magic happen!",
                 "result2": "👽 🔊 🌎"
+            },
+            "import": {
+                "title": "Import",
+                "description": "Working on a keyframe ? Import it to visualize/edit it directly from the editor."
             },
             "share": {
                 "title": "Export",

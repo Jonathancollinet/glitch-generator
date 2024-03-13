@@ -21,22 +21,28 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
             {{ $t('pages.home.description') }}
         </UiText>
         <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
-            {{ $t('pages.home.why.title') }}
+            {{ $t('pages.home.create.title') }}
         </UiHeading>
         <UiText as="p" class="text-center">
-            {{ $t('pages.home.why.description') }}
+            {{ $t('pages.home.create.description') }}
         </UiText>
-        <div class="my-24">
+        <div class="my-12 mb-20">
             <UiText as="div" data-size="big" data-color="black" class="exemple text-center mb-16 font-bold tracking-widest">
-                {{ $t('pages.home.why.result') }}
+                {{ $t('pages.home.create.result') }}
             </UiText>
             <!-- <UiText as="p" class="text-center">
             {{ $t('pages.home.why.also') }}
         </UiText> -->
             <UiText as="div" data-size="big" data-color="black" class="exemple2 text-center font-bold tracking-widest">
-                {{ $t('pages.home.why.result2') }}
+                {{ $t('pages.home.create.result2') }}
             </UiText>
         </div>
+        <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
+            {{ $t('pages.home.import.title') }}
+        </UiHeading>
+        <UiText as="p" class="text-center">
+            {{ $t('pages.home.import.description') }}
+        </UiText>
         <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
             {{ $t('pages.home.share.title') }}
         </UiHeading>
