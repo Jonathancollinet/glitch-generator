@@ -25,6 +25,6 @@ const defaultGlitchConfig: GlitchConfig = {
     ranges: [[getDefaultField(0, 0, 0)]]
 }
 
-export function getDefaultGlitchConfig() {
+export default function getDefaultGlitchConfig() {
     return deepCopy(defaultGlitchConfig);
 }

@@ -15,8 +15,6 @@ const playState = ref<AnimationPlayState>("idle");
 const precision = ref(100);
 const fps = ref(144);
 
-const fpsInterval = computed(() => 1000 / fps.value);
-
 function selectAnimationAt(percent: number) {
     if (props.controller) {
         if (isRunning.value) {
@@ -83,6 +81,7 @@ function backward() {
 }
 
 const isRunning = computed(() => playState.value === "running");
+const fpsInterval = computed(() => 1000 / fps.value);
 
 const actions = {
     play,
@@ -97,6 +96,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <EditorKeyframesTimeline data-v-step="2" :precision="precision" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
+    <EditorKeyframesTimeline :precision="precision" :currentPercent="currentPercent" @selectAnimationAt="selectAnimationAt" />
     <EditorKeyframesActions :playState="playState" v-model:precision="precision" v-model:fps="fps" v-on="actions" @play="play()" @pause="pause()" />
 </template>

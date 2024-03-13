@@ -11,9 +11,12 @@ const localAnimation = defineModel<GlitchAnimation>('localConfig', { required: t
 
 const animationDurationError = computed(() => getErrorMessage(props.errors, 'animation.duration'));
 
-const updateAnimationDuration = applyUpdater<GlitchAnimation>({
+const updateAnimation = applyUpdater<GlitchAnimation>({
     obj: animation.value,
-    localObj: localAnimation.value,
+    localObj: localAnimation.value
+});
+
+const updateAnimationDuration = updateAnimation({
     key: 'duration',
     modifier: Number,
     debounced: 300
@@ -24,7 +27,9 @@ const updateAnimationDuration = applyUpdater<GlitchAnimation>({
 <template>
     <UiCard openable :isOpen="false" contentClasses="pr-0">
         <template #title>
-            <UiHeading variant="h3">{{ $t('pages.editor.config.animation.title') }}</UiHeading>
+            <UiHeading variant="h3">
+                {{ $t('pages.editor.config.animation.title') }}
+            </UiHeading>
         </template>
 
         <template #content>

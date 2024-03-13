@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { applyUpdater } from '~/utils/Toobox/utils';
+import type { UpdateFn } from '~/utils/Toobox/utils';
 
 withDefaults(defineProps<{
     label: string,
@@ -8,7 +8,7 @@ withDefaults(defineProps<{
     min?: string | number,
     max?: string | number,
     error?: string,
-    update: ReturnType<typeof applyUpdater>
+    update: UpdateFn
 }>(), {
     value: 0,
     min: '-256',

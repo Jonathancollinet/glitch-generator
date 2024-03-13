@@ -40,7 +40,7 @@ export default class Glitch {
         return this.validator.validateConfigWithErrors(config, this.config)
     }
 
-    async computeConfig(newConfig: GlitchConfig, forceRangeCompute?: boolean) {
+    computeConfig(newConfig: GlitchConfig, forceRangeCompute?: boolean) {
         const success = this.validator.validateConfig(newConfig, this.config);
 
         if (success) {
@@ -90,8 +90,8 @@ export default class Glitch {
         return this.keyframes.getKeyframesString(true);
     }
 
-    async replaceAnimationDuration(config: GlitchConfig) {
-        const validate = await this.computeConfig(config);
+    replaceAnimationDuration(config: GlitchConfig) {
+        const validate = this.computeConfig(config);
 
         if (validate) {
             this.keyframes.generateAnimation(config);
@@ -134,6 +134,7 @@ export default class Glitch {
     private generateStyle(forExport: boolean = false): GlitchBindings['textStyle'] {
         const animation: AnimationBindings = {};
         const containerStyle: ContainerBindings = {};
+        const configText = this.config.text;
 
         if (!this.keyframes.animation || forExport) {
             animation.animationName = 'glitch';
@@ -151,12 +152,12 @@ export default class Glitch {
 
         return {
             ...containerStyle,
-            fontSize: `${this.config.text.size}${this.config.text.unit}`,
-            color: hexToRGB(this.config.text.color.hex, this.config.text.color.alphaPercent),
-            height: `${this.config.text.height}px`,
-            padding: `${this.config.text.padding}px`,
-            borderRadius: `${this.config.text.borderRadius}px`,
-            backgroundColor: hexToRGB(this.config.text.bgColor.hex, this.config.text.bgColor.alphaPercent),
+            fontSize: `${configText.size}${configText.unit}`,
+            color: hexToRGB(configText.color.hex, configText.color.alphaPercent),
+            height: `${configText.height}px`,
+            padding: `${configText.padding}px`,
+            borderRadius: `${configText.borderRadius}px`,
+            backgroundColor: hexToRGB(configText.bgColor.hex, configText.bgColor.alphaPercent),
             ...animation
         }
     }

@@ -15,40 +15,35 @@ const textPaddingError = computed(() => getErrorMessage(props.errors, 'text.padd
 const textBorderRadiusError = computed(() => getErrorMessage(props.errors, 'text.borderRadius'));
 const textHeightError = computed(() => getErrorMessage(props.errors, 'text.height'));
 
-const updateTextSize = applyUpdater<GlitchBaseText>({
+const updateText = applyUpdater<GlitchBaseText>({
     obj: config.value,
     localObj: localConfig.value,
+});
+
+const updateTextSize = updateText({
     key: 'size',
     modifier: Number,
     debounced: 100
 });
 
-const updateMessage = applyUpdater<GlitchBaseText>({
-    obj: config.value,
-    localObj: localConfig.value,
+const updateMessage = updateText({
     key: 'message',
     debounced: 100
 });
 
-const updatePadding = applyUpdater<GlitchBaseText>({
-    obj: config.value,
-    localObj: localConfig.value,
+const updatePadding = updateText({
     key: 'padding',
     modifier: Number,
     debounced: 100
 });
 
-const updateBorderRadius = applyUpdater<GlitchBaseText>({
-    obj: config.value,
-    localObj: localConfig.value,
+const updateBorderRadius = updateText({
     key: 'borderRadius',
     modifier: Number,
     debounced: 100
 });
 
-const updateHeight = applyUpdater<GlitchBaseText>({
-    obj: config.value,
-    localObj: localConfig.value,
+const updateHeight = updateText({
     key: 'height',
     modifier: Number,
     debounced: 100

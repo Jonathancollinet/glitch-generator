@@ -14,6 +14,7 @@ import {
 } from '~/utils/Toobox/presets';
 import Glitch from '~/glitch';
 import * as EditorUtils from '~/utils/Editor/utils';
+import { isTourDone, redirectHelp, setTourDone } from '~/utils/Editor/tour';
 
 useSeoMeta({
     title: 'Glitch Generator - Editor',
@@ -50,6 +51,8 @@ const bindings = ref<GlitchBindings>({
         color: ""
     }
 });
+
+const { welcomeModal } = useModalWelcome(setTourDone, redirectHelp);
 
 const onRangesEvents = {
     updateField,
@@ -260,6 +263,10 @@ watch(gconfig.animation, () => {
 });
 
 onMounted(() => {
+    if (!isTourDone()) {
+        welcomeModal.open();
+    }
+
     initConfig();
 });
 
@@ -272,10 +279,10 @@ onBeforeUnmount(() => {
     <div>
         <div class="md:flex space-y-4 md:space-y-0">
             <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
-                <EditorDisplayedText data-v-step="1" ref="displayedText" v-model="currentPercent" :bindings="bindings"
+                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings"
                     :config="gconfig" :controller="glitch.controller" />
-                <EditorToolboxRanges :key="currentPreset?.id" data-v-step="5,16" :config="gconfig" :currentPercent="currentPercent"
-                    :selectedField="selectedField" v-on="onRangesEvents" />
+                <EditorToolboxRanges :key="currentPreset?.id" data-v-step="5,16" :config="gconfig"
+                    :currentPercent="currentPercent" :selectedField="selectedField" v-on="onRangesEvents" />
             </div>
             <div class="md:w-[30%] lg:w-[25%] md:ml-4">
                 <div class="flex items-center justify-between mb-4">
@@ -283,7 +290,6 @@ onBeforeUnmount(() => {
                         <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" @presetChange="presetChanged" />
                     </ClientOnly>
                     <div class="flex">
-                        <EditorTour />
                         <EditorActions :config="gconfig" :glitch="glitch" />
                     </div>
                 </div>

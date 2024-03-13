@@ -13,9 +13,12 @@ const localProperty = defineModel<GlitchShadowProperty>('localConfig', { require
 
 const spreadError = computed(() => getErrorMessage(props.errors, 'spread'));
 
-const updateSpread = applyUpdater<GlitchShadowProperty>({
+const updateBoxShadow = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     localObj: localProperty.value,
+});
+
+const updateSpread = updateBoxShadow({
     key: 'spread',
     modifier: Number,
     debounced: 100

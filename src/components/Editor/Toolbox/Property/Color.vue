@@ -25,17 +25,18 @@ const alphaPercentError = computed(() => getErrorMessage(props.errors, `${props.
 
 const presetColors = ref(useAllColors());
 
-const updateHex = applyUpdater<GlitchColor>({
+const updateColor = applyUpdater<GlitchColor>({
     obj: color.value,
-    localObj: localColor.value,
+    localObj: localColor.value
+});
+
+const updateHex = updateColor({
     key: 'hex',
     modifier: undefined,
     debounced: 100
 });
 
-const updateAlphaPercent = applyUpdater<GlitchColor>({
-    obj: color.value,
-    localObj: localColor.value,
+const updateAlphaPercent = updateColor({
     key: 'alphaPercent',
     modifier: Number,
     debounced: 100

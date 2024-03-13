@@ -20,20 +20,20 @@ const cardClasses: ClassValue[] = [
     'mb-4 last:mb-0 transition-[background-color]',
 ]
 
-const titleClass = computed(() => cn([
+const titleClass = computed(() => [
     '*:m-0 select-none transition-opacity duration-100',
     props.openable ? 'cursor-pointer hover:opacity-60' : '',
-]));
+]);
 
-const contentClass = computed(() => cn([
+const contentClass = computed(() => [
     props.noContentPad ? '' : 'px-4',
     props.openable && openToggle.value ? 'mt-2 ml-2 border-l-2 border-neutral-600' : ''
-]));
+]);
 </script>
 
 <template>
   <div :class="cn(cardClasses, props.class)">
-    <div v-if="$slots.title" :class="titleClass">
+    <div v-if="$slots.title" :class="cn(titleClass)">
         <template v-if="!openable">
             <slot name="title" />
         </template>

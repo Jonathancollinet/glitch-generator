@@ -82,12 +82,6 @@ function drag(e: DragEvent) {
     }
 }
 
-function hideGhost(e: DragEvent) {
-    if (e instanceof DragEvent) {
-        e.dataTransfer?.setDragImage(new Image(), 0, 0);
-    }
-}
-
 function updateField(field: GlitchShadowField) {
     emit('updateField', field);
 }
@@ -209,7 +203,7 @@ const nextHoveredFrameOffset = computed(() => {
             <div v-if="displaySelectableFields" class="absolute z-10 h-full w-full whitespace-nowrap">
                 <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"
                     :style="{ left: p + '%' }" @contextmenu.prevent.stop @mouseup.right="chooseFieldOffset($event, p)"
-                    v-for="(p, index) in percents"></div>
+                    v-for="(p, index) in percents" />
             </div>
         </div>
     </div>

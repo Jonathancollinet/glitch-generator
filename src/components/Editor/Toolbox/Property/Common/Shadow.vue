@@ -15,25 +15,24 @@ const offsetXError = computed(() => getErrorMessage(props.errors, `${props.name}
 const offsetYError = computed(() => getErrorMessage(props.errors, `${props.name}.offsetY`));
 const blurError = computed(() => getErrorMessage(props.errors, `${props.name}.blur`));
 
-const updateOffsetX = applyUpdater<GlitchShadowProperty>({
+const updateShadow = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     localObj: localProperty.value,
+});
+
+const updateOffsetX = updateShadow({
     key: 'offsetX',
     modifier: Number,
     debounced: 5
 });
 
-const updateOffsetY = applyUpdater<GlitchShadowProperty>({
-    obj: property.value,
-    localObj: localProperty.value,
+const updateOffsetY = updateShadow({
     key: 'offsetY',
     modifier: Number,
     debounced: 5
 });
 
-const updateBlur = applyUpdater<GlitchShadowProperty>({
-    obj: property.value,
-    localObj: localProperty.value,
+const updateBlur = updateShadow({
     key: 'blur',
     modifier: Number,
     debounced: 5

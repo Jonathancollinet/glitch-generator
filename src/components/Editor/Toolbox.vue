@@ -44,12 +44,12 @@ watch(selectedField, (field) => {
 <template>
     <div class="md:space-x-0 md:space-y-4">
         <div class="mb-4" v-if="selectedField && localSelectedField">
-            <EditorToolboxField data-v-step="7" :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
+            <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
                 v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField"
                 @closeField="closeField" />
         </div>
-        <EditorToolboxAnimation data-v-step="4" v-model:config="config.animation" v-model:localConfig="localConfig.animation"
+        <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />
-        <EditorToolboxText data-v-step="3" v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
+        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
     </div>
 </template>

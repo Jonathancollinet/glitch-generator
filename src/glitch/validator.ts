@@ -4,7 +4,6 @@ import {
     type GlitchConfig,
     type GlitchShadowField,
     type GlitchErrors,
-    GlitchAnimationProperty,
     type GlitchShadowProperties
 } from './types';
 import {

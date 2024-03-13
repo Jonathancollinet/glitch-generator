@@ -20,9 +20,7 @@ const emit = defineEmits<{
     insertField: [rangeIndex: number, offset: number],
 }>()
 
-
 const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
-
 
 const { shortcutsModal } = useModalShortcuts();
 
@@ -127,7 +125,7 @@ const cursorStyle = computed(() => {
             </div>
         </div>
         <div class="flex space-x-2">
-            <UiButton data-v-step="17" variant="link" size="link"
+            <UiButton variant="link" size="link"
                 v-tooltip="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
                 <UiIcon :icon="Icons.Add" />
             </UiButton>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { type InputVariantsProps, InputVariants } from '~/componentsVariants/Ui/Input';
 import type { HTMLAttributes } from 'vue';
-import type { applyUpdater } from '~/utils/Toobox/utils';
+import type { UpdateFn } from '~/utils/Toobox/utils';
 
 type acceptedTypes = 'textarea' | 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url' | 'color';
 
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
     name: string,
     readonly?: boolean,
     class?: HTMLAttributes['class'],
-    onUpdate?: ReturnType<typeof applyUpdater>,
+    onUpdate?: UpdateFn,
 }>(), {
     type: 'text',
     debounce: false,

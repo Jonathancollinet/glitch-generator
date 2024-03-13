@@ -32,13 +32,9 @@ function selectAnimationAt(e: MouseEvent | TouchEvent) {
         if (takeValue) {
             let percent = Math.round((x / rect.width) * 100 * props.precision) / props.precision;
 
-            if (percent < 0) {
-                percent = 0;
-            }
-            if (percent > 100) {
-                percent = 100;
-            }
-            if (percent >= 0 && percent <= 100 && props.currentPercent !== percent) {
+            percent = percent < 0 ? 0 : percent > 100 ? 100 : percent;
+
+            if (props.currentPercent !== percent) {
                 emit('selectAnimationAt', percent);
             }
         }
@@ -46,12 +42,6 @@ function selectAnimationAt(e: MouseEvent | TouchEvent) {
 }
 
 const updateTiming = debounce((e: MouseEvent | TouchEvent) => selectAnimationAt(e), 1);
-
-function hideGhost(e: DragEvent | TouchEvent) {
-    if (e instanceof DragEvent) {
-        e.dataTransfer?.setDragImage(new Image(), 0, 0);
-    }
-}
 
 function adaptCurrentWidth() {
     if (moveContainer.value) {

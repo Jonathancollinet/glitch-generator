@@ -4,28 +4,29 @@ import { GlitchAnimationProperty, type GlitchShadowField } from '~/glitch/types'
 const props = defineProps<{
     field: GlitchShadowField | undefined,
     nextHoveredFrameOffset: number,
-}>()
+}>();
 
 const textShadow = computed(() => {
     return props.field?.properties?.[GlitchAnimationProperty.TextShadow];
-})
+});
+
 const boxShadow = computed(() => {
     return props.field?.properties?.[GlitchAnimationProperty.BoxShadow];
-})
+});
 
 const formatTextShadow = computed(() => {
     const shadow = textShadow.value;
     if (shadow) {
         return `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px`;
     }
-})
+});
 
 const formatBoxShadow = computed(() => {
     const shadow = boxShadow.value;
     if (shadow) {
         return `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${shadow.spread}px`;
     }
-})
+});
 </script>
 
 <template>

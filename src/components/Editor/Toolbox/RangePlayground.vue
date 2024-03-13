@@ -2,8 +2,12 @@
 import { GlitchAnimationProperty, type GlitchShadowField } from '~/glitch/types';
 import { addFieldAtOffset } from '~/utils/Editor/utils';
 
+const props = defineProps<{
+    title?: string,
+    ranges?: GlitchShadowField[][],
+}>();
 
-const ranges = ref<GlitchShadowField[][]>([
+const ranges = ref<GlitchShadowField[][]>(props.ranges || [
     [
         {
             range: 0,
@@ -84,7 +88,7 @@ function insertField(rangeIndex: number, offset: number) {
 
 <template>
     <div>
-        <UiText class="text-neutral-500">Try shortcuts here:</UiText>
+        <UiText v-if="title" class="text-neutral-500">{{ $t(title) }}</UiText>
         <EditorToolboxRange noProperties v-for="(range, index) in ranges" :key="`${index}-${range.length}`" :textFontSize="16"
             :ranges="ranges" :range="range" :selectedField="selectedField" @selectField="selectField"
             @insertField="insertField(index, $event)" />

@@ -8,7 +8,6 @@ defineProps<{
 
 const property = defineModel<GlitchShadowProperty>('config', { required: true });
 const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
-
 </script>
 
 <template>

@@ -7,28 +7,12 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     play: []
-    pause: [],
-    forward: [],
-    backward: []
+    pause: []
 }>()
-
-const precision = defineModel<number>('precision', { required: true });
-const fps = defineModel<number>('fps', { required: true });
 
 const isRunning = computed(() => props.playState === 'running');
 const isPaused = computed(() => props.playState === 'paused' || props.playState === 'idle');
 
-const applyPrecision = (e: Event) => {
-    const value = (e.target as HTMLSelectElement).value;
-
-    precision.value = Number(value);
-}
-
-const updateFps = (e: Event) => {
-    const value = (e.target as HTMLSelectElement).value;
-
-    fps.value = Number(value);
-}
 </script>
 
 <template>

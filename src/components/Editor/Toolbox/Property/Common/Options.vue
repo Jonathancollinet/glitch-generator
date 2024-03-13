@@ -13,16 +13,17 @@ const localProperty = defineModel<GlitchShadowProperty>('localConfig', { require
 const enabledError = computed(() => getErrorMessage(props.errors, 'enabled'));
 const fillAllFramesError = computed(() => getErrorMessage(props.errors, 'fillAllFrames'));
 
-const updateEnabled = applyUpdater<GlitchShadowProperty>({
+const updateOptions = applyUpdater<GlitchShadowProperty>({
     obj: property.value,
     localObj: localProperty.value,
+});
+
+const updateEnabled = updateOptions({
     key: 'enabled',
     modifier: Boolean
 });
 
-const updateFillAllFrames = applyUpdater<GlitchShadowProperty>({
-    obj: property.value,
-    localObj: localProperty.value,
+const updateFillAllFrames = updateOptions({
     key: 'fillAllFrames',
     modifier: Boolean
 });
@@ -34,9 +35,9 @@ function getName(key: string) {
 
 <template>
     <div class="flex justify-between mb-2 *:m-0 last:mb-0">
-        <UiCheckbox data-v-step="9" :label="`pages.editor.config.field.${name}`" :name="getName('enabled')"
+        <UiCheckbox :label="`pages.editor.config.field.${name}`" :name="getName('enabled')"
             :checked="localProperty.enabled" :updateFn="updateEnabled" :error="enabledError" />
-        <UiCheckbox v-if="property.enabled" data-v-step="10" :label="`pages.editor.config.field.fillAllFrames`"
+        <UiCheckbox v-if="property.enabled" :label="`pages.editor.config.field.fillAllFrames`"
             :name="getName('fillAllFrames')" :checked="localProperty.fillAllFrames" :updateFn="updateFillAllFrames"
             :error="fillAllFramesError" />
     </div>

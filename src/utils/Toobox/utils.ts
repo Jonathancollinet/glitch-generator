@@ -1,23 +1,34 @@
 import { debounce } from "vue-debounce";
 import type { GlitchErrors, GlitchShadowField } from "~/glitch/types";
 
-type ContainerRecord<Container> = {[key in keyof Container]?: string | number | object | boolean};
+export type ContainerRecord<Container> = { [key in keyof Container]?: string | number | object | boolean };
 
-interface FieldUpdate<Container>{
+export interface Sources<Container> {
     obj: ContainerRecord<Container>,
     localObj: ContainerRecord<Container>
+}
+
+export interface FieldUpdate<Container> {
     key: keyof Container,
     modifier?: (v: string) => string | number | boolean,
     onUpdate?: (obj: ContainerRecord<Container>) => void
 }
 
-interface WithValue<Container, Value> extends FieldUpdate<Container> {
+export interface FieldUpdateWithSources<Container> extends FieldUpdate<Container>, Sources<Container> { }
+
+export interface WithValue<Container, Value> extends FieldUpdateWithSources<Container> {
     value: Value
 }
 
+export interface UpdateValue<Container> extends FieldUpdate<Container> {
+    debounced?: number
+}
+
+export type UpdateFn = (value: string | Event) => void
+
 function applyModifier<Container>({
     obj,
-    localObj, 
+    localObj,
     key,
     modifier = (v) => v,
     onUpdate = (obj) => void 0,
@@ -38,7 +49,7 @@ function applyModifier<Container>({
 
 function updateValue<Container>({
     obj,
-    localObj, 
+    localObj,
     key,
     modifier = (v) => v,
     onUpdate = (obj) => void 0,
@@ -62,12 +73,12 @@ function updateValue<Container>({
             } else {
                 targetValue = '';
             }
-    
+
             if (isCheckbox || targetValue) {
-                applyModifier<Container>({obj, localObj, key, modifier, onUpdate, value: targetValue});
+                applyModifier<Container>({ obj, localObj, key, modifier, onUpdate, value: targetValue });
             }
         } else {
-            applyModifier({obj, localObj, key, modifier, onUpdate, value});
+            applyModifier({ obj, localObj, key, modifier, onUpdate, value });
         }
     } else {
         if (localObj) {
@@ -76,19 +87,31 @@ function updateValue<Container>({
     }
 }
 
-export function applyUpdater<Container>({
+export function applyUpdater<Container>({ obj, localObj }: Sources<Container>) {
+    return getUpdateFn<Container>({ obj, localObj });
+}
+
+export function getUpdateFn<Container>({
     obj,
     localObj,
-    key,
-    modifier = (v) => v,
-    onUpdate = (obj) => void 0,
-    debounced
-}: FieldUpdate<Container> & {debounced?: number | undefined}) {
-    if (obj) {
-        if (debounced) {
-            return debounce((value: string | Event) => updateValue({obj, localObj, key, modifier, onUpdate, value}), debounced);
+}: Sources<Container>) {
+    return ({
+        key,
+        modifier = (v) => v,
+        onUpdate = (obj) => void 0,
+        debounced
+    }: UpdateValue<Container>): UpdateFn  => {
+        if (obj) {
+            if (debounced) {
+                return debounce((value: string | Event) => updateValue({ obj, localObj, key, modifier, onUpdate, value }), debounced);
+            }
+
+            return (value: string | Event) => updateValue({ obj, localObj, key, modifier, onUpdate, value });
+        } else {
+            console.error('No object to update');
+
+            return () => void 0;
         }
-        return (value: string | Event) => updateValue({obj, localObj, key, modifier, onUpdate, value});
     }
 }
 

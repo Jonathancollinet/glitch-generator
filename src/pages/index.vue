@@ -66,14 +66,14 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
     padding: 0px;
     border-radius: 0px;
     background-color: rgb(255 255 255 / 0%);
-    animation-name: glitch;
+    animation-name: neons;
     animation-duration: 3000ms;
     animation-timing-function: steps(100);
     animation-iteration-count: infinite;
     animation-play-state: running;
 }
 
-@keyframes glitch {
+@keyframes neons {
     0% {
         text-shadow: 0px 0px 0px rgb(109 86 105), 0px 0px 3px rgb(99 88 97), 0px 0px 5px rgb(99 88 97);
     }

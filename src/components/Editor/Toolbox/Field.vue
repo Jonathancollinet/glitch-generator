@@ -25,23 +25,23 @@ const emit = defineEmits<{
     removeField: [field: GlitchShadowField]
 }>();
 
-const updateOffsetFrame = applyUpdater<GlitchShadowField>({
+const updateField = applyUpdater<GlitchShadowField>({
     obj: field.value,
     localObj: localField.value,
+});
+
+const updateOffsetFrame = updateField({
     key: 'offsetFrame',
     modifier: Number
 });
 
 function propertyCardClass(property: GlitchShadowProperty) {
+    const notEnabledClasses = 'text-neutral-400 opacity-50 hover:opacity-100';
     const cls: ClassValue[] = [
         'border-transparent',
-    ]
+    ];
 
-    if (property.enabled) {
-        cls.push('');
-    } else {
-        cls.push('text-neutral-400 opacity-50 hover:opacity-100');
-    }
+    cls.push((!property.enabled && notEnabledClasses) || '')
 
     return cn(cls);
 }
@@ -58,15 +58,17 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
         <template #title>
             <div class="flex items-center justify-between">
                 <div class="flex">
-                    <UiHeading class="m-0" variant="h3">{{ $t('pages.editor.config.field.offsetFrame') }}</UiHeading>
-                    <UiFormGroup data-v-step="8"
+                    <UiHeading class="m-0" variant="h3">
+                        {{ $t('pages.editor.config.field.offsetFrame') }}
+                    </UiHeading>
+                    <UiFormGroup
                         class="m-0 ml-3" variant="inline" name="offsetFrame">
                         <UiSelect class="bg-transparent" :modelValue="localField.offsetFrame"
                             :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
                     </UiFormGroup>
                     <UiHeading class="m-0 pl-2 flex items-center" variant="h5">%</UiHeading>
                 </div>
-                <div class="flex" data-v-step="15">
+                <div class="flex">
                     <UiIcon v-tooltip="$t('pages.editor.config.field.removeField')"
                         class="cursor-pointer stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash"
                         @click="removeField" />
