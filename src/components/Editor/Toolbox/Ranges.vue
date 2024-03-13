@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { Icons } from '~/types/enums';
 import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
-import { useModalShortcuts } from '~/composables/modalShortcuts';
 import { rangeHeight } from '~/utils/constants';
 
 const props = defineProps<{
@@ -22,8 +21,6 @@ const emit = defineEmits<{
 }>();
 
 const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
-
-const { shortcutsModal } = useModalShortcuts();
 
 function resetRangeOptions() {
     showRangeOptions.value = new Array(props.config.ranges.length).fill(false);
@@ -83,10 +80,7 @@ const cursorStyle = computed(() => {
     <div class="relative">
         <div class="flex space-x-2 items-center mb-2">
             <UiHeading class="m-0" variant="h4">{{ $t('pages.editor.ranges') }}</UiHeading>
-            <UiButton v-tooltip.right="$t('pages.editor.rangeShortcuts')" class="mt-1" variant="icon" size="icon"
-                @click="shortcutsModal.open">
-                <UiIcon class="stroke-neutral-400" :icon="Icons.Cursor" />
-            </UiButton>
+            <OpenShortcuts class="mt-1" />
         </div>
         <div class="flex mb-4">
             <div class="relative z-10 w-[calc(100%-36px)]">

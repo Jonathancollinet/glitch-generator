@@ -10,7 +10,7 @@ function onClose() {
 
 <template>
     <UiModal @closed="onClose" title="modals.shortcuts.title">
-        <EditorToolboxRangePlayground class="mb-6" title="modals.shortcuts.playground" />
+        <PlaygroundRanges class="mb-6" title="modals.shortcuts.playground" />
         <UiText as="div">- {{ $t('modals.shortcuts.leftClickUp') }}</UiText>
         <UiText as="div">- {{ $t('modals.shortcuts.rightClickUp') }}</UiText>
         <UiText as="div">- {{ $t('modals.shortcuts.leftClickDrag') }}</UiText>

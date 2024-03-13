@@ -111,6 +111,7 @@ export default class GlitchKeyframes {
 
                 if (filteredProperty?.length) {
                     const lastFrameIndex = filteredProperty.length - 1;
+                    const propertyLengthInSpaces = `${property}: `.replace(/./g, ' ');
 
                     block += `${doubleTab}${property}: `;
                     filteredProperty.forEach((frame, frameIndex) => {
@@ -118,7 +119,7 @@ export default class GlitchKeyframes {
                             block += `${frame}`;
 
                             if (frameIndex !== lastFrameIndex) {
-                                block += ', ';
+                                block += `, ${newLine}${doubleTab}${propertyLengthInSpaces}`;
                             }
                         }
                     });

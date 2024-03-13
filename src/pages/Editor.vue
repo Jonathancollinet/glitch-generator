@@ -109,9 +109,9 @@ function selectFirstRangeField(range?: GlitchShadowField[]) {
     }
 }
 
-async function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
+function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
-        const bindings = await glitch.computeConfig(gconfig, forceRangeCompute);
+        const bindings = glitch.computeConfig(gconfig, forceRangeCompute);
 
         bindGlitch(bindings);
         EditorUtils.setAllColors(gconfig);
@@ -162,7 +162,7 @@ function duplicateRange(rangeIndex: number) {
     const rangeNb = gconfig.ranges.length;
 
     if (rangeNb) {
-        EditorUtils.duplicateRange(gconfig, rangeIndex);
+        EditorUtils.duplicateRange(gconfig.ranges, rangeIndex);
         computeConfig(gconfig, true);
     }
 }
@@ -190,7 +190,7 @@ function removeField(field: GlitchShadowField) {
         closeField();
     }
 
-    EditorUtils.removeField(gconfig, field);
+    EditorUtils.removeField(gconfig.ranges, field);
     selectFirstRangeField(gconfig.ranges[field.range]);
     computeConfig(gconfig, true);
 }
@@ -200,7 +200,7 @@ function removeRange(rangeIndex: number) {
         closeField();
     }
 
-    EditorUtils.removeRange(gconfig, rangeIndex);
+    EditorUtils.removeRange(gconfig.ranges, rangeIndex);
     computeConfig(gconfig, true);
 
     nextTick(() => {

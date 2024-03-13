@@ -1,31 +1,6 @@
 <script setup lang="ts">
-const ex1 =`@keyframes glitch {
-	0% {
-		text-shadow: 0px 0px 0px rgb(114 76 249);
-	}
-	50% {
-		text-shadow: 50px 25px 0px rgb(255 0 0);
-	}
-}`
-
-const ex2 = `@keyframes glitch {
-	0% {
-		text-shadow: 0px 0px 0px rgb(114 76 249), 0px 0px 0px rgb(114 76 249);
-	}
-	50% {
-		text-shadow: 50px 25px 0px rgb(255 0 0), 50px 25px 0px rgb(255 0 0);
-	}
-}`
-
-const ex3 = `@keyframes glitch {
-	0% {
-		text-shadow: 0px 0px 0px rgb(114 76 249), 0px 0px 0px rgb(114 76 249);
-	}
-	50%,
-	75% {
-		text-shadow: 50px 25px 0px rgb(255 0 0);
-	}
-}`
+import type { GlitchAnimationProperty } from '~/glitch/types';
+import { duplicateRange, reverseRangeColors } from '~/utils/Editor/utils';
 
 const fillEx1 = `@keyframes glitch {
 	0% {
@@ -147,7 +122,31 @@ const fillEx2 = `@keyframes glitch {
 	100% {
 		text-shadow: 50px 25px 0px rgb(255 0 0), 50px 25px 0px rgb(219 255 0);
 	}
-}`
+}`;
+
+const ex1 = ref(getExempleRanges());
+
+const ex1Copy = deepCopy(ex1.value);
+duplicateRange(ex1Copy, 0);
+reverseRangeColors(ex1Copy[1]);
+
+const ex2 = ref(deepCopy(ex1Copy));
+
+const ex2Copy = deepCopy(ex2.value);
+ex2Copy[1][1].offsetFrame = 75;
+
+const ex3 = ref(deepCopy(ex2Copy));
+
+const ex4 = ref(deepCopy(ex3.value).map((range) => {
+    range.forEach((field) => {
+        let property: GlitchAnimationProperty;
+        for (property in field.properties) {
+            field.properties[property].fillAllFrames = true;
+        }
+    });
+
+    return range;
+}));
 </script>
 
 <template>
@@ -160,26 +159,19 @@ const fillEx2 = `@keyframes glitch {
             <UiText as="div">- {{ $t('pages.help.keyframes.field') }}</UiText>
         </div>
         <UiText>{{ $t('pages.help.keyframes.multipleRanges') }}</UiText>
+        <UiText>{{ $t('pages.help.keyframes.visualize') }}</UiText>
+        <UiHeading variant="h4">{{ $t('pages.help.keyframes.exempleTitle') }}</UiHeading>
         <UiText>{{ $t('pages.help.keyframes.exemple') }}</UiText>
-        <img class="mb-4" src="/help/kf_ex1.png">
-        <UiText>{{ $t('pages.help.keyframes.result') }}</UiText>
-        <UiPre class="mb-4">{{ ex1 }}</UiPre>
+        <PlaygroundWithKeyframes class="mb-8" :ranges="ex1" />
         <UiText>{{ $t('pages.help.keyframes.exemple2') }}</UiText>
-        <img class="mb-4" src="/help/kf_ex2.png">
-        <UiText>{{ $t('pages.help.keyframes.result2') }}</UiText>
-        <UiPre class="mb-4">{{ ex2 }}</UiPre>
+        <PlaygroundWithKeyframes class="mb-8" :ranges="ex2" />
         <UiText>{{ $t('pages.help.keyframes.result2bis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.exemple3') }}</UiText>
-        <img class="mb-4" src="/help/kf_ex3.png">
-        <UiText>{{ $t('pages.help.keyframes.result3') }}</UiText>
-        <UiPre class="mb-4">{{ ex3 }}</UiPre>
-        <UiText>{{ $t('pages.help.keyframes.result3bis') }}</UiText>
-        <UiText>{{ $t('pages.help.keyframes.fillExemple3') }}</UiText>
-        <img class="mb-4" src="/help/kf_fill2.png">
-        <UiPre class="mb-4">{{ fillEx1 }}</UiPre>
+        <PlaygroundWithKeyframes class="mb-8" :ranges="ex3" />
         <UiText>{{ $t('pages.help.keyframes.fillExemple3result') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.introduceFill') }}</UiText>
-        <div class="flex space-x-4 mb-4">
+        <UiHeading variant="h4">{{ $t('pages.help.keyframes.fillTitle') }}</UiHeading>
+        <div class="sm:flex sm:space-x-4 mb-4">
             <img class="mb-4" src="/help/kf_fill.png">
             <div class="mt-2">
                 <UiText>- {{ $t('pages.help.keyframes.fill') }}</UiText>
@@ -189,12 +181,12 @@ const fillEx2 = `@keyframes glitch {
         </div>
         <UiText>{{ $t('pages.help.keyframes.fillExemple3resultbis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillExemple4') }}</UiText>
-        <img class="mb-4" src="/help/kf_fill3.png">
+        <PlaygroundWithKeyframes class="mb-8" :ranges="ex4" />
         <UiText>{{ $t('pages.help.keyframes.fillExemple4result') }}</UiText>
-        <UiPre class="mb-4 h-[200px]">{{ fillEx2 }}</UiPre>
         <UiText>{{ $t('pages.help.keyframes.fillExemple4resultbis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillDefault') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillImportant') }}</UiText>
+        <UiHeading variant="h4">{{ $t('pages.help.keyframes.considerations') }}</UiHeading>
         <UiText>{{ $t('pages.help.keyframes.mistakes') }}</UiText>
     </div>
 </template>

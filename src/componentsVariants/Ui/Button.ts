@@ -6,6 +6,7 @@ export const ButtonVariants = cva(
     [
         'inline-flex items-center justify-center',
         'text-base font-medium select-none',
+        'space-x-2',
         'disabled:pointer-events-none disabled:opacity-50'
     ],
     {
@@ -17,11 +18,11 @@ export const ButtonVariants = cva(
                     'disabled:text-primary-700 disabled:bg-primary-200',
                 ],
                 outline: [
-                    'border border-primary-700 text-primary-700',
+                    'border border-primary-700',
                     'hover:bg-primary-50 active:bg-primary-100',
                     'disabled:bg-transparent',
 
-                    'dark:bg-transparent dark:text-primary-300 dark:border-primary-300',
+                    'dark:bg-transparent dark:border-primary-300',
                     'dark:hover:bg-primary-950 dark:active:bg-primary-950'
                 ],
                 link: [

@@ -22,7 +22,10 @@ import {
     CloudArrowUpIcon,
     CursorArrowRaysIcon,
     ClipboardIcon,
-    CheckIcon
+    CheckIcon,
+    ArrowPathIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
 } from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
@@ -61,6 +64,9 @@ const IconMap = {
     [Icons.Cursor]: CursorArrowRaysIcon,
     [Icons.Copy]: ClipboardIcon,
     [Icons.Checked]: CheckIcon,
+    [Icons.Refresh]: ArrowPathIcon,
+    [Icons.ArrowLeft]: ArrowLeftIcon,
+    [Icons.ArrowRight]: ArrowRightIcon,
 };
 
 const icon = computed(() => IconMap[props.icon]);

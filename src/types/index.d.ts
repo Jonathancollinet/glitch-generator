@@ -6,6 +6,7 @@
 declare type IconsUnion = `${import('./enums').Icons}`;
 declare type UrlsUnion = `${import('./enums').Urls}`;
 declare type ModesUnion = `${import('./enums').Modes}`;
+declare type HelpChapterUnion = `${import('./enums').HelpChapter}`;
 
 /* 
     navigation
@@ -34,4 +35,9 @@ declare type ColorHistory = {
     g: number,
     b: number,
     a: number
+}
+
+declare type Chapter = {
+    name: HelpChapter,
+    component: Component
 }

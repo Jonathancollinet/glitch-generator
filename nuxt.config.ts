@@ -42,6 +42,7 @@ export default defineNuxtConfig({
     },
     googleFonts: {
         families: {
+            "Fira Code": true,
             "Signika Negative": true,
             "Space Grotesk": true
         }

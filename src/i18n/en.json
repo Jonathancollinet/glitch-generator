@@ -22,10 +22,10 @@
             },
             "tool": {
                 "title": "The tool",
-                "what": "The tool's main goal is to help you to create text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.",
+                "what": "The main goal is to help you to create text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.",
                 "generate": "Under the hood, the tool creates the animation with",
                 "animationAPI": "the web API Animation()",
-                "ifSupported": "if your browser supports it, or with an hot injected CSS keyframes in the header."
+                "ifSupported": "if your browser supports it, or with an injected CSS keyframes string."
             },
             "input": {
                 "title": "The input",
@@ -38,44 +38,45 @@
                 "title": "Keyframes",
                 "what": "The keyframes are the CSS at-rule used to define the styles an element will have at various times. The tool is focused on the text-shadow and box-shadow properties to create glitch-like effect.",
                 "how": "The keyframes are defined by a list of ranges.",
-                "range": "A range represents a combinable set of fields.",
+                "range": "A range represents a set of combinable fields.",
                 "field": "A field is a set of text-shadow and/or box-shadow CSS properties that will be applied to the text at a specific time.",
                 "multipleRanges": "You can have multiple ranges in the keyframes. The tool will accumulate the fields of each range to create the final animation.",
-                "exemple": "Let's say you have one range with 2 fields, one at 0%, and the other at 50%.",
-                "result": "The ouput will be:",
-                "exemple2": "What if we duplicate this range ?",
-                "result2": "The ouput will be:",
-                "result2bis": "We can see that ranges are combinable. Because we have same fields with same offset position in the keyframes, the tool understand that he have to cumulate values.",
-                "exemple3": "But now, what happens if we change the offset position of the second field to 75% in the duplicated range ?",
-                "result3": "The output will be:",
+                "visualize": "Ranges length represents the number of values which can have the shadow property.",
+                "exempleTitle": "Exemples",
+                "exemple": "One range with 2 fields, one at 0%, and the other at 50%. We have only one range, so one potential value per shadow property.",
+                "exemple2": "What happens if we duplicate this range and reverse his colors ?",
+                "result2bis": "We can see that ranges are combined. Because we have same fields with same offset in percent in the keyframes, the tool understand that he have to cumulate values.",
+                "exemple3": "What happens if we change the offset position of the second field to 75% in the duplicated range ?",
                 "result3bis": "As you can see, there is only one value for 50% and 75%. Firstly, the frame 50% in range 1 has exactly the same parameters as the frame 75% in range 2 so the tool will merge them. Secondly, there is another subtility to understand:",
+                "fillTitle": "The 'fill' option",
                 "introduceFill": "Not in this case, it's time to introduce the 'fill' option.",
                 "fill": "The 'fill' option is a boolean that indicates if the field should be applied to all the frames of the field area until the next field or range's end.",
                 "fillExemple": "In the previous exemples, every fields have the 'fill' option disabled.",
                 "fillExemple2": "If you take a look at the last ranges image, you can see a gradient from purple to red. This is because the animation will do a transition from the first field to the second field, that is the normal CSS keyframes behavior.",
                 "fillExemple3": "Let's try to change the second field's color of the second range in yellow for exemple:",
-                "fillExemple3result": "Nice, now we have a red field at 50% and yellow field at 75%. But because there are two ranges, it should be there two values, right ?",
-                "fillExemple3resultbis": "Remember, ranges are combinable. So in our exemple, with every fields with 'fill' option disabled, only both first field's range are at exact same position, so we accumulate the values. But it's not the case of the second field's ranges. So we have two values at 50% (from range 1) and 75% (from range 2.",
-                "fillExemple4": "Now, let's enable the 'fill' option for every fields:",
+                "fillExemple3result": "Because there are two ranges, it should be there two values, right ?",
+                "fillExemple3resultbis": "Remember, ranges are combinable. So in our exemple, with every fields with 'fill' option disabled, only both first field's range are at exact same position, so we accumulate the values. But it's not the case of the second field's ranges. So we have two values at 50% (from range 1) and 75% (from range 2).",
+                "fillExemple4": "With the 'fill' option enabled in every fields:",
                 "fillExemple4result": "We haven't any gradient anymore. The animation will apply the fields to all frames until the next field or animation's end. Let's check the output:",
-                "fillExemple4resultbis": "Disable the 'fill' option can be powerfull to have smooth transitions between two fields or range's end, but enable it can be usefull if you plane to specify a lot of fields.",
+                "fillExemple4resultbis": "Disable the 'fill' option can be powerfull to have smooth transitions between two fields or range's end, but enable it can be usefull if you plan to specify a lot of fields.",
                 "fillDefault": "The 'fill' option is enabled by default. Having a mix of enabled and disabled 'fill' option in multiple ranges can be tricky, you should know exactly what you are doing.",
+                "considerations": "Other considerations",
                 "fillImportant": "Always remember the 'combinable' tool behavior.",
                 "mistakes": "A common mistake is to think that the second range will 'add' a value to our property. But if in every ranges at this offset it's the only active frame, it will resolve as the first value of the property. This creates a bridge between the second and the first range. If this isn't the wanted behavior, you have to rethink the animation."
             },
             "export": {
                 "title": "Export",
                 "what": "The export feature allows you to retrieve your animation as a CSS keyframes to use it in your web project.",
-                "kind": "There are two ways to export the animation:",
+                "kind": "There are 3 ways to export the animation:",
                 "css": "Export the CSS code, gives you the keyframes at-rule and the text style class.",
+                "js": "Export the JS code with the Animation() web API.",
                 "config": "Export the configuration, it will interest you only if you want to add your creation into the built-in presets. If you want to apply your animation for built-in presets, you can open an issue 'Add preset: My Awesome Animation Name' with the configuration output on the github repository. I will treat it as soon as possible."
             },
             "import": {
                 "title": "Import",
                 "what": "The import feature allows you to import a CSS keyframes to use it in the tool.",
                 "why": "You worked hard on a keyframes and you want to visualize and edit it in the tool ? This feature is for you.",
-                "css": "You have to provide at least the preset name and the keyframe at-rule.",
-                "text": "You can optionnaly provide the text style."
+                "css": "You have to provide at least the preset name and the keyframe at-rule, optionnaly the text style."
             },
             "presets": {
                 "title": "Presets",
@@ -113,6 +114,7 @@
             "export": "Get code",
             "import": "Import",
             "config": {
+                "refresh": "Refresh",
                 "color": {
                     "textBgColorHex": "Background",
                     "textColorHex": "Color",
@@ -170,7 +172,7 @@
             "title": "Welcome to Glitch Generator",
             "content": "Glitch Generator allows you to create text/box shadow animations and get the result as a CSS Keyframe.",
             "tutorial": "It's advised to read the help page before start using the tool.",
-            "cancel": "Nah, let me just try the tool.",
+            "cancel": "Skip",
             "start": "Ok!"
         },
         "addPreset": {

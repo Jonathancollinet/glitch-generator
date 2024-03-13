@@ -23,6 +23,9 @@ export enum Icons {
     Cursor = 'CursorIcon',
     Copy = 'CopyIcon',
     Checked = 'CheckedIcon',
+    Refresh = 'RefreshIcon',
+    ArrowLeft = 'ArrowLeftIcon',
+    ArrowRight = 'ArrowRightIcon',
 }
 
 export enum Urls {
@@ -34,4 +37,13 @@ export enum Urls {
 export enum Modes {
     Move = 'move',
     Resize = 'resize'
+}
+
+export enum HelpChapter {
+    Tool = 'tool',
+    Input = 'input',
+    Keyframes = 'keyframes',
+    Export = 'export',
+    Import = 'import',
+    Presets = 'presets'
 }

@@ -5,7 +5,8 @@ import { Sketch } from '@ckpack/vue-color';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
-    name: string
+    name: string,
+    noLabel?: boolean,
     labelName?: string
 }>();
 
@@ -70,7 +71,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <UiFormGroup inline class="relative w-full mb-2" :label="`pages.editor.config.color.${hexName}`"
+    <UiFormGroup inline class="relative w-full mb-2" :label="(!noLabel && `pages.editor.config.color.${hexName}`) || ''"
         :error="hexError || alphaPercentError" v-click-outside="hideColor" @labelClick="displayColor">
         <div class="h-6 w-6 cursor-pointer hover:opacity-80"
             @click="displayColor">

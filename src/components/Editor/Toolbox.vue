@@ -12,8 +12,7 @@ const emit = defineEmits<{
     removeRange: [index: number],
     addEmptyRange: [],
     duplicateRange: [],
-    removeField: [field: GlitchShadowField],
-    closeField: []
+    removeField: [field: GlitchShadowField]
 }>();
 
 const config = defineModel<GlitchConfig>('config', { required: true });
@@ -30,23 +29,18 @@ function removeField(field: GlitchShadowField) {
     emit('removeField', field);
 }
 
-function closeField() {
-    emit('closeField');
-}
-
 watch(selectedField, (field) => {
     if (field) {
         localSelectedField.value = deepCopy(field);
     }
-}, {deep: true});
+}, { deep: true });
 </script>
 
 <template>
     <div class="md:space-x-0 md:space-y-4">
         <div class="mb-4" v-if="selectedField && localSelectedField">
             <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
-                v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField"
-                @closeField="closeField" />
+                v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField" />
         </div>
         <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
             :errors="errors" />

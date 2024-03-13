@@ -4,7 +4,6 @@
         <UiText>{{ $t('pages.help.import.what') }}</UiText>
         <UiText>{{ $t('pages.help.import.why') }}</UiText>
         <UiText>{{ $t('pages.help.import.css') }}</UiText>
-        <UiText>{{ $t('pages.help.import.text') }}</UiText>
         <OpenImportRules />
     </div>
 </template>

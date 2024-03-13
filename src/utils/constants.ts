@@ -1,4 +1,5 @@
-import { Urls } from '~/types/enums';
+import type { Component } from 'nuxt/schema';
+import { HelpChapter, Urls } from '~/types/enums';
 
 export const navigationItems: NavigationItem[] = [
     {

@@ -1,42 +1,41 @@
 import type { GlitchAnimationProperty, GlitchColor, GlitchConfig, GlitchShadowField, GlitchShadowProperty } from "~/glitch/types";
 import type { Preset } from "../Toobox/presets";
 
-export function removeRange(config: GlitchConfig, rangeIndex: number) {
-    applyToUpperRanges(rangeIndex, config, (range, index) => {
-        config.ranges[index] = range.map(field => {
+export function removeRange(ranges: GlitchShadowField[][], rangeIndex: number) {
+    applyToUpperRanges(rangeIndex, ranges, (range, index) => {
+        ranges[index] = range.map(field => {
             field.range -= 1;
             return field;
         });
     });
 
-    config.ranges.splice(rangeIndex, 1);
+    ranges.splice(rangeIndex, 1);
 }
 
-export function duplicateRange(config: GlitchConfig, rangeIndex: number) {
-    const rangeToCopy = deepCopy(config.ranges[rangeIndex]).map(field => {
+export function duplicateRange(ranges: GlitchShadowField[][], rangeIndex: number) {
+    const rangeToCopy = deepCopy(ranges[rangeIndex]).map(field => {
         field.range += 1;
 
         return field;
     });
 
-    applyToUpperRanges(rangeIndex, config, (range, index) => {
-        config.ranges[index] = range.map(field => {
+    applyToUpperRanges(rangeIndex, ranges, (range, index) => {
+        ranges[index] = range.map(field => {
             field.range += 1;
             return field;
         });
     });
 
-    config.ranges.splice(rangeIndex + 1, 0, rangeToCopy);
-
+    ranges.splice(rangeIndex + 1, 0, rangeToCopy);
 }
 
-export function removeField(config: GlitchConfig, field: GlitchShadowField) {
-    const range = config.ranges[field.range];
+export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowField) {
+    const range = ranges[field.range];
     const fieldNb = range.length;
     const index = field.index;
 
     if (fieldNb === 1) {
-        config.ranges.splice(field.range, 1);
+        ranges.splice(field.range, 1);
 
         return;
     }
@@ -53,7 +52,7 @@ export function removeField(config: GlitchConfig, field: GlitchShadowField) {
         range[1].offsetFrame = 0;
     }
 
-    config.ranges[field.range].splice(field.index, 1);
+    ranges[field.range].splice(field.index, 1);
 }
 
 export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number, offset: number) {
@@ -192,8 +191,8 @@ function applyToFieldProperties(range: GlitchShadowField[], callback: (property:
     });
 }
 
-function applyToUpperRanges(rangeIndex: number, config: GlitchConfig, callback: (range: GlitchShadowField[], index: number) => void) {
-    const rangeNb = config.ranges.length;
+function applyToUpperRanges(rangeIndex: number, ranges: GlitchShadowField[][], callback: (range: GlitchShadowField[], index: number) => void) {
+    const rangeNb = ranges.length;
 
     if (rangeIndex < (rangeNb - 1)) {
         const length = (rangeNb - 1) - rangeIndex;
@@ -201,7 +200,7 @@ function applyToUpperRanges(rangeIndex: number, config: GlitchConfig, callback: 
         for (let i = 1; i <= length; ++i) {
             const nRangeIndex = rangeIndex + i;
 
-            callback(config.ranges[nRangeIndex], nRangeIndex);
+            callback(ranges[nRangeIndex], nRangeIndex);
         }
     }
 }

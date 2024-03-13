@@ -5,8 +5,8 @@ export type TextVariantsProps = VariantProps<typeof TextVariants>;
 export const TextVariants = cva(
     [
         // global
-        'text-neutral-500',
-        'dark:text-neutral-400',
+        'text-neutral-600',
+        'dark:text-neutral-300',
 
         // p
         "data-[tag=p]:mb-2",

@@ -132,7 +132,7 @@ const fieldClass = computed(() => {
         'border border-l-0',
         'first:border-l',
         isDragging && 'active:cursor-grabbing',
-        props.isSelected ? 'first:border-4 border-4' : '',
+        props.isSelected ? 'first:border-4 border-4 !hover:opacity-90' : '',
     ]
 
     if (isDragging) {

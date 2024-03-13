@@ -4,7 +4,7 @@
 
 .fade-enter-active,
 .fade-leave-active {
-    transition-duration: 0.1s;
+    transition-duration: 50ms;
     transition-property: opacity;
     transition-timing-function: ease;
 }
@@ -21,7 +21,7 @@
 
     body {
         @apply box-border transition-colors text-neutral-700 bg-primary-100;
-        @apply dark:text-neutral-100 dark:bg-neutral-950;
+        @apply dark:text-neutral-100 dark:bg-neutral-900;
     }
 
     html,
@@ -37,6 +37,11 @@
     main>div {
         @apply container mx-auto p-4 h-full max-w-[1280px];
         @apply lg:p-12
+    }
+
+    textarea, pre {
+        font-family: 'Fira Code', monospace;
+        @apply text-sm p-2;
     }
 
     input[type=number],

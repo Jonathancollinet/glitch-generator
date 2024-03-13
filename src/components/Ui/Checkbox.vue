@@ -8,7 +8,7 @@ const props = defineProps<{
     variant?: CheckboxVariantsProps['variant'],
     size?: CheckboxVariantsProps['size'],
     label: string,
-    error: string | undefined,
+    error?: string,
     name: string,
     checked: boolean,
     updateFn: ((event: Event) => void) | undefined,
