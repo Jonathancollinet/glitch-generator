@@ -4,6 +4,7 @@ import type { GlitchShadowField } from '~/glitch/types';
 
 const props = defineProps<{
     ranges?: GlitchShadowField[][],
+    name: string,
 }>();
 
 const config = getDefaultGlitchConfig();
@@ -46,7 +47,7 @@ onMounted(() => {
 
 <template>
     <div class="p-4 bg-primary-200 dark:bg-primary-950" :key="refresh">
-        <PlaygroundFieldOptions :key="selectedIndexes" class="mb-2" :selectedField="selectedField" @reset="reset" />
+        <PlaygroundFieldOptions :key="selectedIndexes" :name="name" class="mb-2" :selectedField="selectedField" @reset="reset" />
         <PlaygroundRanges class="mb-4" :ranges="gconfig.ranges" @selectField="selectField" />
         <UiPre class="p-0">{{ keyframes }}</UiPre>
     </div>

@@ -4,6 +4,7 @@ import { Icons } from '~/types/enums';
 
 const props = defineProps<{
     selectedField?: GlitchShadowField,
+    name: string
 }>();
 
 const emit = defineEmits<{
@@ -12,6 +13,10 @@ const emit = defineEmits<{
 
 function reset() {
     emit('reset');
+}
+
+function getName(key: string) {
+    return `${props.name}.${key}`;
 }
 
 const textShadow = computed(() => props.selectedField?.properties[GlitchAnimationProperty.TextShadow]);
@@ -26,14 +31,16 @@ const boxShadow = computed(() => props.selectedField?.properties[GlitchAnimation
             </UiHeading>
             <div class="flex space-x-4">
                 <div class="flex items-center" v-if="textShadow">
-                    <EditorToolboxPropertyCommonOptions class="space-x-2 !mb-0" :errors="{}" name="textShadow"
-                        v-model:config="textShadow" v-model:localConfig="textShadow" />
+                    <EditorToolboxPropertyCommonOptions class="space-x-2 !mb-0" :errors="{}"
+                        label="pages.editor.config.field.textShadow" :name="getName('textShadow')" v-model:config="textShadow"
+                        v-model:localConfig="textShadow" />
                     <EditorToolboxPropertyColor v-if="textShadow.enabled" noLabel :errors="{}" name="textColor"
                         v-model:config="textShadow.color" v-model:localConfig="textShadow.color" />
                 </div>
                 <div class="flex items-center" v-if="boxShadow">
-                    <EditorToolboxPropertyCommonOptions class="space-x-2 !mb-0" :errors="{}" name="boxShadow"
-                        v-model:config="boxShadow" v-model:localConfig="boxShadow" />
+                    <EditorToolboxPropertyCommonOptions class="space-x-2 !mb-0" :errors="{}"
+                        label="pages.editor.config.field.boxShadow" :name="getName('boxShadow')" v-model:config="boxShadow"
+                        v-model:localConfig="boxShadow" />
                     <EditorToolboxPropertyColor v-if="boxShadow.enabled" noLabel :errors="{}" name="textColor"
                         v-model:config="boxShadow.color" v-model:localConfig="boxShadow.color" />
                 </div>

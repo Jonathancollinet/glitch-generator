@@ -162,12 +162,12 @@ const ex4 = ref(deepCopy(ex3.value).map((range) => {
         <UiText>{{ $t('pages.help.keyframes.visualize') }}</UiText>
         <UiHeading variant="h4">{{ $t('pages.help.keyframes.exempleTitle') }}</UiHeading>
         <UiText>{{ $t('pages.help.keyframes.exemple') }}</UiText>
-        <PlaygroundWithKeyframes class="mb-8" :ranges="ex1" />
+        <PlaygroundWithKeyframes class="mb-8" name="ex1" :ranges="ex1" />
         <UiText>{{ $t('pages.help.keyframes.exemple2') }}</UiText>
-        <PlaygroundWithKeyframes class="mb-8" :ranges="ex2" />
+        <PlaygroundWithKeyframes class="mb-8" name="ex2" :ranges="ex2" />
         <UiText>{{ $t('pages.help.keyframes.result2bis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.exemple3') }}</UiText>
-        <PlaygroundWithKeyframes class="mb-8" :ranges="ex3" />
+        <PlaygroundWithKeyframes class="mb-8" name="ex3" :ranges="ex3" />
         <UiText>{{ $t('pages.help.keyframes.fillExemple3result') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.introduceFill') }}</UiText>
         <UiHeading variant="h4">{{ $t('pages.help.keyframes.fillTitle') }}</UiHeading>
@@ -181,7 +181,7 @@ const ex4 = ref(deepCopy(ex3.value).map((range) => {
         </div>
         <UiText>{{ $t('pages.help.keyframes.fillExemple3resultbis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillExemple4') }}</UiText>
-        <PlaygroundWithKeyframes class="mb-8" :ranges="ex4" />
+        <PlaygroundWithKeyframes class="mb-8" name="ex4" :ranges="ex4" />
         <UiText>{{ $t('pages.help.keyframes.fillExemple4result') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillExemple4resultbis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillDefault') }}</UiText>
