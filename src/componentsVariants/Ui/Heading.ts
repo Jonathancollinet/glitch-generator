@@ -14,6 +14,7 @@ export const HeadingVariants = cva(
                 h3: 'text-2xl mb-2 mt-4',
                 h4: 'text-xl mb-1 mt-4',
                 h5: 'text-lg mb-1 mt-4',
+                h6: 'text-base mb-1 mt-4',
             }
         },
         defaultVariants: {

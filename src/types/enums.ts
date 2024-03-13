@@ -22,6 +22,7 @@ export enum Icons {
     EyeSlash = 'EyeSlashIcon',
     Cursor = 'CursorIcon',
     Copy = 'CopyIcon',
+    Checked = 'CheckedIcon',
 }
 
 export enum Urls {

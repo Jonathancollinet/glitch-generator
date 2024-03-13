@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { useModalImportRules } from '~/composables/modalImportRules';
-
-const props = defineProps<{
+defineProps<{
     errors: Record<string, string>
 }>();
 
@@ -13,8 +11,6 @@ const emit = defineEmits<{
 const textStyle = ref('');
 const importedCode = ref('');
 const presetName = ref('');
-
-const { importRulesModal } = useModalImportRules();
 
 function onCancel() {
     emit('cancel')
@@ -29,9 +25,7 @@ function onImport() {
     <UiModal contentClass="w-auto" @closed="onCancel" title="modals.import.title">
         <UiText>
             {{ $t('modals.import.description') }}
-            <UiButton class="font-bold text-red-500 hover:text-red-400" variant="link" size="link" @click="importRulesModal.open">
-                {{ $t('modals.import.rules.action') }}
-            </UiButton>
+            <OpenImportRules />
         </UiText>
 
         <div class="w-full">

@@ -15,10 +15,6 @@ export const ButtonVariants = cva(
                     'bg-primary-500 text-neutral-50 *:stroke-neutral-50',
                     'hover:bg-primary-600 active:bg-primary-700',
                     'disabled:text-primary-700 disabled:bg-primary-200',
-
-                    // 'dark:bg-primary-400',
-                    // 'dark:hover:bg-primary-300 dark:active:bg-primary-500',
-                    // 'dark:disabled:bg-primary-800 dark:disabled:text-primary-100'
                 ],
                 outline: [
                     'border border-primary-700 text-primary-700',
@@ -28,15 +24,8 @@ export const ButtonVariants = cva(
                     'dark:bg-transparent dark:text-primary-300 dark:border-primary-300',
                     'dark:hover:bg-primary-950 dark:active:bg-primary-950'
                 ],
-                ghost: [
-                    'text-neutral-50 bg-primary-200',
-                    'hover:bg-primary-300 active:bg-primary-300',
-                    'disabled:text-primary-200 disabled:bg-transparent',
-
-                    'dark:hover:bg-primary-950 dark:active:bg-primary-900'
-                ],
                 link: [
-                    'hover:text-primary-500'
+                    'hover:text-primary-400'
                 ],
                 icon: [
                 ]
@@ -48,10 +37,18 @@ export const ButtonVariants = cva(
                 icon: 'h-6 w-6',
                 link: 'text-sm'
             },
+            color: {
+                default: '',
+                danger: [
+                    'text-red-500 hover:text-red-400',
+                    'dark:text-red-500 dark:hover:text-red-400'
+                ],
+            }
         },
         defaultVariants: {
             variant: 'default',
             size: 'default',
+            color: 'default'
         },
     },
 );

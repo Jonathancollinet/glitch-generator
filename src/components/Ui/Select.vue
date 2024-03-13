@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'class-variance-authority/types';
 import type { HTMLAttributes } from 'vue';
+import { SelectVariants, type SelectVariantsProps } from '~/componentsVariants/Ui/Select';
 
 type Option = string | number | { [key: string]: any };
 
 const props = defineProps<{
     class?: HTMLAttributes['class'],
+    variant?: SelectVariantsProps['variant'],
+    size?: SelectVariantsProps['size'],
     options: Array<Option>,
     labelKey?: string,
     valueKey?: string
@@ -36,18 +39,11 @@ const optionValue = (option: Option) => {
 
     return option;
 }
-
-const selectClass: ClassValue[] = [
-    'outline-none cursor-pointer',
-    'bg-transparent select-none',
-    'border-b-2 border-r-2',
-    'dark:ring-primary-50'
-]
 </script>
 
 <template>
-    <select v-model="value" :class="cn(selectClass, props.class ?? '')" @change="onChange">
-        <option class="text-neutral-900" v-for="(option, index) in props.options" :key="index"
+    <select v-model="value" :class="cn(SelectVariants({ variant, size }), props.class ?? '')" @change="onChange">
+        <option class="text-neutral-800" v-for="(option, index) in props.options" :key="index"
             :value="optionValue(option)">{{ optionLabel(option) }}</option>
     </select>
 </template>

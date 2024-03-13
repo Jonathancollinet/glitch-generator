@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'class-variance-authority/types';
 import type { HTMLAttributes } from 'vue';
+import { CardVariants, type CardVariantsProps } from '~/componentsVariants/Ui/Card';
 import { Icons } from '~/types/enums';
 
 const props = withDefaults(defineProps<{
     class?: HTMLAttributes['class'],
+    variant?: CardVariantsProps['variant'],
+    size?: CardVariantsProps['size'],
     openable?: boolean,
     isOpen?: boolean,
     contentClasses?: ClassValue,
@@ -15,10 +18,6 @@ const props = withDefaults(defineProps<{
 });
 
 const openToggle = ref(props.isOpen);
-
-const cardClasses: ClassValue[] = [
-    'mb-4 last:mb-0 transition-[background-color]',
-]
 
 const titleClass = computed(() => [
     '*:m-0 select-none transition-opacity duration-100',
@@ -32,20 +31,20 @@ const contentClass = computed(() => [
 </script>
 
 <template>
-  <div :class="cn(cardClasses, props.class)">
-    <div v-if="$slots.title" :class="cn(titleClass)">
-        <template v-if="!openable">
-            <slot name="title" />
-        </template>
-        <template v-else>
-            <div class="*:m-0 flex items-center justify-between select-none" @click="openToggle = !openToggle">
+    <div :class="cn(CardVariants({ variant, size }), props.class)">
+        <div v-if="$slots.title" :class="cn(titleClass)">
+            <template v-if="!openable">
                 <slot name="title" />
-                <UiIcon :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown" />
-            </div>
-        </template>
-    </div>
-    <div :class="cn(contentClass, props.contentClasses)" v-if="openToggle">
+            </template>
+            <template v-else>
+                <div class="*:m-0 flex items-center justify-between select-none" @click="openToggle = !openToggle">
+                    <slot name="title" />
+                    <UiIcon :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown" />
+                </div>
+            </template>
+        </div>
+        <div :class="cn(contentClass, props.contentClasses)" v-if="openToggle">
             <slot name="content" />
         </div>
-  </div>
+    </div>
 </template>

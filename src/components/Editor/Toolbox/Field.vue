@@ -61,8 +61,7 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                     <UiHeading class="m-0" variant="h3">
                         {{ $t('pages.editor.config.field.offsetFrame') }}
                     </UiHeading>
-                    <UiFormGroup
-                        class="m-0 ml-3" variant="inline" name="offsetFrame">
+                    <UiFormGroup class="m-0 ml-3" variant="inline" name="offsetFrame">
                         <UiSelect class="bg-transparent" :modelValue="localField.offsetFrame"
                             :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
                     </UiFormGroup>

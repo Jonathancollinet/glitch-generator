@@ -88,7 +88,7 @@ function insertField(rangeIndex: number, offset: number) {
 
 <template>
     <div>
-        <UiText v-if="title" class="text-neutral-500">{{ $t(title) }}</UiText>
+        <UiText as="div" data-color="black" v-if="title">{{ $t(title) }}</UiText>
         <EditorToolboxRange noProperties v-for="(range, index) in ranges" :key="`${index}-${range.length}`" :textFontSize="16"
             :ranges="ranges" :range="range" :selectedField="selectedField" @selectField="selectField"
             @insertField="insertField(index, $event)" />

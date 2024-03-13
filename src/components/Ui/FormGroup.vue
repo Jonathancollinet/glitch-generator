@@ -19,17 +19,17 @@ const props = defineProps<{
         <slot name="before" />
         <template v-if="inline">
             <div class="flex items-center justify-between">
-                <label class="min-w-[40px] select-none block text-left text-neutral-500 dark:text-neutral-400" v-if="label" :for="name">{{ $t(label) }}</label>
+                <UiText as="label" class="min-w-[40px] select-none text-left" v-if="label" :for="name">{{ $t(label) }}</UiText>
                 <div class="flex items-center justify-end">
                     <slot />
                 </div>
             </div>
-            <UiText v-if="error" as="div" class="text-xs mt-1 text-red-600 italic">{{ $t(error) }}</UiText>
+            <UiText v-if="error" as="div" data-color="danger" data-size="xs" class="mt-1 italic">{{ $t(error) }}</UiText>
         </template>
         <template v-else>
-            <label class="select-none block pl-1 first:pl-0" v-if="label" :for="name">{{ $t(label) }}</label>
+            <UiText as="label" class="select-none pl-1 first:pl-0" v-if="label" :for="name">{{ $t(label) }}</UiText>
             <slot />
-            <UiText v-if="error" as="div" class="text-xs mt-1 text-red-600 italic">{{ $t(error) }}</UiText>
+            <UiText v-if="error" as="div" data-color="danger" data-size="xs" class="mt-1 italic">{{ $t(error) }}</UiText>
         </template>
     </div>
 </template>

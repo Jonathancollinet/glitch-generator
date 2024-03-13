@@ -42,6 +42,14 @@ const updateAlphaPercent = updateColor({
     debounced: 100
 });
 
+function displayColor() {
+    displaySketch.value = true;
+}
+
+function hideColor() {
+    displaySketch.value = false;
+}
+
 watch(colors, (newVal) => {
     if (updateHex) {
         updateHex(newVal.hex.toLowerCase());
@@ -64,12 +72,12 @@ onMounted(() => {
 
 <template>
     <UiFormGroup inline class="relative w-full mb-2" :label="`pages.editor.config.color.${hexName}`"
-        :error="hexError || alphaPercentError" v-click-outside="() => displaySketch = false">
-        <div class="h-6 w-6 cursor-pointer hover:opacity-80 border-4 border-primary-200 bg-[white]"
-            @click="displaySketch = true">
-            <div class="h-full w-full" :style="{ background: hexToRGB(localColor.hex, localColor.alphaPercent) }"></div>
+        :error="hexError || alphaPercentError" v-click-outside="hideColor" @labelClick="displayColor">
+        <div class="h-6 w-6 cursor-pointer hover:opacity-80"
+            @click="displayColor">
+            <EditorToolboxColorDisplay :color="localColor" />
         </div>
-        <Sketch :key="presetColors.toString()" class="!absolute z-10 top-0 left-0" v-if="displaySketch" v-model="colors"
+        <Sketch v-if="displaySketch" :key="presetColors.toString()" class="!absolute z-10 top-0 left-0" v-model="colors"
             :presetColors="presetColors" />
     </UiFormGroup>
 </template>

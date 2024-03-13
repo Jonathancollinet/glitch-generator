@@ -1,7 +1,11 @@
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue';
+import { RangeVariants, type RangeVariantsProps } from '~/componentsVariants/Ui/Range';
 import type { UpdateFn } from '~/utils/Toobox/utils';
 
-defineProps<{
+const props = defineProps<{
+    class?: HTMLAttributes['class'],
+    variant?: RangeVariantsProps['variant'],
     min: string | number,
     max: string | number,
     modelValue: string | number,
@@ -10,5 +14,6 @@ defineProps<{
 </script>
 
 <template>
-    <input class="cursor-pointer" type="range" :min="min" :max="max" :value="modelValue" @input="onUpdate" />
+    <input :class="cn(RangeVariants({ variant }), props.class ?? '')" type="range" :min="min" :max="max"
+        :value="modelValue" @input="onUpdate" />
 </template>

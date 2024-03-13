@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue';
 import { TextVariants } from '~/componentsVariants/Ui/Text';
 
 const props = withDefaults(defineProps<{
-	as?: 'div' | 'span' | 'p',
+	as?: 'div' | 'span' | 'p' | 'label',
     class?: HTMLAttributes['class'],
 }>(), {
     as: 'p',

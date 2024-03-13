@@ -27,13 +27,13 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
             {{ $t('pages.home.why.description') }}
         </UiText>
         <div class="my-24">
-            <UiText as="div" class="exemple text-center text-4xl mb-16 font-bold tracking-widest">
+            <UiText as="div" data-size="big" data-color="black" class="exemple text-center mb-16 font-bold tracking-widest">
                 {{ $t('pages.home.why.result') }}
             </UiText>
             <!-- <UiText as="p" class="text-center">
             {{ $t('pages.home.why.also') }}
         </UiText> -->
-            <UiText as="div" class="exemple2 text-center text-4xl font-bold tracking-widest">
+            <UiText as="div" data-size="big" data-color="black" class="exemple2 text-center font-bold tracking-widest">
                 {{ $t('pages.home.why.result2') }}
             </UiText>
         </div>

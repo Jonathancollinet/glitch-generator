@@ -21,7 +21,8 @@ import {
     EyeSlashIcon,
     CloudArrowUpIcon,
     CursorArrowRaysIcon,
-    ClipboardIcon
+    ClipboardIcon,
+    CheckIcon
 } from '@heroicons/vue/24/outline';
 import GithubIcon from './Icons/Github.vue';
 import { Icons } from '~/types/enums';
@@ -30,7 +31,7 @@ import { IconVariants, type IconVariantsProps } from '~/componentsVariants/Ui/Ic
 import type { HTMLAttributes } from 'vue';
 
 const props = defineProps<{
-	variant?: IconVariantsProps['variant']
+	variant?: IconVariantsProps['variant'],
     icon: IconsUnion,
     class?: HTMLAttributes['class'],
 }>();
@@ -58,7 +59,8 @@ const IconMap = {
     [Icons.Help]: QuestionMarkCircleIcon,
     [Icons.EyeSlash]: EyeSlashIcon,
     [Icons.Cursor]: CursorArrowRaysIcon,
-    [Icons.Copy]: ClipboardIcon
+    [Icons.Copy]: ClipboardIcon,
+    [Icons.Checked]: CheckIcon,
 };
 
 const icon = computed(() => IconMap[props.icon]);
