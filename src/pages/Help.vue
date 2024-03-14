@@ -82,7 +82,7 @@ const nextChapter = computed(() => {
                 @activeChapter="changeChapter" />
         </div>
         <div class="space-y-8 mb-12" :id="activeChapter.name">
-            <NuxtPage></NuxtPage>
+            <NuxtPage />
         </div>
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row md:w-full sm:justify-between sm:items-center">
             <UiButton v-if="previousChapter" variant="outline" @click="previous">

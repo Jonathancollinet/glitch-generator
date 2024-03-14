@@ -1,6 +1,8 @@
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineNuxtConfig({
-    sourcemap: process.env.NODE_ENV !== 'production',
-    devtools: { enabled: process.env.NODE_ENV !== 'production' },
+    sourcemap: isProduction,
+    devtools: { enabled: isProduction },
     srcDir: 'src/',
     typescript: {
         typeCheck: true,
@@ -16,7 +18,6 @@ export default defineNuxtConfig({
         '@nuxtjs/google-fonts'
     ],
     build: {
-        analyze: true,
         transpile: [
             'vue-debounce'
         ]

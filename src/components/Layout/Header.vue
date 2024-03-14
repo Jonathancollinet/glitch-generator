@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { ClassValue } from 'class-variance-authority/types';
 import { Icons } from '~/types/enums';
+import { navigationItems } from "~/utils/constants";
 
 const colorMode = useColorMode()
-const navigationItems = useNavigationItems();
 const refColorMode = ref(colorMode);
 
 const darkModeIcon = computed(() => {

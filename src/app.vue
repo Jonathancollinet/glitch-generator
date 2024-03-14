@@ -5,9 +5,9 @@ useHead({
     title: 'Glitch Generator',
     link: [
         {
-            rel:"apple-touch-icon",
-            sizes:"120x120",
-            href:"/apple-touch-icon.png"
+            rel: "apple-touch-icon",
+            sizes: "120x120",
+            href: "/apple-touch-icon.png"
         },
         {
             rel: "icon",
@@ -45,11 +45,12 @@ useHead({
 </script>
 
 <template>
-  <NuxtLayout>
-	  <NuxtPage :transition="{
-        name: 'fade',
-        mode: 'out-in'
-      }" />
-  </NuxtLayout>
-  <ModalsContainer/>
+    <LayoutHeader />
+    <main>
+        <div>
+            <NuxtPage />
+            <LayoutFooter />
+        </div>
+    </main>
+    <ModalsContainer />
 </template>

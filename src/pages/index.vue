@@ -8,8 +8,6 @@ useSeoMeta({
     ogDescription: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
     ogImage: ''
 });
-
-const editorRoute = useNavigationItem(Urls.Editor)?.to;
 </script>
 
 <template>
@@ -46,7 +44,7 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
         <UiText class="text-center">
             {{ $t('pages.home.share.description') }}
         </UiText>
-        <UiLink class="mt-8" v-if="editorRoute" :to="editorRoute">
+        <UiLink class="mt-8" :to="Urls.Editor">
             <UiButton as="div">
                 {{ $t('pages.home.share.button') }}
             </UiButton>
