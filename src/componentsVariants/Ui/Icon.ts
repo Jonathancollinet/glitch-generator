@@ -29,10 +29,20 @@ export const IconVariants = cva(
                 sm: "w-4 h-4",
                 lg: "w-8 h-8",
             },
+            color: {
+                default: '',
+                danger: [
+                    'stroke-red-600',
+                    'hover:stroke-red-400',
+                    'dark:stroke-red-400',
+                    'dark:hover:stroke-red-200',
+                ]
+            }
         },
         defaultVariants: {
             variant: 'default',
             size: 'default',
+            color: 'default'
         }
     }
 );

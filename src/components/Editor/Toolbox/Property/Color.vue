@@ -2,12 +2,14 @@
 import type { GlitchColor, GlitchErrors } from '~/glitch/types';
 import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils';
 import { Sketch } from '@ckpack/vue-color';
+import type { ClassValue } from 'class-variance-authority/types';
 
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
     name: string,
     noLabel?: boolean,
-    labelName?: string
+    labelName?: string,
+    colorClasses?: string
 }>();
 
 const localName = computed(() => props.labelName || props.name);
@@ -68,16 +70,20 @@ onMounted(() => {
         }
     }
 });
+
+const containerColorClasses: ClassValue[] = [
+    'h-4 w-4 cursor-pointer hover:opacity-80'
+];
 </script>
 
 <template>
     <UiFormGroup inline class="relative w-full mb-2" :label="(!noLabel && `pages.editor.config.color.${hexName}`) || ''"
         :error="hexError || alphaPercentError" v-click-outside="hideColor" @labelClick="displayColor">
-        <div class="h-6 w-6 cursor-pointer hover:opacity-80"
+        <div :class="cn(containerColorClasses, colorClasses ?? '')"
             @click="displayColor">
             <EditorToolboxColorDisplay :color="localColor" />
         </div>
-        <Sketch v-if="displaySketch" :key="presetColors.toString()" class="!absolute z-10 top-0 left-0" v-model="colors"
+        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0" v-model="colors"
             :presetColors="presetColors" />
     </UiFormGroup>
 </template>

@@ -35,6 +35,8 @@ import type { HTMLAttributes } from 'vue';
 
 const props = defineProps<{
 	variant?: IconVariantsProps['variant'],
+    size?: IconVariantsProps['size'],
+    color?: IconVariantsProps['color'],
     icon: IconsUnion,
     class?: HTMLAttributes['class'],
 }>();
@@ -73,5 +75,5 @@ const icon = computed(() => IconMap[props.icon]);
 </script>
 
 <template>
-    <component :is="icon" :class="cn(IconVariants({ variant }), props.class ?? '')" />
+    <component :is="icon" :class="cn(IconVariants({ variant, size, color }), props.class ?? '')" />
 </template>

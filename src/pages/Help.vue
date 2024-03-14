@@ -4,8 +4,8 @@ import { HelpChapter, Icons } from '~/types/enums';
 useSeoMeta({
     title: 'Glitch Generator - Help',
     ogTitle: 'Glitch Generator - Help',
-    description: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
-    ogDescription: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    description: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
+    ogDescription: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
     ogImage: ''
 });
 

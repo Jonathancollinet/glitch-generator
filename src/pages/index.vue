@@ -4,8 +4,8 @@ import { Urls } from '~/types/enums';
 useSeoMeta({
     title: 'Glitch Generator - Home',
     ogTitle: 'Glitch Generator - Home',
-    description: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
-    ogDescription: 'Helps you to create complex text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.',
+    description: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
+    ogDescription: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
     ogImage: ''
 });
 
@@ -67,7 +67,6 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
     align-items: center;
     justify-content: center;
     font-size: 42px;
-    color: rgb(0 0 0 / 0%);
     height: 0px;
     padding: 0px;
     border-radius: 0px;

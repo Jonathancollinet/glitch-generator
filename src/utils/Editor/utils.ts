@@ -1,6 +1,23 @@
 import type { GlitchAnimationProperty, GlitchColor, GlitchConfig, GlitchShadowField, GlitchShadowProperty } from "~/glitch/types";
 import type { Preset } from "../Toobox/presets";
 
+export function getFieldsToUpdate(ranges: GlitchShadowField[][], newField: GlitchShadowField) {
+    const range = ranges[newField.range];
+    const previousField = range[newField.index - 1];
+    const nextField = range[newField.index + 1];
+    const batch = [newField];
+
+    if (previousField) {
+        batch.splice(0, 0, previousField);
+    }
+
+    if (nextField) {
+        batch.push(nextField);
+    }
+
+    return batch;
+}
+
 export function removeRange(ranges: GlitchShadowField[][], rangeIndex: number) {
     applyToUpperRanges(rangeIndex, ranges, (range, index) => {
         ranges[index] = range.map(field => {

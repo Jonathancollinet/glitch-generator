@@ -5,6 +5,7 @@ import { addFieldAtOffset } from '~/utils/Editor/utils';
 const props = defineProps<{
     title?: string,
     ranges?: GlitchShadowField[][],
+    selectedField?: GlitchShadowField,
 }>();
 
 const emit = defineEmits<{
@@ -13,7 +14,7 @@ const emit = defineEmits<{
 
 const ranges = ref<GlitchShadowField[][]>(props.ranges || getExempleRanges());
 
-const selectedField = ref<GlitchShadowField>();
+const selectedField = ref<GlitchShadowField | undefined>(props.selectedField);
 
 function selectField(field: GlitchShadowField) {
     selectedField.value = field;
@@ -23,8 +24,12 @@ function selectField(field: GlitchShadowField) {
 function insertField(rangeIndex: number, offset: number) {
     const range = ranges.value[rangeIndex];
 
-    addFieldAtOffset(range, rangeIndex, offset) 
+    addFieldAtOffset(range, rangeIndex, offset);
 }
+
+watch(() => props.selectedField, () => {
+    selectedField.value = props.selectedField;
+});
 </script>
 
 <template>

@@ -88,21 +88,21 @@
         },
         "home": {
             "title": "Glitch Generator",
-            "description": "Glitch editor based on the text-shadow & box-shadow CSS properties.",
+            "description": "Animation editor based on the text-shadow & box-shadow CSS properties.",
             "create": {
                 "title": "Create",
-                "description": "The editor provides you many tools to work on a CSS keyframes at-rule.",
+                "description": "The editor provides you features to work on a CSS keyframes at-rule.",
                 "result": "This is the result.",
                 "also": "Type whatever you want and see the magic happen!",
                 "result2": "👽 🔊 🌎"
             },
             "import": {
                 "title": "Import",
-                "description": "Working on a keyframe ? Import it to visualize/edit it directly from the editor."
+                "description": "Working on a keyframe ? Import from the editor to visualize/edit it."
             },
             "share": {
                 "title": "Export",
-                "description": "Retrieve your animation as a CSS keyframe.",
+                "description": "Get your animation in CSS or JS and insert it in your project.",
                 "button": "Try it!"
             }
         },

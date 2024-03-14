@@ -181,7 +181,7 @@ const propertyPosition = computed(() => {
 
 const nextHoveredFrameOffset = computed(() => {
     if (fieldPropertiesToShow.value) {
-        return (props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ?? 100);
+        return (props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ?? 101);
     }
 
     return 100;

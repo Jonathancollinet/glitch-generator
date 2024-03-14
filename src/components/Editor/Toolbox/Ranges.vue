@@ -68,12 +68,6 @@ function addEmptyRange() {
 function selectField(field: GlitchShadowField) {
     emit('selectField', field);
 }
-
-const cursorStyle = computed(() => {
-    return {
-        left: `calc(${props.currentPercent}% - 1px)`
-    }
-});
 </script>
 
 <template>
@@ -85,9 +79,7 @@ const cursorStyle = computed(() => {
         <div class="flex mb-4">
             <div class="relative z-10 w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <div v-if="config.controls"
-                        class="absolute z-20 h-full pointer-events-none bg-neutral-950 w-[2px] top-0 will-change-auto dark:bg-neutral-50"
-                        :style="cursorStyle" />
+                    <EditorKeyframesCursor v-if="config.controls" :currentPercent="currentPercent" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in config.ranges" :key="`${index}-${range.length}`"
                     :selectedField="selectedField" :textFontSize="config.text.size" :ranges="config.ranges"
@@ -96,8 +88,7 @@ const cursorStyle = computed(() => {
             </div>
             <div class="w-[36px]" v-click-outside="resetRangeOptions">
                 <div class="relative top-0 w-full pl-[12px] mb-2 last:mb-0 flex items-center"
-                    :style="{height: rangeHeight + 'px'}"
-                    v-for="(range, index) in config.ranges" :key="index">
+                    :style="{ height: rangeHeight + 'px' }" v-for="(range, index) in config.ranges" :key="index">
                     <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')"
                         @click="displayRangeOptions(index)">
                         <UiTooltipContent class="whitespace-nowrap -translate-x-[calc(100%+24px)] *:justify-start"
@@ -121,8 +112,8 @@ const cursorStyle = computed(() => {
             </div>
         </div>
         <div class="flex space-x-2">
-            <UiButton variant="link" size="link"
-                v-tooltip="$t('pages.editor.config.ranges.actions.addEmptyRange')" @click="addEmptyRange">
+            <UiButton variant="link" size="link" v-tooltip="$t('pages.editor.config.ranges.actions.addEmptyRange')"
+                @click="addEmptyRange">
                 <UiIcon :icon="Icons.Add" />
             </UiButton>
         </div>

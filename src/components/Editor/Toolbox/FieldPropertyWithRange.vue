@@ -19,7 +19,7 @@ withDefaults(defineProps<{
 <template>
     <UiFormGroup inline :label="label" class="w-full ml-0" :error="error" :name="name">
         <UiInput class="w-[40px]" alignment="center" type="tel" :name="name" :modelValue="value" :onUpdate="update" />
-        <UiRange class="ml-2 w-[calc(100%-40px)] max-w-[75px] xl:max-w-full" :min="min" :max="max" :modelValue="value"
+        <UiRange class="ml-2 w-[calc(75%-40px)] md:max-w-[100px] lg:max-w-full lg:w-[calc(90%-40px)]" :min="min" :max="max" :modelValue="value"
             :onUpdate="update" />
     </UiFormGroup>
 </template>

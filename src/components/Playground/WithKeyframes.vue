@@ -28,7 +28,7 @@ function selectField(field: GlitchShadowField) {
 
 function reset() {
     gconfig.value.ranges = deepCopy(props.ranges || config.ranges);
-    selectedField.value = undefined;
+    selectField(gconfig.value.ranges[0][0]);
     ++refresh.value;
 }
 
@@ -42,13 +42,14 @@ watch(() => gconfig.value.ranges, () => {
 
 onMounted(() => {
     compute();
+    selectField(gconfig.value.ranges[0][0]);
 });
 </script>
 
 <template>
     <div class="p-4 bg-primary-200 dark:bg-primary-950" :key="refresh">
         <PlaygroundFieldOptions :key="selectedIndexes" :name="name" class="mb-2" :selectedField="selectedField" @reset="reset" />
-        <PlaygroundRanges class="mb-4" :ranges="gconfig.ranges" @selectField="selectField" />
+        <PlaygroundRanges class="mb-4" :ranges="gconfig.ranges" :selectedField="selectedField" @selectField="selectField" />
         <UiPre class="p-0">{{ keyframes }}</UiPre>
     </div>
 </template>

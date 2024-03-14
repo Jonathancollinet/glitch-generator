@@ -39,10 +39,11 @@ useHead({
         {
             name: 'theme-color',
             content: '#ffffff'
-        }   
+        }
     ]
-})
+});
 </script>
+
 <template>
   <NuxtLayout>
 	  <NuxtPage :transition="{

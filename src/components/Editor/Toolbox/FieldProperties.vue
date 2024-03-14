@@ -10,7 +10,7 @@ defineProps<{
 <template>
     <div v-if="field" class="space-y-2">
         <div class="font-bold">
-            <template v-if="field.offsetFrame !== nextHoveredFrameOffset">
+            <template v-if="field.offsetFrame < 100 && field.offsetFrame !== nextHoveredFrameOffset">
                 {{ field.offsetFrame }}->{{ nextHoveredFrameOffset - 1 }}%
             </template>
             <template v-else>

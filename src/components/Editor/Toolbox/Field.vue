@@ -68,9 +68,8 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                     <UiHeading class="m-0 pl-2 flex items-center" variant="h5">%</UiHeading>
                 </div>
                 <div class="flex">
-                    <UiIcon v-tooltip="$t('pages.editor.config.field.removeField')"
-                        class="cursor-pointer stroke-red-600 dark:stroke-red-400" :icon="Icons.Trash"
-                        @click="removeField" />
+                    <UiIcon v-tooltip="$t('pages.editor.config.field.removeField')" color="danger"
+                        class="cursor-pointer" :icon="Icons.Trash" @click="removeField" />
                 </div>
             </div>
         </template>
