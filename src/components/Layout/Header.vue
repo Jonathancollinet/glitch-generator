@@ -26,8 +26,8 @@ const headerClass: ClassValue[] = [
     <header :class="cn(headerClass)">
         <div class="flex items-center">
             <LayoutLogo class="cursor-pointer" @click="$router.push('/')" />
-            <nav class="ml-12">
-                <ul class="flex justify-center space-x-6">
+            <nav class="ml-6 sm:ml-12">
+                <ul class="flex justify-center space-x-4 sm:space-x-6">
                     <LayoutNavigationList :items="navigationItems" />
                 </ul>
             </nav>
@@ -38,11 +38,12 @@ const headerClass: ClassValue[] = [
                     <UiIcon :icon="darkModeIcon" />
                 </UiButton>
             </ClientOnly>
-            <UiLink variant="icon" as="a" href="https://github.com/Jonathancollinet/glitch-generator" target="_blank">
-                <UiButton as="div" variant="icon" size="icon">
+            <UiButton as="div" variant="icon" size="icon">
+                <UiLink variant="icon" as="a" href="https://github.com/Jonathancollinet/glitch-generator"
+                    target="_blank">
                     <UiIcon variant="filled" :icon="Icons.Github" />
-                </UiButton>
-            </UiLink>
+                </UiLink>
+            </UiButton>
         </div>
     </header>
 </template>

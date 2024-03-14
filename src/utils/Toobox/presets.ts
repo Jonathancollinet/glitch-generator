@@ -18,12 +18,6 @@ export type Preset = {
 
 const presets: Preset[] = [
     {
-        id: "basic_glitch",
-        builtIn: true,
-        name: "* Basic",
-        config: basicExemple
-    },
-    {
         id: "empty_glitch",
         builtIn: true,
         name: "* Empty Glitch",
