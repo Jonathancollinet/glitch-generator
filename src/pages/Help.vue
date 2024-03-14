@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { HelpChapter, Icons } from '~/types/enums';
+import { HelpChapter, Icons, Urls } from '~/types/enums';
 
 useSeoMeta({
     title: 'Glitch Generator - Help',
@@ -11,40 +11,39 @@ useSeoMeta({
 
 const chapters: Chapter[] = [
     {
-        name: HelpChapter.Tool,
-        component: resolveComponent('HelpTool') as Component,
+        name: HelpChapter.Tool
     },
     {
-        name: HelpChapter.Input,
-        component: resolveComponent('HelpInput') as Component,
+        name: HelpChapter.Input
     },
     {
-        name: HelpChapter.Keyframes,
-        component: resolveComponent('HelpKeyframes') as Component,
+        name: HelpChapter.Keyframes
     },
     {
-        name: HelpChapter.Export,
-        component: resolveComponent('HelpExport') as Component,
+        name: HelpChapter.Export
     },
     {
-        name: HelpChapter.Import,
-        component: resolveComponent('HelpImport') as Component,
+        name: HelpChapter.Import
     },
     {
-        name: HelpChapter.Presets,
-        component: resolveComponent('HelpPresets') as Component,
+        name: HelpChapter.Presets
     },
 ];
 
 const router = useRouter();
-const activeChapter = shallowRef<Chapter>(chapters[0]);
+const activeChapter = shallowRef<Chapter>(getActiveChapter());
+
+function getActiveChapter() {
+    const chapter = chapters.find((chapter) => router.currentRoute.value.fullPath.includes(chapter.name));
+    return chapter || chapters[0];
+}
 
 function changeChapter(chapterName: HelpChapter) {
     const chapter = chapters.find((chapter) => chapter.name === chapterName);
 
     if (chapter) {
         activeChapter.value = chapter;
-        router.push(`#${activeChapter.value.name}`);
+        router.push(`${Urls.Help}/${activeChapter.value.name}`);
     }
 }
 
@@ -69,25 +68,17 @@ const nextChapter = computed(() => {
     const index = chapters.findIndex((chapter) => chapter.name === activeChapter.value.name);
     return index < chapters.length - 1 ? chapters[index + 1] : null;
 });
-
-onMounted(() => {
-    const hash = window.location.hash;
-
-    if (hash) {
-        changeChapter(hash.slice(1) as HelpChapter);
-    }
-});
 </script>
 
 <template>
     <div class="max-w-[800px] mx-auto">
         <UiHeading class="-translate-x-[11px]">{{ $t('pages.help.title') }}</UiHeading>
         <div class=" sticky top-0 z-30 bg-primary-100 dark:bg-neutral-900 pt-8 mb-8">
-            <HelpSummary class="border-b-2 pb-4" :activeChapter="activeChapter" :chapters="chapters" @activeChapter="changeChapter" />
+            <HelpSummary class="border-b-2 pb-4" :activeChapter="activeChapter" :chapters="chapters"
+                @activeChapter="changeChapter" />
         </div>
-
         <div class="space-y-8 mb-12" :id="activeChapter.name">
-            <component :key="activeChapter.name" :is="activeChapter.component" />
+            <NuxtPage></NuxtPage>
         </div>
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row md:w-full sm:justify-between sm:items-center">
             <UiButton v-if="previousChapter" variant="outline" @click="previous">

@@ -38,6 +38,5 @@ declare type ColorHistory = {
 }
 
 declare type Chapter = {
-    name: HelpChapter,
-    component: Component
+    name: HelpChapter
 }
