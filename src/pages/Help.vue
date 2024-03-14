@@ -9,6 +9,10 @@ useSeoMeta({
     ogImage: ''
 });
 
+definePageMeta({
+    redirect: "/help/tool",
+});
+
 const chapters: Chapter[] = [
     {
         name: HelpChapter.Tool
