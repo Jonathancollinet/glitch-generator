@@ -17,22 +17,19 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
         <UiHeading class="w-2 relative text-center flex justify-center uppercase break-words">
             {{ $t('pages.home.title') }}
         </UiHeading>
-        <UiText as="p" class="text-center">
+        <UiText class="text-center">
             {{ $t('pages.home.description') }}
         </UiText>
         <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
             {{ $t('pages.home.create.title') }}
         </UiHeading>
-        <UiText as="p" class="text-center">
+        <UiText class="text-center">
             {{ $t('pages.home.create.description') }}
         </UiText>
         <div class="my-12 mb-20">
             <UiText as="div" data-size="big" data-color="black" class="exemple text-center mb-16 font-bold tracking-widest">
                 {{ $t('pages.home.create.result') }}
             </UiText>
-            <!-- <UiText as="p" class="text-center">
-            {{ $t('pages.home.why.also') }}
-        </UiText> -->
             <UiText as="div" data-size="big" data-color="black" class="exemple2 text-center font-bold tracking-widest">
                 {{ $t('pages.home.create.result2') }}
             </UiText>
@@ -40,16 +37,16 @@ const editorRoute = useNavigationItem(Urls.Editor)?.to;
         <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
             {{ $t('pages.home.import.title') }}
         </UiHeading>
-        <UiText as="p" class="text-center">
+        <UiText class="text-center">
             {{ $t('pages.home.import.description') }}
         </UiText>
         <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
             {{ $t('pages.home.share.title') }}
         </UiHeading>
-        <UiText as="p" class="text-center">
+        <UiText class="text-center">
             {{ $t('pages.home.share.description') }}
         </UiText>
-        <UiLink class="mt-2" v-if="editorRoute" :to="editorRoute">
+        <UiLink class="mt-8" v-if="editorRoute" :to="editorRoute">
             <UiButton as="div">
                 {{ $t('pages.home.share.button') }}
             </UiButton>

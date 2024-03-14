@@ -25,14 +25,17 @@
                 "what": "The main goal is to help you to create text/box shadow animations. At any moment, you can retrieve your animation as a CSS keyframes to use it in your web project.",
                 "generate": "Under the hood, the tool creates the animation with",
                 "animationAPI": "the web API Animation()",
-                "ifSupported": "if your browser supports it, or with an injected CSS keyframes string."
+                "ifSupported": "if your browser supports it, or with an injected CSS keyframes string.",
+                "whyOnlyShadows": "Why only shadows ?",
+                "stayFocus": "The main line is to stay focused on the text-shadow and box-shadow properties to create glitch-like effect. Otherwise it would be another generic keyframes editor, this isn't the project's goal.",
+                "addOtherProperties": "If you want to add other properties like color, transform or anything else: use the output as a base."
             },
             "input": {
                 "title": "The input",
                 "what": "There are 3 things you can edit:",
-                "text": "1. The text style: under 'styles' card, the displayed text and his container CSS properties, such as color, background, font-size, padding, border-radius.",
-                "textAnimation": "2. The text animation parameters: under 'animation' card, the animation duration.",
-                "animation": "3. The animation keyframes: under the displayed text area. You can add, remove, duplicate, reverse, and edit the field's [text/box]-shadow CSS declarations. See the next part to understand how Keyframes works."
+                "text": "The animated text CSS properties: under 'styles' card, such as color, background, font-size, padding, border-radius.",
+                "textAnimation": "The text animation parameters: under 'animation' card, such as the animation duration.",
+                "animation": "The animation keyframes: under the displayed text area. You can add, remove, duplicate, reverse, and edit the field's [text/box]-shadow CSS declarations. See the next part to understand how Keyframes works."
             },
             "keyframes": {
                 "title": "Keyframes",
@@ -66,11 +69,13 @@
             },
             "export": {
                 "title": "Export",
-                "what": "The export feature allows you to retrieve your animation as a CSS keyframes to use it in your web project.",
-                "kind": "There are 3 ways to export the animation:",
-                "css": "Export the CSS code, gives you the keyframes at-rule and the text style class.",
-                "js": "Export the JS code with the Animation() web API.",
-                "config": "Export the configuration, it will interest you only if you want to add your creation into the built-in presets. If you want to apply your animation for built-in presets, you can open an issue 'Add preset: My Awesome Animation Name' with the configuration output on the github repository. I will treat it as soon as possible."
+                "what": "The export feature allows you to retrieve your animation as code for various usage.",
+                "kind": "You can export the animation as:",
+                "css": "CSS code, gives you the keyframes at-rule and the text style class.",
+                "js": "JS code with the Animation() web API.",
+                "config": "Configuration, represents the current settings of the tool.",
+                "asConfig": "Configuration output",
+                "configUsage": "The main goal of this export method is to suggest your creation into the built-in presets. If you want to apply your animation, open an issue on the github repository with the following title: 'Add preset: Your animation name' and the configuration export. I will treat it as soon as possible."
             },
             "import": {
                 "title": "Import",
@@ -103,7 +108,7 @@
             "share": {
                 "title": "Export",
                 "description": "Get your animation in CSS or JS code.",
-                "button": "Try it!"
+                "button": "Start"
             }
         },
         "editor": {

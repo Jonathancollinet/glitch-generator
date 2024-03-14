@@ -5,6 +5,7 @@ export type TextVariantsProps = VariantProps<typeof TextVariants>;
 export const TextVariants = cva(
     [
         // global
+        'transition-colors',
         'text-neutral-600',
         'dark:text-neutral-300',
 
