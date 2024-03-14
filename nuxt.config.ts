@@ -1,8 +1,8 @@
 const isProduction = process.env.NODE_ENV === 'production';
 
 export default defineNuxtConfig({
-    sourcemap: isProduction,
-    devtools: { enabled: isProduction },
+    sourcemap: !isProduction,
+    devtools: { enabled: !isProduction },
     srcDir: 'src/',
     typescript: {
         typeCheck: true,

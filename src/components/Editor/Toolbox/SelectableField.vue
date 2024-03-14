@@ -32,7 +32,7 @@ function getPercentWidth() {
     return length + '%'
 }
 
-function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadowProperty, filter?: boolean) {
+function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadowProperty, filter: boolean = false) {
     const nextOffsetFrame = props.nextField?.offsetFrame;
     const color = property.color;
     const nextColor = nextProperty?.color;
@@ -56,9 +56,9 @@ function getColorFor(property: GlitchShadowProperty, nextProperty?: GlitchShadow
 
 function getAttrs(s: StyleAttrs, shadow: GlitchShadowProperty, blurModifier: number, nextShadow?: GlitchShadowProperty) {
     if (nextShadow?.enabled) {
-        s.background = getColorFor(shadow, nextShadow, false);
+        s.background = getColorFor(shadow, nextShadow);
     } else {
-        s.background = getColorFor(shadow, undefined, false);
+        s.background = getColorFor(shadow);
     }
 
     if (shadow.blur > 0) {
@@ -71,11 +71,12 @@ function getStyle() {
         [GlitchAnimationProperty.TextShadow]: {},
         [GlitchAnimationProperty.BoxShadow]: {}
     }
-    const field = props.field;
-    const textShadow = field.properties[GlitchAnimationProperty.TextShadow];
-    const boxShadow = field.properties[GlitchAnimationProperty.BoxShadow];
-    const nextTextShadow = props.nextField?.properties[GlitchAnimationProperty.TextShadow];
-    const nextBoxShadow = props.nextField?.properties[GlitchAnimationProperty.BoxShadow];
+    const properties = props.field.properties;
+    const nextProperties = props.nextField?.properties;
+    const textShadow = properties[GlitchAnimationProperty.TextShadow];
+    const boxShadow = properties[GlitchAnimationProperty.BoxShadow];
+    const nextTextShadow = nextProperties?.[GlitchAnimationProperty.TextShadow];
+    const nextBoxShadow = nextProperties?.[GlitchAnimationProperty.BoxShadow];
     const textShadowEnabled = textShadow?.enabled;
     const boxShadowEnabled = boxShadow?.enabled;
 
