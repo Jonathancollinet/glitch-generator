@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { debounce } from 'vue-debounce';
+import { RangeVariants } from '~/componentsVariants/Ui/Range';
+import { TimelineVariants } from '~/componentsVariants/Ui/Timeline';
 
-const props = defineProps<{
+defineProps<{
     currentPercent: number,
     precision: number
 }>();
@@ -13,35 +15,6 @@ const emit = defineEmits<{
 const moveContainer = ref<HTMLElement | null>(null);
 const currentWidth = ref(0);
 const displayTitle = ref(false);
-
-function selectAnimationAt(e: MouseEvent | TouchEvent) {
-    if (moveContainer.value) {
-        const rect = moveContainer.value.getBoundingClientRect();
-        let x, takeValue;
-
-        setTitle();
-
-        if (e instanceof MouseEvent) {
-            x = e.clientX - rect.left;
-            takeValue = !!(e.screenX && e.screenY);
-        } else {
-            x = e.touches[0].clientX - rect.left;
-            takeValue = !!(e.touches[0].screenX && e.touches[0].screenY);
-        }
-
-        if (takeValue) {
-            let percent = Math.round((x / rect.width) * 100 * props.precision) / props.precision;
-
-            percent = percent < 0 ? 0 : percent > 100 ? 100 : percent;
-
-            if (props.currentPercent !== percent) {
-                emit('selectAnimationAt', percent);
-            }
-        }
-    }
-}
-
-const updateTiming = debounce((e: MouseEvent | TouchEvent) => selectAnimationAt(e), 1);
 
 function adaptCurrentWidth() {
     if (moveContainer.value) {
@@ -56,6 +29,13 @@ function setTitle() {
 function removeTitle() {
     displayTitle.value = false;
 }
+
+function changePercent(e: Event) {
+    const value = Number((e.target as HTMLInputElement).value);
+    emit('selectAnimationAt',value);
+}
+
+const updateTiming = debounce((e: Event) => changePercent(e), 1);
 
 onMounted(() => {
     if (moveContainer.value) {
@@ -81,17 +61,10 @@ onUnmounted(() => {
                 {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
             </div>
         </Transition>
-        <div class="relative w-full py-1 px-4 overflow-hidden cursor-pointer group" @mousedown="updateTiming"
-            @touchstart="updateTiming" @touchmove="updateTiming" @touchend="removeTitle" @mouseenter="setTitle"
+        <div class="relative w-full px-4"
+             @mouseenter="setTitle"
             @mouseleave="removeTitle">
-            <div ref="moveContainer"
-                class="relative flex items-center w-full h-2 transition-[background-color] bg-primary-200 group-hover:bg-primary-300 dark:bg-primary-400">
-                <div class="absolute h-4 w-4 z-10" @mousedown.stop @dragstart.stop="hideGhost"
-                    @touchstart.stop="hideGhost" @drag.stop="updateTiming" @mouseup.stop draggable="true"
-                    :style="{ transform: `translateX(${currentWidth * (currentPercent / 100)}px)` }">
-                    <div class="w-full h-full bg-primary-600 -translate-x-1/2 hover:cursor-grab active:cursor-grabbing dark:bg-primary-50" />
-                </div>
-            </div>
+            <input :class="cn('w-full', RangeVariants(), TimelineVariants())" type="range" step="0.001" min="0" max="100" :value="currentPercent" @input="updateTiming">
         </div>
     </div>
 </template>

@@ -4,15 +4,16 @@ export type InputVariantsProps = VariantProps<typeof InputVariants>;
 
 export const InputVariants = cva(
     [
+        'outline-none',
         'px-1',
-        'transition-colors'
+        'transition-[background-color]'
     ],
     {
         variants: {
             variant: {
                 default: [
-                    "bg-primary-200 text-neutral-900 placeholder-neutral-500",
-                    "dark:bg-primary-200",
+                    "bg-primary-200 placeholder-neutral-500 border-2",
+                    "dark:bg-neutral-700",
                 ]
             },
             alignment: {

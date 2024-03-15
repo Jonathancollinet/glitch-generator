@@ -23,7 +23,7 @@ const actionClasses: (key: string | number) => ClassValue[] = (key: string | num
     'border-r-0 last:border-r',
     'hover:bg-primary-100',
     isActive(key) && [
-        'bg-primary-400 hover:bg-primary-400 *:text-primary-50 dark:bg-primary-900 dark:hover:bg-primary-900',
+        'bg-primary-400 hover:bg-primary-400 text-primary-50 dark:bg-primary-900 dark:hover:bg-primary-900',
     ]
 ];
 </script>

@@ -77,7 +77,7 @@ const nextChapter = computed(() => {
 <template>
     <div class="max-w-[800px] mx-auto">
         <UiHeading class="-translate-x-[11px]">{{ $t('pages.help.title') }}</UiHeading>
-        <div class=" sticky top-0 z-30 bg-primary-100 dark:bg-neutral-900 pt-8 mb-8">
+        <div class="transition-[background-color] sticky top-0 z-30 bg-primary-100 dark:bg-neutral-900 pt-8 mb-8">
             <HelpSummary class="border-b-2 pb-4" :activeChapter="activeChapter" :chapters="chapters"
                 @activeChapter="changeChapter" />
         </div>

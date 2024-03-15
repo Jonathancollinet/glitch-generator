@@ -5,7 +5,6 @@ export type TextVariantsProps = VariantProps<typeof TextVariants>;
 export const TextVariants = cva(
     [
         // global
-        'transition-colors',
         'text-neutral-600',
         'dark:text-neutral-300',
 
@@ -16,6 +15,8 @@ export const TextVariants = cva(
         // label
         "data-[tag=label]:block",
         "data-[tag=label]:select-none",
+        'data-[tag=label]:text-[inherit]',
+        'data-[tag=label]:dark:text-[inherit]',
 
         // colors
         "data-[color=black]:text-[inherit]",
