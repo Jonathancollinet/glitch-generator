@@ -48,7 +48,9 @@ useHead({
     <LayoutHeader />
     <main>
         <div>
-            <NuxtPage />
+            <div class="min-h-[calc(100%-96px)]">
+                <NuxtPage />
+            </div>
             <LayoutFooter />
         </div>
     </main>
