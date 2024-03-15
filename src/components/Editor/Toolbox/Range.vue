@@ -91,6 +91,9 @@ function dragStart(e: DragEvent, field: GlitchShadowField) {
     const target = e.target as HTMLElement;
     const rect = target.getBoundingClientRect();
 
+    
+    jumpResize = (target.parentElement?.offsetWidth || 100) / 100;
+
     hideGhost(e);
     draggingFieldIndex.value = field.index;
     isDragging = true;
@@ -128,7 +131,7 @@ function displayProperties(e: MouseEvent, field: GlitchShadowField) {
     const target = e.target as HTMLElement;
     const middle = target.scrollWidth / 2 + 16;
     const left = target.offsetLeft;
-    const arbitraryTooltipSize = 180 / 2;
+    const arbitraryTooltipSize = 150 / 2;
 
     if ((document.body.scrollWidth - 16 - left) < arbitraryTooltipSize) {
         translationModifier.value = '-100%';

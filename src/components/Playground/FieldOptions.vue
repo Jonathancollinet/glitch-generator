@@ -29,19 +29,19 @@ const boxShadow = computed(() => props.selectedField?.properties[GlitchAnimation
             <UiHeading class="m-0 mb-2 sm:mb-0" variant="h6">
                 {{ $t('pages.editor.config.field.offsetFrame') }} at {{ selectedField?.offsetFrame }}%
             </UiHeading>
-            <div class="flex space-x-4">
+            <div class="flex space-x-6">
                 <div class="flex items-center" v-if="textShadow">
                     <EditorToolboxPropertyCommonOptions class="space-x-2 !mb-0" :errors="{}"
                         label="pages.editor.config.field.textShadow" :name="getName('textShadow')" v-model:config="textShadow"
                         v-model:localConfig="textShadow" />
-                    <EditorToolboxPropertyColor v-if="textShadow.enabled" noLabel :errors="{}" name="textColor"
+                    <EditorToolboxPropertyColor class="sm:ml-4" v-if="textShadow.enabled" noLabel :errors="{}" name="textColor"
                         v-model:config="textShadow.color" v-model:localConfig="textShadow.color" />
                 </div>
                 <div class="flex items-center" v-if="boxShadow">
                     <EditorToolboxPropertyCommonOptions class="space-x-2 !mb-0" :errors="{}"
                         label="pages.editor.config.field.boxShadow" :name="getName('boxShadow')" v-model:config="boxShadow"
                         v-model:localConfig="boxShadow" />
-                    <EditorToolboxPropertyColor v-if="boxShadow.enabled" noLabel :errors="{}" name="textColor"
+                    <EditorToolboxPropertyColor class="sm:ml-4" v-if="boxShadow.enabled" noLabel :errors="{}" name="textColor"
                         v-model:config="boxShadow.color" v-model:localConfig="boxShadow.color" />
                 </div>
             </div>
