@@ -13,16 +13,17 @@ export const RangeVariants = cva(
         [&::-webkit-slider-thumb]:appearance-none
         [&::-webkit-slider-thumb]:bg-primary-700
         [&::-webkit-slider-thumb]:transition-[background-color]
-        [&::-webkit-slider-thumb]:dark:bg-primary-400
+        [&::-webkit-slider-thumb]:dark:bg-primary-500
         
-        [&::-moz-range-thumb]:w-2
-        [&::-moz-range-thumb]:h-2
-        [&::-moz-range-thumb]:mt-[2px]
+        [&::-moz-range-thumb]:w-3
+        [&::-moz-range-thumb]:h-3
         [&::-moz-range-thumb]:appearance-none
         [&::-moz-range-thumb]:bg-white
-        [&::-moz-range-thumb]:border-4
-        [&::-moz-range-thumb]:border-neutral-700
+        [&::-moz-range-thumb]:rounded-none
+        [&::-moz-range-thumb]:border-none
+        [&::-moz-range-thumb]:bg-primary-700
         [&::-moz-range-thumb]:transition-[background-color]
+        [&::-moz-range-thumb]:dark:bg-primary-500
         
         [&::-webkit-slider-runnable-track]:w-full
         [&::-webkit-slider-runnable-track]:h-3
@@ -31,10 +32,9 @@ export const RangeVariants = cva(
         [&::-webkit-slider-runnable-track]:dark:bg-neutral-700
         
         [&::-moz-range-track]:w-full
-        [&::-moz-range-track]:h-4
-        [&::-moz-range-track]:bg-neutral-100
+        [&::-moz-range-track]:h-3
+        [&::-moz-range-track]:bg-primary-200
         [&::-moz-range-track]:transition-[background-color]
-        [&::-moz-range-track]:hover:bg-neutral-200
         [&::-moz-range-track]:dark:bg-neutral-700`
     ],
     {

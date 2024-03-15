@@ -2,7 +2,6 @@ import type { GlitchConfig } from "~/glitch/types"
 import homepageConfigPreset from "./presets/homepage";
 import { v4 as uuidv4 } from 'uuid';
 import { compress, decompress } from 'lz-string';
-import basicExemple from "./presets/basicExemple";
 import flashExemple from "./presets/flashExemple";
 import neons from "./presets/neons";
 import logo from "./presets/logo";
@@ -24,6 +23,12 @@ const presets: Preset[] = [
         config: getDefaultGlitchConfig()
     },
     {
+        id: "logo_glitch",
+        builtIn: true,
+        name: "* Logo",
+        config: logo
+    },
+    {
         id: "flash_glitch",
         builtIn: true,
         name: "* Flash",
@@ -32,7 +37,7 @@ const presets: Preset[] = [
     {
         id: "homepage_glitch",
         builtIn: true,
-        name: "* Acid",
+        name: "* Glitch 1",
         config: homepageConfigPreset
     },
     {
@@ -40,12 +45,6 @@ const presets: Preset[] = [
         builtIn: true,
         name: "* Neon",
         config: neons
-    },
-    {
-        id: "logo_glitch",
-        builtIn: true,
-        name: "* Logo",
-        config: logo
     },
 ]
 
