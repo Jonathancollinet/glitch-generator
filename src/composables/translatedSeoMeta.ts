@@ -16,7 +16,6 @@ export const useTranslatedSeoMeta = (pageName: string): Parameters<typeof useSer
         creator: 'Jonathan COLLINET',
         applicationName: 'Glitch Generator',
         colorScheme: 'light dark',
-        themeColor: '#724cf9',
 
         title,
         description,
