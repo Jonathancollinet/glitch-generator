@@ -151,7 +151,7 @@ const ex4 = ref(deepCopy(ex3.value).map((range) => {
 
 <template>
     <div>
-        <UiHeading variant="h3">{{ $t('pages.help.keyframes.title') }}</UiHeading>
+        <UiHeading variant="h2">{{ $t('pages.help.keyframes.title') }}</UiHeading>
         <UiText>{{ $t('pages.help.keyframes.what') }}</UiText>
         <div class="space-y-1 pl-4 mb-4">
             <UiText as="div">- {{ $t('pages.help.keyframes.how') }}</UiText>
@@ -160,7 +160,7 @@ const ex4 = ref(deepCopy(ex3.value).map((range) => {
         </div>
         <UiText>{{ $t('pages.help.keyframes.multipleRanges') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.visualize') }}</UiText>
-        <UiHeading variant="h4">{{ $t('pages.help.keyframes.exempleTitle') }}</UiHeading>
+        <UiHeading variant="h3">{{ $t('pages.help.keyframes.exempleTitle') }}</UiHeading>
         <UiText>{{ $t('pages.help.keyframes.exemple') }}</UiText>
         <PlaygroundWithKeyframes class="mb-8" name="ex1" :ranges="ex1" />
         <UiText>{{ $t('pages.help.keyframes.exemple2') }}</UiText>
@@ -170,7 +170,7 @@ const ex4 = ref(deepCopy(ex3.value).map((range) => {
         <PlaygroundWithKeyframes class="mb-8" name="ex3" :ranges="ex3" />
         <UiText>{{ $t('pages.help.keyframes.fillExemple3result') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.introduceFill') }}</UiText>
-        <UiHeading variant="h4">{{ $t('pages.help.keyframes.fillTitle') }}</UiHeading>
+        <UiHeading variant="h3">{{ $t('pages.help.keyframes.fillTitle') }}</UiHeading>
         <div class="sm:flex sm:space-x-4 mb-4">
             <img class="mb-4" src="/help/kf_fill.png">
             <div class="mt-2">
@@ -186,7 +186,7 @@ const ex4 = ref(deepCopy(ex3.value).map((range) => {
         <UiText>{{ $t('pages.help.keyframes.fillExemple4resultbis') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillDefault') }}</UiText>
         <UiText>{{ $t('pages.help.keyframes.fillImportant') }}</UiText>
-        <UiHeading variant="h4">{{ $t('pages.help.keyframes.considerations') }}</UiHeading>
+        <UiHeading variant="h3">{{ $t('pages.help.keyframes.considerations') }}</UiHeading>
         <UiText>{{ $t('pages.help.keyframes.mistakes') }}</UiText>
     </div>
 </template>

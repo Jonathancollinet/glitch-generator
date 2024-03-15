@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { compress, decompress } from 'lz-string';
 import flashExemple from "./presets/flashExemple";
 import neons from "./presets/neons";
-import logo from "./presets/logo";
 
 export type PresetConfig = Pick<GlitchConfig, "text" | "animation" | "ranges">;
 
@@ -21,12 +20,6 @@ const presets: Preset[] = [
         builtIn: true,
         name: "* Empty Glitch",
         config: getDefaultGlitchConfig()
-    },
-    {
-        id: "logo_glitch",
-        builtIn: true,
-        name: "* Logo",
-        config: logo
     },
     {
         id: "flash_glitch",

@@ -1,54 +1,41 @@
 <script lang="ts" setup>
 import { Urls } from '~/types/enums';
 
-useSeoMeta({
-    title: 'Glitch Generator - Home',
-    ogTitle: 'Glitch Generator - Home',
-    description: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
-    ogDescription: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
-    ogImage: ''
-});
+useServerSeoMeta(useTranslatedSeoMeta('home'));
 </script>
 
 <template>
     <div class="flex flex-col items-center">
-        <UiHeading class="w-2 relative text-center flex justify-center uppercase break-words">
-            {{ $t('pages.home.title') }}
-        </UiHeading>
-        <UiText class="text-center">
-            {{ $t('pages.home.description') }}
-        </UiText>
-        <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
-            {{ $t('pages.home.create.title') }}
-        </UiHeading>
-        <UiText class="text-center">
-            {{ $t('pages.home.create.description') }}
-        </UiText>
-        <div class="my-12 mb-20">
-            <UiText as="div" data-size="big" data-color="black" class="exemple text-center mb-16 font-bold tracking-widest">
-                {{ $t('pages.home.create.result') }}
+        <div class="flex flex-col items-center max-w-[650px]">
+            <UiHeading class="w-0 flex text-center justify-center uppercase">
+                {{ $t('pages.home.title') }}
+            </UiHeading>
+            <UiText class="text-center">
+                {{ $t('pages.home.description') }}
             </UiText>
-            <UiText as="div" data-size="big" data-color="black" class="exemple2 text-center font-bold tracking-widest">
-                {{ $t('pages.home.create.result2') }}
-            </UiText>
+            <div class="flex flex-col md:flex-row md:space-x-12 md:*:w-full my-4 lg:my-8">
+                <HomeCard title="pages.home.create.title" description="pages.home.create.description" :url="Urls.Help" />
+                <HomeCard title="pages.home.import.title" description="pages.home.import.description" :url="Urls.HelpImport" />
+                <HomeCard title="pages.home.share.title" description="pages.home.share.description" :url="Urls.HelpExport" />
+            </div>
+            <div class="my-12 mb-20">
+                <UiText as="div" data-size="big" data-color="black"
+                    class="exemple text-center mb-12 font-bold tracking-widest">
+                    {{ $t('pages.home.create.result') }}
+                </UiText>
+                <UiText as="div" data-size="big" data-color="black"
+                    class="exemple2 text-center font-bold tracking-widest">
+                    {{ $t('pages.home.create.result2') }}
+                </UiText>
+            </div>
+            <div class="flex justify-center">
+                <UiLink class="mt-4" :to="Urls.Editor">
+                    <UiButton size="lg" as="div">
+                        {{ $t('pages.home.share.button') }}
+                    </UiButton>
+                </UiLink>
+            </div>
         </div>
-        <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
-            {{ $t('pages.home.import.title') }}
-        </UiHeading>
-        <UiText class="text-center">
-            {{ $t('pages.home.import.description') }}
-        </UiText>
-        <UiHeading variant="h2" class="relative text-center flex justify-center uppercase break-words">
-            {{ $t('pages.home.share.title') }}
-        </UiHeading>
-        <UiText class="text-center">
-            {{ $t('pages.home.share.description') }}
-        </UiText>
-        <UiLink class="mt-8" :to="Urls.Editor">
-            <UiButton as="div">
-                {{ $t('pages.home.share.button') }}
-            </UiButton>
-        </UiLink>
     </div>
 </template>
 

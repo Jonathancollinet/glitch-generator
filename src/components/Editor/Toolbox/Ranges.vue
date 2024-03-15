@@ -63,7 +63,7 @@ function selectField(field: GlitchShadowField) {
 <template>
     <div class="relative">
         <div class="flex space-x-2 items-center mb-2">
-            <UiHeading class="m-0" variant="h4">{{ $t('pages.editor.ranges') }}</UiHeading>
+            <UiHeading class="m-0" variant="h3">{{ $t('pages.editor.ranges') }}</UiHeading>
             <OpenShortcuts class="mt-1" />
         </div>
         <div class="flex mb-4">

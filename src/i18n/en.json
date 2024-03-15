@@ -9,8 +9,14 @@
     "footer": {
         "text": "Glitch Generator - Inspiration from"
     },
+    "seo": {
+        "description": "Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code."
+    },
     "pages": {
         "help": {
+            "seo": {
+                "title": "Glitch Generator - Help"
+            },
             "title": "$> man glitch-generator",
             "summary": {
                 "tool": "The tool",
@@ -92,27 +98,33 @@
             }
         },
         "home": {
+            "seo": {
+                "title": "Glitch Generator - Home"
+            },
             "title": "Glitch Generator",
-            "description": "Animation editor focused on the text-shadow & box-shadow CSS properties.",
+            "description": "Visual tool focused on the text-shadow & box-shadow CSS properties.",
             "create": {
                 "title": "Create",
-                "description": "The tool provides you features to work on a CSS keyframes at-rule.",
+                "description": "The tool provides you features to visualize and create CSS keyframes at-rule.",
                 "result": "This is the result.",
                 "also": "Type whatever you want and see the magic happen!",
                 "result2": "👽 🔊 🌎"
             },
             "import": {
                 "title": "Import",
-                "description": "Working on a CSS keyframes ? Integrate your work with the import feature."
+                "description": "Working on a CSS keyframes ? Integrate your animation with the import feature."
             },
             "share": {
                 "title": "Export",
-                "description": "Get your animation in CSS or JS code.",
-                "button": "Start"
+                "description": "Get the result as CSS and/or JS code and integrate it in your project.",
+                "button": "Start a glitch"
             }
         },
         "editor": {
-            "title": "Editor",
+            "seo": {
+                "title": "Glitch Generator - Editor"
+            },
+            "title": "Glitch Animation Editor",
             "launchTour": "Start the tutorial",
             "selectPreset": "Choose a built-in or custom preset",
             "savePreset": "Save current settings as a custom preset",

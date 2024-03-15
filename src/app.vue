@@ -2,7 +2,9 @@
 import { ModalsContainer } from 'vue-final-modal';
 
 useHead({
-    title: 'Glitch Generator',
+    htmlAttrs: {
+        lang: useI18n().locale.value
+    },
     link: [
         {
             rel: "apple-touch-icon",
@@ -48,7 +50,7 @@ useHead({
     <LayoutHeader />
     <main>
         <div>
-            <div class="min-h-[calc(100%-96px)]">
+            <div class="min-h-[calc(100%-48px)]">
                 <NuxtPage />
             </div>
             <LayoutFooter />

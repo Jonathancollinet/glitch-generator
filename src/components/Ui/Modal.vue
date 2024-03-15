@@ -32,7 +32,7 @@ function onClose() {
         :content-class="cn(ContentVariants(), props.contentClass ?? '')" :clickToClose="clickToClose"
         :escToClose="escToClose" overlay-transition="vfm-fade" content-transition="vfm-fade" @closed="onClose">
         <div class="flex items-center" v-if="title">
-            <UiHeading class="mt-0" variant="h3">{{ $t(title) }}</UiHeading>
+            <UiHeading class="mt-0" variant="h2">{{ $t(title) }}</UiHeading>
         </div>
         <div>
             <slot />

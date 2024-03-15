@@ -15,6 +15,7 @@ export const ButtonVariants = cva(
                 default: [
                     'bg-primary-500 text-neutral-50 *:stroke-neutral-50',
                     'hover:bg-primary-600 active:bg-primary-700',
+                    'dark:bg-primary-700 hover:dark:bg-primary-800 active:dark:bg-primary-900',
                     'disabled:text-primary-700 disabled:bg-primary-200',
                 ],
                 outline: [
@@ -34,7 +35,7 @@ export const ButtonVariants = cva(
             size: {
                 default: 'h-10 px-4 py-2',
                 sm: 'h-9 px-3 text-sm',
-                lg: 'h-11 px-8 text-lg',
+                lg: 'h-11 px-8 text-xl font-bold',
                 icon: 'h-6 w-6',
                 link: 'text-sm'
             },

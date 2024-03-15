@@ -57,7 +57,7 @@ const updateHeight = updateText({
         </template>
 
         <template #content>
-            <UiHeading class="mt-0" variant="h5">Text</UiHeading>
+            <UiHeading class="mt-0" variant="h4">Text</UiHeading>
             <UiCard openable contentClasses="pr-0">
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.fontSize"
@@ -72,7 +72,7 @@ const updateHeight = updateText({
                     </UiFormGroup>
                 </template>
             </UiCard>
-            <UiHeading variant="h5">Container</UiHeading>
+            <UiHeading variant="h4">Container</UiHeading>
             <UiCard openable contentClasses="pr-0">
                 <template #content>
                     <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"

@@ -16,13 +16,7 @@ import Glitch from '~/glitch';
 import * as EditorUtils from '~/utils/Editor/utils';
 import { isTourDone, redirectHelp, setTourDone } from '~/utils/Editor/tour';
 
-useSeoMeta({
-    title: 'Glitch Generator - Editor',
-    ogTitle: 'Glitch Generator - Editor',
-    description: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
-    ogDescription: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
-    ogImage: ''
-});
+useServerSeoMeta(useTranslatedSeoMeta('editor'));
 
 interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null
@@ -283,6 +277,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
+        <UiHeading variant="h1" v-show="false">{{ $t('pages.editor.title') }}</UiHeading>
         <div class="md:flex space-y-4 md:space-y-0 h-full">
             <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
                 <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :config="gconfig"

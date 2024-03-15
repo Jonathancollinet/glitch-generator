@@ -1,38 +1,12 @@
 <script lang="ts" setup>
 import { HelpChapter, Icons, Urls } from '~/types/enums';
+import { chapters } from '~/utils/constants';
 
-useSeoMeta({
-    title: 'Glitch Generator - Help',
-    ogTitle: 'Glitch Generator - Help',
-    description: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
-    ogDescription: 'Glitch editor based on the text-shadow & box-shadow CSS properties. Create and export your animation as code.',
-    ogImage: ''
-});
+useServerSeoMeta(useTranslatedSeoMeta('help'));
 
 definePageMeta({
     redirect: "/help/tool",
 });
-
-const chapters: Chapter[] = [
-    {
-        name: HelpChapter.Tool
-    },
-    {
-        name: HelpChapter.Input
-    },
-    {
-        name: HelpChapter.Keyframes
-    },
-    {
-        name: HelpChapter.Export
-    },
-    {
-        name: HelpChapter.Import
-    },
-    {
-        name: HelpChapter.Presets
-    },
-];
 
 const router = useRouter();
 const activeChapter = shallowRef<Chapter>(getActiveChapter());

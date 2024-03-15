@@ -353,6 +353,7 @@ export default class GlitchValidator {
     private logErrors() {
         for (const path in this.errors) {
             const error = this.errors[path];
+            
             console.error(`Error: ${error.code} at ${error.path}: ${error.message}`);
         }
     }

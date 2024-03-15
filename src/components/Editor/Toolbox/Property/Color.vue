@@ -5,7 +5,9 @@ import { Sketch } from '@ckpack/vue-color';
 import type { ClassValue } from 'class-variance-authority/types';
 
 type SketchColor = {
-    hex: string,
+    r: number,
+    g: number,
+    b: number,
     a: number
 };
 
@@ -24,9 +26,11 @@ const localColor = defineModel<GlitchColor>('localConfig', { required: true });
 
 const displaySketch = ref(false);
 const colors = ref<SketchColor>({
-    hex: '',
+    r: 0,
+    g: 0,
+    b: 0,
     a: 1
-});
+}) as any;
 
 const hexName = `${localName.value}Hex`;
 
@@ -62,18 +66,22 @@ function hideColor() {
 
 watch(colors, (newVal) => {
     if (updateHex) {
-        updateHex(newVal.hex.toLowerCase());
+        updateHex(RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase());
     }
 
-    if (updateAlphaPercent) {
+    if (isNotFalsy(updateAlphaPercent)) {
         updateAlphaPercent(Math.round(newVal.a * 100).toString());
     }
 }, { deep: true });
 
 onMounted(() => {
     if (color.value.hex) {
+        const rgb = hexToRGBObject(color.value.hex);
+
         colors.value = {
-            hex: color.value.hex,
+            r: rgb.r,
+            g: rgb.g,
+            b: rgb.b,
             a: color.value.alphaPercent / 100
         }
     }
@@ -91,7 +99,7 @@ const containerColorClasses: ClassValue[] = [
             @click="displayColor">
             <EditorToolboxColorDisplay :color="localColor" />
         </div>
-        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0" v-model="colors as any"
+        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0" v-model="colors"
             :presetColors="presetColors" />
     </UiFormGroup>
 </template>

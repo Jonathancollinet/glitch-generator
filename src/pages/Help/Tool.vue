@@ -1,6 +1,6 @@
 <template>
     <div>
-        <UiHeading variant="h3">{{ $t('pages.help.tool.title') }}</UiHeading>
+        <UiHeading variant="h2">{{ $t('pages.help.tool.title') }}</UiHeading>
         <UiText>{{ $t('pages.help.tool.what') }}</UiText>
         <UiText>
             {{ $t('pages.help.tool.generate') }}
@@ -9,7 +9,7 @@
             </UiLink>
             {{ $t('pages.help.tool.ifSupported') }}
         </UiText>
-        <UiHeading variant="h6">{{ $t('pages.help.tool.whyOnlyShadows') }}</UiHeading>
+        <UiHeading variant="h3">{{ $t('pages.help.tool.whyOnlyShadows') }}</UiHeading>
         <UiText>{{ $t('pages.help.tool.stayFocus') }}</UiText>
         <UiText>{{ $t('pages.help.tool.addOtherProperties') }}</UiText>
     </div>

@@ -1,4 +1,4 @@
-import { Urls } from '~/types/enums';
+import { HelpChapter, Urls } from '~/types/enums';
 
 export const navigationItems: NavigationItem[] = [
     {
@@ -12,6 +12,27 @@ export const navigationItems: NavigationItem[] = [
     {
         label: 'navigation.links.help',
         to: Urls.Help
+    },
+];
+
+export const chapters: Chapter[] = [
+    {
+        name: HelpChapter.Tool
+    },
+    {
+        name: HelpChapter.Input
+    },
+    {
+        name: HelpChapter.Keyframes
+    },
+    {
+        name: HelpChapter.Export
+    },
+    {
+        name: HelpChapter.Import
+    },
+    {
+        name: HelpChapter.Presets
     },
 ];
 

@@ -32,6 +32,8 @@ export enum Urls {
     Home = '/',
     Editor = '/editor',
     Help = '/help',
+    HelpImport = '/help/import',
+    HelpExport = '/help/export',
 }
 
 export enum Modes {

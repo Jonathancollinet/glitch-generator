@@ -65,7 +65,7 @@ const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
                         <UiSelect class="bg-transparent" :modelValue="localField.offsetFrame"
                             :options="getPossibleOffsetFrames(localField, range)" @change="updateOffsetFrame" />
                     </UiFormGroup>
-                    <UiHeading class="m-0 pl-2 flex items-center" variant="h5">%</UiHeading>
+                    <UiHeading class="m-0 pl-2 flex items-center" variant="h4">%</UiHeading>
                 </div>
                 <div class="flex">
                     <UiIcon v-tooltip="$t('pages.editor.config.field.removeField')" color="danger"
