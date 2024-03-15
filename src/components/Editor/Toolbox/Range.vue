@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import type { GlitchShadowField } from '~/glitch/types';
+import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
 import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
 import { rangeHeight } from '~/utils/constants';
 
 const props = defineProps<{
-    textFontSize: number,
-    ranges: GlitchShadowField[][],
+    config?: GlitchConfig,
     range: GlitchShadowField[],
     selectedField?: GlitchShadowField,
     noProperties?: boolean
@@ -28,7 +27,6 @@ let possibilities: number[] | undefined;
 let percents = new Array(101).fill(0).map((_, i) => i);
 
 const hoveredField = ref<GlitchShadowField>();
-const fieldPropertiesToShow = ref<GlitchShadowField>();
 const draggingFieldIndex = ref(-1);
 const displaySelectableFields = ref(false);
 const translationModifier = ref('');
@@ -53,6 +51,14 @@ function hideSelectableField() {
 function chooseFieldOffset(e: MouseEvent, offset: number) {
     hideSelectableField();
     emit('insertField', offset);
+}
+
+function updateField(field: GlitchShadowField) {
+    emit('updateField', field);
+}
+
+function selectField(field: GlitchShadowField) {
+    emit('selectField', field);
 }
 
 function changeFieldOffset(modifier: number) {
@@ -83,15 +89,11 @@ function drag(e: DragEvent) {
     }
 }
 
-function updateField(field: GlitchShadowField) {
-    emit('updateField', field);
-}
-
 function dragStart(e: DragEvent, field: GlitchShadowField) {
     const target = e.target as HTMLElement;
     const rect = target.getBoundingClientRect();
 
-    
+
     jumpResize = (target.parentElement?.offsetWidth || 100) / 100;
 
     hideGhost(e);
@@ -148,27 +150,29 @@ function removeProperties() {
     hoveredField.value = undefined;
 }
 
-function selectField(field: GlitchShadowField) {
-    emit('selectField', field);
-}
-
 function isFieldSelected(field: GlitchShadowField) {
     return !!props.selectedField && props.selectedField.range === field.range
         && props.selectedField.index === field.index;
 }
 
+const textFontSize = computed(() => {
+    return props.config?.text.size || 16;
+})
+
 const showProperties = computed(() => {
     return !props.noProperties && hoveredField.value;
 })
 
-const propertyPosition = computed(() => {
-    if (hoveredField.value) {
-        if (draggingFieldIndex.value !== -1) {
-            fieldPropertiesToShow.value = props.range[draggingFieldIndex.value];
-        } else {
-            fieldPropertiesToShow.value = hoveredField.value;
-        }
+const fieldPropertiesToShow = computed(() => {
+    if (draggingFieldIndex.value !== -1) {
+        return props.range[draggingFieldIndex.value];
+    } else {
+        return hoveredField.value;
+    }
+})
 
+const propertyPosition = computed(() => {
+    if (hoveredField.value && fieldPropertiesToShow.value) {
         const field = fieldPropertiesToShow.value;
         const currentOffset = field.offsetFrame;
         const middleOffset = ((props.range[field.index + 1]?.offsetFrame ?? 101) - currentOffset) / 2;
@@ -192,7 +196,8 @@ const nextHoveredFrameOffset = computed(() => {
 </script>
 
 <template>
-    <div class="relative mb-2 last:mb-0" :style="{height: rangeHeight + 'px'}" @mouseleave="removeProperties" v-click-outside="hideSelectableField">
+    <div class="relative mb-2 last:mb-0 select-none" :style="{ height: rangeHeight + 'px' }"
+        v-click-outside="hideSelectableField">
         <div class="h-full w-[calc(100%-36px)]">
             <UiTooltipContent v-show="showProperties" class="whitespace-nowrap" :style="propertyPosition">
                 <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
@@ -202,7 +207,7 @@ const nextHoveredFrameOffset = computed(() => {
                 <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" :textFontSize="textFontSize"
                     :field="field" :nextField="range[index + 1]" :draggingFieldIndex="draggingFieldIndex"
                     :isSelected="isFieldSelected(field)" v-on="onField" @contextmenu.prevent.stop
-                    @mousedown.right="showSelectableField" />
+                    @mouseleave="removeProperties" @mousedown.right="showSelectableField" />
             </div>
             <div v-if="displaySelectableFields" class="absolute z-10 h-full w-full whitespace-nowrap">
                 <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"

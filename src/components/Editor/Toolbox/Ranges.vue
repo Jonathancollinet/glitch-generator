@@ -3,7 +3,7 @@ import { Icons } from '~/types/enums';
 import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
 import { rangeHeight } from '~/utils/constants';
 
-const props = defineProps<{
+defineProps<{
     selectedField?: GlitchShadowField,
     config: GlitchConfig,
     currentPercent: number
@@ -20,17 +20,12 @@ const emit = defineEmits<{
     insertField: [rangeIndex: number, offset: number],
 }>();
 
-const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
-
-function resetRangeOptions() {
-    showRangeOptions.value = new Array(props.config.ranges.length).fill(false);
-}
-
-function displayRangeOptions(index: number) {
-    const prev = !showRangeOptions.value[index];
-    resetRangeOptions();
-    showRangeOptions.value[index] = prev;
-}
+const onRangeOptions = {
+    removeRange,
+    duplicateRange,
+    reversePositions,
+    reverseColors,
+};
 
 function updateField(field: GlitchShadowField) {
     emit('updateField', field);
@@ -38,27 +33,22 @@ function updateField(field: GlitchShadowField) {
 
 function insertField(rangeIndex: number, offset: number) {
     emit('insertField', rangeIndex, offset);
-    resetRangeOptions();
 }
 
 function removeRange(rangeIndex: number) {
     emit('removeRange', rangeIndex);
-    resetRangeOptions();
 }
 
 function duplicateRange(rangeIndex: number) {
     emit('duplicateRange', rangeIndex);
-    resetRangeOptions();
 }
 
 function reversePositions(rangeIndex: number) {
     emit('reversePositions', rangeIndex);
-    resetRangeOptions();
 }
 
 function reverseColors(rangeIndex: number) {
     emit('reverseColors', rangeIndex);
-    resetRangeOptions();
 }
 
 function addEmptyRange() {
@@ -82,32 +72,13 @@ function selectField(field: GlitchShadowField) {
                     <EditorKeyframesCursor v-if="config.controls" :currentPercent="currentPercent" />
                 </ClientOnly>
                 <EditorToolboxRange v-for="(range, index) in config.ranges" :key="`${index}-${range.length}`"
-                    :selectedField="selectedField" :textFontSize="config.text.size" :ranges="config.ranges"
-                    :range="range" @updateField="updateField" @selectField="selectField"
-                    @insertField="insertField(index, $event)" />
+                    :selectedField="selectedField" :config="config" :range="range" @updateField="updateField"
+                    @selectField="selectField" @insertField="insertField(index, $event)" />
             </div>
-            <div class="w-[36px]" v-click-outside="resetRangeOptions">
+            <div class="w-[36px]">
                 <div class="relative top-0 w-full pl-[12px] mb-2 last:mb-0 flex items-center"
                     :style="{ height: rangeHeight + 'px' }" v-for="(range, index) in config.ranges" :key="index">
-                    <UiButtonIconTooltip v-tooltip="$t('pages.editor.rangeOptions')"
-                        @click="displayRangeOptions(index)">
-                        <UiTooltipContent class="whitespace-nowrap -translate-x-[calc(100%+24px)] *:justify-start"
-                            v-if="showRangeOptions[index]">
-                            <UiButton variant="link" size="link" @click="duplicateRange(index)">
-                                {{ $t('pages.editor.config.ranges.actions.duplicate') }}
-                            </UiButton>
-                            <UiButton variant="link" size="link" @click="reversePositions(index)">
-                                {{ $t('pages.editor.config.ranges.actions.reversePositions') }}
-                            </UiButton>
-                            <UiButton variant="link" size="link" @click="reverseColors(index)">
-                                {{ $t('pages.editor.config.ranges.actions.reverseColors') }}
-                            </UiButton>
-                            <UiButton class="text-red-600 dark:text-red-400" variant="link" size="link"
-                                @click="removeRange(index)">
-                                {{ $t('pages.editor.config.ranges.actions.removeRange') }}
-                            </UiButton>
-                        </UiTooltipContent>
-                    </UiButtonIconTooltip>
+                    <EditorToolboxRangeOptions :rangeIndex="index" :config="config" v-on="onRangeOptions" />
                 </div>
             </div>
         </div>
