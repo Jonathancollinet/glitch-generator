@@ -6,7 +6,7 @@ export const useTranslatedSeoMeta = (pageName: string): Parameters<typeof useSer
     const description = t(getSeoPath(seoGlobalPath, 'description'));
     const type = 'website';
     const url = `https://glitch-generator.com/${pageName}`;
-    const image = 'https://glitch-generator.com/mstile-150x150.png';
+    const image = 'https://glitch-generator.com/android-chrome-192x192.png';
 
     function getSeoPath(path: string, property: string) {
         return `${path}.${property}`;
