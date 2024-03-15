@@ -10,18 +10,18 @@ function onClose() {
 
 <template>
     <UiModal @closed="onClose" title="modals.import.rules.title">
-        <UiHeading variant="h6" class="mb-2 underline">{{ $t('modals.import.rules.notSupported') }}:</UiHeading>
+        <UiHeading variant="h3" class="mb-2 underline">{{ $t('modals.import.rules.notSupported') }}:</UiHeading>
         <div class="space-y-1 mb-4">
             <UiText as="div">- {{ $t('modals.import.rules.noInset') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.size') }}</UiText>
         </div>
-        <UiHeading variant="h6" class="mb-2 underline">{{ $t('modals.import.rules.otherConsiderations') }}:</UiHeading>
+        <UiHeading variant="h3" class="mb-2 underline">{{ $t('modals.import.rules.otherConsiderations') }}:</UiHeading>
         <div class="space-y-1 mb-4">
             <UiText as="div">- {{ $t('modals.import.rules.class') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.keyframes') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.autoPrefixes') }}</UiText>
         </div>
-        <UiHeading variant="h6" class="mb-2 underline">{{ $t('modals.import.rules.declarationsList') }}:</UiHeading>
+        <UiHeading variant="h3" class="mb-2 underline">{{ $t('modals.import.rules.declarationsList') }}:</UiHeading>
         <div class="space-y-1">
             <UiText as="div">- {{ $t('modals.import.rules.textDeclarations') }}</UiText>
             <UiText as="div">- {{ $t('modals.import.rules.keyframesDeclarations') }}</UiText>

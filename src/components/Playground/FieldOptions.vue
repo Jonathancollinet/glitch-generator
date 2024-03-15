@@ -26,7 +26,7 @@ const boxShadow = computed(() => props.selectedField?.properties[GlitchAnimation
 <template>
     <div class="flex justify-between w-full sm:h-8">
         <div class="sm:flex items-center sm:space-x-8 w-full" v-if="selectedField">
-            <UiHeading class="m-0 mb-2 sm:mb-0" variant="h6">
+            <UiHeading class="m-0 mb-2 sm:mb-0" variant="h3">
                 {{ $t('pages.editor.config.field.offsetFrame') }} at {{ selectedField?.offsetFrame }}%
             </UiHeading>
             <div class="flex space-x-6">
