@@ -31,13 +31,13 @@ const presets: Preset[] = [
     {
         id: "flash_glitch",
         builtIn: true,
-        name: "* Flash",
+        name: "* Thunder",
         config: flashExemple
     },
     {
         id: "homepage_glitch",
         builtIn: true,
-        name: "* Glitch 1",
+        name: "* Nucliweb",
         config: homepageConfigPreset
     },
     {

@@ -73,33 +73,28 @@ export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowFi
 }
 
 export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number, offset: number) {
-    let closestIndex = range.findIndex((field) => field.offsetFrame > offset);
+    let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
 
-    closestIndex = closestIndex !== -1 ? closestIndex : range.length;
+    nextIndex = nextIndex !== -1 ? nextIndex : range.length;
 
-    const previousField = range[range.length === 1 ? 0 : closestIndex - 1];
-    const previousParams = deepCopy(previousField);
-    const newField = getDefaultField(rangeIndex, range.length === 1 ? 1 : closestIndex, offset);
+    const hoveredField = range[nextIndex - 1];
+    const newField = getDefaultField(rangeIndex, nextIndex, offset);
 
-    newField.properties = previousParams.properties;
+    newField.properties = deepCopy(hoveredField.properties);
 
-    if (range.length === 1) {
-        range.push(newField);
-        return true;
-    }
+    if (hoveredField.offsetFrame !== offset) {
+        range.splice(nextIndex, 0, newField);
+        incrementUpperFieldIndexesFrom(range, nextIndex);
 
-    if (previousField.offsetFrame !== offset) {
-        range.splice(closestIndex, 0, newField);
-        incrementUpperFieldIndexesFrom(range, closestIndex);
-
-        return true;
+        return nextIndex - 1;
     } else {
         const copy = deepCopy(range);
 
-        copy.splice(closestIndex - 1, 0, newField);
+        newField.index = nextIndex - 1;
+        copy.splice(nextIndex - 1, 0, newField);
 
         const length = copy.length;
-        let i = closestIndex;
+        let i = nextIndex;
         let found = false;
 
         for (i; i < length; ++i) {
@@ -118,13 +113,13 @@ export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number,
 
         if (found) {
             copy.forEach((field, index) => range[index] = copy[index]);
-            incrementUpperFieldIndexesFrom(range, closestIndex);
+            incrementUpperFieldIndexesFrom(range, nextIndex);
 
-            return true;
+            return nextIndex - 1;
         }
     }
 
-    return false;
+    return -1;
 }
 
 export function reverseRangeColors(range: GlitchShadowField[]) {

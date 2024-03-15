@@ -37,7 +37,7 @@ watch(selectedField, (field) => {
 </script>
 
 <template>
-    <div class="md:space-x-0 md:space-y-4">
+    <div class="md:space-x-0 md:space-y-4 sticky top-4">
         <div class="mb-4" v-if="selectedField && localSelectedField">
             <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
                 v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField" />

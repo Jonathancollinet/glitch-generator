@@ -91,7 +91,7 @@ async function initConfig() {
     if (displayedText.value?.glitchedEl) {
         glitchedEl.value = displayedText.value?.glitchedEl;
         glitch.setGlitchedElement(glitchedEl.value);
-        computeConfig(gconfig, true);
+        computeConfig(true);
         selectField(gconfig.ranges[0][0]);
     }
 }
@@ -104,7 +104,7 @@ function verifySensibleData() {
     }
 }
 
-function bindGlitch(newBindings: any) {
+function bindGlitch(newBindings: GlitchBindings) {
     if (newBindings) {
         bindings.value = newBindings;
     }
@@ -118,13 +118,18 @@ function selectFirstRangeField(range?: GlitchShadowField[]) {
     }
 }
 
-function computeConfig(gconfig: GlitchConfig, forceRangeCompute?: boolean) {
+function computeConfig(forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
         const bindings = glitch.computeConfig(gconfig, forceRangeCompute);
 
-        bindGlitch(bindings);
-        EditorUtils.setAllColors(gconfig);
-        savePreset();
+        if (bindings) {
+            bindGlitch(bindings);
+            EditorUtils.setAllColors(gconfig);
+
+            nextTick(() => {
+                savePreset();
+            })
+        }
     }
 }
 
@@ -143,7 +148,7 @@ function addEmptyRange() {
         selectField(gconfig.ranges[0][0]);
     }
 
-    computeConfig(gconfig, true);
+    computeConfig(true);
 }
 
 function duplicateRange(rangeIndex: number) {
@@ -151,7 +156,7 @@ function duplicateRange(rangeIndex: number) {
 
     if (rangeNb) {
         EditorUtils.duplicateRange(gconfig.ranges, rangeIndex);
-        computeConfig(gconfig, true);
+        computeConfig(true);
     }
 }
 
@@ -160,7 +165,7 @@ function reversePositions(index: number) {
 
     if (range) {
         EditorUtils.reverseRangePositions(range);
-        computeConfig(gconfig, true);
+        computeConfig(true);
     }
 }
 
@@ -169,7 +174,7 @@ function reverseColors(rangeIndex: number) {
 
     if (range) {
         EditorUtils.reverseRangeColors(range);
-        computeConfig(gconfig, true);
+        computeConfig(true);
     }
 }
 
@@ -179,7 +184,7 @@ function removeField(field: GlitchShadowField) {
     }
 
     EditorUtils.removeField(gconfig.ranges, field);
-    computeConfig(gconfig, true);
+    computeConfig(true);
 
     nextTick(() => {
         selectFirstRangeField(gconfig.ranges[field.range]);
@@ -192,7 +197,7 @@ function removeRange(rangeIndex: number) {
     }
 
     EditorUtils.removeRange(gconfig.ranges, rangeIndex);
-    computeConfig(gconfig, true);
+    computeConfig(true);
 
     nextTick(() => {
         selectFirstRangeField();
@@ -209,9 +214,11 @@ function closeField() {
 
 function insertField(rangeIndex: number, offset: number) {
     const range = gconfig.ranges[rangeIndex];
+    const insertedIndex = EditorUtils.addFieldAtOffset(range, rangeIndex, offset);
 
-    if (EditorUtils.addFieldAtOffset(range, rangeIndex, offset)) {
-        computeConfig(gconfig, true)
+    if (insertedIndex !== -1) {
+        computeConfig(true)
+        selectField(range[insertedIndex]);
     }
 }
 
@@ -241,7 +248,7 @@ const hasValidDuration = computed(() => {
 });
 
 watch(gconfig.text, () => {
-    computeConfig(gconfig);
+    computeConfig();
 });
 
 watch(gconfig.animation, () => {
@@ -256,7 +263,7 @@ watch(gconfig.animation, () => {
                 savePreset();
             })
         } else {
-            computeConfig(gconfig)
+            computeConfig()
         }
     }
 });
@@ -276,7 +283,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <div class="md:flex space-y-4 md:space-y-0">
+        <div class="md:flex space-y-4 md:space-y-0 h-full">
             <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
                 <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :config="gconfig"
                     :controller="glitch.controller" :hasValidDuration="hasValidDuration" />

@@ -4,6 +4,11 @@ import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils';
 import { Sketch } from '@ckpack/vue-color';
 import type { ClassValue } from 'class-variance-authority/types';
 
+type SketchColor = {
+    hex: string,
+    a: number
+};
+
 const props = defineProps<{
     errors: Partial<GlitchErrors>,
     name: string,
@@ -18,7 +23,10 @@ const color = defineModel<GlitchColor>('config', { required: true });
 const localColor = defineModel<GlitchColor>('localConfig', { required: true });
 
 const displaySketch = ref(false);
-const colors = ref<any>();
+const colors = ref<SketchColor>({
+    hex: '',
+    a: 1
+});
 
 const hexName = `${localName.value}Hex`;
 
@@ -83,7 +91,7 @@ const containerColorClasses: ClassValue[] = [
             @click="displayColor">
             <EditorToolboxColorDisplay :color="localColor" />
         </div>
-        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0" v-model="colors"
+        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0" v-model="colors as any"
             :presetColors="presetColors" />
     </UiFormGroup>
 </template>
