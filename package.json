@@ -23,14 +23,12 @@
     "lz-string": "^1.5.0",
     "nuxt": "^3.10.2",
     "sortablejs": "^1.15.2",
-    "sortablejs-vue3": "^1.2.11",
     "tailwind-merge": "^2.2.1",
     "uuid": "^9.0.1",
     "vue": "^3.4.19",
     "vue-debounce": "^5.0.0",
     "vue-final-modal": "^4.5.4",
     "vue-router": "^4.2.5",
-    "vue3-tour": "^0.3.4",
     "zod": "^3.22.4"
   },
   "devDependencies": {

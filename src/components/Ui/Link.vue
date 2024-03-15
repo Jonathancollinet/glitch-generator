@@ -10,10 +10,14 @@ const props = withDefaults(defineProps<{
 }>(), {
     as: NuxtLink
 });
+
+const linkBindings = {
+    noPrefetch: true
+};
 </script>
 
 <template>
-    <component :is="as" :class="cn(LinkVariants({ variant }), props.class ?? '')">
+    <component :is="as" :class="cn(LinkVariants({ variant }), props.class ?? '')" v-bind="linkBindings">
         <slot />
     </component>
 </template>

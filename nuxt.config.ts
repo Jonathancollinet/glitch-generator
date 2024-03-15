@@ -25,7 +25,6 @@ export default defineNuxtConfig({
     css: [
         'vue-final-modal/style.css',
         'floating-vue/dist/style.css',
-        'vue3-tour/dist/vue3-tour.css'
     ],
     i18n: {
         vueI18n: '~/i18n/i18n.config.ts',
