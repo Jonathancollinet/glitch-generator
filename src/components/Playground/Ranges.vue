@@ -24,7 +24,7 @@ function selectField(field: GlitchShadowField) {
 function insertField(rangeIndex: number, offset: number) {
     const range = ranges.value[rangeIndex];
 
-    addFieldAtOffset(range, rangeIndex, offset);
+    addFieldAtOffset(ranges.value, rangeIndex, offset);
 }
 
 watch(() => props.selectedField, () => {

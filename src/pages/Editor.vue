@@ -207,12 +207,11 @@ function closeField() {
 }
 
 function insertField(rangeIndex: number, offset: number) {
-    const range = gconfig.ranges[rangeIndex];
-    const insertedIndex = EditorUtils.addFieldAtOffset(range, rangeIndex, offset);
+    const insertedIndex = EditorUtils.addFieldAtOffset(gconfig.ranges, rangeIndex, offset);
 
     if (insertedIndex !== -1) {
         computeConfig(true)
-        selectField(range[insertedIndex]);
+        selectField(gconfig.ranges[rangeIndex][insertedIndex]);
     }
 }
 

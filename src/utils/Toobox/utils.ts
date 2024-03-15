@@ -131,15 +131,7 @@ export function getPossibleOffsetFrames(field: GlitchShadowField, range: GlitchS
         const percents = [];
         const previousField = range[field.index - 1];
         const nextField = range[field.index + 1];
-        let length;
-
-        if (previousField && nextField) {
-            length = (nextField.offsetFrame) - (previousField.offsetFrame + 1);
-        } else if (previousField) {
-            length = 101 - (previousField.offsetFrame + 1);
-        } else {
-            length = 0;
-        }
+        const length = previousField ? (nextField?.offsetFrame || 101) - (previousField.offsetFrame + 1) : 0;
 
         for (let i = 1; i <= length; ++i) {
             percents.push(previousField.offsetFrame + i);

@@ -37,7 +37,7 @@ const hexName = `${localName.value}Hex`;
 const hexError = computed(() => getErrorMessage(props.errors, `${props.name}.color.hex`));
 const alphaPercentError = computed(() => getErrorMessage(props.errors, `${props.name}.color.alphaPercent`));
 
-const presetColors = ref(useAllColors());
+const presetColors = useAllColors();
 
 const updateColor = applyUpdater<GlitchColor>({
     obj: color.value,
@@ -66,7 +66,7 @@ function hideColor() {
 
 watch(colors, (newVal) => {
     if (updateHex) {
-        updateHex(RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase());
+        updateHex(RGBToHex(newVal.rgba.a, newVal.rgba.g, newVal.rgba.b).toLowerCase());
     }
 
     if (isNotFalsy(updateAlphaPercent)) {
@@ -76,14 +76,15 @@ watch(colors, (newVal) => {
 
 onMounted(() => {
     if (color.value.hex) {
-        const rgb = hexToRGBObject(color.value.hex);
+        const rgba = {
+            ...hexToRGBObject(color.value.hex),
+            a: color.value.alphaPercent / 100
+        };
 
         colors.value = {
-            r: rgb.r,
-            g: rgb.g,
-            b: rgb.b,
+            rgba,
             a: color.value.alphaPercent / 100
-        }
+        };
     }
 });
 
@@ -99,7 +100,7 @@ const containerColorClasses: ClassValue[] = [
             @click="displayColor">
             <EditorToolboxColorDisplay :color="localColor" />
         </div>
-        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0" v-model="colors"
+        <Sketch v-if="displaySketch" class="!absolute z-10 top-0 left-0 bg-red-500" v-model="colors"
             :presetColors="presetColors" />
     </UiFormGroup>
 </template>

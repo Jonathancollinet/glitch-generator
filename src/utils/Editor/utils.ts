@@ -19,40 +19,46 @@ export function getFieldsToUpdate(ranges: GlitchShadowField[][], newField: Glitc
 }
 
 export function removeRange(ranges: GlitchShadowField[][], rangeIndex: number) {
-    applyToUpperRanges(rangeIndex, ranges, (range, index) => {
-        ranges[index] = range.map(field => {
+    const copy = deepCopy(ranges);
+
+    applyToUpperRanges(rangeIndex, copy, (range, index) => {
+        copy[index] = range.map(field => {
             field.range -= 1;
             return field;
         });
     });
 
-    ranges.splice(rangeIndex, 1);
+    copy.splice(rangeIndex, 1);
+    copyRanges(ranges, copy);
 }
 
 export function duplicateRange(ranges: GlitchShadowField[][], rangeIndex: number) {
-    const rangeToCopy = deepCopy(ranges[rangeIndex]).map(field => {
+    const copy = deepCopy(ranges);
+    const rangeToCopy = deepCopy(copy[rangeIndex]).map(field => {
         field.range += 1;
 
         return field;
     });
 
-    applyToUpperRanges(rangeIndex, ranges, (range, index) => {
-        ranges[index] = range.map(field => {
+    applyToUpperRanges(rangeIndex, copy, (range, index) => {
+        copy[index] = range.map(field => {
             field.range += 1;
             return field;
         });
     });
 
-    ranges.splice(rangeIndex + 1, 0, rangeToCopy);
+    copy.splice(rangeIndex + 1, 0, rangeToCopy);
+    copyRanges(ranges, copy);
 }
 
 export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowField) {
-    const range = ranges[field.range];
+    const copy = deepCopy(ranges);
+    const range = copy[field.range];
     const fieldNb = range.length;
     const index = field.index;
 
     if (fieldNb === 1) {
-        ranges.splice(field.range, 1);
+        copy.splice(field.range, 1);
 
         return;
     }
@@ -69,10 +75,13 @@ export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowFi
         range[1].offsetFrame = 0;
     }
 
-    ranges[field.range].splice(field.index, 1);
+    copy[field.range].splice(field.index, 1);
+    copyRanges(ranges, copy);
 }
 
-export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number, offset: number) {
+export function addFieldAtOffset(ranges: GlitchShadowField[][], rangeIndex: number, offset: number) {
+    const rangesCopy = deepCopy(ranges);
+    const range = rangesCopy[rangeIndex];
     let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
 
     nextIndex = nextIndex !== -1 ? nextIndex : range.length;
@@ -85,6 +94,7 @@ export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number,
     if (hoveredField.offsetFrame !== offset) {
         range.splice(nextIndex, 0, newField);
         incrementUpperFieldIndexesFrom(range, nextIndex);
+        copyRanges(ranges, rangesCopy);
 
         return nextIndex - 1;
     } else {
@@ -114,6 +124,7 @@ export function addFieldAtOffset(range: GlitchShadowField[], rangeIndex: number,
         if (found) {
             copy.forEach((field, index) => range[index] = copy[index]);
             incrementUpperFieldIndexesFrom(range, nextIndex);
+            copyRanges(ranges, rangesCopy);
 
             return nextIndex - 1;
         }
@@ -179,6 +190,12 @@ export function setAllColors(config: GlitchConfig) {
         }
     });
     allColors.sort();
+}
+
+function copyRanges(ranges: GlitchShadowField[][], rangesToCopy: GlitchShadowField[][]) {
+    rangesToCopy.forEach((range, index) => {
+        ranges[index] = range;
+    });
 }
 
 function incrementUpperFieldIndexesFrom(range: GlitchShadowField[], index: number) {
