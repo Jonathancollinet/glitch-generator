@@ -259,6 +259,9 @@
             "presetName": "Preset name is required",
             "keyframes": "Invalid keyframes. Check the rules.",
             "textStyle": "Invalid text style. Check the rules."
+        },
+        "addPreset": {
+            "name": "Preset name is required"
         }
     }
 }

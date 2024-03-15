@@ -22,7 +22,7 @@ function onCancel() {
 <template>
     <UiModalConfirm @confirm="onConfirm" @cancel="onCancel" title="modals.addPreset.title">
         <UiFormGroup label="modals.addPreset.presetName" name="presetName" :error="errors.name">
-            <UiInput name="presetName" v-model="presetName" />
+            <UiInput name="presetName" v-model="presetName" @keypress.enter="onConfirm" />
         </UiFormGroup>
     </UiModalConfirm>
 </template>
