@@ -38,12 +38,12 @@ const headerClass: ClassValue[] = [
                     <UiIcon :icon="darkModeIcon" />
                 </UiButton>
             </ClientOnly>
-            <UiButton as="div" variant="icon" size="icon">
+            <!-- <UiButton as="div" variant="icon" size="icon">
                 <UiLink variant="icon" as="a" href="https://github.com/Jonathancollinet/glitch-generator"
                     target="_blank">
                     <UiIcon variant="filled" :icon="Icons.Github" />
                 </UiLink>
-            </UiButton>
+            </UiButton> -->
         </div>
     </header>
 </template>
