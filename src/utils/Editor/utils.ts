@@ -80,8 +80,8 @@ export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowFi
 }
 
 export function addFieldAtOffset(ranges: GlitchShadowField[][], rangeIndex: number, offset: number) {
-    const rangesCopy = deepCopy(ranges);
-    const range = rangesCopy[rangeIndex];
+    const copy = deepCopy(ranges);
+    const range = copy[rangeIndex];
     let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
 
     nextIndex = nextIndex !== -1 ? nextIndex : range.length;
@@ -94,22 +94,20 @@ export function addFieldAtOffset(ranges: GlitchShadowField[][], rangeIndex: numb
     if (hoveredField.offsetFrame !== offset) {
         range.splice(nextIndex, 0, newField);
         incrementUpperFieldIndexesFrom(range, nextIndex);
-        copyRanges(ranges, rangesCopy);
+        copyRanges(ranges, copy);
 
         return nextIndex - 1;
     } else {
-        const copy = deepCopy(range);
-
         newField.index = nextIndex - 1;
-        copy.splice(nextIndex - 1, 0, newField);
+        range.splice(nextIndex - 1, 0, newField);
 
-        const length = copy.length;
+        const length = range.length;
         let i = nextIndex;
         let found = false;
 
         for (i; i < length; ++i) {
-            const field = copy[i];
-            const nextField = copy[i + 1];
+            const field = range[i];
+            const nextField = range[i + 1];
 
             if ((nextField?.offsetFrame ?? 101) - field.offsetFrame > 1) {
                 field.offsetFrame += 1;
@@ -122,9 +120,8 @@ export function addFieldAtOffset(ranges: GlitchShadowField[][], rangeIndex: numb
         }
 
         if (found) {
-            copy.forEach((field, index) => range[index] = copy[index]);
             incrementUpperFieldIndexesFrom(range, nextIndex);
-            copyRanges(ranges, rangesCopy);
+            copyRanges(ranges, copy);
 
             return nextIndex - 1;
         }
