@@ -80,7 +80,7 @@ namespace Glitch {
         } & AnimationStyle;
     };
 
-    export type ContainerBindings = Partial<{
+    export type ContainerStyle = Partial<{
         display: string;
         alignItems: string;
         justifyContent: string;
@@ -88,7 +88,7 @@ namespace Glitch {
 
     export type Export = {
         keyframes: string;
-        style: Bindings & ContainerBindings;
+        style: Bindings & ContainerStyle;
     };
 
     export type AnimationStyle = {

@@ -140,7 +140,7 @@ export default class Glitch {
 
     private generateStyle(forExport: boolean = false): G.Bindings["textStyle"] {
         const animationStyle: G.AnimationStyle = {};
-        const containerStyle: G.ContainerBindings = {};
+        const containerStyle: G.ContainerStyle = {};
         const configText = this.config.text;
 
         if (!this.keyframes.animation || forExport) {
