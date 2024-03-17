@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { GlitchColor } from '~/glitch/types';
+import G from "~/glitch/types";
 
 const props = defineProps<{
-    color: GlitchColor
+    color: G.Color;
 }>();
 
 const colorStyle = computed(() => {
     return {
-        background: hexToRGB(props.color.hex, props.color.alphaPercent)
-    }
+        background: hexToRGB(props.color.hex, props.color.alphaPercent),
+    };
 });
 </script>
 

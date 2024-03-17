@@ -1,20 +1,25 @@
 <script lang="ts" setup>
-import type { HTMLAttributes } from 'vue';
-import { TextVariants } from '~/componentsVariants/Ui/Text';
+import type { HTMLAttributes } from "vue";
+import { TextVariants } from "~/componentsVariants/Ui/Text";
 
-const props = withDefaults(defineProps<{
-	as?: 'div' | 'span' | 'p' | 'label',
-    class?: HTMLAttributes['class'],
-}>(), {
-    as: 'p',
-});
+const props = withDefaults(
+    defineProps<{
+        as?: "div" | "span" | "p" | "label";
+        class?: HTMLAttributes["class"];
+    }>(),
+    {
+        as: "p",
+        class: "",
+    },
+);
 </script>
 
 <template>
     <component
-        :data-tag="as"
         :is="as"
-        :class="cn('text', TextVariants(), props.class ?? '')">
+        :data-tag="as"
+        :class="cn('text', TextVariants(), props.class)"
+    >
         <slot />
     </component>
 </template>

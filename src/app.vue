@@ -1,44 +1,44 @@
 <script lang="ts" setup>
-import { ModalsContainer } from 'vue-final-modal';
+import { ModalsContainer } from "vue-final-modal";
 
 useHead({
     htmlAttrs: {
-        lang: useI18n().locale.value
+        lang: useI18n().locale.value,
     },
     link: [
         {
             rel: "apple-touch-icon",
             sizes: "120x120",
-            href: "/apple-touch-icon.png"
+            href: "/apple-touch-icon.png",
         },
         {
             rel: "icon",
             type: "image/png",
             sizes: "32x32",
-            href: "/favicon-32x32.png"
+            href: "/favicon-32x32.png",
         },
         {
             rel: "icon",
             type: "image/png",
             sizes: "16x16",
-            href: "/favicon-16x16.png"
+            href: "/favicon-16x16.png",
         },
         {
-            rel: 'manifest',
-            href: '/site.webmanifest'
+            rel: "manifest",
+            href: "/site.webmanifest",
         },
         {
-            rel: 'mask-icon',
-            href: '/safari-pinned-tab.svg',
-            color: '#5bbad5'
-        }
+            rel: "mask-icon",
+            href: "/safari-pinned-tab.svg",
+            color: "#5bbad5",
+        },
     ],
     meta: [
         {
-            name: 'msapplication-TileColor',
-            content: '#da532c'
-        }
-    ]
+            name: "msapplication-TileColor",
+            content: "#da532c",
+        },
+    ],
 });
 </script>
 

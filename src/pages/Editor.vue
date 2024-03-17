@@ -1,49 +1,40 @@
 <script setup lang="ts">
-import type {
-    GlitchBindings,
-    GlitchConfig,
-    GlitchErrors,
-    GlitchShadowField
-} from '~/glitch/types';
-import {
-    EditorDisplayedText,
-    EditorPresets
-} from '#components';
-import {
-    type Preset,
-} from '~/utils/Toobox/presets';
-import Glitch from '~/glitch';
-import * as EditorUtils from '~/utils/Editor/utils';
-import { isTourDone, redirectHelp, setTourDone } from '~/utils/Editor/tour';
+import G from "~/glitch/types";
+import { EditorDisplayedText, EditorPresets } from "#components";
+import { type Preset } from "~/utils/Toobox/presets";
+import Glitch from "~/glitch";
+import * as EditorUtils from "~/utils/Editor/utils";
+import { isTourDone, redirectHelp, setTourDone } from "~/utils/Editor/tour";
 
-useServerSeoMeta(useTranslatedSeoMeta('editor'));
+useServerSeoMeta(useTranslatedSeoMeta("editor"));
 
-interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
-    glitchedEl: HTMLElement | null
+interface EditorDisplayedTextData
+    extends Ref<InstanceType<typeof EditorDisplayedText>> {
+    glitchedEl: HTMLElement | null;
 }
 
 interface EditorPresetsData extends Ref<InstanceType<typeof EditorPresets>> {
-    savePreset: () => void
+    savePreset: () => void;
 }
 
-const errors = ref<Partial<GlitchErrors>>({});
+const errors = ref<Partial<G.Errors>>({});
 const displayedText = ref<EditorDisplayedTextData>();
 const glitchedEl = ref<HTMLElement | null>(null);
 const presets = ref<EditorPresetsData>();
 const currentPercent = ref(0);
-const selectedField = ref<GlitchShadowField>();
+const selectedField = ref<G.Field>();
 const currentPreset = ref<Preset>();
-const gconfig = reactive<GlitchConfig>(getDefaultGlitchConfig());
-const bindings = ref<GlitchBindings>({
-    message: '',
+const gconfig = reactive<G.Config>(getDefaultGlitchConfig());
+const bindings = ref<G.Bindings>({
+    message: "",
     textStyle: {
         fontSize: "",
         padding: "",
         borderRadius: "",
         height: "",
         backgroundColor: "",
-        color: ""
-    }
+        color: "",
+    },
 });
 
 const { welcomeModal } = useModalWelcome(setTourDone, redirectHelp);
@@ -56,21 +47,21 @@ const onRangesEvents = {
     reversePositions,
     reverseColors,
     removeRange,
-    insertField
+    insertField,
 };
 
 const onToolboxEvents = {
     removeField,
     closeField,
-    presetChanged
+    presetChanged,
 };
 
 let animationDuration = gconfig.animation.duration;
-let glitch = new Glitch(gconfig);
+const glitch = new Glitch(gconfig);
 
 gconfig.preventRangesCompute = true;
 
-gconfig.onValidated = (errs: GlitchErrors | undefined) => {
+gconfig.onValidated = (errs: G.Errors | undefined) => {
     if (errs) {
         errors.value = errs;
         verifySensibleData();
@@ -91,20 +82,20 @@ async function initConfig() {
 }
 
 function verifySensibleData() {
-    if (errors.value['animation.duration']) {
+    if (errors.value["animation.duration"]) {
         glitch.controller?.pause();
     } else {
         glitch.controller?.play();
     }
 }
 
-function bindGlitch(newBindings: GlitchBindings) {
+function bindGlitch(newBindings: G.Bindings) {
     if (newBindings) {
         bindings.value = newBindings;
     }
 }
 
-function selectFirstRangeField(range?: GlitchShadowField[]) {
+function selectFirstRangeField(range?: G.Field[]) {
     const firstFieldRange = (range || gconfig.ranges[0])?.[0];
 
     if (firstFieldRange) {
@@ -122,14 +113,16 @@ function computeConfig(forceRangeCompute?: boolean) {
 
             nextTick(() => {
                 savePreset();
-            })
+            });
         }
     }
 }
 
-function updateField(newField: GlitchShadowField) {
+function updateField(newField: G.Field) {
     if (gconfig.ranges[newField.range]) {
-        glitch?.computeFields(EditorUtils.getFieldsToUpdate(gconfig.ranges, newField));
+        glitch?.computeFields(
+            EditorUtils.getFieldsToUpdate(gconfig.ranges, newField),
+        );
         EditorUtils.setAllColors(gconfig);
         savePreset();
     }
@@ -172,8 +165,11 @@ function reverseColors(rangeIndex: number) {
     }
 }
 
-function removeField(field: GlitchShadowField) {
-    if (field.index === selectedField.value?.index && field.range === selectedField.value?.range) {
+function removeField(field: G.Field) {
+    if (
+        field.index === selectedField.value?.index &&
+        field.range === selectedField.value?.range
+    ) {
         closeField();
     }
 
@@ -195,10 +191,10 @@ function removeRange(rangeIndex: number) {
 
     nextTick(() => {
         selectFirstRangeField();
-    })
+    });
 }
 
-function selectField(newField: GlitchShadowField) {
+function selectField(newField: G.Field) {
     selectedField.value = newField;
 }
 
@@ -207,10 +203,14 @@ function closeField() {
 }
 
 function insertField(rangeIndex: number, offset: number) {
-    const insertedIndex = EditorUtils.addFieldAtOffset(gconfig.ranges, rangeIndex, offset);
+    const insertedIndex = EditorUtils.addFieldAtOffset(
+        gconfig.ranges,
+        rangeIndex,
+        offset,
+    );
 
     if (insertedIndex !== -1) {
-        computeConfig(true)
+        computeConfig(true);
         selectField(gconfig.ranges[rangeIndex][insertedIndex]);
     }
 }
@@ -221,7 +221,7 @@ function presetChanged(preset: Preset) {
 
     nextTick(() => {
         initConfig();
-    })
+    });
 }
 
 function savePreset() {
@@ -237,7 +237,7 @@ const isCustomPreset = computed(() => {
 });
 
 const hasValidDuration = computed(() => {
-    return errors.value['animation.duration'] === undefined;
+    return errors.value["animation.duration"] === undefined;
 });
 
 watch(gconfig.text, () => {
@@ -248,15 +248,15 @@ watch(gconfig.animation, () => {
     const configDuration = gconfig.animation.duration;
 
     if (configDuration !== animationDuration) {
-        if (glitch.hasAnimationBrowserCompatibility()) {
+        if (glitch.canUseAnimation()) {
             animationDuration = configDuration;
             glitch.replaceAnimationDuration(gconfig);
 
             nextTick(() => {
                 savePreset();
-            })
+            });
         } else {
-            computeConfig()
+            computeConfig();
         }
     }
 });
@@ -276,25 +276,49 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <UiHeading variant="h1" v-show="false">{{ $t('pages.editor.title') }}</UiHeading>
-        <div class="md:flex space-y-4 md:space-y-0 h-full">
-            <div class="md:w-[70%] lg:w-[75%] md:mr-4 space-x-1">
-                <EditorDisplayedText ref="displayedText" v-model="currentPercent" :bindings="bindings" :config="gconfig"
-                    :controller="glitch.controller" :hasValidDuration="hasValidDuration" />
-                <EditorToolboxRanges :key="currentPreset?.id" :config="gconfig" :currentPercent="currentPercent"
-                    :selectedField="selectedField" v-on="onRangesEvents" />
+        <UiHeading v-show="false" variant="h1">{{
+            $t("pages.editor.title")
+        }}</UiHeading>
+        <div class="h-full space-y-4 md:flex md:space-y-0">
+            <div class="space-x-1 md:mr-4 md:w-[70%] lg:w-[75%]">
+                <EditorDisplayedText
+                    ref="displayedText"
+                    v-model="currentPercent"
+                    :bindings="bindings"
+                    :config="gconfig"
+                    :controller="glitch.controller"
+                    :has-valid-duration="hasValidDuration"
+                />
+                <EditorToolboxRanges
+                    :key="currentPreset?.id"
+                    :config="gconfig"
+                    :current-percent="currentPercent"
+                    :selected-field="selectedField"
+                    v-on="onRangesEvents"
+                />
             </div>
-            <div class="md:w-[30%] lg:w-[25%] md:ml-4">
-                <div class="flex items-center justify-between mb-4">
+            <div class="md:ml-4 md:w-[30%] lg:w-[25%]">
+                <div class="mb-4 flex items-center justify-between">
                     <ClientOnly>
-                        <EditorPresets ref="presets" :glitch="glitch" :config="gconfig" @presetChange="presetChanged" />
+                        <EditorPresets
+                            ref="presets"
+                            :glitch="glitch"
+                            :config="gconfig"
+                            @preset-change="presetChanged"
+                        />
                     </ClientOnly>
                     <div class="flex">
                         <EditorActions :config="gconfig" :glitch="glitch" />
                     </div>
                 </div>
-                <EditorToolbox :key="currentPreset?.id" v-model:config="gconfig" v-model:field="selectedField"
-                    :currentPercent="currentPercent" :errors="errors" v-on="onToolboxEvents" />
+                <EditorToolbox
+                    :key="currentPreset?.id"
+                    v-model:config="gconfig"
+                    v-model:field="selectedField"
+                    :current-percent="currentPercent"
+                    :errors="errors"
+                    v-on="onToolboxEvents"
+                />
             </div>
         </div>
     </div>

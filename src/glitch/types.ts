@@ -1,104 +1,118 @@
-export enum GlitchAnimationProperty {
-    TextShadow = 'text-shadow',
-    BoxShadow = 'box-shadow',
+namespace Glitch {
+    export enum PropertyName {
+        TextShadow = "text-shadow",
+        BoxShadow = "box-shadow",
+    }
+
+    export enum Unit {
+        Pixel = "px",
+        Point = "pt",
+        Em = "em",
+        Rem = "rem",
+    }
+
+    export type Color = {
+        hex: string;
+        alphaPercent: number;
+    };
+
+    export type PropertyBase = {
+        enabled: boolean;
+        fillAllFrames: boolean;
+    };
+
+    export type Property = PropertyBase &
+        Declarations.TextShadow &
+        Declarations.BoxShadow;
+
+    export type Properties = {
+        [key in PropertyName]?: Property;
+    };
+
+    export type Field = {
+        range: number;
+        index: number;
+        offsetFrame: number;
+        properties: Properties;
+    };
+
+    export type BaseText = {
+        size: number;
+        unit: Unit | string;
+        color: Color;
+        bgColor: Color;
+        height: number;
+        padding: number;
+        borderRadius: number;
+        message: string;
+    };
+
+    export type Animation = {
+        duration: number;
+    };
+
+    export type Error = {
+        path: string;
+        code: string;
+        message: string;
+    };
+
+    export type Errors = { [key: string]: Error };
+
+    export type Config = {
+        onValidated?: (errors: Errors | undefined) => void;
+        preventRangesCompute?: boolean;
+        controls: boolean;
+        text: BaseText;
+        animation: Animation;
+        ranges: Field[][];
+    };
+
+    export type Bindings = {
+        message: string;
+        textStyle: {
+            fontSize: string;
+            padding: string;
+            height: string;
+            backgroundColor: string;
+            borderRadius: string;
+            color: string;
+        } & AnimationStyle;
+    };
+
+    export type ContainerBindings = Partial<{
+        display: string;
+        alignItems: string;
+        justifyContent: string;
+    }>;
+
+    export type Export = {
+        keyframes: string;
+        style: Bindings & ContainerBindings;
+    };
+
+    export type AnimationStyle = {
+        animationName?: string;
+        animationDuration?: string;
+        animationTimingFunction?: string;
+        animationIterationCount?: string;
+        animationPlayState?: string;
+    };
+
+    export namespace Declarations {
+        export type Shadow = {
+            color: Color;
+            offsetX: number;
+            offsetY: number;
+            blur: number;
+        };
+
+        export type TextShadow = Shadow;
+
+        export type BoxShadow = Shadow & {
+            spread?: number;
+        };
+    }
 }
 
-export enum GlitchUnit {
-    Pixel = 'px',
-    Point = 'pt',
-    Em = 'em',
-    Rem = 'rem',
-}
-
-export type GlitchAnimationPropertyUnion = `${GlitchAnimationProperty}`;
-
-export type GlitchUnitUnion = `${GlitchUnit}`;
-
-export type GlitchColor = {
-    hex: string,
-    alphaPercent: number
-}
-
-export type GlitchShadowProperty = {
-    enabled: boolean,
-    fillAllFrames: boolean,
-    color: GlitchColor,
-    offsetX: number,
-    offsetY: number,
-    blur: number,
-    spread?: number
-}
-
-export type GlitchShadowProperties = {
-    [key in GlitchAnimationProperty]?: GlitchShadowProperty
-}
-
-export type GlitchShadowField = {
-    range: number,
-    index: number,
-    offsetFrame: number,
-    properties: GlitchShadowProperties,
-}
-
-export type GlitchBaseText = {
-    size: number,
-    unit: GlitchUnitUnion | string,
-    color: GlitchColor,
-    bgColor: GlitchColor,
-    height: number,
-    padding: number,
-    borderRadius: number,
-    message: string
-}
-
-export type GlitchAnimation = {
-    duration: number,      
-}
-
-export type GlitchError = {
-    path: string,
-    code: string,
-    message: string
-}
-
-export type GlitchErrors = { [key: string]: GlitchError };
-
-export type GlitchConfig = {
-    onValidated?: (errors: GlitchErrors | undefined) => void,
-    preventRangesCompute?: boolean,
-    controls: boolean,
-    text: GlitchBaseText,
-    animation: GlitchAnimation,
-    ranges: GlitchShadowField[][],
-}
-
-export type GlitchBindings = {
-    message: string,
-    textStyle: {
-        fontSize: string,
-        padding: string,
-        height: string,
-        backgroundColor: string,
-        borderRadius: string,
-        color: string,
-    } & AnimationBindings
-}
-
-export type ContainerBindings = Partial<{
-    display: string,
-    alignItems: string,
-    justifyContent: string,
-}>
-
-export type GlitchExport = {
-    keyframes: string,
-    style: GlitchBindings & ContainerBindings
-}
-
-export type AnimationBindings = {
-    animationName?: string,
-    animationDuration?: string,
-    animationTimingFunction?: string,
-    animationIterationCount?: string,
-    animationPlayState?: string
-}
+export default Glitch;

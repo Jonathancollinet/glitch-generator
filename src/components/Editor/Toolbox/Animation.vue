@@ -1,42 +1,56 @@
 <script lang="ts" setup>
-import type { GlitchAnimation, GlitchErrors } from '~/glitch/types';
-import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
+import G from "~/glitch/types";
+import { getErrorMessage, applyUpdater } from "~/utils/Toobox/utils";
 
 const props = defineProps<{
-    errors: Partial<GlitchErrors>,
+    errors: Partial<G.Errors>;
 }>();
 
-const animation = defineModel<GlitchAnimation>('config', { required: true });
-const localAnimation = defineModel<GlitchAnimation>('localConfig', { required: true });
+const animation = defineModel<G.Animation>("config", { required: true });
+const localAnimation = defineModel<G.Animation>("localConfig", {
+    required: true,
+});
 
-const animationDurationError = computed(() => getErrorMessage(props.errors, 'animation.duration'));
+const animationDurationError = computed(() =>
+    getErrorMessage(props.errors, "animation.duration"),
+);
 
-const updateAnimation = applyUpdater<GlitchAnimation>({
+const updateAnimation = applyUpdater<G.Animation>({
     obj: animation.value,
-    localObj: localAnimation.value
+    localObj: localAnimation.value,
 });
 
 const updateAnimationDuration = updateAnimation({
-    key: 'duration',
+    key: "duration",
     modifier: Number,
-    debounced: 300
+    debounced: 300,
 });
 </script>
 
 <template>
-    <UiCard openable :isOpen="false" contentClasses="pr-0">
+    <UiCard openable :is-open="false" content-classes="pr-0">
         <template #title>
             <UiHeading variant="h3">
-                {{ $t('pages.editor.config.animation.title') }}
+                {{ $t("pages.editor.config.animation.title") }}
             </UiHeading>
         </template>
 
         <template #content>
-            <UiFormGroup inline label="pages.editor.config.animation.animationDuration" :error="animationDurationError"
-                name="animationDuration">
-                <UiInput type="tel" class="w-[70px]" alignment="center" size="medium"
-                    :onUpdate="updateAnimationDuration" name="animationDuration"
-                    :modelValue="localAnimation.duration" />
+            <UiFormGroup
+                inline
+                label="pages.editor.config.animation.animationDuration"
+                :error="animationDurationError"
+                name="animationDuration"
+            >
+                <UiInput
+                    type="tel"
+                    class="w-[70px]"
+                    alignment="center"
+                    size="medium"
+                    :on-update="updateAnimationDuration"
+                    name="animationDuration"
+                    :model-value="localAnimation.duration"
+                />
             </UiFormGroup>
         </template>
     </UiCard>

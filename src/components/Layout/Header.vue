@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { ClassValue } from 'class-variance-authority/types';
-import { Icons } from '~/types/enums';
+import type { ClassValue } from "class-variance-authority/types";
+import { Icons } from "~/types/enums";
 import { navigationItems } from "~/utils/constants";
 
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 const refColorMode = ref(colorMode);
 
 const darkModeIcon = computed(() => {
@@ -18,7 +18,7 @@ const headerClass: ClassValue[] = [
     "h-header",
     "flex items-center justify-between",
     "px-8 border-b-2 border-neutral-400",
-    "dark:border-primary-50"
+    "dark:border-primary-50",
 ];
 </script>
 

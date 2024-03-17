@@ -1,32 +1,43 @@
 <script lang="ts" setup>
-import type { ClassValue } from 'class-variance-authority/types';
-import type { HTMLAttributes } from 'vue';
-import { CardVariants, type CardVariantsProps } from '~/componentsVariants/Ui/Card';
-import { Icons } from '~/types/enums';
+import type { ClassValue } from "class-variance-authority/types";
+import type { HTMLAttributes } from "vue";
+import {
+    CardVariants,
+    type CardVariantsProps,
+} from "~/componentsVariants/Ui/Card";
+import { Icons } from "~/types/enums";
 
-const props = withDefaults(defineProps<{
-    class?: HTMLAttributes['class'],
-    variant?: CardVariantsProps['variant'],
-    size?: CardVariantsProps['size'],
-    openable?: boolean,
-    isOpen?: boolean,
-    contentClasses?: ClassValue,
-    noContentPad?: boolean,
-}>(), {
-    openable: false,
-    isOpen: true,
-});
+const props = withDefaults(
+    defineProps<{
+        class?: HTMLAttributes["class"];
+        variant?: CardVariantsProps["variant"];
+        size?: CardVariantsProps["size"];
+        openable?: boolean;
+        isOpen?: boolean;
+        contentClasses?: ClassValue;
+        noContentPad?: boolean;
+    }>(),
+    {
+        openable: false,
+        isOpen: true,
+        noContentPad: false,
+        class: "",
+        variant: "default",
+        size: "default",
+        contentClasses: "",
+    },
+);
 
 const openToggle = ref(props.isOpen);
 
 const titleClass = computed(() => [
-    '*:m-0 select-none transition-opacity duration-100',
-    props.openable ? 'cursor-pointer hover:opacity-60' : '',
+    "*:m-0 select-none transition-opacity duration-100",
+    props.openable ? "cursor-pointer hover:opacity-60" : "",
 ]);
 
 const contentClass = computed(() => [
-    props.noContentPad ? '' : 'px-4',
-    props.openable && openToggle.value ? 'mt-2 ml-2 border-l-2' : ''
+    props.noContentPad ? "" : "px-4",
+    props.openable && openToggle.value ? "mt-2 ml-2 border-l-2" : "",
 ]);
 </script>
 
@@ -37,13 +48,18 @@ const contentClass = computed(() => [
                 <slot name="title" />
             </template>
             <template v-else>
-                <div class="*:m-0 flex items-center justify-between select-none" @click="openToggle = !openToggle">
+                <div
+                    class="flex select-none items-center justify-between *:m-0"
+                    @click="openToggle = !openToggle"
+                >
                     <slot name="title" />
-                    <UiIcon :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown" />
+                    <UiIcon
+                        :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown"
+                    />
                 </div>
             </template>
         </div>
-        <div :class="cn(contentClass, props.contentClasses)" v-if="openToggle">
+        <div v-if="openToggle" :class="cn(contentClass, props.contentClasses)">
             <slot name="content" />
         </div>
     </div>

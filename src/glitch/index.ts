@@ -1,29 +1,25 @@
-import type {
-    AnimationBindings,
-    ContainerBindings,
-    GlitchBindings,
-    GlitchConfig,
-    GlitchShadowField
-} from './types';
+import G from "./types";
 import GlitchValidator from "./validator";
-import GlitchKeyframes from './keyframes';
-import GlitchController from './controller';
+import GlitchKeyframes from "./keyframes";
+import GlitchController from "./controller";
 
 export default class Glitch {
-    private config: GlitchConfig;
+    private config: G.Config;
     private validator: GlitchValidator;
     private keyframes: GlitchKeyframes;
     controller: GlitchController | null;
 
-    constructor(config: GlitchConfig) {
+    constructor(config: G.Config) {
         this.config = this.getConfigCopy(config);
         this.keyframes = new GlitchKeyframes();
         this.validator = new GlitchValidator();
         this.controller = null;
 
-        if (process.client) {
-            if (this.hasAnimationBrowserCompatibility()) {
-                this.controller = new GlitchController(<Animation>this.keyframes.animation);
+        if (isClient()) {
+            if (this.canUseAnimation()) {
+                this.controller = new GlitchController(
+                    <Animation>this.keyframes.animation,
+                );
             } else {
                 this.config.controls = false;
             }
@@ -31,27 +27,30 @@ export default class Glitch {
     }
 
     destroy() {
-        if (process.client) {
+        if (isClient()) {
             this.keyframes.destroy();
         }
     }
 
-    validateConfig(config: GlitchConfig) {
-        return this.validator.validateConfigWithErrors(config, this.config)
+    validateConfig(config: G.Config) {
+        return this.validator.validateConfigWithErrors(config, this.config);
     }
 
-    computeConfig(newConfig: GlitchConfig, forceRangeCompute?: boolean) {
+    computeConfig(newConfig: G.Config, forceRangeCompute?: boolean) {
         const success = this.validator.validateConfig(newConfig, this.config);
 
         if (success) {
             this.config = this.getConfigCopy(newConfig);
             const style = this.getTextStyle();
 
-            if (process.client && (forceRangeCompute || !this.config.preventRangesCompute)) {
+            if (
+                isClient() &&
+                (forceRangeCompute || !this.config.preventRangesCompute)
+            ) {
                 this.keyframes.generate(this.config);
             }
 
-            if (this.hasAnimationBrowserCompatibility() && this.keyframes.animation?.playState === 'idle') {
+            if (this.canUseAnimation() && this.isPlayState("idle")) {
                 this.keyframes.animation?.play();
             }
 
@@ -59,7 +58,7 @@ export default class Glitch {
         }
     }
 
-    computeFields(fields: GlitchShadowField[]) {
+    computeFields(fields: G.Field[]) {
         const success = this.validator.validateFields(this.config, fields);
 
         if (success) {
@@ -78,19 +77,19 @@ export default class Glitch {
         return {
             css: `${this.getTextClassText()}\n\n${this.getKeyframesString()}`,
             js: this.getAnimationText(),
-            config: JSON.stringify({
+            config: this.formatJSON({
                 text: this.config.text,
                 animation: this.config.animation,
                 ranges: this.config.ranges,
-            }, null, 2)
-        }
+            }),
+        };
     }
 
     getKeyframesString() {
         return this.keyframes.getKeyframesString(true);
     }
 
-    replaceAnimationDuration(config: GlitchConfig) {
+    replaceAnimationDuration(config: G.Config) {
         const validate = this.computeConfig(config);
 
         if (validate) {
@@ -98,8 +97,8 @@ export default class Glitch {
         }
     }
 
-    hasAnimationBrowserCompatibility() {
-        return this.keyframes.hasAnimationBrowserCompatibility();
+    canUseAnimation() {
+        return this.keyframes.canUseAnimation();
     }
 
     setGlitchedElement(element: HTMLElement) {
@@ -111,13 +110,21 @@ export default class Glitch {
         this.keyframes.generate(this.config);
     }
 
-    private getConfigCopy(config: GlitchConfig) {
+    private getPlayState() {
+        return this.keyframes.animation?.playState;
+    }
+
+    private isPlayState(state: AnimationPlayState | string) {
+        return this.getPlayState() === state;
+    }
+
+    private getConfigCopy(config: G.Config) {
         const rawConfig = toRaw(config);
         const functions = {
             onValidated: rawConfig.onValidated,
         };
 
-        const _config: GlitchConfig = deepCopy(rawConfig);
+        const _config: G.Config = deepCopy(rawConfig);
 
         _config.onValidated = functions.onValidated;
 
@@ -128,38 +135,44 @@ export default class Glitch {
         return {
             message: this.config.text.message,
             textStyle: this.generateStyle(),
-        }
+        };
     }
 
-    private generateStyle(forExport: boolean = false): GlitchBindings['textStyle'] {
-        const animation: AnimationBindings = {};
-        const containerStyle: ContainerBindings = {};
+    private generateStyle(forExport: boolean = false): G.Bindings["textStyle"] {
+        const animationStyle: G.AnimationStyle = {};
+        const containerStyle: G.ContainerBindings = {};
         const configText = this.config.text;
 
         if (!this.keyframes.animation || forExport) {
-            animation.animationName = 'glitch';
-            animation.animationDuration = `${this.config.animation.duration}ms`;
-            animation.animationTimingFunction = 'steps(100)';
-            animation.animationIterationCount = 'infinite';
-            animation.animationPlayState = 'running';
+            animationStyle.animationName = "glitch";
+            animationStyle.animationDuration = `${this.config.animation.duration}ms`;
+            animationStyle.animationTimingFunction = "steps(100)";
+            animationStyle.animationIterationCount = "infinite";
+            animationStyle.animationPlayState = "running";
         }
 
         if (forExport) {
-            containerStyle.display = 'flex';
-            containerStyle.alignItems = 'center';
-            containerStyle.justifyContent = 'center';
+            containerStyle.display = "flex";
+            containerStyle.alignItems = "center";
+            containerStyle.justifyContent = "center";
         }
 
         return {
             ...containerStyle,
             fontSize: `${configText.size}${configText.unit}`,
-            color: hexToRGB(configText.color.hex, configText.color.alphaPercent),
+            color: hexToRGB(
+                configText.color.hex,
+                configText.color.alphaPercent,
+            ),
             height: `${configText.height}px`,
             padding: `${configText.padding}px`,
             borderRadius: `${configText.borderRadius}px`,
-            backgroundColor: hexToRGB(configText.bgColor.hex, configText.bgColor.alphaPercent),
-            ...animation
-        }
+            backgroundColor: hexToRGB(
+                configText.bgColor.hex,
+                configText.bgColor.alphaPercent,
+            ),
+            ...animationStyle,
+        };
     }
 
     private getTextClassText() {
@@ -168,7 +181,9 @@ export default class Glitch {
 
         let property: keyof typeof style;
         for (property in style) {
-            const kebabProperty = property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+            const kebabProperty = property
+                .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2")
+                .toLowerCase();
 
             elementStyle += `\t${kebabProperty}: ${style[property]};\n`;
         }
@@ -178,7 +193,7 @@ export default class Glitch {
 
     private getAnimationText() {
         return `const target = document.querySelector('.my-text-element');
-const effect = ${JSON.stringify(this.keyframes.getKeyframesEffect(), null, 2)};
+const effect = ${this.formatJSON(this.keyframes.getKeyframesEffect())};
 const options = {
     duration: ${this.config.animation.duration},
     iterations: Infinity
@@ -191,5 +206,9 @@ const keyframeEffect = new KeyframeEffect(
 const animation = new Animation(keyframeEffect);
 
 animation.play();`;
+    }
+
+    private formatJSON<Object>(json: Object) {
+        return JSON.stringify(json, null, 2);
     }
 }

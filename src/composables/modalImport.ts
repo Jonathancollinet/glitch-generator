@@ -4,13 +4,18 @@ import type Glitch from "~/glitch";
 import importKeyframes from "~/utils/Toobox/import";
 import type { PresetConfig } from "~/utils/Toobox/presets";
 
-export const useModalImport = (glitch: Glitch, action: (name: string, config?: PresetConfig) => void) => {
+export const useModalImport = (
+    glitch: Glitch,
+    action: (name: string, config?: PresetConfig) => void,
+) => {
     let importKeyframesErrors: Record<string, string> = {};
 
     function closeImportModal() {
         delete importKeyframesErrors.presetName;
         delete importKeyframesErrors.keyframes;
-        importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
+        importModal.patchOptions({
+            attrs: { errors: { ...importKeyframesErrors } },
+        });
         importModal.close();
     }
 
@@ -24,7 +29,9 @@ export const useModalImport = (glitch: Glitch, action: (name: string, config?: P
                 importKeyframesErrors = result.errors;
 
                 if (Object.keys(importKeyframesErrors).length) {
-                    importModal.patchOptions({ attrs: { errors: { ...importKeyframesErrors } } });
+                    importModal.patchOptions({
+                        attrs: { errors: { ...importKeyframesErrors } },
+                    });
                 } else {
                     const errors = glitch.validateConfig(result.config);
                     const errorsKeys = Object.keys(errors);
@@ -33,27 +40,37 @@ export const useModalImport = (glitch: Glitch, action: (name: string, config?: P
                         action(presetName, {
                             text: result.config.text,
                             animation: result.config.animation,
-                            ranges: result.config.ranges
+                            ranges: result.config.ranges,
                         });
                         closeImportModal();
                     } else {
-                        if (errorsKeys.findIndex(key => key.includes('text')) !== -1) {
-                            importKeyframesErrors.textStyle = "errors.import.textStyle";
+                        if (
+                            errorsKeys.findIndex((key) =>
+                                key.includes("text"),
+                            ) !== -1
+                        ) {
+                            importKeyframesErrors.textStyle =
+                                "errors.import.textStyle";
                         }
 
-                        if (errorsKeys.findIndex(key => key.includes('ranges')) !== -1) {
-                            importKeyframesErrors.keyframes = "errors.import.keyframes";
+                        if (
+                            errorsKeys.findIndex((key) =>
+                                key.includes("ranges"),
+                            ) !== -1
+                        ) {
+                            importKeyframesErrors.keyframes =
+                                "errors.import.keyframes";
                         }
                     }
                 }
             },
             onCancel() {
                 closeImportModal();
-            }
-        }
+            },
+        },
     });
 
     return {
-        importModal
-    }
-}
+        importModal,
+    };
+};

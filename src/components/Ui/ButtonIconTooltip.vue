@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { Icons } from '~/types/enums';
+import { Icons } from "~/types/enums";
 
 defineProps<{
-    icon?: Icons
+    icon?: Icons;
 }>();
 
 const emit = defineEmits<{
-    click: [],
-    clickOutside: []
+    click: [];
+    clickOutside: [];
 }>();
 
 function onClick() {
-    emit('click');
+    emit("click");
 }
 </script>
 

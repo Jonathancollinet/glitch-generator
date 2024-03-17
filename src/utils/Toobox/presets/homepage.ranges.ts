@@ -1,6 +1,6 @@
-import type { GlitchShadowField } from "~/glitch/types";
+import G from "~/glitch/types";
 
-const _defaultTextShadowRange: GlitchShadowField[][] = [
+const _defaultTextShadowRange: G.Field[][] = [
     [
         {
             range: 0,
@@ -11,26 +11,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -41,26 +41,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -71,26 +71,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -101,26 +101,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -131,26 +131,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -161,26 +161,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0.8,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -191,26 +191,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0.8,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -221,26 +221,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0.8,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -251,26 +251,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -281,26 +281,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -311,26 +311,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -341,26 +341,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 45,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -371,26 +371,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -401,26 +401,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -431,26 +431,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -461,26 +461,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -491,26 +491,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -521,26 +521,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -551,26 +551,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -581,26 +581,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -611,26 +611,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 30,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -641,26 +641,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -671,26 +671,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -701,26 +701,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -731,26 +731,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -761,26 +761,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -791,26 +791,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 50,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -821,26 +821,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -851,26 +851,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -881,26 +881,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -911,26 +911,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -941,26 +941,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: 1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -971,26 +971,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -1001,26 +1001,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#ff0000',
-                        alphaPercent: 100
+                        hex: "#ff0000",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -1031,26 +1031,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 60,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -1061,26 +1061,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -1091,26 +1091,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0.8,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -1121,26 +1121,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 0,
@@ -1151,27 +1151,27 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
-        }
+                    spread: 0,
+                },
+            },
+        },
     ],
     [
         {
@@ -1183,26 +1183,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1213,26 +1213,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1243,26 +1243,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1273,26 +1273,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1303,26 +1303,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1333,26 +1333,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 0.8,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1363,26 +1363,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -0.8,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1393,26 +1393,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -0.8,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1423,26 +1423,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1453,26 +1453,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1483,26 +1483,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1513,26 +1513,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -45,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1543,26 +1543,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1573,26 +1573,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1603,26 +1603,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1633,26 +1633,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1663,26 +1663,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1693,26 +1693,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1723,26 +1723,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1753,26 +1753,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1783,26 +1783,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -30,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1813,26 +1813,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1843,26 +1843,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1873,26 +1873,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1903,26 +1903,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1933,26 +1933,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1963,26 +1963,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -50,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -1993,26 +1993,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2023,26 +2023,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2053,26 +2053,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2083,26 +2083,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2113,26 +2113,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -1,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2143,26 +2143,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 3
+                    blur: 3,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2173,26 +2173,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2203,26 +2203,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: -60,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2233,26 +2233,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#0c33f5',
-                        alphaPercent: 100
+                        hex: "#0c33f5",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2263,26 +2263,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: -0.8,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2293,26 +2293,26 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
+                    spread: 0,
+                },
+            },
         },
         {
             range: 1,
@@ -2323,28 +2323,28 @@ const _defaultTextShadowRange: GlitchShadowField[][] = [
                     enabled: true,
                     fillAllFrames: true,
                     color: {
-                        hex: '#32cd32',
-                        alphaPercent: 100
+                        hex: "#32cd32",
+                        alphaPercent: 100,
                     },
                     offsetX: 3,
                     offsetY: 0,
-                    blur: 0
+                    blur: 0,
                 },
                 "box-shadow": {
                     enabled: false,
                     fillAllFrames: true,
                     color: {
-                        hex: '#000000',
-                        alphaPercent: 100
+                        hex: "#000000",
+                        alphaPercent: 100,
                     },
                     offsetX: 0,
                     offsetY: 0,
                     blur: 0,
-                    spread: 0
-                }
-            }
-        }
-    ]
-]
+                    spread: 0,
+                },
+            },
+        },
+    ],
+];
 
 export default _defaultTextShadowRange;

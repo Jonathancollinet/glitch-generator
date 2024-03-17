@@ -1,15 +1,13 @@
-import {cva, type VariantProps} from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
 export type TimelineVariantsProps = VariantProps<typeof TimelineVariants>;
 
-export const TimelineVariants = cva(
-    [
+export const TimelineVariants = cva([
+    "w-full appearance-none cursor-pointer",
+    "bg-transparent",
+    "disabled:opacity-50 disabled:pointer-events-none focus:outline-none",
 
-        'w-full appearance-none cursor-pointer',
-        'bg-transparent',
-        'disabled:opacity-50 disabled:pointer-events-none focus:outline-none',
-
-        `[&::-webkit-slider-thumb]:w-4
+    `[&::-webkit-slider-thumb]:w-4
         [&::-webkit-slider-thumb]:h-4
         [&::-webkit-slider-thumb]:appearance-none
         [&::-webkit-slider-thumb]:bg-primary-500
@@ -36,6 +34,5 @@ export const TimelineVariants = cva(
         [&::-moz-range-track]:h-4
         [&::-moz-range-track]:bg-primary-200
         [&::-moz-range-track]:transition-[background-color]
-        [&::-moz-range-track]:dark:bg-neutral-700`
-    ]
-);
+        [&::-moz-range-track]:dark:bg-neutral-700`,
+]);

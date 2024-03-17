@@ -1,42 +1,51 @@
 <script lang="ts" setup>
-import { type GlitchShadowField } from '~/glitch/types';
-import { addFieldAtOffset } from '~/utils/Editor/utils';
+import G from "~/glitch/types";
+import { addFieldAtOffset } from "~/utils/Editor/utils";
 
 const props = defineProps<{
-    title?: string,
-    ranges?: GlitchShadowField[][],
-    selectedField?: GlitchShadowField,
+    title?: string;
+    ranges?: G.Field[][];
+    selectedField?: G.Field;
 }>();
 
 const emit = defineEmits<{
-    selectField: [field: GlitchShadowField],
+    selectField: [field: G.Field];
 }>();
 
-const ranges = ref<GlitchShadowField[][]>(props.ranges || getExempleRanges());
+const ranges = ref<G.Field[][]>(props.ranges || getExempleRanges());
 
-const selectedField = ref<GlitchShadowField | undefined>(props.selectedField);
+const selectedField = ref<G.Field | undefined>(props.selectedField);
 
-function selectField(field: GlitchShadowField) {
+function selectField(field: G.Field) {
     selectedField.value = field;
-    emit('selectField', field);
+    emit("selectField", field);
 }
 
 function insertField(rangeIndex: number, offset: number) {
-    const range = ranges.value[rangeIndex];
-
     addFieldAtOffset(ranges.value, rangeIndex, offset);
 }
 
-watch(() => props.selectedField, () => {
-    selectedField.value = props.selectedField;
-});
+watch(
+    () => props.selectedField,
+    () => {
+        selectedField.value = props.selectedField;
+    },
+);
 </script>
 
 <template>
     <div>
-        <UiText as="div" data-color="black" v-if="title">{{ $t(title) }}</UiText>
-        <EditorToolboxRange noProperties v-for="(range, index) in ranges" :key="`${index}-${range.length}`"
-            :range="range" :selectedField="selectedField" @selectField="selectField"
-            @insertField="insertField(index, $event)" />
+        <UiText v-if="title" as="div" data-color="black">{{
+            $t(title)
+        }}</UiText>
+        <EditorToolboxRange
+            v-for="(range, index) in ranges"
+            :key="`${index}-${range.length}`"
+            no-properties
+            :range="range"
+            :selected-field="selectedField"
+            @select-field="selectField"
+            @insert-field="insertField(index, $event)"
+        />
     </div>
 </template>

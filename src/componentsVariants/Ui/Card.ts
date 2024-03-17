@@ -1,23 +1,21 @@
-import {cva, type VariantProps} from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
 export type CardVariantsProps = VariantProps<typeof CardVariants>;
 
 export const CardVariants = cva(
-    [
-        'mb-4 last:mb-0 transition-[background-color]'
-    ],
+    ["mb-4 last:mb-0 transition-[background-color]"],
     {
         variants: {
             variant: {
-                default: []
+                default: [],
             },
             size: {
-                default: ''
+                default: "",
             },
         },
         defaultVariants: {
-            variant: 'default',
-            size: 'default',
-        }
-    }
+            variant: "default",
+            size: "default",
+        },
+    },
 );

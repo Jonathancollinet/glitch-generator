@@ -7,11 +7,11 @@ export const useModalImportRules = () => {
         attrs: {
             onCancel() {
                 importRulesModal.close();
-            }
-        }
+            },
+        },
     });
-    
+
     return {
-        importRulesModal
-    }
-}
+        importRulesModal,
+    };
+};

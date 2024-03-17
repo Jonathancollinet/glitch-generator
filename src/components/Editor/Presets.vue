@@ -1,17 +1,26 @@
 <script lang="ts" setup>
-import type { GlitchConfig } from '~/glitch/types';
-import { Icons } from '~/types/enums';
-import { getPresets, updatePreset, type Preset, removePreset, addPreset, type PresetConfig, getLastSelectedPreset, saveLastSelectedPreset } from '~/utils/Toobox/presets';
-import * as EditorUtils from '~/utils/Editor/utils';
-import type Glitch from '~/glitch';
+import G from "~/glitch/types";
+import { Icons } from "~/types/enums";
+import {
+    getPresets,
+    updatePreset,
+    type Preset,
+    removePreset,
+    addPreset,
+    type PresetConfig,
+    getLastSelectedPreset,
+    saveLastSelectedPreset,
+} from "~/utils/Toobox/presets";
+import * as EditorUtils from "~/utils/Editor/utils";
+import type Glitch from "~/glitch";
 
 const props = defineProps<{
-    glitch: Glitch,
-    config: GlitchConfig,
+    glitch: Glitch;
+    config: G.Config;
 }>();
 
 const emit = defineEmits<{
-    presetChange: [preset: Preset]
+    presetChange: [preset: Preset];
 }>();
 
 const currentPreset = ref<Preset>(getLastSelectedPreset());
@@ -26,7 +35,7 @@ function getPresetConfig() {
     return deepCopy({
         text: props.config.text,
         animation: props.config.animation,
-        ranges: props.config.ranges
+        ranges: props.config.ranges,
     });
 }
 
@@ -55,13 +64,16 @@ const isCustomPreset = computed(() => {
     return !currentPreset.value.builtIn;
 });
 
-watch(() => currentPreset.value.id, () => {
-    saveLastSelectedPreset(currentPreset.value.id);
-    emit('presetChange', currentPreset.value);
-});
+watch(
+    () => currentPreset.value.id,
+    () => {
+        saveLastSelectedPreset(currentPreset.value.id);
+        emit("presetChange", currentPreset.value);
+    },
+);
 
 onMounted(() => {
-    emit('presetChange', currentPreset.value);
+    emit("presetChange", currentPreset.value);
 });
 
 defineExpose({
@@ -71,18 +83,41 @@ defineExpose({
 
 <template>
     <div class="flex space-x-2">
-        <UiFormGroup class="mb-0" v-tooltip="{ content: $t('pages.editor.selectPreset') }">
-            <UiSelect class="max-w-[120px]" :options="presets" v-model="currentPreset" labelKey="name" />
+        <UiFormGroup
+            v-tooltip="{ content: $t('pages.editor.selectPreset') }"
+            class="mb-0"
+        >
+            <UiSelect
+                v-model="currentPreset"
+                class="max-w-[120px]"
+                :options="presets"
+                label-key="name"
+            />
         </UiFormGroup>
-        <div class="flex items-center" :key="currentPreset.id">
-            <UiButton v-tooltip="$t('pages.editor.removePreset')" v-if="isCustomPreset" variant="icon" size="icon"
-                @click="deletePresetModal.open">
+        <div :key="currentPreset.id" class="flex items-center">
+            <UiButton
+                v-if="isCustomPreset"
+                v-tooltip="$t('pages.editor.removePreset')"
+                variant="icon"
+                size="icon"
+                @click="deletePresetModal.open"
+            >
                 <UiIcon color="danger" :icon="Icons.Trash" />
             </UiButton>
-            <UiButton v-tooltip="$t('pages.editor.savePreset')" variant="icon" size="icon" @click="addPresetModal.open">
+            <UiButton
+                v-tooltip="$t('pages.editor.savePreset')"
+                variant="icon"
+                size="icon"
+                @click="addPresetModal.open"
+            >
                 <UiIcon :icon="Icons.Add" />
             </UiButton>
-            <UiButton v-tooltip="$t('pages.editor.import')" variant="icon" size="icon" @click="importModal.open">
+            <UiButton
+                v-tooltip="$t('pages.editor.import')"
+                variant="icon"
+                size="icon"
+                @click="importModal.open"
+            >
                 <UiIcon :icon="Icons.ImportCode" />
             </UiButton>
         </div>

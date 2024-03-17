@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { GlitchAnimationProperty, type GlitchShadowField } from '~/glitch/types';
+import G from "~/glitch/types";
 
 const props = defineProps<{
-    field: GlitchShadowField,
-    propertyName: GlitchAnimationProperty
+    field: G.Field;
+    propertyName: G.PropertyName;
 }>();
 
 const property = computed(() => {
@@ -20,14 +20,16 @@ const formatProperty = computed(() => {
 </script>
 
 <template>
-    <div class="text-xs space-y-1" v-if="property?.enabled">
+    <div v-if="property?.enabled" class="space-y-1 text-xs">
         <div class="flex">
             <div class="font-bold underline">"{{ propertyName }}":</div>
             <div class="ml-1 font-bold">
                 <template v-if="!property.fillAllFrames">
                     {{ field.offsetFrame }}%
                 </template>
-                <template v-else>{{ $t('pages.editor.config.field.all') }}</template>
+                <template v-else>{{
+                    $t("pages.editor.config.field.all")
+                }}</template>
             </div>
         </div>
         <div class="flex items-center space-x-2">

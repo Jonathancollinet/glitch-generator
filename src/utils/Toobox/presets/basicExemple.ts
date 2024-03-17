@@ -1,24 +1,24 @@
-import { GlitchAnimationProperty, GlitchUnit } from "~/glitch/types";
+import G from "~/glitch/types";
 
 export default deepCopy({
     text: {
         size: 42,
-        unit: GlitchUnit.Pixel,
+        unit: G.Unit.Pixel,
         height: 0,
         padding: 0,
         borderRadius: 0,
         bgColor: {
-            hex: '#ffffff',
-            alphaPercent: 0
+            hex: "#ffffff",
+            alphaPercent: 0,
         },
         color: {
-            hex: '#000000',
-            alphaPercent: 100
+            hex: "#000000",
+            alphaPercent: 100,
         },
-        message: 'Exemple'
+        message: "Exemple",
     },
     animation: {
-        duration: 3000
+        duration: 3000,
     },
     ranges: [
         [
@@ -28,62 +28,62 @@ export default deepCopy({
                 index: 1,
                 offsetFrame: 25,
                 properties: {
-                    [GlitchAnimationProperty.TextShadow]: {
+                    [G.PropertyName.TextShadow]: {
                         enabled: true,
                         fillAllFrames: true,
                         color: {
                             hex: "#ff0000",
-                            alphaPercent: 100
+                            alphaPercent: 100,
                         },
                         blur: 0,
                         offsetX: 50,
-                        offsetY: 25
+                        offsetY: 25,
                     },
-                    [GlitchAnimationProperty.BoxShadow]: {
+                    [G.PropertyName.BoxShadow]: {
                         enabled: false,
                         fillAllFrames: true,
                         color: {
                             hex: "#724cf9",
-                            alphaPercent: 100
+                            alphaPercent: 100,
                         },
                         blur: 0,
                         offsetX: 0,
                         offsetY: 0,
-                        spread: 0
+                        spread: 0,
                     },
-                }
+                },
             },
             {
                 range: 0,
                 index: 2,
                 offsetFrame: 50,
                 properties: {
-                    [GlitchAnimationProperty.TextShadow]: {
+                    [G.PropertyName.TextShadow]: {
                         enabled: true,
                         fillAllFrames: true,
                         color: {
                             hex: "#00ff00",
-                            alphaPercent: 100
+                            alphaPercent: 100,
                         },
                         blur: 10,
                         offsetX: 75,
-                        offsetY: 50
+                        offsetY: 50,
                     },
-                    [GlitchAnimationProperty.BoxShadow]: {
+                    [G.PropertyName.BoxShadow]: {
                         enabled: false,
                         fillAllFrames: true,
                         color: {
                             hex: "#724cf9",
-                            alphaPercent: 100
+                            alphaPercent: 100,
                         },
                         blur: 0,
                         offsetX: 0,
                         offsetY: 0,
-                        spread: 0
+                        spread: 0,
                     },
-                }
+                },
             },
             getDefaultField(0, 3, 75),
-        ]
+        ],
     ],
-})
+});

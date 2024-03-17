@@ -1,3 +1,3 @@
 export const useAllColors = () => {
-    return useState<ColorHistory[]>("allColors", () => allColors);    
-}
+    return useState<ColorHistory[]>("allColors", () => allColors);
+};

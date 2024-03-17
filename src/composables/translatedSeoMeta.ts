@@ -1,21 +1,23 @@
-export const useTranslatedSeoMeta = (pageName: string): Parameters<typeof useServerSeoMeta>[0] => {
+export const useTranslatedSeoMeta = (
+    pageName: string,
+): Parameters<typeof useServerSeoMeta>[0] => {
     const { t } = useI18n();
-    const seoGlobalPath = 'seo';
+    const seoGlobalPath = "seo";
     const seoPagePath = `pages.${pageName}.seo`;
-    const title = t(getSeoPath(seoPagePath, 'title'));
-    const description = t(getSeoPath(seoGlobalPath, 'description'));
-    const type = 'website';
+    const title = t(getSeoPath(seoPagePath, "title"));
+    const description = t(getSeoPath(seoGlobalPath, "description"));
+    const type = "website";
     const url = `https://glitch-generator.com/${pageName}`;
-    const image = 'https://glitch-generator.com/android-chrome-192x192.png';
+    const image = "https://glitch-generator.com/android-chrome-192x192.png";
 
     function getSeoPath(path: string, property: string) {
         return `${path}.${property}`;
     }
 
     return {
-        creator: 'Jonathan COLLINET',
-        applicationName: 'Glitch Generator',
-        colorScheme: 'light dark',
+        creator: "Jonathan COLLINET",
+        applicationName: "Glitch Generator",
+        colorScheme: "light dark",
 
         title,
         description,
@@ -24,6 +26,6 @@ export const useTranslatedSeoMeta = (pageName: string): Parameters<typeof useSer
         ogTitle: title,
         ogDescription: description,
         ogUrl: url,
-        ogImage: image
-    }
-}
+        ogImage: image,
+    };
+};

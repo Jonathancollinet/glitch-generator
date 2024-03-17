@@ -9,11 +9,11 @@ export const useModalExport = (glitch: Glitch) => {
             glitch,
             onCancel() {
                 exportModal.close();
-            }
-        }
+            },
+        },
     });
 
     return {
-        exportModal
-    }
-}
+        exportModal,
+    };
+};

@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { debounce } from 'vue-debounce';
-import { RangeVariants } from '~/componentsVariants/Ui/Range';
-import { TimelineVariants } from '~/componentsVariants/Ui/Timeline';
+import { debounce } from "vue-debounce";
+import { RangeVariants } from "~/componentsVariants/Ui/Range";
+import { TimelineVariants } from "~/componentsVariants/Ui/Timeline";
 
 defineProps<{
-    currentPercent: number,
-    precision: number
+    currentPercent: number;
+    precision: number;
 }>();
 
 const emit = defineEmits<{
-    selectAnimationAt: [percent: number]
+    selectAnimationAt: [percent: number];
 }>();
 
 const moveContainer = ref<HTMLElement | null>(null);
@@ -32,7 +32,7 @@ function removeTitle() {
 
 function changePercent(e: Event) {
     const value = Number((e.target as HTMLInputElement).value);
-    emit('selectAnimationAt',value);
+    emit("selectAnimationAt", value);
 }
 
 const updateTiming = debounce((e: Event) => changePercent(e), 1);
@@ -42,29 +42,39 @@ onMounted(() => {
         currentWidth.value = moveContainer.value.clientWidth;
     }
 
-    if (process.client) {
-        window.addEventListener('resize', adaptCurrentWidth);
+    if (isClient()) {
+        window.addEventListener("resize", adaptCurrentWidth);
     }
 });
 
 onUnmounted(() => {
-    if (process.client) {
-        window.removeEventListener('resize', adaptCurrentWidth);
+    if (isClient()) {
+        window.removeEventListener("resize", adaptCurrentWidth);
     }
 });
 </script>
 
 <template>
-    <div class="mb-2 px-5 w-full max-w-[600px] select-none">
+    <div class="mb-2 w-full max-w-[600px] select-none px-5">
         <Transition name="fade" mode="out-in">
-            <div class="text-center mb-2 font-bold" v-if="displayTitle">
+            <div v-if="displayTitle" class="mb-2 text-center font-bold">
                 {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
             </div>
         </Transition>
-        <div class="relative w-full px-4"
-             @mouseenter="setTitle"
-            @mouseleave="removeTitle">
-            <input :class="cn('w-full', RangeVariants(), TimelineVariants())" type="range" step="0.001" min="0" max="100" :value="currentPercent" @input="updateTiming">
+        <div
+            class="relative w-full px-4"
+            @mouseenter="setTitle"
+            @mouseleave="removeTitle"
+        >
+            <input
+                :class="cn('w-full', RangeVariants(), TimelineVariants())"
+                type="range"
+                step="0.001"
+                min="0"
+                max="100"
+                :value="currentPercent"
+                @input="updateTiming"
+            />
         </div>
     </div>
 </template>

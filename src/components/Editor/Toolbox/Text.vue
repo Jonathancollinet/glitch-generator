@@ -1,97 +1,177 @@
 <script lang="ts" setup>
-import type { GlitchBaseText, GlitchErrors } from '~/glitch/types';
-import { getErrorMessage, applyUpdater } from '~/utils/Toobox/utils'
+import G from "~/glitch/types";
+import { getErrorMessage, applyUpdater } from "~/utils/Toobox/utils";
 
 const props = defineProps<{
-    errors: Partial<GlitchErrors>,
+    errors: Partial<G.Errors>;
 }>();
 
-const config = defineModel<GlitchBaseText>('config', { required: true });
-const localConfig = defineModel<GlitchBaseText>('localConfig', { required: true });
+const config = defineModel<G.BaseText>("config", { required: true });
+const localConfig = defineModel<G.BaseText>("localConfig", {
+    required: true,
+});
 
-const textSizeError = computed(() => getErrorMessage(props.errors, 'text.size', true));
-const textMessageError = computed(() => getErrorMessage(props.errors, 'text.message'));
-const textPaddingError = computed(() => getErrorMessage(props.errors, 'text.padding'));
-const textBorderRadiusError = computed(() => getErrorMessage(props.errors, 'text.borderRadius'));
-const textHeightError = computed(() => getErrorMessage(props.errors, 'text.height'));
+const textSizeError = computed(() =>
+    getErrorMessage(props.errors, "text.size", true),
+);
+const textMessageError = computed(() =>
+    getErrorMessage(props.errors, "text.message"),
+);
+const textPaddingError = computed(() =>
+    getErrorMessage(props.errors, "text.padding"),
+);
+const textBorderRadiusError = computed(() =>
+    getErrorMessage(props.errors, "text.borderRadius"),
+);
+const textHeightError = computed(() =>
+    getErrorMessage(props.errors, "text.height"),
+);
 
-const updateText = applyUpdater<GlitchBaseText>({
+const updateText = applyUpdater<G.BaseText>({
     obj: config.value,
     localObj: localConfig.value,
 });
 
 const updateTextSize = updateText({
-    key: 'size',
+    key: "size",
     modifier: Number,
-    debounced: 100
+    debounced: 100,
 });
 
 const updateMessage = updateText({
-    key: 'message',
-    debounced: 100
+    key: "message",
+    debounced: 100,
 });
 
 const updatePadding = updateText({
-    key: 'padding',
+    key: "padding",
     modifier: Number,
-    debounced: 100
+    debounced: 100,
 });
 
 const updateBorderRadius = updateText({
-    key: 'borderRadius',
+    key: "borderRadius",
     modifier: Number,
-    debounced: 100
+    debounced: 100,
 });
 
 const updateHeight = updateText({
-    key: 'height',
+    key: "height",
     modifier: Number,
-    debounced: 100
+    debounced: 100,
 });
 </script>
 
 <template>
-    <UiCard openable contentClasses="border-0 ml-0 px-0" :isOpen="false">
+    <UiCard openable content-classes="border-0 ml-0 px-0" :is-open="false">
         <template #title>
-            <UiHeading variant="h3">{{ $t('pages.editor.config.text.title') }}</UiHeading>
+            <UiHeading variant="h3">{{
+                $t("pages.editor.config.text.title")
+            }}</UiHeading>
         </template>
 
         <template #content>
             <UiHeading class="mt-0" variant="h4">Text</UiHeading>
-            <UiCard openable contentClasses="pr-0">
+            <UiCard openable content-classes="pr-0">
                 <template #content>
-                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.fontSize"
-                        :error="textSizeError" name="textSize">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateTextSize"
-                            name="textSize" :modelValue="localConfig.size" />
+                    <UiFormGroup
+                        class="ml-0 w-full"
+                        inline
+                        size="tiny"
+                        label="pages.editor.config.text.fontSize"
+                        :error="textSizeError"
+                        name="textSize"
+                    >
+                        <UiInput
+                            class="w-[40px]"
+                            alignment="center"
+                            type="tel"
+                            :on-update="updateTextSize"
+                            name="textSize"
+                            :model-value="localConfig.size"
+                        />
                     </UiFormGroup>
-                    <EditorToolboxPropertyColor class="ml-0 " v-model:config="config.color"
-                        v-model:localConfig="localConfig.color" name="textColor" :errors="errors" />
-                    <UiFormGroup class="ml-0" :error="textMessageError" name="message">
-                        <UiInput :onUpdate="updateMessage" name="message" :modelValue="localConfig.message" />
+                    <EditorToolboxPropertyColor
+                        v-model:config="config.color"
+                        v-model:localConfig="localConfig.color"
+                        class="ml-0"
+                        name="textColor"
+                        :errors="errors"
+                    />
+                    <UiFormGroup
+                        class="ml-0"
+                        :error="textMessageError"
+                        name="message"
+                    >
+                        <UiInput
+                            :on-update="updateMessage"
+                            name="message"
+                            :model-value="localConfig.message"
+                        />
                     </UiFormGroup>
                 </template>
             </UiCard>
             <UiHeading variant="h4">Container</UiHeading>
-            <UiCard openable contentClasses="pr-0">
+            <UiCard openable content-classes="pr-0">
                 <template #content>
-                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.height"
-                        :error="textHeightError" name="textHeight">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateHeight"
-                            name="textHeight" :modelValue="localConfig.height" />
+                    <UiFormGroup
+                        class="ml-0 w-full"
+                        inline
+                        size="tiny"
+                        label="pages.editor.config.text.height"
+                        :error="textHeightError"
+                        name="textHeight"
+                    >
+                        <UiInput
+                            class="w-[40px]"
+                            alignment="center"
+                            type="tel"
+                            :on-update="updateHeight"
+                            name="textHeight"
+                            :model-value="localConfig.height"
+                        />
                     </UiFormGroup>
-                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.padding"
-                        :error="textPaddingError" name="textPadding">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updatePadding"
-                            name="textPadding" :modelValue="localConfig.padding" />
+                    <UiFormGroup
+                        class="ml-0 w-full"
+                        inline
+                        size="tiny"
+                        label="pages.editor.config.text.padding"
+                        :error="textPaddingError"
+                        name="textPadding"
+                    >
+                        <UiInput
+                            class="w-[40px]"
+                            alignment="center"
+                            type="tel"
+                            :on-update="updatePadding"
+                            name="textPadding"
+                            :model-value="localConfig.padding"
+                        />
                     </UiFormGroup>
-                    <UiFormGroup class="ml-0 w-full" inline size="tiny" label="pages.editor.config.text.borderRadius"
-                        :error="textBorderRadiusError" name="textBorderRadius">
-                        <UiInput class="w-[40px]" alignment="center" type="tel" :onUpdate="updateBorderRadius"
-                            name="textBorderRadius" :modelValue="localConfig.borderRadius" />
+                    <UiFormGroup
+                        class="ml-0 w-full"
+                        inline
+                        size="tiny"
+                        label="pages.editor.config.text.borderRadius"
+                        :error="textBorderRadiusError"
+                        name="textBorderRadius"
+                    >
+                        <UiInput
+                            class="w-[40px]"
+                            alignment="center"
+                            type="tel"
+                            :on-update="updateBorderRadius"
+                            name="textBorderRadius"
+                            :model-value="localConfig.borderRadius"
+                        />
                     </UiFormGroup>
-                    <EditorToolboxPropertyColor class="ml-0" v-model:config="config.bgColor"
-                        v-model:localConfig="localConfig.bgColor" name="textBgColor" :errors="errors" />
+                    <EditorToolboxPropertyColor
+                        v-model:config="config.bgColor"
+                        v-model:localConfig="localConfig.bgColor"
+                        class="ml-0"
+                        name="textBgColor"
+                        :errors="errors"
+                    />
                 </template>
             </UiCard>
         </template>

@@ -1,25 +1,46 @@
 <script lang="ts" setup>
-import { type InputVariantsProps, InputVariants } from '~/componentsVariants/Ui/Input';
-import type { HTMLAttributes } from 'vue';
-import type { UpdateFn } from '~/utils/Toobox/utils';
+import {
+    type InputVariantsProps,
+    InputVariants,
+} from "~/componentsVariants/Ui/Input";
+import type { HTMLAttributes } from "vue";
+import type { UpdateFn } from "~/utils/Toobox/utils";
 
-type acceptedTypes = 'textarea' | 'text' | 'password' | 'email' | 'number' | 'tel' | 'search' | 'url' | 'color';
+type acceptedTypes =
+    | "textarea"
+    | "text"
+    | "password"
+    | "email"
+    | "number"
+    | "tel"
+    | "search"
+    | "url"
+    | "color";
 
-const props = withDefaults(defineProps<{
-    placeholder?: string,
-    variant?: InputVariantsProps['variant'],
-    alignment?: InputVariantsProps['alignment'],
-    size?: InputVariantsProps['size'],
-    type?: acceptedTypes,
-    name: string,
-    readonly?: boolean,
-    class?: HTMLAttributes['class'],
-    onUpdate?: UpdateFn,
-}>(), {
-    type: 'text',
-    debounce: false,
-    readonly: false
-});
+const props = withDefaults(
+    defineProps<{
+        placeholder?: string;
+        variant?: InputVariantsProps["variant"];
+        alignment?: InputVariantsProps["alignment"];
+        size?: InputVariantsProps["size"];
+        type?: acceptedTypes;
+        name: string;
+        readonly?: boolean;
+        class?: HTMLAttributes["class"];
+        onUpdate?: UpdateFn;
+    }>(),
+    {
+        type: "text",
+        debounce: false,
+        readonly: false,
+        class: "",
+        placeholder: "",
+        variant: "default",
+        alignment: "left",
+        size: "default",
+        onUpdate: undefined,
+    },
+);
 
 const modelValue = defineModel<string | number>();
 
@@ -31,15 +52,46 @@ function updateModelValue(e: Event) {
     }
 }
 
-const isColor = computed(() => props.type === 'color');
-const isTextArea = computed(() => props.type === 'textarea');
+const isColor = computed(() => props.type === "color");
+const isTextArea = computed(() => props.type === "textarea");
 </script>
 
 <template>
-    <textarea v-if="isTextArea" :readonly="readonly" :placeholder="placeholder"
-        :class="cn('resize', isColor ? 'cursor-pointer' : '', InputVariants({ variant, alignment, size }), props.class ?? '')"
-        autocomplete="off" :type="type" :id="name" :name="name" :value="modelValue" @input="updateModelValue" />
-    <input v-else :readonly="readonly" :placeholder="placeholder"
-        :class="cn(isColor ? 'cursor-pointer' : '', InputVariants({ variant, alignment, size }), props.class ?? '')"
-        autocomplete="off" :type="type" :id="name" :name="name" :value="modelValue" @input="updateModelValue">
+    <textarea
+        v-if="isTextArea"
+        :id="name"
+        :readonly="readonly"
+        :placeholder="placeholder"
+        :class="
+            cn(
+                'resize',
+                isColor ? 'cursor-pointer' : '',
+                InputVariants({ variant, alignment, size }),
+                props.class,
+            )
+        "
+        autocomplete="off"
+        :type="type"
+        :name="name"
+        :value="modelValue"
+        @input="updateModelValue"
+    />
+    <input
+        v-else
+        :id="name"
+        :readonly="readonly"
+        :placeholder="placeholder"
+        :class="
+            cn(
+                isColor ? 'cursor-pointer' : '',
+                InputVariants({ variant, alignment, size }),
+                props.class,
+            )
+        "
+        autocomplete="off"
+        :type="type"
+        :name="name"
+        :value="modelValue"
+        @input="updateModelValue"
+    />
 </template>

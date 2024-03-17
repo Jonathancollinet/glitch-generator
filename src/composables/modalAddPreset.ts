@@ -6,10 +6,12 @@ export const useModalAddPreset = (action: (name: string) => void) => {
 
     function closeAddPresetModal() {
         delete addPresetErrors.name;
-        addPresetModal.patchOptions({ attrs: { errors: { ...addPresetErrors } } });
+        addPresetModal.patchOptions({
+            attrs: { errors: { ...addPresetErrors } },
+        });
         addPresetModal.close();
     }
-    
+
     const addPresetModal = useModal({
         component: AddPreset,
         attrs: {
@@ -20,16 +22,18 @@ export const useModalAddPreset = (action: (name: string) => void) => {
                     closeAddPresetModal();
                 } else {
                     addPresetErrors.name = "errors.addPreset.name";
-                    addPresetModal.patchOptions({ attrs: { errors: { ...addPresetErrors } } });
+                    addPresetModal.patchOptions({
+                        attrs: { errors: { ...addPresetErrors } },
+                    });
                 }
             },
             onCancel() {
                 closeAddPresetModal();
-            }
-        }
+            },
+        },
     });
 
     return {
-        addPresetModal
-    }
-}
+        addPresetModal,
+    };
+};

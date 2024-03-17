@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 defineProps<{
-    to: UrlsUnion
+    to: UrlsUnion;
 }>();
 </script>
-    
+
 <template>
     <UiLink :to="to">
         <slot />

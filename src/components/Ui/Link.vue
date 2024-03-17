@@ -1,23 +1,35 @@
 <script lang="ts" setup>
-import { LinkVariants, type LinkVariantsProps } from '~/componentsVariants/Ui/Link';
+import {
+    LinkVariants,
+    type LinkVariantsProps,
+} from "~/componentsVariants/Ui/Link";
 import { NuxtLink } from "#components";
-import type { HTMLAttributes } from 'vue';
+import type { HTMLAttributes } from "vue";
 
-const props = withDefaults(defineProps<{
-    as?: "a" | typeof NuxtLink,
-    variant?: LinkVariantsProps['variant'],
-    class?: HTMLAttributes['class']
-}>(), {
-    as: NuxtLink
-});
+const props = withDefaults(
+    defineProps<{
+        as?: "a" | typeof NuxtLink;
+        variant?: LinkVariantsProps["variant"];
+        class?: HTMLAttributes["class"];
+    }>(),
+    {
+        as: NuxtLink,
+        class: "",
+        variant: "default",
+    },
+);
 
 const linkBindings = {
-    noPrefetch: true
+    noPrefetch: true,
 };
 </script>
 
 <template>
-    <component :is="as" :class="cn(LinkVariants({ variant }), props.class ?? '')" v-bind="linkBindings">
+    <component
+        :is="as"
+        :class="cn(LinkVariants({ variant }), props.class)"
+        v-bind="linkBindings"
+    >
         <slot />
     </component>
 </template>

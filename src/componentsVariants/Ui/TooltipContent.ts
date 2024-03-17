@@ -1,6 +1,8 @@
-import {cva, type VariantProps} from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
-export type TooltipContentVariantsProps = VariantProps<typeof TooltipContentVariants>;
+export type TooltipContentVariantsProps = VariantProps<
+    typeof TooltipContentVariants
+>;
 
 export const TooltipContentVariants = cva(
     [
@@ -15,15 +17,15 @@ export const TooltipContentVariants = cva(
     {
         variants: {
             variant: {
-                default: []
+                default: [],
             },
             size: {
-                default: ''
+                default: "",
             },
         },
         defaultVariants: {
-            variant: 'default',
-            size: 'default',
-        }
-    }
+            variant: "default",
+            size: "default",
+        },
+    },
 );

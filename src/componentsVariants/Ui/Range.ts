@@ -1,12 +1,12 @@
-import {cva, type VariantProps} from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
 export type RangeVariantsProps = VariantProps<typeof RangeVariants>;
 
 export const RangeVariants = cva(
     [
-        'w-full appearance-none cursor-pointer',
-        'bg-transparent',
-        'disabled:opacity-50 disabled:pointer-events-none focus:outline-none',
+        "w-full appearance-none cursor-pointer",
+        "bg-transparent",
+        "disabled:opacity-50 disabled:pointer-events-none focus:outline-none",
 
         `[&::-webkit-slider-thumb]:w-3
         [&::-webkit-slider-thumb]:h-3
@@ -35,20 +35,20 @@ export const RangeVariants = cva(
         [&::-moz-range-track]:h-3
         [&::-moz-range-track]:bg-primary-200
         [&::-moz-range-track]:transition-[background-color]
-        [&::-moz-range-track]:dark:bg-neutral-700`
+        [&::-moz-range-track]:dark:bg-neutral-700`,
     ],
     {
         variants: {
             variant: {
-                default: []
+                default: [],
             },
             size: {
-                default: ''
+                default: "",
             },
         },
         defaultVariants: {
-            variant: 'default',
-            size: 'default',
-        }
-    }
+            variant: "default",
+            size: "default",
+        },
+    },
 );

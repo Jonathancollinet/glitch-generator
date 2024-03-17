@@ -1,7 +1,7 @@
-import type { GlitchAnimationProperty, GlitchColor, GlitchConfig, GlitchShadowField, GlitchShadowProperty } from "~/glitch/types";
+import G from "~/glitch/types";
 import type { Preset } from "../Toobox/presets";
 
-export function getFieldsToUpdate(ranges: GlitchShadowField[][], newField: GlitchShadowField) {
+export function getFieldsToUpdate(ranges: G.Field[][], newField: G.Field) {
     const range = ranges[newField.range];
     const previousField = range[newField.index - 1];
     const nextField = range[newField.index + 1];
@@ -18,11 +18,11 @@ export function getFieldsToUpdate(ranges: GlitchShadowField[][], newField: Glitc
     return batch;
 }
 
-export function removeRange(ranges: GlitchShadowField[][], rangeIndex: number) {
+export function removeRange(ranges: G.Field[][], rangeIndex: number) {
     const copy = deepCopy(ranges);
 
     applyToUpperRanges(rangeIndex, copy, (range, index) => {
-        copy[index] = range.map(field => {
+        copy[index] = range.map((field) => {
             field.range -= 1;
             return field;
         });
@@ -32,16 +32,16 @@ export function removeRange(ranges: GlitchShadowField[][], rangeIndex: number) {
     copyRanges(ranges, copy);
 }
 
-export function duplicateRange(ranges: GlitchShadowField[][], rangeIndex: number) {
+export function duplicateRange(ranges: G.Field[][], rangeIndex: number) {
     const copy = deepCopy(ranges);
-    const rangeToCopy = deepCopy(copy[rangeIndex]).map(field => {
+    const rangeToCopy = deepCopy(copy[rangeIndex]).map((field) => {
         field.range += 1;
 
         return field;
     });
 
     applyToUpperRanges(rangeIndex, copy, (range, index) => {
-        copy[index] = range.map(field => {
+        copy[index] = range.map((field) => {
             field.range += 1;
             return field;
         });
@@ -51,7 +51,7 @@ export function duplicateRange(ranges: GlitchShadowField[][], rangeIndex: number
     copyRanges(ranges, copy);
 }
 
-export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowField) {
+export function removeField(ranges: G.Field[][], field: G.Field) {
     const copy = deepCopy(ranges);
     const range = copy[field.range];
     const fieldNb = range.length;
@@ -63,8 +63,8 @@ export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowFi
         return;
     }
 
-    if (index < (fieldNb - 1)) {
-        const length = (fieldNb - 1) - index;
+    if (index < fieldNb - 1) {
+        const length = fieldNb - 1 - index;
 
         for (let i = 1; i <= length; ++i) {
             range[index + i].index -= 1;
@@ -79,7 +79,11 @@ export function removeField(ranges: GlitchShadowField[][], field: GlitchShadowFi
     copyRanges(ranges, copy);
 }
 
-export function addFieldAtOffset(ranges: GlitchShadowField[][], rangeIndex: number, offset: number) {
+export function addFieldAtOffset(
+    ranges: G.Field[][],
+    rangeIndex: number,
+    offset: number,
+) {
     const copy = deepCopy(ranges);
     const range = copy[rangeIndex];
     let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
@@ -130,20 +134,20 @@ export function addFieldAtOffset(ranges: GlitchShadowField[][], rangeIndex: numb
     return -1;
 }
 
-export function reverseRangeColors(range: GlitchShadowField[]) {
+export function reverseRangeColors(range: G.Field[]) {
     applyToFieldProperties(range, (property) => {
         property.color.hex = reverseColor(property.color.hex);
-    })
+    });
 }
 
-export function reverseRangePositions(range: GlitchShadowField[]) {
+export function reverseRangePositions(range: G.Field[]) {
     applyToFieldProperties(range, (property) => {
         property.offsetX = reverseNumber(property.offsetX);
         property.offsetY = reverseNumber(property.offsetY);
-    })
+    });
 }
 
-export function setConfigFromPreset(config: GlitchConfig, preset: Preset) {
+export function setConfigFromPreset(config: G.Config, preset: Preset) {
     config.text.bgColor = deepCopy(preset.config.text.bgColor);
     config.text.color = deepCopy(preset.config.text.color);
     config.text.size = preset.config.text.size;
@@ -155,16 +159,16 @@ export function setConfigFromPreset(config: GlitchConfig, preset: Preset) {
     config.ranges = deepCopy(preset.config.ranges);
 }
 
-export function setAllColors(config: GlitchConfig) {
+export function setAllColors(config: G.Config) {
     const textColor = config.text.color;
-    const colors: { [key: string]: GlitchColor } = {
+    const colors: { [key: string]: G.Color } = {
         [`${textColor.hex}-${textColor.alphaPercent}`]: textColor,
     };
 
     config.ranges.forEach((range) => {
         return range.forEach((field) => {
             return Object.keys(field.properties).forEach((key) => {
-                const property = field.properties[key as GlitchAnimationProperty];
+                const property = field.properties[key as G.PropertyName];
 
                 if (property?.enabled && property.color) {
                     const key = `${property.color.hex}-${property.color.alphaPercent}`;
@@ -189,13 +193,13 @@ export function setAllColors(config: GlitchConfig) {
     allColors.sort();
 }
 
-function copyRanges(ranges: GlitchShadowField[][], rangesToCopy: GlitchShadowField[][]) {
+function copyRanges(ranges: G.Field[][], rangesToCopy: G.Field[][]) {
     rangesToCopy.forEach((range, index) => {
         ranges[index] = range;
     });
 }
 
-function incrementUpperFieldIndexesFrom(range: GlitchShadowField[], index: number) {
+function incrementUpperFieldIndexesFrom(range: G.Field[], index: number) {
     const length = range.length;
 
     for (let i = index; i < length; ++i) {
@@ -203,9 +207,12 @@ function incrementUpperFieldIndexesFrom(range: GlitchShadowField[], index: numbe
     }
 }
 
-function applyToFieldProperties(range: GlitchShadowField[], callback: (property: GlitchShadowProperty) => void) {
+function applyToFieldProperties(
+    range: G.Field[],
+    callback: (property: G.Property) => void,
+) {
     range.forEach((field) => {
-        let key: GlitchAnimationProperty;
+        let key: G.PropertyName;
 
         for (key in field.properties) {
             const property = field.properties[key];
@@ -217,11 +224,15 @@ function applyToFieldProperties(range: GlitchShadowField[], callback: (property:
     });
 }
 
-function applyToUpperRanges(rangeIndex: number, ranges: GlitchShadowField[][], callback: (range: GlitchShadowField[], index: number) => void) {
+function applyToUpperRanges(
+    rangeIndex: number,
+    ranges: G.Field[][],
+    callback: (range: G.Field[], index: number) => void,
+) {
     const rangeNb = ranges.length;
 
-    if (rangeIndex < (rangeNb - 1)) {
-        const length = (rangeNb - 1) - rangeIndex;
+    if (rangeIndex < rangeNb - 1) {
+        const length = rangeNb - 1 - rangeIndex;
 
         for (let i = 1; i <= length; ++i) {
             const nRangeIndex = rangeIndex + i;

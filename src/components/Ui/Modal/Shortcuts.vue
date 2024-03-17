@@ -1,22 +1,24 @@
 <script lang="ts" setup>
 const emit = defineEmits<{
-    cancel: []
+    cancel: [];
 }>();
 
 function onClose() {
-    emit('cancel');
+    emit("cancel");
 }
 </script>
 
 <template>
-    <UiModal @closed="onClose" title="modals.shortcuts.title">
+    <UiModal title="modals.shortcuts.title" @closed="onClose">
         <PlaygroundRanges class="mb-6" title="modals.shortcuts.playground" />
-        <UiText as="div">- {{ $t('modals.shortcuts.leftClickUp') }}</UiText>
-        <UiText as="div">- {{ $t('modals.shortcuts.rightClickUp') }}</UiText>
-        <UiText as="div">- {{ $t('modals.shortcuts.leftClickDrag') }}</UiText>
-        <UiText as="div">- {{ $t('modals.shortcuts.rightClickDrag') }}</UiText>
+        <UiText as="div">- {{ $t("modals.shortcuts.leftClickUp") }}</UiText>
+        <UiText as="div">- {{ $t("modals.shortcuts.rightClickUp") }}</UiText>
+        <UiText as="div">- {{ $t("modals.shortcuts.leftClickDrag") }}</UiText>
+        <UiText as="div">- {{ $t("modals.shortcuts.rightClickDrag") }}</UiText>
         <template #footer>
-            <UiButton variant="link" size="link" @click="onClose">{{ $t('modals.close') }}</UiButton>
+            <UiButton variant="link" size="link" @click="onClose">{{
+                $t("modals.close")
+            }}</UiButton>
         </template>
     </UiModal>
 </template>

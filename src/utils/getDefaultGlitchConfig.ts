@@ -1,29 +1,28 @@
-import { GlitchUnit } from '~/glitch/types';
-import type { GlitchConfig } from '~/glitch/types'
+import G from "~/glitch/types";
 
-const defaultGlitchConfig: GlitchConfig = {
+const defaultGlitchConfig: G.Config = {
     controls: true,
     text: {
         size: 42,
-        unit: GlitchUnit.Pixel,
+        unit: G.Unit.Pixel,
         height: 0,
         padding: 0,
         borderRadius: 0,
         bgColor: {
-            hex: '#ffffff',
-            alphaPercent: 0
+            hex: "#ffffff",
+            alphaPercent: 0,
         },
         color: {
-            hex: '#000000',
-            alphaPercent: 100
+            hex: "#000000",
+            alphaPercent: 100,
         },
-        message: 'Animate me!'
+        message: "Animate me!",
     },
     animation: {
-        duration: 3000
+        duration: 3000,
     },
-    ranges: [[getDefaultField(0, 0, 0)]]
-}
+    ranges: [[getDefaultField(0, 0, 0)]],
+};
 
 export default function getDefaultGlitchConfig() {
     return deepCopy(defaultGlitchConfig);

@@ -1,18 +1,27 @@
 <script lang="ts" setup>
-import type { GlitchErrors, GlitchShadowProperty } from '~/glitch/types';
+import G from "~/glitch/types";
 
 defineProps<{
-    errors: Partial<GlitchErrors>,
-    name: string
+    errors: Partial<G.Errors>;
+    name: string;
 }>();
 
-const property = defineModel<GlitchShadowProperty>('config', { required: true });
-const localProperty = defineModel<GlitchShadowProperty>('localConfig', { required: true });
+const property = defineModel<G.Property>("config", {
+    required: true,
+});
+const localProperty = defineModel<G.Property>("localConfig", {
+    required: true,
+});
 </script>
 
 <template>
     <div>
-        <EditorToolboxPropertyCommonShadow v-model:config="property" v-model:localConfig="localProperty"
-            propertyName="textShadow" :name="name" :errors="errors" />
+        <EditorToolboxPropertyCommonShadow
+            v-model:config="property"
+            v-model:localConfig="localProperty"
+            property-name="textShadow"
+            :name="name"
+            :errors="errors"
+        />
     </div>
 </template>

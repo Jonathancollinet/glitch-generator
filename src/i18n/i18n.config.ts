@@ -1,9 +1,9 @@
-import en from './en.json';
+import en from "./en.json";
 
 export default defineI18nConfig(() => ({
     legacy: false,
-    locale: 'en',
+    locale: "en",
     messages: {
-        en
-    }
-}))
+        en,
+    },
+}));

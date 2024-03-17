@@ -1,25 +1,25 @@
-import { z } from 'zod';
-import { GlitchAnimationProperty, GlitchUnit } from './types';
+import { z } from "zod";
+import G from "./types";
 
 const percentSchema = z.number().int().gte(0).lte(100);
 
 export const glitchErrorSchemas = {
     property: z.string(),
     code: z.string(),
-    message: z.string()
+    message: z.string(),
 };
 
 export const glitchColorSchemas = {
     hex: z.string(),
-    alphaPercent: z.number().int().gte(0).lte(100)
+    alphaPercent: z.number().int().gte(0).lte(100),
 };
 
-export const glitchShadowPropertySchemas = {
+export const glitchShadowSchemas = {
     enabled: z.boolean(),
     offsetX: z.number(),
     offsetY: z.number(),
     blur: z.number().gte(0),
-    spread: z.number().gte(0).optional()
+    spread: z.number().gte(0).optional(),
 };
 
 export const glitchTextShadowFieldSchemas = {
@@ -29,7 +29,7 @@ export const glitchTextShadowFieldSchemas = {
 };
 
 export const glitchAnimationSchemas = {
-    duration: z.number().gte(0)
+    duration: z.number().gte(0),
 };
 
 export const glitchTextSchemas = {
@@ -37,8 +37,8 @@ export const glitchTextSchemas = {
     height: z.number().gte(0).lte(256),
     padding: z.number().gte(0).lte(256),
     borderRadius: z.number().gte(0).lte(256),
-    unit: z.nativeEnum(GlitchUnit),
-    message: z.string()
+    unit: z.nativeEnum(G.Unit),
+    message: z.string(),
 };
 
 export const glitchBaseConfigSchemas = {
@@ -46,4 +46,4 @@ export const glitchBaseConfigSchemas = {
     preventRangesCompute: z.boolean().optional(),
     fillAllFrames: z.boolean(),
     controls: z.boolean(),
-}
+};

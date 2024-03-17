@@ -11,11 +11,11 @@ export const useModalDeletePreset = (action: () => void) => {
             },
             onCancel() {
                 deletePresetModal.close();
-            }
-        }
+            },
+        },
     });
 
     return {
-        deletePresetModal
-    }
-}
+        deletePresetModal,
+    };
+};

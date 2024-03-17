@@ -1,49 +1,70 @@
 <script setup lang="ts">
-import type { EditorToolboxAnimation } from '#build/components';
-import { type GlitchConfig, type GlitchErrors, type GlitchShadowField } from '~/glitch/types';
+import type { EditorToolboxAnimation } from "#build/components";
+import G from "~/glitch/types";
 
 defineProps<{
-    errors: Partial<GlitchErrors>,
-    currentPercent: number,
+    errors: Partial<G.Errors>;
+    currentPercent: number;
 }>();
 
 const emit = defineEmits<{
-    addField: [rangeIndex: number],
-    removeRange: [index: number],
-    addEmptyRange: [],
-    duplicateRange: [],
-    removeField: [field: GlitchShadowField]
+    addField: [rangeIndex: number];
+    removeRange: [index: number];
+    addEmptyRange: [];
+    duplicateRange: [];
+    removeField: [field: G.Field];
 }>();
 
-const config = defineModel<GlitchConfig>('config', { required: true });
-const selectedField = defineModel<GlitchShadowField | undefined>('field', { required: true });
+const config = defineModel<G.Config>("config", { required: true });
+const selectedField = defineModel<G.Field | undefined>("field", {
+    required: true,
+});
 
-const localConfig = ref<GlitchConfig>(deepCopy(config.value));
-const localSelectedField = ref<GlitchShadowField>();
+const localConfig = ref<G.Config>(deepCopy(config.value));
+const localSelectedField = ref<G.Field>();
 
 const currentIndexes = computed(() => {
-    return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : '';
-})
+    return selectedField.value
+        ? `${selectedField.value.range}-${selectedField.value.index}`
+        : "";
+});
 
-function removeField(field: GlitchShadowField) {
-    emit('removeField', field);
+function removeField(field: G.Field) {
+    emit("removeField", field);
 }
 
-watch(selectedField, (field) => {
-    if (field) {
-        localSelectedField.value = deepCopy(field);
-    }
-}, { deep: true });
+watch(
+    selectedField,
+    (field) => {
+        if (field) {
+            localSelectedField.value = deepCopy(field);
+        }
+    },
+    { deep: true },
+);
 </script>
 
 <template>
-    <div class="md:space-x-0 md:space-y-4 sticky top-4">
-        <div class="mb-4" v-if="selectedField && localSelectedField">
-            <EditorToolboxField :range="config.ranges[selectedField.range]" :errors="errors" :key="currentIndexes"
-                v-model:config="selectedField" v-model:localConfig="localSelectedField" @removeField="removeField" />
+    <div class="sticky top-4 md:space-x-0 md:space-y-4">
+        <div v-if="selectedField && localSelectedField" class="mb-4">
+            <EditorToolboxField
+                :key="currentIndexes"
+                v-model:config="selectedField"
+                v-model:localConfig="localSelectedField"
+                :range="config.ranges[selectedField.range]"
+                :errors="errors"
+                @remove-field="removeField"
+            />
         </div>
-        <EditorToolboxAnimation v-model:config="config.animation" v-model:localConfig="localConfig.animation"
-            :errors="errors" />
-        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localConfig.text" :errors="errors" />
+        <EditorToolboxAnimation
+            v-model:config="config.animation"
+            v-model:localConfig="localConfig.animation"
+            :errors="errors"
+        />
+        <EditorToolboxText
+            v-model:config="config.text"
+            v-model:localConfig="localConfig.text"
+            :errors="errors"
+        />
     </div>
 </template>

@@ -7,11 +7,11 @@ export const useModalShortcuts = () => {
         attrs: {
             onCancel() {
                 shortcutsModal.close();
-            }
-        }
+            },
+        },
     });
-    
+
     return {
-        shortcutsModal
-    }
-}
+        shortcutsModal,
+    };
+};

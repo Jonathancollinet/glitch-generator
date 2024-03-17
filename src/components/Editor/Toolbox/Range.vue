@@ -1,35 +1,35 @@
 <script lang="ts" setup>
-import type { GlitchConfig, GlitchShadowField } from '~/glitch/types';
-import { getPossibleOffsetFrames } from '~/utils/Toobox/utils';
-import { rangeHeight } from '~/utils/constants';
+import G from "~/glitch/types";
+import { getPossibleOffsetFrames } from "~/utils/Toobox/utils";
+import { rangeHeight } from "~/utils/constants";
 
 const props = defineProps<{
-    config?: GlitchConfig,
-    range: GlitchShadowField[],
-    selectedField?: GlitchShadowField,
-    noProperties?: boolean
-}>()
+    config?: G.Config;
+    range: G.Field[];
+    selectedField?: G.Field;
+    noProperties?: boolean;
+}>();
 
 const emit = defineEmits<{
-    updateField: [field: GlitchShadowField],
-    selectField: [field: GlitchShadowField],
-    insertField: [offset: number]
-}>()
+    updateField: [field: G.Field];
+    selectField: [field: G.Field];
+    insertField: [offset: number];
+}>();
 
 let oldX = 0;
 let isDragging = false;
-let currentField: GlitchShadowField | undefined;
-let nextCurrentField: GlitchShadowField | undefined;
+let currentField: G.Field | undefined;
+let nextCurrentField: G.Field | undefined;
 let jump = 0;
 let jumpResize = 4;
-let fieldToResize: GlitchShadowField | undefined;
+let fieldToResize: G.Field | undefined;
 let possibilities: number[] | undefined;
-let percents = new Array(101).fill(0).map((_, i) => i);
+const percents = new Array(101).fill(0).map((_, i) => i);
 
-const hoveredField = ref<GlitchShadowField>();
+const hoveredField = ref<G.Field>();
 const draggingFieldIndex = ref(-1);
 const displaySelectableFields = ref(false);
-const translationModifier = ref('');
+const translationModifier = ref("");
 
 const onField = {
     updateField,
@@ -37,10 +37,10 @@ const onField = {
     dragEnd,
     displayProperties,
     drag,
-    selectField
-}
+    selectField,
+};
 
-function showSelectableField(e: MouseEvent) {
+function showSelectableField() {
     displaySelectableFields.value = true;
 }
 
@@ -50,15 +50,15 @@ function hideSelectableField() {
 
 function chooseFieldOffset(e: MouseEvent, offset: number) {
     hideSelectableField();
-    emit('insertField', offset);
+    emit("insertField", offset);
 }
 
-function updateField(field: GlitchShadowField) {
-    emit('updateField', field);
+function updateField(field: G.Field) {
+    emit("updateField", field);
 }
 
-function selectField(field: GlitchShadowField) {
-    emit('selectField', field);
+function selectField(field: G.Field) {
+    emit("selectField", field);
 }
 
 function changeFieldOffset(modifier: number) {
@@ -89,10 +89,9 @@ function drag(e: DragEvent) {
     }
 }
 
-function dragStart(e: DragEvent, field: GlitchShadowField) {
+function dragStart(e: DragEvent, field: G.Field) {
     const target = e.target as HTMLElement;
     const rect = target.getBoundingClientRect();
-
 
     jumpResize = (target.parentElement?.offsetWidth || 100) / 100;
 
@@ -112,7 +111,8 @@ function dragStart(e: DragEvent, field: GlitchShadowField) {
         }
     }
 
-    possibilities = fieldToResize && getPossibleOffsetFrames(fieldToResize, props.range);
+    possibilities =
+        fieldToResize && getPossibleOffsetFrames(fieldToResize, props.range);
 }
 
 function dragEnd(e: DragEvent) {
@@ -129,18 +129,18 @@ function saveX(e: DragEvent, x?: number) {
     oldX = x ?? e.pageX;
 }
 
-function displayProperties(e: MouseEvent, field: GlitchShadowField) {
+function displayProperties(e: MouseEvent, field: G.Field) {
     const target = e.target as HTMLElement;
     const middle = target.scrollWidth / 2 + 16;
     const left = target.offsetLeft;
     const arbitraryTooltipSize = 150 / 2;
 
-    if ((document.body.scrollWidth - 16 - left) < arbitraryTooltipSize) {
-        translationModifier.value = '-100%';
-    } else if ((middle + left) > arbitraryTooltipSize) {
-        translationModifier.value = '';
+    if (document.body.scrollWidth - 16 - left < arbitraryTooltipSize) {
+        translationModifier.value = "-100%";
+    } else if (middle + left > arbitraryTooltipSize) {
+        translationModifier.value = "";
     } else {
-        translationModifier.value = '0%';
+        translationModifier.value = "0%";
     }
 
     hoveredField.value = field;
@@ -150,18 +150,21 @@ function removeProperties() {
     hoveredField.value = undefined;
 }
 
-function isFieldSelected(field: GlitchShadowField) {
-    return !!props.selectedField && props.selectedField.range === field.range
-        && props.selectedField.index === field.index;
+function isFieldSelected(field: G.Field) {
+    return (
+        !!props.selectedField &&
+        props.selectedField.range === field.range &&
+        props.selectedField.index === field.index
+    );
 }
 
 const textFontSize = computed(() => {
     return props.config?.text.size || 16;
-})
+});
 
 const showProperties = computed(() => {
     return !props.noProperties && hoveredField.value;
-})
+});
 
 const fieldPropertiesToShow = computed(() => {
     if (draggingFieldIndex.value !== -1) {
@@ -169,50 +172,84 @@ const fieldPropertiesToShow = computed(() => {
     } else {
         return hoveredField.value;
     }
-})
+});
 
 const propertyPosition = computed(() => {
     if (hoveredField.value && fieldPropertiesToShow.value) {
         const field = fieldPropertiesToShow.value;
         const currentOffset = field.offsetFrame;
-        const middleOffset = ((props.range[field.index + 1]?.offsetFrame ?? 101) - currentOffset) / 2;
+        const middleOffset =
+            ((props.range[field.index + 1]?.offsetFrame ?? 101) -
+                currentOffset) /
+            2;
         const left = currentOffset + middleOffset;
-        const finalTranslateX = translationModifier.value ? translationModifier.value : '-50%';
+        const finalTranslateX = translationModifier.value
+            ? translationModifier.value
+            : "-50%";
 
         return {
             left: `${left}%`,
-            transform: `translate(${finalTranslateX}, calc(-100% - 5px))`
-        }
+            transform: `translate(${finalTranslateX}, calc(-100% - 5px))`,
+        };
     }
-})
+});
 
 const nextHoveredFrameOffset = computed(() => {
     if (fieldPropertiesToShow.value) {
-        return (props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ?? 101);
+        return (
+            props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ??
+            101
+        );
     }
 
     return 100;
-})
+});
 </script>
 
 <template>
-    <div class="relative mb-2 last:mb-0 select-none" :style="{ height: rangeHeight + 'px' }"
-        v-click-outside="hideSelectableField">
+    <div
+        v-click-outside="hideSelectableField"
+        class="relative mb-2 select-none last:mb-0"
+        :style="{ height: rangeHeight + 'px' }"
+    >
         <div class="h-full w-[calc(100%-36px)]">
-            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap" :style="propertyPosition">
-                <EditorToolboxFieldProperties :field="fieldPropertiesToShow"
-                    :nextHoveredFrameOffset="nextHoveredFrameOffset" />
+            <UiTooltipContent
+                v-show="showProperties"
+                class="whitespace-nowrap"
+                :style="propertyPosition"
+            >
+                <EditorToolboxFieldProperties
+                    :field="fieldPropertiesToShow"
+                    :next-hovered-frame-offset="nextHoveredFrameOffset"
+                />
             </UiTooltipContent>
             <div>
-                <EditorToolboxSelectableField v-for="(field, index) in range" :key="index" :textFontSize="textFontSize"
-                    :field="field" :nextField="range[index + 1]" :draggingFieldIndex="draggingFieldIndex"
-                    :isSelected="isFieldSelected(field)" v-on="onField" @contextmenu.prevent.stop
-                    @mouseleave="removeProperties" @mousedown.right="showSelectableField" />
+                <EditorToolboxSelectableField
+                    v-for="(field, index) in range"
+                    :key="index"
+                    :text-font-size="textFontSize"
+                    :field="field"
+                    :next-field="range[index + 1]"
+                    :dragging-field-index="draggingFieldIndex"
+                    :is-selected="isFieldSelected(field)"
+                    v-on="onField"
+                    @contextmenu.prevent.stop
+                    @mouseleave="removeProperties"
+                    @mousedown.right="showSelectableField"
+                />
             </div>
-            <div v-if="displaySelectableFields" class="absolute z-10 h-full w-full whitespace-nowrap">
-                <div class="inline-block w-[1%] h-full bg-primary-50 opacity-0 border-l border-transparent hover:opacity-50"
-                    :style="{ left: p + '%' }" @contextmenu.prevent.stop @mouseup.right="chooseFieldOffset($event, p)"
-                    v-for="(p, index) in percents" />
+            <div
+                v-if="displaySelectableFields"
+                class="absolute z-10 h-full w-full whitespace-nowrap"
+            >
+                <div
+                    v-for="(p, index) in percents"
+                    :key="index"
+                    class="inline-block h-full w-[1%] border-l border-transparent bg-primary-50 opacity-0 hover:opacity-50"
+                    :style="{ left: p + '%' }"
+                    @contextmenu.prevent.stop
+                    @mouseup.right="chooseFieldOffset($event, p)"
+                />
             </div>
         </div>
     </div>

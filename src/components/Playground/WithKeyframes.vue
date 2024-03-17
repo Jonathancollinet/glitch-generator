@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import Glitch from '~/glitch';
-import type { GlitchShadowField } from '~/glitch/types';
+import Glitch from "~/glitch";
+import G from "~/glitch/types";
 
 const props = defineProps<{
-    ranges?: GlitchShadowField[][],
-    name: string,
+    ranges?: G.Field[][];
+    name: string;
 }>();
 
 const config = getDefaultGlitchConfig();
@@ -12,7 +12,7 @@ config.ranges = deepCopy(props.ranges || config.ranges);
 
 const gconfig = ref(config);
 const keyframes = ref("");
-const selectedField = ref<GlitchShadowField>();
+const selectedField = ref<G.Field>();
 const refresh = ref(0);
 
 const glitch = new Glitch(gconfig.value);
@@ -22,7 +22,7 @@ function compute() {
     keyframes.value = glitch.getKeyframesString();
 }
 
-function selectField(field: GlitchShadowField) {
+function selectField(field: G.Field) {
     selectedField.value = field;
 }
 
@@ -33,12 +33,18 @@ function reset() {
 }
 
 const selectedIndexes = computed(() => {
-    return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : '';
+    return selectedField.value
+        ? `${selectedField.value.range}-${selectedField.value.index}`
+        : "";
 });
 
-watch(() => gconfig.value.ranges, () => {
-    compute();
-}, { deep: true });
+watch(
+    () => gconfig.value.ranges,
+    () => {
+        compute();
+    },
+    { deep: true },
+);
 
 onMounted(() => {
     compute();
@@ -47,9 +53,20 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="p-4 bg-primary-200 dark:bg-primary-950" :key="refresh">
-        <PlaygroundFieldOptions :key="selectedIndexes" :name="name" class="mb-2" :selectedField="selectedField" @reset="reset" />
-        <PlaygroundRanges class="mb-4" :ranges="gconfig.ranges" :selectedField="selectedField" @selectField="selectField" />
+    <div :key="refresh" class="bg-primary-200 p-4 dark:bg-primary-950">
+        <PlaygroundFieldOptions
+            :key="selectedIndexes"
+            :name="name"
+            class="mb-2"
+            :selected-field="selectedField"
+            @reset="reset"
+        />
+        <PlaygroundRanges
+            class="mb-4"
+            :ranges="gconfig.ranges"
+            :selected-field="selectedField"
+            @select-field="selectField"
+        />
         <UiPre class="p-0">{{ keyframes }}</UiPre>
     </div>
 </template>
