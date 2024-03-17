@@ -156,10 +156,7 @@ export function getErrorMessage(
     }
 }
 
-export function getPossibleOffsetFrames(
-    field: G.Field,
-    range: G.Field[],
-) {
+export function getPossibleOffsetFrames(field: G.Field, range: G.Field[]) {
     if (field.offsetFrame !== 0) {
         const percents = [];
         const previousField = range[field.index - 1];
