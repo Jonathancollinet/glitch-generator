@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare",
     "cleanup": "nuxt cleanup",
     "analyze": "nuxt analyze",
-    "lint": "eslint ."
+    "lint": "eslint src"
   },
   "dependencies": {
     "@ckpack/vue-color": "^1.5.0",
