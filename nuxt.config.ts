@@ -1,4 +1,7 @@
 const isProduction = process.env.NODE_ENV === 'production';
+const version = require('./package.json').version
+
+console.log('version', version);
 
 export default defineNuxtConfig({
     sourcemap: !isProduction,
@@ -8,6 +11,11 @@ export default defineNuxtConfig({
         typeCheck: true,
         tsConfig: {
             include: ["~/types/*.d.ts"]
+        }
+    },
+    vite: {
+        define: {
+            "process.env.PACKAGE_VERSION": JSON.stringify(version)
         }
     },
     modules: [
