@@ -12,7 +12,7 @@ const props = withDefaults(
     {
         as: NuxtLink,
         class: "",
-        variant: "default",
+        variant: undefined,
     },
 );
 

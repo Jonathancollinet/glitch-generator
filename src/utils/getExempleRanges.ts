@@ -7,7 +7,7 @@ export default () => {
                 range: 0,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     [G.PropertyName.TextShadow]: {
                         enabled: true,
                         fillAllFrames: false,
@@ -37,7 +37,7 @@ export default () => {
                 range: 0,
                 index: 1,
                 offsetFrame: 50,
-                properties: {
+                shadows: {
                     [G.PropertyName.TextShadow]: {
                         enabled: true,
                         fillAllFrames: false,

@@ -19,8 +19,8 @@ const ex4 = ref(
     deepCopy(ex3.value).map((range) => {
         range.forEach((field) => {
             let property: G.PropertyName;
-            for (property in field.properties) {
-                field.properties[property].fillAllFrames = true;
+            for (property in field.shadows) {
+                field.shadows[property].fillAllFrames = true;
             }
         });
 

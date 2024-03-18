@@ -8,10 +8,10 @@ const props = defineProps<{
     label?: string;
 }>();
 
-const property = defineModel<G.Property>("config", {
+const property = defineModel<G.Shadow>("config", {
     required: true,
 });
-const localProperty = defineModel<G.Property>("localConfig", {
+const localProperty = defineModel<G.Shadow>("localConfig", {
     required: true,
 });
 
@@ -20,7 +20,7 @@ const fillAllFramesError = computed(() =>
     getErrorMessage(props.errors, "fillAllFrames"),
 );
 
-const updateOptions = applyUpdater<G.Property>({
+const updateOptions = applyUpdater<G.Shadow>({
     obj: property.value,
     localObj: localProperty.value,
 });

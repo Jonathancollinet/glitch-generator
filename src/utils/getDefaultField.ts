@@ -4,7 +4,7 @@ const defaultField: G.Field = {
     range: 0,
     index: 0,
     offsetFrame: 0,
-    properties: {
+    shadows: {
         [G.PropertyName.TextShadow]: {
             enabled: true,
             fillAllFrames: true,

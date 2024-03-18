@@ -19,8 +19,8 @@ const props = withDefaults(
         isOpen: true,
         noContentPad: false,
         class: "",
-        variant: "default",
-        size: "default",
+        variant: undefined,
+        size: undefined,
         contentClasses: "",
     },
 );

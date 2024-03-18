@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 
 const property = computed(() => {
-    return props.field?.properties?.[props.propertyName];
+    return props.field?.shadows?.[props.propertyName];
 });
 
 const formatProperty = computed(() => {

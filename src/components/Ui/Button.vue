@@ -13,9 +13,9 @@ const props = withDefaults(
     {
         as: "button",
         class: "",
-        variant: "default",
-        size: "default",
-        color: "default",
+        variant: undefined,
+        size: undefined,
+        color: undefined,
     },
 );
 </script>

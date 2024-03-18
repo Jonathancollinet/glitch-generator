@@ -20,10 +20,10 @@ function getName(key: string) {
 }
 
 const textShadow = computed(
-    () => props.selectedField?.properties[G.PropertyName.TextShadow],
+    () => props.selectedField?.shadows[G.PropertyName.TextShadow],
 );
 const boxShadow = computed(
-    () => props.selectedField?.properties[G.PropertyName.BoxShadow],
+    () => props.selectedField?.shadows[G.PropertyName.BoxShadow],
 );
 </script>
 

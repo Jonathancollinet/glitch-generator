@@ -9,7 +9,7 @@ const props = withDefaults(
     }>(),
     {
         variant: "h1",
-        class: "",
+        class: undefined,
     },
 );
 </script>

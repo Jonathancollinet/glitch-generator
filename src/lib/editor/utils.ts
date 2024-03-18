@@ -93,7 +93,7 @@ export function addFieldAtOffset(
     const hoveredField = range[nextIndex - 1];
     const newField = getDefaultField(rangeIndex, nextIndex, offset);
 
-    newField.properties = deepCopy(hoveredField.properties);
+    newField.shadows = deepCopy(hoveredField.shadows);
 
     if (hoveredField.offsetFrame !== offset) {
         range.splice(nextIndex, 0, newField);
@@ -167,8 +167,8 @@ export function setAllColors(config: G.Config) {
 
     config.ranges.forEach((range) => {
         return range.forEach((field) => {
-            return Object.keys(field.properties).forEach((key) => {
-                const property = field.properties[key as G.PropertyName];
+            return Object.keys(field.shadows).forEach((key) => {
+                const property = field.shadows[key as G.PropertyName];
 
                 if (property?.enabled && property.color) {
                     const key = `${property.color.hex}-${property.color.alphaPercent}`;
@@ -209,13 +209,13 @@ function incrementUpperFieldIndexesFrom(range: G.Field[], index: number) {
 
 function applyToFieldProperties(
     range: G.Field[],
-    callback: (property: G.Property) => void,
+    callback: (property: G.Shadow) => void,
 ) {
     range.forEach((field) => {
         let key: G.PropertyName;
 
-        for (key in field.properties) {
-            const property = field.properties[key];
+        for (key in field.shadows) {
+            const property = field.shadows[key];
 
             if (property) {
                 callback(property);

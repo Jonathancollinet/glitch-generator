@@ -27,7 +27,7 @@ export default deepCopy({
                 range: 0,
                 index: 1,
                 offsetFrame: 25,
-                properties: {
+                shadows: {
                     [G.PropertyName.TextShadow]: {
                         enabled: true,
                         fillAllFrames: true,
@@ -57,7 +57,7 @@ export default deepCopy({
                 range: 0,
                 index: 2,
                 offsetFrame: 50,
-                properties: {
+                shadows: {
                     [G.PropertyName.TextShadow]: {
                         enabled: true,
                         fillAllFrames: true,

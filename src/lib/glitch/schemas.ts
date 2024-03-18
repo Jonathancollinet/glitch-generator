@@ -14,7 +14,7 @@ export const glitchColorSchemas = {
     alphaPercent: z.number().int().gte(0).lte(100),
 };
 
-export const glitchShadowSchemas = {
+export const glitchPropertySchemas = {
     enabled: z.boolean(),
     offsetX: z.number(),
     offsetY: z.number(),
@@ -22,7 +22,7 @@ export const glitchShadowSchemas = {
     spread: z.number().gte(0).optional(),
 };
 
-export const glitchTextShadowFieldSchemas = {
+export const glitchFieldSchemas = {
     range: z.number(),
     index: z.number(),
     offsetFrame: percentSchema,

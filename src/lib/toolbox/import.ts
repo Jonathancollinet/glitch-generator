@@ -1,4 +1,6 @@
 import G from "~/lib/glitch/types";
+import { allDeclarations } from "~/utils/constants";
+import propertyValuesGetters from "~/lib/toolbox/declarationValues";
 
 export default function importKeyframes(
     presetName: string,
@@ -44,7 +46,7 @@ export default function importKeyframes(
 function fillMissingProperties(ranges: G.Field[][]) {
     ranges.forEach((range, rangeIndex) => {
         range.forEach((field, fieldIndex) => {
-            const properties = [
+            const shadows = [
                 G.PropertyName.TextShadow,
                 G.PropertyName.BoxShadow,
             ];
@@ -54,12 +56,11 @@ function fillMissingProperties(ranges: G.Field[][]) {
             newField.index = field.index;
             newField.offsetFrame = field.offsetFrame;
 
-            properties.forEach((property: G.PropertyName) => {
-                if (field.properties[property]) {
-                    newField.properties[property] = field.properties[property];
+            shadows.forEach((property: G.PropertyName) => {
+                if (field.shadows[property]) {
+                    newField.shadows[property] = field.shadows[property];
                 } else {
-                    (newField.properties[property] as G.Property).enabled =
-                        false;
+                    (newField.shadows[property] as G.Shadow).enabled = false;
                 }
             });
 
@@ -89,34 +90,20 @@ function kfStringToRanges(keyframe: string) {
                         .trim()
                         .replace(/[%\s]*/gim, "")
                         .split(",");
-                    const textShadows =
-                        rule.style.textShadow
-                            ?.replace(/px,/gim, "px;")
-                            .split("; ")
-                            .filter((v) => v) || [];
-                    const boxShadows =
-                        rule.style.boxShadow
-                            ?.replace(/px,/gim, "px;")
-                            .split("; ")
-                            .filter((v) => v) || [];
+                    const ruleDeclarations = getRuleDeclarationsFrom(rule);
 
                     percents.forEach((percent) => {
                         const offsetFrame = +percent;
 
-                        textShadows.length &&
-                            setShadowInRanges(
-                                ranges,
-                                G.PropertyName.TextShadow,
-                                textShadows,
-                                offsetFrame,
-                            );
-                        boxShadows.length &&
-                            setShadowInRanges(
-                                ranges,
-                                G.PropertyName.BoxShadow,
-                                boxShadows,
-                                offsetFrame,
-                            );
+                        ruleDeclarations.forEach((declarations) => {
+                            declarations.values.length &&
+                                setPropertyInRanges(
+                                    ranges,
+                                    declarations.propertyName as G.PropertyName,
+                                    declarations.values,
+                                    offsetFrame,
+                                );
+                        });
                     });
                 }
             });
@@ -128,6 +115,21 @@ function kfStringToRanges(keyframe: string) {
     }
 }
 
+function getRuleDeclarationsFrom(rule: CSSKeyframeRule) {
+    return allDeclarations.map((declaration: string) => ({
+        propertyName: declaration,
+        values:
+            (
+                rule.style[
+                    toCamel(declaration) as keyof CSSStyleDeclaration
+                ] as string
+            )
+                ?.replace(/px,/gim, "px;")
+                .split("; ")
+                .filter((v: string) => v) || [],
+    }));
+}
+
 function prefixRangesOffsetZero(ranges: G.Field[][]) {
     ranges.forEach((range) => {
         range.sort((a, b) => a.offsetFrame - b.offsetFrame);
@@ -137,7 +139,7 @@ function prefixRangesOffsetZero(ranges: G.Field[][]) {
                 range: range[0].range,
                 index: 0,
                 offsetFrame: 0,
-                properties: {},
+                shadows: {},
             });
         }
 
@@ -147,13 +149,13 @@ function prefixRangesOffsetZero(ranges: G.Field[][]) {
     });
 }
 
-function setShadowInRanges(
+function setPropertyInRanges(
     ranges: G.Field[][],
     propertyName: G.PropertyName,
-    shadows: string[],
+    values: string[],
     offsetFrame: number,
 ) {
-    shadows.forEach((shadow, rangeIndex) => {
+    values.forEach((value, rangeIndex) => {
         let range = ranges[rangeIndex];
 
         if (!range) {
@@ -168,53 +170,17 @@ function setShadowInRanges(
                 range: rangeIndex,
                 index: range.length,
                 offsetFrame,
-                properties: {},
+                shadows: {},
             };
             range.push(field);
         }
 
-        const color = getGlitchColorFrom(shadow);
-        const shadowValues = getShadowProps(shadow, propertyName);
-        const shadowProperty: G.Property = {
+        field.shadows[propertyName] = {
             enabled: true,
             fillAllFrames: false,
-            color,
-            ...shadowValues,
+            ...propertyValuesGetters[propertyName](value),
         };
-
-        field.properties[propertyName] = shadowProperty;
     });
-}
-
-function getShadowProps(shadow: string, propertyName: G.PropertyName) {
-    const shadowProps: Pick<
-        G.Property,
-        "offsetX" | "offsetY" | "blur" | "spread"
-    > = {
-        offsetX: 0,
-        offsetY: 0,
-        blur: 0,
-    };
-    const shadowParse = shadow.match(/([-]?\d+px)/gim);
-
-    if (shadowParse) {
-        shadowProps.offsetX = +shadowParse[0].replace(/px/gim, "");
-        shadowProps.offsetY = +shadowParse[1].replace(/px/gim, "");
-
-        if (shadowParse.length === 3) {
-            shadowProps.blur = +shadowParse[2].replace(/px/gim, "");
-        }
-
-        if (propertyName === G.PropertyName.BoxShadow) {
-            if (shadowParse.length === 4) {
-                shadowProps.spread = +shadowParse[3].replace(/px/gim, "");
-            } else {
-                shadowProps.spread = 0;
-            }
-        }
-    }
-
-    return shadowProps;
 }
 
 function textStyleToText(style: string) {

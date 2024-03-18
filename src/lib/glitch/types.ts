@@ -21,19 +21,20 @@ namespace Glitch {
         fillAllFrames: boolean;
     };
 
-    export type Property = PropertyBase &
+    export type Shadow = PropertyBase &
         Declarations.TextShadow &
         Declarations.BoxShadow;
 
-    export type Properties = {
-        [key in PropertyName]?: Property;
+    export type Shadows = {
+        [PropertyName.BoxShadow]?: Shadow;
+        [PropertyName.TextShadow]?: Shadow;
     };
 
     export type Field = {
         range: number;
         index: number;
         offsetFrame: number;
-        properties: Properties;
+        shadows: Shadows;
     };
 
     export type BaseText = {

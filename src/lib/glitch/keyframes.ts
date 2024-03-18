@@ -1,4 +1,5 @@
-import G from "./types";
+import G from "~/lib/glitch/types";
+import getPropertyData from "./propertitesData";
 
 type GeneratedFrames = {
     [key: string]: {
@@ -221,8 +222,8 @@ export default class GlitchKeyframes {
     private createFrame(field: G.Field, nextField?: G.Field) {
         let propertyName: G.PropertyName;
 
-        for (propertyName in field.properties) {
-            const fieldProperty = field.properties[propertyName];
+        for (propertyName in field.shadows) {
+            const fieldProperty = field.shadows[propertyName];
             const nextPercent = nextField?.offsetFrame ?? 101;
 
             if (fieldProperty) {
@@ -284,7 +285,7 @@ export default class GlitchKeyframes {
         field: G.Field,
         percent: number,
     ) {
-        const property = field.properties[propertyName];
+        const property = field.shadows[propertyName];
 
         if (property) {
             let frame = this.generatedFrames[percent];
@@ -298,27 +299,9 @@ export default class GlitchKeyframes {
             }
 
             (<string[]>frame[propertyName])[field.range] =
-                this.getCssPropertyValue(propertyName, property);
+                getPropertyData[propertyName](property);
             this.generatedFrames[percent] = frame;
         }
-    }
-
-    private getCssPropertyValue(
-        propertyName: G.PropertyName,
-        property: G.Property,
-    ) {
-        const offsetX = property.offsetX;
-        const offsetY = property.offsetY;
-        const blur = property.blur;
-        const color = hexToRGB(property.color.hex, property.color.alphaPercent);
-        let value = `${offsetX}px ${offsetY}px ${blur}px`;
-        const spread = property.spread;
-
-        if (spread) {
-            value += ` ${spread}px`;
-        }
-
-        return value + ` ${color}`;
     }
 
     private injectHeadStyle(keyframes: string) {

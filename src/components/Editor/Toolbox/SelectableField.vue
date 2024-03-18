@@ -36,7 +36,7 @@ function getPercentWidth() {
     return length + "%";
 }
 
-function getColorFor(property: G.Property, nextProperty?: G.Property) {
+function getColorFor(property: G.Shadow, nextProperty?: G.Shadow) {
     const nextOffsetFrame = props.nextField?.offsetFrame;
     const color = property.color;
     const nextColor = nextProperty?.color;
@@ -60,9 +60,9 @@ function getColorFor(property: G.Property, nextProperty?: G.Property) {
 
 function getAttrs(
     s: StyleAttrs,
-    property: G.Property,
+    property: G.Shadow,
     blurModifier: number,
-    nextProperty?: G.Property,
+    nextProperty?: G.Shadow,
 ) {
     if (nextProperty?.enabled) {
         s.background = getColorFor(property, nextProperty);
@@ -80,10 +80,10 @@ function getStyle() {
         [G.PropertyName.TextShadow]: {},
         [G.PropertyName.BoxShadow]: {},
     };
-    const properties = props.field.properties;
-    const nextProperties = props.nextField?.properties;
-    const textShadow = properties[G.PropertyName.TextShadow];
-    const boxShadow = properties[G.PropertyName.BoxShadow];
+    const shadows = props.field.shadows;
+    const nextProperties = props.nextField?.shadows;
+    const textShadow = shadows[G.PropertyName.TextShadow];
+    const boxShadow = shadows[G.PropertyName.BoxShadow];
     const nextTextShadow = nextProperties?.[G.PropertyName.TextShadow];
     const nextBoxShadow = nextProperties?.[G.PropertyName.BoxShadow];
     const textShadowEnabled = textShadow?.enabled;
@@ -124,11 +124,11 @@ function displayProperties(e: MouseEvent) {
 const textShadowStyle = computed(() => getStyle()[G.PropertyName.TextShadow]);
 const boxShadowStyle = computed(() => getStyle()[G.PropertyName.BoxShadow]);
 const textShadowEnabled = computed(
-    () => props.field.properties[G.PropertyName.TextShadow]?.enabled,
+    () => props.field.shadows[G.PropertyName.TextShadow]?.enabled,
 );
 
 const hasShadowBox = computed(() => {
-    return props.field.properties[G.PropertyName.BoxShadow]?.enabled;
+    return props.field.shadows[G.PropertyName.BoxShadow]?.enabled;
 });
 
 const fieldStyle = computed(() => {

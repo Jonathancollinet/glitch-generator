@@ -5,8 +5,8 @@ import {
     glitchTextSchemas,
     glitchAnimationSchemas,
     glitchColorSchemas,
-    glitchTextShadowFieldSchemas,
-    glitchShadowSchemas,
+    glitchPropertySchemas,
+    glitchFieldSchemas,
 } from "./schemas";
 
 export default class GlitchValidator {
@@ -393,21 +393,21 @@ export default class GlitchValidator {
             this.validateConfigLeaf(
                 field,
                 oldField,
-                glitchTextShadowFieldSchemas,
+                glitchFieldSchemas,
                 "range",
                 `${fieldPath}.range`,
             ),
             this.validateConfigLeaf(
                 field,
                 oldField,
-                glitchTextShadowFieldSchemas,
+                glitchFieldSchemas,
                 "index",
                 `${fieldPath}.index`,
             ),
             this.validateConfigLeaf(
                 field,
                 oldField,
-                glitchTextShadowFieldSchemas,
+                glitchFieldSchemas,
                 "offsetFrame",
                 `${fieldPath}.offsetFrame`,
             ),
@@ -416,8 +416,8 @@ export default class GlitchValidator {
         return results
             .concat(
                 this.validateFieldProperties(
-                    field.properties,
-                    oldField?.properties,
+                    field.shadows,
+                    oldField?.shadows,
                     fieldPath,
                 ),
             )
@@ -425,16 +425,16 @@ export default class GlitchValidator {
     }
 
     private validateFieldProperties(
-        properties: G.Properties,
-        oldProperties: G.Properties | undefined,
+        shadows: G.Shadows,
+        oldProperties: G.Shadows | undefined,
         fieldPath: string,
     ) {
-        const propertiesPath = `${fieldPath}.properties`;
+        const propertiesPath = `${fieldPath}.shadows`;
         let results: boolean[] = [];
-        let propertyName: keyof typeof properties;
+        let propertyName: keyof typeof shadows;
 
         if (
-            this.hasErrorOrRemoveExisting(!properties, {
+            this.hasErrorOrRemoveExisting(!shadows, {
                 path: propertiesPath,
                 code: "invalid_object",
                 message: `The field's properties must exists with all his attributes.`,
@@ -443,11 +443,11 @@ export default class GlitchValidator {
             return false;
         }
 
-        for (propertyName in properties) {
+        for (propertyName in shadows) {
             const propertyPath = `${propertiesPath}.${propertyName}`;
 
             if (
-                this.hasErrorOrRemoveExisting(!properties[propertyName], {
+                this.hasErrorOrRemoveExisting(!shadows[propertyName], {
                     path: propertiesPath,
                     code: "invalid_object",
                     message: `The property ${propertyName} is null or undefined.`,
@@ -461,49 +461,49 @@ export default class GlitchValidator {
             results = results.concat(
                 ...[
                     this.validateConfigLeaf(
-                        properties[propertyName],
+                        shadows[propertyName],
                         oldProperties?.[propertyName],
-                        glitchShadowSchemas,
+                        glitchPropertySchemas,
                         "enabled",
                         `${propertyPath}.enabled`,
                     ),
                     this.validateConfigLeaf(
-                        properties[propertyName],
+                        shadows[propertyName],
                         oldProperties?.[propertyName],
-                        glitchShadowSchemas,
+                        glitchPropertySchemas,
                         "offsetX",
                         `${propertyPath}.offsetX`,
                     ),
                     this.validateConfigLeaf(
-                        properties[propertyName],
+                        shadows[propertyName],
                         oldProperties?.[propertyName],
-                        glitchShadowSchemas,
+                        glitchPropertySchemas,
                         "offsetY",
                         `${propertyPath}.offsetY`,
                     ),
                     this.validateConfigLeaf(
-                        properties[propertyName],
+                        shadows[propertyName],
                         oldProperties?.[propertyName],
-                        glitchShadowSchemas,
+                        glitchPropertySchemas,
                         "blur",
                         `${propertyPath}.blur`,
                     ),
                     this.validateConfigLeaf(
-                        properties[propertyName],
+                        shadows[propertyName],
                         oldProperties?.[propertyName],
-                        glitchShadowSchemas,
+                        glitchPropertySchemas,
                         "spread",
                         `${propertyPath}.spread`,
                     ),
                     this.validateConfigLeaf(
-                        properties[propertyName]?.color,
+                        shadows[propertyName]?.color,
                         oldProperties?.[propertyName]?.color,
                         glitchColorSchemas,
                         "hex",
                         `${propertyPath}.color.hex`,
                     ),
                     this.validateConfigLeaf(
-                        properties[propertyName]?.color,
+                        shadows[propertyName]?.color,
                         oldProperties?.[propertyName]?.color,
                         glitchColorSchemas,
                         "alphaPercent",

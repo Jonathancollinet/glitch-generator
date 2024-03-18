@@ -24,7 +24,7 @@ export default {
                 range: 0,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: true,
@@ -54,7 +54,7 @@ export default {
                 range: 0,
                 index: 1,
                 offsetFrame: 33,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -84,7 +84,7 @@ export default {
                 range: 0,
                 index: 2,
                 offsetFrame: 44,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -114,7 +114,7 @@ export default {
                 range: 0,
                 index: 3,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: true,
@@ -146,7 +146,7 @@ export default {
                 range: 1,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: true,
@@ -176,7 +176,7 @@ export default {
                 range: 1,
                 index: 1,
                 offsetFrame: 33,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -206,7 +206,7 @@ export default {
                 range: 1,
                 index: 2,
                 offsetFrame: 44,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -236,7 +236,7 @@ export default {
                 range: 1,
                 index: 3,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: true,
@@ -268,7 +268,7 @@ export default {
                 range: 2,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -298,7 +298,7 @@ export default {
                 range: 2,
                 index: 1,
                 offsetFrame: 33,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: false,
@@ -328,7 +328,7 @@ export default {
                 range: 2,
                 index: 2,
                 offsetFrame: 44,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -360,7 +360,7 @@ export default {
                 range: 3,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -390,7 +390,7 @@ export default {
                 range: 3,
                 index: 1,
                 offsetFrame: 35,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -420,7 +420,7 @@ export default {
                 range: 3,
                 index: 2,
                 offsetFrame: 36,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -450,7 +450,7 @@ export default {
                 range: 3,
                 index: 3,
                 offsetFrame: 41,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -480,7 +480,7 @@ export default {
                 range: 3,
                 index: 4,
                 offsetFrame: 42,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,

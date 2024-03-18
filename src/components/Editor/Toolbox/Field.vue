@@ -21,18 +21,18 @@ const localField = defineModel<G.Field>("localConfig", {
 
 const defaultField = getDefaultField(0, 0, 0);
 const defaultTextShadow = deepCopy(
-    defaultField.properties[G.PropertyName.TextShadow],
-) as G.Property;
+    defaultField.shadows[G.PropertyName.TextShadow],
+) as G.Shadow;
 const defaultBoxShadow = deepCopy(
-    defaultField.properties[G.PropertyName.BoxShadow],
-) as G.Property;
+    defaultField.shadows[G.PropertyName.BoxShadow],
+) as G.Shadow;
 
 const textShadow = ref(
-    field.value.properties[G.PropertyName.TextShadow] || defaultTextShadow,
+    field.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
 );
 const localTextShadow = ref(deepCopy(textShadow.value));
 const boxShadow = ref(
-    field.value.properties[G.PropertyName.BoxShadow] || defaultBoxShadow,
+    field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
 );
 const localBoxShadow = ref(deepCopy(boxShadow.value));
 
@@ -47,7 +47,7 @@ const updateOffsetFrame = updateField({
     modifier: Number,
 });
 
-function propertyCardClass(property: G.Property) {
+function propertyCardClass(property: G.Shadow) {
     const notEnabledClasses = "text-neutral-400 opacity-50 hover:opacity-100";
     const cls: ClassValue[] = ["border-transparent"];
 
@@ -110,7 +110,7 @@ function removeField() {
                         v-model:config="textShadow"
                         v-model:localConfig="localTextShadow"
                         :errors="errors"
-                        :name="`${fieldName}.properties.text-shadow`"
+                        :name="`${fieldName}.shadows.text-shadow`"
                     />
                 </template>
             </UiCard>
@@ -124,7 +124,7 @@ function removeField() {
                         v-model:config="boxShadow"
                         v-model:localConfig="localBoxShadow"
                         :errors="errors"
-                        :name="`${fieldName}.properties.box-shadow`"
+                        :name="`${fieldName}.shadows.box-shadow`"
                     />
                 </template>
             </UiCard>

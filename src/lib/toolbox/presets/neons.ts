@@ -24,7 +24,7 @@ export default deepCopy({
                 range: 0,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -54,7 +54,7 @@ export default deepCopy({
                 range: 0,
                 index: 1,
                 offsetFrame: 1,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -84,7 +84,7 @@ export default deepCopy({
                 range: 0,
                 index: 2,
                 offsetFrame: 4,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -114,7 +114,7 @@ export default deepCopy({
                 range: 0,
                 index: 3,
                 offsetFrame: 7,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -144,7 +144,7 @@ export default deepCopy({
                 range: 0,
                 index: 4,
                 offsetFrame: 8,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -174,7 +174,7 @@ export default deepCopy({
                 range: 0,
                 index: 5,
                 offsetFrame: 12,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -204,7 +204,7 @@ export default deepCopy({
                 range: 0,
                 index: 6,
                 offsetFrame: 22,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -234,7 +234,7 @@ export default deepCopy({
                 range: 0,
                 index: 7,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -264,7 +264,7 @@ export default deepCopy({
                 range: 0,
                 index: 8,
                 offsetFrame: 26,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -294,7 +294,7 @@ export default deepCopy({
                 range: 0,
                 index: 9,
                 offsetFrame: 28,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -324,7 +324,7 @@ export default deepCopy({
                 range: 0,
                 index: 10,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -354,7 +354,7 @@ export default deepCopy({
                 range: 0,
                 index: 11,
                 offsetFrame: 36,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -384,7 +384,7 @@ export default deepCopy({
                 range: 0,
                 index: 12,
                 offsetFrame: 42,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -414,7 +414,7 @@ export default deepCopy({
                 range: 0,
                 index: 13,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -444,7 +444,7 @@ export default deepCopy({
                 range: 0,
                 index: 14,
                 offsetFrame: 60,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -474,7 +474,7 @@ export default deepCopy({
                 range: 0,
                 index: 15,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -504,7 +504,7 @@ export default deepCopy({
                 range: 0,
                 index: 16,
                 offsetFrame: 67,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -534,7 +534,7 @@ export default deepCopy({
                 range: 0,
                 index: 17,
                 offsetFrame: 72,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -564,7 +564,7 @@ export default deepCopy({
                 range: 0,
                 index: 18,
                 offsetFrame: 73,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -594,7 +594,7 @@ export default deepCopy({
                 range: 0,
                 index: 19,
                 offsetFrame: 76,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -624,7 +624,7 @@ export default deepCopy({
                 range: 0,
                 index: 20,
                 offsetFrame: 78,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -654,7 +654,7 @@ export default deepCopy({
                 range: 0,
                 index: 21,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -684,7 +684,7 @@ export default deepCopy({
                 range: 0,
                 index: 22,
                 offsetFrame: 86,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -714,7 +714,7 @@ export default deepCopy({
                 range: 0,
                 index: 23,
                 offsetFrame: 96,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -744,7 +744,7 @@ export default deepCopy({
                 range: 0,
                 index: 24,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -776,7 +776,7 @@ export default deepCopy({
                 range: 1,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -806,7 +806,7 @@ export default deepCopy({
                 range: 1,
                 index: 1,
                 offsetFrame: 1,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -836,7 +836,7 @@ export default deepCopy({
                 range: 1,
                 index: 2,
                 offsetFrame: 4,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -866,7 +866,7 @@ export default deepCopy({
                 range: 1,
                 index: 3,
                 offsetFrame: 7,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -896,7 +896,7 @@ export default deepCopy({
                 range: 1,
                 index: 4,
                 offsetFrame: 8,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -926,7 +926,7 @@ export default deepCopy({
                 range: 1,
                 index: 5,
                 offsetFrame: 12,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -956,7 +956,7 @@ export default deepCopy({
                 range: 1,
                 index: 6,
                 offsetFrame: 22,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -986,7 +986,7 @@ export default deepCopy({
                 range: 1,
                 index: 7,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1016,7 +1016,7 @@ export default deepCopy({
                 range: 1,
                 index: 8,
                 offsetFrame: 26,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1046,7 +1046,7 @@ export default deepCopy({
                 range: 1,
                 index: 9,
                 offsetFrame: 28,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1076,7 +1076,7 @@ export default deepCopy({
                 range: 1,
                 index: 10,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1106,7 +1106,7 @@ export default deepCopy({
                 range: 1,
                 index: 11,
                 offsetFrame: 36,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1136,7 +1136,7 @@ export default deepCopy({
                 range: 1,
                 index: 12,
                 offsetFrame: 42,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1166,7 +1166,7 @@ export default deepCopy({
                 range: 1,
                 index: 13,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1196,7 +1196,7 @@ export default deepCopy({
                 range: 1,
                 index: 14,
                 offsetFrame: 60,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1226,7 +1226,7 @@ export default deepCopy({
                 range: 1,
                 index: 15,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1256,7 +1256,7 @@ export default deepCopy({
                 range: 1,
                 index: 16,
                 offsetFrame: 67,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1286,7 +1286,7 @@ export default deepCopy({
                 range: 1,
                 index: 17,
                 offsetFrame: 72,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1316,7 +1316,7 @@ export default deepCopy({
                 range: 1,
                 index: 18,
                 offsetFrame: 73,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1346,7 +1346,7 @@ export default deepCopy({
                 range: 1,
                 index: 19,
                 offsetFrame: 76,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1376,7 +1376,7 @@ export default deepCopy({
                 range: 1,
                 index: 20,
                 offsetFrame: 78,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1406,7 +1406,7 @@ export default deepCopy({
                 range: 1,
                 index: 21,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1436,7 +1436,7 @@ export default deepCopy({
                 range: 1,
                 index: 22,
                 offsetFrame: 86,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1466,7 +1466,7 @@ export default deepCopy({
                 range: 1,
                 index: 23,
                 offsetFrame: 96,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1496,7 +1496,7 @@ export default deepCopy({
                 range: 1,
                 index: 24,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1528,7 +1528,7 @@ export default deepCopy({
                 range: 2,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1558,7 +1558,7 @@ export default deepCopy({
                 range: 2,
                 index: 1,
                 offsetFrame: 1,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1588,7 +1588,7 @@ export default deepCopy({
                 range: 2,
                 index: 2,
                 offsetFrame: 4,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1618,7 +1618,7 @@ export default deepCopy({
                 range: 2,
                 index: 3,
                 offsetFrame: 7,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1648,7 +1648,7 @@ export default deepCopy({
                 range: 2,
                 index: 4,
                 offsetFrame: 8,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1678,7 +1678,7 @@ export default deepCopy({
                 range: 2,
                 index: 5,
                 offsetFrame: 12,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1708,7 +1708,7 @@ export default deepCopy({
                 range: 2,
                 index: 6,
                 offsetFrame: 22,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1738,7 +1738,7 @@ export default deepCopy({
                 range: 2,
                 index: 7,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1768,7 +1768,7 @@ export default deepCopy({
                 range: 2,
                 index: 8,
                 offsetFrame: 26,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1798,7 +1798,7 @@ export default deepCopy({
                 range: 2,
                 index: 9,
                 offsetFrame: 28,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1828,7 +1828,7 @@ export default deepCopy({
                 range: 2,
                 index: 10,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1858,7 +1858,7 @@ export default deepCopy({
                 range: 2,
                 index: 11,
                 offsetFrame: 36,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1888,7 +1888,7 @@ export default deepCopy({
                 range: 2,
                 index: 12,
                 offsetFrame: 42,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1918,7 +1918,7 @@ export default deepCopy({
                 range: 2,
                 index: 13,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1948,7 +1948,7 @@ export default deepCopy({
                 range: 2,
                 index: 14,
                 offsetFrame: 60,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -1978,7 +1978,7 @@ export default deepCopy({
                 range: 2,
                 index: 15,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2008,7 +2008,7 @@ export default deepCopy({
                 range: 2,
                 index: 16,
                 offsetFrame: 67,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2038,7 +2038,7 @@ export default deepCopy({
                 range: 2,
                 index: 17,
                 offsetFrame: 72,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2068,7 +2068,7 @@ export default deepCopy({
                 range: 2,
                 index: 18,
                 offsetFrame: 73,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2098,7 +2098,7 @@ export default deepCopy({
                 range: 2,
                 index: 19,
                 offsetFrame: 76,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2128,7 +2128,7 @@ export default deepCopy({
                 range: 2,
                 index: 20,
                 offsetFrame: 78,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2158,7 +2158,7 @@ export default deepCopy({
                 range: 2,
                 index: 21,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2188,7 +2188,7 @@ export default deepCopy({
                 range: 2,
                 index: 22,
                 offsetFrame: 86,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2218,7 +2218,7 @@ export default deepCopy({
                 range: 2,
                 index: 23,
                 offsetFrame: 96,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2248,7 +2248,7 @@ export default deepCopy({
                 range: 2,
                 index: 24,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2280,7 +2280,7 @@ export default deepCopy({
                 range: 3,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -2310,7 +2310,7 @@ export default deepCopy({
                 range: 3,
                 index: 1,
                 offsetFrame: 1,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2340,7 +2340,7 @@ export default deepCopy({
                 range: 3,
                 index: 2,
                 offsetFrame: 4,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2370,7 +2370,7 @@ export default deepCopy({
                 range: 3,
                 index: 3,
                 offsetFrame: 8,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2400,7 +2400,7 @@ export default deepCopy({
                 range: 3,
                 index: 4,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2430,7 +2430,7 @@ export default deepCopy({
                 range: 3,
                 index: 5,
                 offsetFrame: 28,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2460,7 +2460,7 @@ export default deepCopy({
                 range: 3,
                 index: 6,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2490,7 +2490,7 @@ export default deepCopy({
                 range: 3,
                 index: 7,
                 offsetFrame: 42,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2520,7 +2520,7 @@ export default deepCopy({
                 range: 3,
                 index: 8,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2550,7 +2550,7 @@ export default deepCopy({
                 range: 3,
                 index: 9,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2580,7 +2580,7 @@ export default deepCopy({
                 range: 3,
                 index: 10,
                 offsetFrame: 73,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2610,7 +2610,7 @@ export default deepCopy({
                 range: 3,
                 index: 11,
                 offsetFrame: 78,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2640,7 +2640,7 @@ export default deepCopy({
                 range: 3,
                 index: 12,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2670,7 +2670,7 @@ export default deepCopy({
                 range: 3,
                 index: 13,
                 offsetFrame: 96,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2700,7 +2700,7 @@ export default deepCopy({
                 range: 3,
                 index: 14,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2732,7 +2732,7 @@ export default deepCopy({
                 range: 4,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -2762,7 +2762,7 @@ export default deepCopy({
                 range: 4,
                 index: 1,
                 offsetFrame: 1,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2792,7 +2792,7 @@ export default deepCopy({
                 range: 4,
                 index: 2,
                 offsetFrame: 4,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2822,7 +2822,7 @@ export default deepCopy({
                 range: 4,
                 index: 3,
                 offsetFrame: 8,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2852,7 +2852,7 @@ export default deepCopy({
                 range: 4,
                 index: 4,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2882,7 +2882,7 @@ export default deepCopy({
                 range: 4,
                 index: 5,
                 offsetFrame: 28,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2912,7 +2912,7 @@ export default deepCopy({
                 range: 4,
                 index: 6,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2942,7 +2942,7 @@ export default deepCopy({
                 range: 4,
                 index: 7,
                 offsetFrame: 42,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -2972,7 +2972,7 @@ export default deepCopy({
                 range: 4,
                 index: 8,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3002,7 +3002,7 @@ export default deepCopy({
                 range: 4,
                 index: 9,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3032,7 +3032,7 @@ export default deepCopy({
                 range: 4,
                 index: 10,
                 offsetFrame: 73,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3062,7 +3062,7 @@ export default deepCopy({
                 range: 4,
                 index: 11,
                 offsetFrame: 78,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3092,7 +3092,7 @@ export default deepCopy({
                 range: 4,
                 index: 12,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3122,7 +3122,7 @@ export default deepCopy({
                 range: 4,
                 index: 13,
                 offsetFrame: 96,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3152,7 +3152,7 @@ export default deepCopy({
                 range: 4,
                 index: 14,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3184,7 +3184,7 @@ export default deepCopy({
                 range: 5,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -3214,7 +3214,7 @@ export default deepCopy({
                 range: 5,
                 index: 1,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3244,7 +3244,7 @@ export default deepCopy({
                 range: 5,
                 index: 2,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3274,7 +3274,7 @@ export default deepCopy({
                 range: 5,
                 index: 3,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3304,7 +3304,7 @@ export default deepCopy({
                 range: 5,
                 index: 4,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3334,7 +3334,7 @@ export default deepCopy({
                 range: 5,
                 index: 5,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3364,7 +3364,7 @@ export default deepCopy({
                 range: 5,
                 index: 6,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3396,7 +3396,7 @@ export default deepCopy({
                 range: 6,
                 index: 0,
                 offsetFrame: 0,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: false,
                         fillAllFrames: true,
@@ -3426,7 +3426,7 @@ export default deepCopy({
                 range: 6,
                 index: 1,
                 offsetFrame: 23,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3456,7 +3456,7 @@ export default deepCopy({
                 range: 6,
                 index: 2,
                 offsetFrame: 34,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3486,7 +3486,7 @@ export default deepCopy({
                 range: 6,
                 index: 3,
                 offsetFrame: 55,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3516,7 +3516,7 @@ export default deepCopy({
                 range: 6,
                 index: 4,
                 offsetFrame: 63,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3546,7 +3546,7 @@ export default deepCopy({
                 range: 6,
                 index: 5,
                 offsetFrame: 84,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,
@@ -3576,7 +3576,7 @@ export default deepCopy({
                 range: 6,
                 index: 6,
                 offsetFrame: 100,
-                properties: {
+                shadows: {
                     "text-shadow": {
                         enabled: true,
                         fillAllFrames: false,

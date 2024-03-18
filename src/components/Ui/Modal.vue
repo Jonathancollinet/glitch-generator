@@ -23,12 +23,12 @@ const props = withDefaults(
         clickToClose: true,
         escToClose: true,
         class: "",
-        variant: "default",
-        size: "default",
+        variant: undefined,
+        size: undefined,
         title: "",
         contentClass: "",
-        overlayTransition: "vfm-fade",
-        contentTransition: "vfm-fade",
+        overlayTransition: undefined,
+        contentTransition: undefined,
     },
 );
 

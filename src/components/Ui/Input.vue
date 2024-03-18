@@ -32,9 +32,9 @@ const props = withDefaults(
         readonly: false,
         class: "",
         placeholder: "",
-        variant: "default",
-        alignment: "left",
-        size: "default",
+        variant: undefined,
+        alignment: undefined,
+        size: undefined,
         onUpdate: undefined,
     },
 );

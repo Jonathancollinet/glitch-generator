@@ -8,10 +8,10 @@ const props = defineProps<{
     propertyName: string;
 }>();
 
-const property = defineModel<G.Property>("config", {
+const property = defineModel<G.Shadow>("config", {
     required: true,
 });
-const localProperty = defineModel<G.Property>("localConfig", {
+const localProperty = defineModel<G.Shadow>("localConfig", {
     required: true,
 });
 
@@ -25,7 +25,7 @@ const blurError = computed(() =>
     getErrorMessage(props.errors, `${props.name}.blur`),
 );
 
-const updateShadow = applyUpdater<G.Property>({
+const updateShadow = applyUpdater<G.Shadow>({
     obj: property.value,
     localObj: localProperty.value,
 });
