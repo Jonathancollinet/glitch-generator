@@ -1,5 +1,7 @@
+import git from "git-rev-sync";
+
 const isProduction = process.env.NODE_ENV === "production";
-const version = require("./package.json").version;
+const version = git.tag();
 
 export default defineNuxtConfig({
     sourcemap: !isProduction,
