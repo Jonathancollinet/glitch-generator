@@ -70,7 +70,7 @@ watch(
                     </UiHeading>
                     <UiFormGroup class="m-0 ml-3" variant="inline" name="offsetFrame">
                         <UiSelect
-                            class="bg-transparent"
+                            class="w-12 bg-transparent"
                             :model-value="localField.offsetFrame"
                             :options="getPossibleOffsetFrames(localField, range)"
                             @change="updateOffsetFrame"

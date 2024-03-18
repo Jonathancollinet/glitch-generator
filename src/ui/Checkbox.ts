@@ -7,12 +7,22 @@ export const CheckboxVariants = cva(["flex items-center cursor-pointer *:cursor-
         variant: {
             default: [],
         },
-        size: {
-            default: "",
-        },
     },
     defaultVariants: {
         variant: "default",
-        size: "default",
     },
 });
+
+export const CheckVariants = cva(
+    ["h-full", "w-full", "bg-primary-600", "group-hover/fg:bg-primary-500", "group-hover/fg:dark:bg-primary-700"],
+    {
+        variants: {
+            variant: {
+                default: [],
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+        },
+    },
+);
