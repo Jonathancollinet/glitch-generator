@@ -125,9 +125,12 @@ export const useGlitchEditor = () => {
 
     function updateField(newField: G.Field) {
         if (gconfig.value.ranges[newField.range]) {
-            glitch?.computeFields(EditorUtils.getFieldsToUpdate(gconfig.value.ranges, newField));
-            EditorUtils.setAllColors(gconfig.value);
-            savePreset();
+            const success = glitch?.computeFields(EditorUtils.getFieldsToUpdate(gconfig.value.ranges, newField));
+
+            if (success) {
+                EditorUtils.setAllColors(gconfig.value);
+                savePreset();
+            }
         }
     }
 

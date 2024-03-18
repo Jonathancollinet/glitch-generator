@@ -14,7 +14,7 @@ const localProperty = defineModel<G.Declarations.BoxShadow>("localConfig", {
     required: true,
 });
 
-const spreadError = computed(() => getErrorMessage(props.errors, "spread"));
+const spreadError = computed(() => getErrorMessage(props.errors, `${props.name}.spread`));
 
 const updateBoxShadow = applyUpdater<G.Declarations.BoxShadow>({
     obj: property.value,
