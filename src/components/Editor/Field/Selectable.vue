@@ -154,7 +154,6 @@ watch(
     () => {
         emit("updateField", props.field);
     },
-    { deep: true },
 );
 </script>
 
