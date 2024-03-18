@@ -35,8 +35,6 @@ onMounted(() => {
         welcomeModal.open();
     }
 
-    console.log("hello");
-
     initConfig(displayedText.value?.glitchedEl);
 });
 </script>
