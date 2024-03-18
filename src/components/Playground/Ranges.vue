@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import G from "~/lib/glitch/types";
-import { addFieldAtOffset } from "~/lib/editor/utils";
+import { addFieldAtOffset, getHoveredField } from "~/lib/editor/utils";
 
 const props = defineProps<{
     title?: string;
@@ -22,7 +22,9 @@ function selectField(field: G.Field) {
 }
 
 function insertField(rangeIndex: number, offset: number) {
-    addFieldAtOffset(ranges.value, rangeIndex, offset);
+    const hoveredField = getHoveredField(ranges.value[rangeIndex], offset);
+
+    addFieldAtOffset(ranges.value, rangeIndex, hoveredField.index + 1, offset);
 }
 
 watch(
@@ -36,7 +38,7 @@ watch(
 <template>
     <div>
         <UiText v-if="title" as="div" data-color="black">{{ $t(title) }}</UiText>
-        <EditorToolboxRange
+        <EditorRange
             v-for="(range, index) in ranges"
             :key="`${index}-${range.length}`"
             no-properties

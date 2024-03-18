@@ -198,6 +198,9 @@ export const useGlitchEditor = () => {
     }
 
     function selectField(newField: G.Field) {
+        if (selectedField.value) {
+            EditorUtils.patchFieldErrors(selectedField.value, errors.value);
+        }
         selectedField.value = newField;
     }
 
@@ -206,11 +209,26 @@ export const useGlitchEditor = () => {
     }
 
     function insertField(rangeIndex: number, offset: number) {
-        const insertedIndex = EditorUtils.addFieldAtOffset(gconfig.value.ranges, rangeIndex, offset);
+        const hoveredField = EditorUtils.getHoveredField(gconfig.value.ranges[rangeIndex], offset);
+
+        if (hoveredField.range === selectedField.value?.range && hoveredField.index === selectedField.value?.index) {
+            EditorUtils.patchFieldErrors(selectedField.value, errors.value);
+        }
+
+        const insertedIndex = EditorUtils.addFieldAtOffset(
+            gconfig.value.ranges,
+            rangeIndex,
+            hoveredField.index + 1,
+            offset,
+        );
 
         if (insertedIndex !== -1) {
             computeConfig(true);
-            selectField(gconfig.value.ranges[rangeIndex][insertedIndex]);
+
+            closeField();
+            nextTick(() => {
+                selectField(gconfig.value.ranges[rangeIndex][insertedIndex]);
+            });
         }
     }
 

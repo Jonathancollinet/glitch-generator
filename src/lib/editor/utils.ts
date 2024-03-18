@@ -1,6 +1,67 @@
 import G from "~/lib/glitch/types";
 import type { Preset } from "~/lib/toolbox/presets";
 
+export function getHoveredField(range: G.Field[], offset: number) {
+    let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
+
+    nextIndex = nextIndex !== -1 ? nextIndex : range.length;
+
+    return range[nextIndex - 1];
+}
+
+export function patchFieldErrors(field: G.Field, errors: Partial<G.Errors>) {
+    const errorKeys = Object.keys(errors);
+    const fieldPath = `ranges[${field.range}][${field.index}]`;
+    const fieldErrors = errorKeys.filter((key) => key.includes(fieldPath));
+
+    fieldErrors.forEach((key) => {
+        if (key.includes(G.PropertyName.BoxShadow)) {
+            const boxShadow = field.shadows[G.PropertyName.BoxShadow];
+
+            if (boxShadow) {
+                if (key.includes("color.hex")) {
+                    boxShadow.color.hex = "#000000";
+                }
+                if (key.includes("color.alphaPercent")) {
+                    boxShadow.color.alphaPercent = 100;
+                }
+                if (key.includes("offsetX")) {
+                    boxShadow.offsetX = 0;
+                }
+                if (key.includes("offsetY")) {
+                    boxShadow.offsetY = 0;
+                }
+                if (key.includes("blur")) {
+                    boxShadow.blur = 0;
+                }
+                if (key.includes("spread")) {
+                    boxShadow.spread = 0;
+                }
+            }
+        } else if (key.includes(G.PropertyName.TextShadow)) {
+            const textShadow = field.shadows[G.PropertyName.TextShadow];
+
+            if (textShadow) {
+                if (key.includes("color.hex")) {
+                    textShadow.color.hex = "#000000";
+                }
+                if (key.includes("color.alphaPercent")) {
+                    textShadow.color.alphaPercent = 100;
+                }
+                if (key.includes("offsetX")) {
+                    textShadow.offsetX = 0;
+                }
+                if (key.includes("offsetY")) {
+                    textShadow.offsetY = 0;
+                }
+                if (key.includes("blur")) {
+                    textShadow.blur = 0;
+                }
+            }
+        }
+    });
+}
+
 export function getFieldsToUpdate(ranges: G.Field[][], newField: G.Field) {
     const range = ranges[newField.range];
     const previousField = range[newField.index - 1];
@@ -83,13 +144,9 @@ export function removeField(ranges: G.Field[][], field: G.Field) {
     copyRanges(ranges, copy);
 }
 
-export function addFieldAtOffset(ranges: G.Field[][], rangeIndex: number, offset: number) {
+export function addFieldAtOffset(ranges: G.Field[][], rangeIndex: number, nextIndex: number, offset: number) {
     const copy = deepCopy(ranges);
     const range = copy[rangeIndex];
-    let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
-
-    nextIndex = nextIndex !== -1 ? nextIndex : range.length;
-
     const hoveredField = range[nextIndex - 1];
     const newField = getDefaultField(rangeIndex, nextIndex, offset);
 
