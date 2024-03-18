@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { EditorToolboxAnimation } from "#build/components";
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 
 defineProps<{
     errors: Partial<G.Errors>;

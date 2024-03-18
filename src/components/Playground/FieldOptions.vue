@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Icons } from "~/types/enums";
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 
 const props = defineProps<{
     selectedField?: G.Field;

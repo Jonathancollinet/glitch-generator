@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type GlitchController from "~/glitch/controller";
+import type GlitchController from "~/lib/glitch/controller";
 import { timelineFPS } from "~/utils/constants";
 
 const props = defineProps<{

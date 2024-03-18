@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import G from "~/glitch/types";
-import { duplicateRange, reverseRangeColors } from "~/utils/Editor/utils";
+import G from "~/lib/glitch/types";
+import { duplicateRange, reverseRangeColors } from "~/lib/editor/utils";
 
 const ex1 = ref(getExempleRanges());
 

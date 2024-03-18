@@ -30,10 +30,7 @@ import {
 import GithubIcon from "./Icons/Github.vue";
 import { Icons } from "~/types/enums";
 
-import {
-    IconVariants,
-    type IconVariantsProps,
-} from "~/componentsVariants/Ui/Icon";
+import { IconVariants, type IconVariantsProps } from "~/ui/Icon";
 import type { HTMLAttributes } from "vue";
 
 const props = defineProps<{

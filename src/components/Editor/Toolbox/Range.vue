@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import G from "~/glitch/types";
-import { getPossibleOffsetFrames } from "~/utils/Toobox/utils";
+import G from "~/lib/glitch/types";
+import { getPossibleOffsetFrames } from "~/lib/toolbox/utils";
 import { rangeHeight } from "~/utils/constants";
 
 const props = defineProps<{

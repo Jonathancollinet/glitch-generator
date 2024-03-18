@@ -1,8 +1,8 @@
 import { useModal } from "vue-final-modal";
 import Import from "~/components/Ui/Modal/Import.vue";
-import type Glitch from "~/glitch";
-import importKeyframes from "~/utils/Toobox/import";
-import type { PresetConfig } from "~/utils/Toobox/presets";
+import type Glitch from "~/lib/glitch";
+import importKeyframes from "~/lib/toolbox/import";
+import type { PresetConfig } from "~/lib/toolbox/presets";
 
 export const useModalImport = (
     glitch: Glitch,

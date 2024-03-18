@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import { TextVariants } from "~/componentsVariants/Ui/Text";
+import { TextVariants } from "~/ui/Text";
 
 const props = withDefaults(
     defineProps<{

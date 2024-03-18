@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-import {
-    type InputVariantsProps,
-    InputVariants,
-} from "~/componentsVariants/Ui/Input";
+import { type InputVariantsProps, InputVariants } from "~/ui/Input";
 import type { HTMLAttributes } from "vue";
-import type { UpdateFn } from "~/utils/Toobox/utils";
+import type { UpdateFn } from "~/lib/toolbox/utils";
 
 type acceptedTypes =
     | "textarea"

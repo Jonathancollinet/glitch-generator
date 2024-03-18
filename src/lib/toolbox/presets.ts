@@ -1,4 +1,4 @@
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import homepageConfigPreset from "./presets/homepage";
 import { v4 as uuidv4 } from "uuid";
 import { compress, decompress } from "lz-string";

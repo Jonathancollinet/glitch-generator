@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import {
-    RangeVariants,
-    type RangeVariantsProps,
-} from "~/componentsVariants/Ui/Range";
-import type { UpdateFn } from "~/utils/Toobox/utils";
+import { RangeVariants, type RangeVariantsProps } from "~/ui/Range";
+import type { UpdateFn } from "~/lib/toolbox/utils";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];

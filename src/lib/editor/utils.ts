@@ -1,5 +1,5 @@
-import G from "~/glitch/types";
-import type { Preset } from "../Toobox/presets";
+import G from "~/lib/glitch/types";
+import type { Preset } from "~/lib/toolbox/presets";
 
 export function getFieldsToUpdate(ranges: G.Field[][], newField: G.Field) {
     const range = ranges[newField.range];

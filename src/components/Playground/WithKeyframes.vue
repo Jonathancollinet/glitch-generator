@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import Glitch from "~/glitch";
-import G from "~/glitch/types";
+import Glitch from "~/lib/glitch";
+import G from "~/lib/glitch/types";
 
 const props = defineProps<{
     ranges?: G.Field[][];

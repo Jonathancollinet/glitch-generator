@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import {
-    FormGroupVariants,
-    type FormGroupVariantsProps,
-} from "~/componentsVariants/Ui/FormGroup";
+import { FormGroupVariants, type FormGroupVariantsProps } from "~/ui/FormGroup";
 
 const props = defineProps<{
     variant?: FormGroupVariantsProps["variant"];

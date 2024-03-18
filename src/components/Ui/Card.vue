@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import type { ClassValue } from "class-variance-authority/types";
 import type { HTMLAttributes } from "vue";
-import {
-    CardVariants,
-    type CardVariantsProps,
-} from "~/componentsVariants/Ui/Card";
+import { CardVariants, type CardVariantsProps } from "~/ui/Card";
 import { Icons } from "~/types/enums";
 
 const props = withDefaults(

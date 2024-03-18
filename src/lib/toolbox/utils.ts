@@ -1,5 +1,5 @@
 import { debounce } from "vue-debounce";
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 
 export type ContainerRecord<Container> = {
     [key in keyof Container]?: string | number | object | boolean;

@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import {
-    CheckboxVariants,
-    type CheckboxVariantsProps,
-} from "~/componentsVariants/Ui/Checkbox";
+import { CheckboxVariants, type CheckboxVariantsProps } from "~/ui/Checkbox";
 import { Icons } from "~/types/enums";
 
 const props = defineProps<{

@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "vue";
 import {
     TooltipContentVariants,
     type TooltipContentVariantsProps,
-} from "~/componentsVariants/Ui/TooltipContent";
+} from "~/ui/TooltipContent";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];

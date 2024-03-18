@@ -1,4 +1,4 @@
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 
 export default deepCopy({
     text: {

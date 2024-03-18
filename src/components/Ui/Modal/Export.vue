@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type Glitch from "~/glitch";
+import type Glitch from "~/lib/glitch";
 
 const props = defineProps<{
     glitch: Glitch;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import G from "~/glitch/types";
-import { applyUpdater, getErrorMessage } from "~/utils/Toobox/utils";
+import G from "~/lib/glitch/types";
+import { applyUpdater, getErrorMessage } from "~/lib/toolbox/utils";
 
 const props = defineProps<{
     errors: Partial<G.Errors>;

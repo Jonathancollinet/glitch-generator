@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import {
-    SelectVariants,
-    type SelectVariantsProps,
-} from "~/componentsVariants/Ui/Select";
+import { SelectVariants, type SelectVariantsProps } from "~/ui/Select";
 
 type Option = string | number | { [key: string]: any };
 

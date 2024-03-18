@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import { Icons } from "~/types/enums";
 import {
     getPresets,
@@ -10,9 +10,9 @@ import {
     type PresetConfig,
     getLastSelectedPreset,
     saveLastSelectedPreset,
-} from "~/utils/Toobox/presets";
-import * as EditorUtils from "~/utils/Editor/utils";
-import type Glitch from "~/glitch";
+} from "~/lib/toolbox/presets";
+import * as EditorUtils from "~/lib/editor/utils";
+import type Glitch from "~/lib/glitch";
 
 const props = defineProps<{
     glitch: Glitch;

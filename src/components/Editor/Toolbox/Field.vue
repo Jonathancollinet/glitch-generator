@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { ClassValue } from "class-variance-authority/types";
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import { Icons } from "~/types/enums";
-import { applyUpdater, getPossibleOffsetFrames } from "~/utils/Toobox/utils";
+import { applyUpdater, getPossibleOffsetFrames } from "~/lib/toolbox/utils";
 
 defineProps<{
     errors: Partial<G.Errors>;

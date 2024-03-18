@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Icons } from "~/types/enums";
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import { rangeHeight } from "~/utils/constants";
 
 defineProps<{

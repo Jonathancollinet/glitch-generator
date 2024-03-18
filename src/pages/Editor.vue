@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import { EditorDisplayedText, EditorPresets } from "#components";
-import { type Preset } from "~/utils/Toobox/presets";
-import Glitch from "~/glitch";
-import * as EditorUtils from "~/utils/Editor/utils";
-import { isTourDone, redirectHelp, setTourDone } from "~/utils/Editor/tour";
+import { type Preset } from "~/lib/toolbox/presets";
+import Glitch from "~/lib/glitch";
+import * as EditorUtils from "~/lib/editor/utils";
+import { isTourDone, redirectHelp, setTourDone } from "~/lib/editor/tour";
 
 useServerSeoMeta(useTranslatedSeoMeta("editor"));
 
@@ -105,10 +105,10 @@ function selectFirstRangeField(range?: G.Field[]) {
 
 function computeConfig(forceRangeCompute?: boolean) {
     if (glitch && glitchedEl?.value) {
-        const bindings = glitch.computeConfig(gconfig, forceRangeCompute);
+        const data = glitch.computeConfig(gconfig, forceRangeCompute);
 
-        if (bindings) {
-            bindGlitch(bindings);
+        if (data) {
+            bindGlitch(data.bindings);
             EditorUtils.setAllColors(gconfig);
 
             nextTick(() => {

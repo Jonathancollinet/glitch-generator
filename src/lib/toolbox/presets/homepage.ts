@@ -1,4 +1,4 @@
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import homepageRanges from "./homepage.ranges";
 
 export default deepCopy({

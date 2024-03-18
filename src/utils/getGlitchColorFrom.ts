@@ -1,4 +1,4 @@
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 
 export default function getGlitchColorFrom(shadow: string) {
     const fieldColor: G.Color = {

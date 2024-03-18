@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type Glitch from "~/glitch";
-import G from "~/glitch/types";
+import type Glitch from "~/lib/glitch";
+import G from "~/lib/glitch/types";
 import { Icons } from "~/types/enums";
 
 const props = defineProps<{

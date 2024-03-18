@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import G from "~/glitch/types";
-import { addFieldAtOffset } from "~/utils/Editor/utils";
+import G from "~/lib/glitch/types";
+import { addFieldAtOffset } from "~/lib/editor/utils";
 
 const props = defineProps<{
     title?: string;

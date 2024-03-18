@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type GlitchController from "~/glitch/controller";
-import G from "~/glitch/types";
+import type GlitchController from "~/lib/glitch/controller";
+import G from "~/lib/glitch/types";
 
 const glitchedEl = ref<HTMLElement | null>(null);
 

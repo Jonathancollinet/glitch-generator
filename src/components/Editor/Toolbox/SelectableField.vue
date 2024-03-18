@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { ClassValue } from "class-variance-authority/types";
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 import { Icons } from "~/types/enums";
 
 type StyleAttrs = { background?: string; filter?: string };

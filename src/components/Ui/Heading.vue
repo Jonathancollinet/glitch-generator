@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import {
-    HeadingVariants,
-    type HeadingVariantsProps,
-} from "~/componentsVariants/Ui/Heading";
+import { HeadingVariants, type HeadingVariantsProps } from "~/ui/Heading";
 
 const props = withDefaults(
     defineProps<{

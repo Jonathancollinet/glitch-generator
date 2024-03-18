@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import G from "~/glitch/types";
+import G from "~/lib/glitch/types";
 
 defineProps<{
     field: G.Field | undefined;

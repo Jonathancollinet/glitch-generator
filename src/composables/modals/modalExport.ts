@@ -1,6 +1,6 @@
 import { useModal } from "vue-final-modal";
 import Export from "~/components/Ui/Modal/Export.vue";
-import type Glitch from "~/glitch";
+import type Glitch from "~/lib/glitch";
 
 export const useModalExport = (glitch: Glitch) => {
     const exportModal = useModal({

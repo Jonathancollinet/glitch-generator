@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import {
-    LinkVariants,
-    type LinkVariantsProps,
-} from "~/componentsVariants/Ui/Link";
+import { LinkVariants, type LinkVariantsProps } from "~/ui/Link";
 import { NuxtLink } from "#components";
 import type { HTMLAttributes } from "vue";
 

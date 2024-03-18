@@ -5,7 +5,7 @@ import {
     ContentVariants,
     ModalVariants,
     type ModalVariantsProps,
-} from "~/componentsVariants/Ui/Modal";
+} from "~/ui/Modal";
 
 const props = withDefaults(
     defineProps<{

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { UpdateFn } from "~/utils/Toobox/utils";
+import type { UpdateFn } from "~/lib/toolbox/utils";
 
 withDefaults(
     defineProps<{

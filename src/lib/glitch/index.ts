@@ -41,7 +41,7 @@ export default class Glitch {
 
         if (success) {
             this.config = this.getConfigCopy(newConfig);
-            const style = this.getTextStyle();
+            const bindings = this.getTextBindings();
 
             if (
                 isClient() &&
@@ -54,7 +54,10 @@ export default class Glitch {
                 this.keyframes.animation?.play();
             }
 
-            return style;
+            return {
+                config: this.config,
+                bindings,
+            };
         }
     }
 
@@ -131,14 +134,14 @@ export default class Glitch {
         return _config;
     }
 
-    private getTextStyle() {
+    private getTextBindings() {
         return {
             message: this.config.text.message,
-            textStyle: this.generateStyle(),
+            textStyle: this.getTextStyle(),
         };
     }
 
-    private generateStyle(forExport: boolean = false): G.Bindings["textStyle"] {
+    private getTextStyle(forExport: boolean = false): G.Bindings["textStyle"] {
         const animationStyle: G.AnimationStyle = {};
         const containerStyle: G.ContainerStyle = {};
         const configText = this.config.text;
@@ -176,7 +179,7 @@ export default class Glitch {
     }
 
     private getTextClassText() {
-        const style = this.generateStyle(true);
+        const style = this.getTextStyle(true);
         let elementStyle = "";
 
         let property: keyof typeof style;

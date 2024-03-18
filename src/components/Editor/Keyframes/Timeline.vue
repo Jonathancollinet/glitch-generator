@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { debounce } from "vue-debounce";
-import { RangeVariants } from "~/componentsVariants/Ui/Range";
-import { TimelineVariants } from "~/componentsVariants/Ui/Timeline";
+import { RangeVariants } from "~/ui/Range";
+import { TimelineVariants } from "~/ui/Timeline";
 
 defineProps<{
     currentPercent: number;
