@@ -7,38 +7,13 @@ defineProps<{
     currentPercent: number;
 }>();
 
-const emit = defineEmits<{
-    addField: [rangeIndex: number];
-    removeRange: [index: number];
-    addEmptyRange: [];
-    duplicateRange: [];
-    removeField: [field: G.Field];
-}>();
-
 const config = defineModel<G.Config>("config", { required: true });
-const selectedField = defineModel<G.Field | undefined>("field", {
-    required: true,
-});
-
-const localConfig = ref<G.Config>(deepCopy(config.value));
-const localSelectedField = ref<G.Field>();
-
-const currentIndexes = computed(() => {
-    return selectedField.value
-        ? `${selectedField.value.range}-${selectedField.value.index}`
-        : "";
-});
-
-function removeField(field: G.Field) {
-    emit("removeField", field);
-}
+const localeConfig = ref<G.Config>(deepCopy(config.value));
 
 watch(
-    selectedField,
-    (field) => {
-        if (field) {
-            localSelectedField.value = deepCopy(field);
-        }
+    () => config.value,
+    (value) => {
+        localeConfig.value = deepCopy(value);
     },
     { deep: true },
 );
@@ -46,24 +21,14 @@ watch(
 
 <template>
     <div class="sticky top-4 md:space-x-0 md:space-y-4">
-        <div v-if="selectedField && localSelectedField" class="mb-4">
-            <EditorToolboxField
-                :key="currentIndexes"
-                v-model:config="selectedField"
-                v-model:localConfig="localSelectedField"
-                :range="config.ranges[selectedField.range]"
-                :errors="errors"
-                @remove-field="removeField"
-            />
-        </div>
         <EditorToolboxAnimation
             v-model:config="config.animation"
-            v-model:localConfig="localConfig.animation"
+            v-model:localConfig="localeConfig.animation"
             :errors="errors"
         />
         <EditorToolboxText
             v-model:config="config.text"
-            v-model:localConfig="localConfig.text"
+            v-model:localConfig="localeConfig.text"
             :errors="errors"
         />
     </div>

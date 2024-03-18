@@ -116,7 +116,7 @@ const containerColorClasses: ClassValue[] = [
             :class="cn(containerColorClasses, colorClasses ?? '')"
             @click="displayColor"
         >
-            <EditorToolboxColorDisplay :color="localColor" />
+            <EditorFieldColorDisplay :color="localColor" />
         </div>
         <Sketch
             v-if="displaySketch"

@@ -14,10 +14,8 @@ const emit = defineEmits<{
     removeField: [field: G.Field];
 }>();
 
-const field = defineModel<G.Field>("config", { required: true });
-const localField = defineModel<G.Field>("localConfig", {
-    required: true,
-});
+const field = defineModel<G.Field>({ required: true });
+const localField = ref<G.Field>(deepCopy(field.value));
 
 const defaultField = getDefaultField(0, 0, 0);
 const defaultTextShadow = deepCopy(
@@ -30,12 +28,15 @@ const defaultBoxShadow = deepCopy(
 const textShadow = ref(
     field.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
 );
-const localTextShadow = ref(deepCopy(textShadow.value));
+const localTextShadow = ref(
+    localField.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
+);
 const boxShadow = ref(
     field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
 );
-const localBoxShadow = ref(deepCopy(boxShadow.value));
-
+const localBoxShadow = ref(
+    localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
+);
 const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
 const updateField = applyUpdater<G.Field>({
     obj: field.value,
@@ -59,6 +60,16 @@ function propertyCardClass(property: G.Shadow) {
 function removeField() {
     emit("removeField", field.value);
 }
+
+watch(
+    field.value,
+    () => {
+        if (field.value) {
+            localField.value = deepCopy(field.value);
+        }
+    },
+    { deep: true },
+);
 </script>
 
 <template>

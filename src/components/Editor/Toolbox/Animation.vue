@@ -15,16 +15,20 @@ const animationDurationError = computed(() =>
     getErrorMessage(props.errors, "animation.duration"),
 );
 
-const updateAnimation = applyUpdater<G.Animation>({
-    obj: animation.value,
-    localObj: localAnimation.value,
-});
+const updateAnimation = computed(() =>
+    applyUpdater<G.Animation>({
+        obj: animation.value,
+        localObj: localAnimation.value,
+    }),
+);
 
-const updateAnimationDuration = updateAnimation({
-    key: "duration",
-    modifier: Number,
-    debounced: 300,
-});
+const updateAnimationDuration = computed(() =>
+    updateAnimation.value({
+        key: "duration",
+        modifier: Number,
+        debounced: 300,
+    }),
+);
 </script>
 
 <template>

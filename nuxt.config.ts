@@ -1,8 +1,6 @@
 const isProduction = process.env.NODE_ENV === "production";
 const version = require("./package.json").version;
 
-console.log("version", version);
-
 export default defineNuxtConfig({
     sourcemap: !isProduction,
     devtools: { enabled: !isProduction },

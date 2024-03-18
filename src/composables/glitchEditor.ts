@@ -15,7 +15,7 @@ export const useGlitchEditor = () => {
     const presets = ref<EditorPresetsData>();
     const selectedField = ref<G.Field>();
     const currentPreset = ref<Preset>();
-    const gconfig = reactive<G.Config>(getDefaultGlitchConfig());
+    const gconfig = ref<G.Config>(getDefaultGlitchConfig());
     const bindings = ref<G.Bindings>({
         message: "",
         textStyle: {
@@ -27,6 +27,21 @@ export const useGlitchEditor = () => {
             color: "",
         },
     });
+
+    const hasValidDuration = computed(() => {
+        return !errors.value["animation.duration"];
+    });
+
+    const currentFieldKey = computed(() => {
+        return `${currentPreset.value?.id}-${selectedField.value?.range}-${selectedField.value?.index}`;
+    });
+
+    const isCustomPreset = computed(() => {
+        const preset = currentPreset.value;
+
+        return preset && !preset.builtIn;
+    });
+
     const onRangesEvents = {
         updateField,
         selectField,
@@ -39,17 +54,17 @@ export const useGlitchEditor = () => {
     };
 
     const onToolboxEvents = {
-        removeField,
         closeField,
         presetChanged,
+        onAnimationUpdate,
     };
 
-    let animationDuration = gconfig.animation.duration;
-    const glitch = new Glitch(gconfig);
+    let animationDuration = gconfig.value.animation.duration;
+    const glitch = new Glitch(gconfig.value);
 
-    gconfig.preventRangesCompute = true;
+    gconfig.value.preventRangesCompute = true;
 
-    gconfig.onValidated = (errs: G.Errors | undefined) => {
+    gconfig.value.onValidated = (errs: G.Errors | undefined) => {
         if (errs) {
             errors.value = errs;
             verifySensibleData();
@@ -65,7 +80,10 @@ export const useGlitchEditor = () => {
         if (glitchedEl.value) {
             glitch.setGlitchedElement(glitchedEl.value);
             computeConfig(true);
-            selectField(gconfig.ranges[0][0]);
+
+            nextTick(() => {
+                selectFirstRangeField();
+            });
         }
     }
 
@@ -84,7 +102,7 @@ export const useGlitchEditor = () => {
     }
 
     function selectFirstRangeField(range?: G.Field[]) {
-        const firstFieldRange = (range || gconfig.ranges[0])?.[0];
+        const firstFieldRange = (range || gconfig.value.ranges[0])?.[0];
 
         if (firstFieldRange) {
             selectField(firstFieldRange);
@@ -93,50 +111,51 @@ export const useGlitchEditor = () => {
 
     function computeConfig(forceRangeCompute?: boolean) {
         if (glitch && glitchedEl?.value) {
-            const data = glitch.computeConfig(gconfig, forceRangeCompute);
+            const data = glitch.computeConfig(gconfig.value, forceRangeCompute);
 
             if (data) {
                 bindGlitch(data.bindings);
-                EditorUtils.setAllColors(gconfig);
+                EditorUtils.setConfigFromConfig(gconfig.value, data.config);
+                EditorUtils.setAllColors(gconfig.value);
 
-                nextTick(() => {
-                    savePreset();
-                });
+                savePreset();
             }
         }
     }
 
     function updateField(newField: G.Field) {
-        if (gconfig.ranges[newField.range]) {
+        if (gconfig.value.ranges[newField.range]) {
             glitch?.computeFields(
-                EditorUtils.getFieldsToUpdate(gconfig.ranges, newField),
+                EditorUtils.getFieldsToUpdate(gconfig.value.ranges, newField),
             );
-            EditorUtils.setAllColors(gconfig);
+            EditorUtils.setAllColors(gconfig.value);
             savePreset();
         }
     }
 
     function addEmptyRange() {
-        gconfig.ranges.push([getDefaultField(gconfig.ranges.length, 0, 0)]);
+        gconfig.value.ranges.push([
+            getDefaultField(gconfig.value.ranges.length, 0, 0),
+        ]);
 
         if (!selectedField.value) {
-            selectField(gconfig.ranges[0][0]);
+            selectField(gconfig.value.ranges[0][0]);
         }
 
         computeConfig(true);
     }
 
     function duplicateRange(rangeIndex: number) {
-        const rangeNb = gconfig.ranges.length;
+        const rangeNb = gconfig.value.ranges.length;
 
         if (rangeNb) {
-            EditorUtils.duplicateRange(gconfig.ranges, rangeIndex);
+            EditorUtils.duplicateRange(gconfig.value.ranges, rangeIndex);
             computeConfig(true);
         }
     }
 
     function reversePositions(index: number) {
-        const range = gconfig.ranges[index];
+        const range = gconfig.value.ranges[index];
 
         if (range) {
             EditorUtils.reverseRangePositions(range);
@@ -145,7 +164,7 @@ export const useGlitchEditor = () => {
     }
 
     function reverseColors(rangeIndex: number) {
-        const range = gconfig.ranges[rangeIndex];
+        const range = gconfig.value.ranges[rangeIndex];
 
         if (range) {
             EditorUtils.reverseRangeColors(range);
@@ -161,11 +180,11 @@ export const useGlitchEditor = () => {
             closeField();
         }
 
-        EditorUtils.removeField(gconfig.ranges, field);
+        EditorUtils.removeField(gconfig.value.ranges, field);
         computeConfig(true);
 
         nextTick(() => {
-            selectFirstRangeField(gconfig.ranges[field.range]);
+            selectFirstRangeField(gconfig.value.ranges[field.range]);
         });
     }
 
@@ -174,7 +193,7 @@ export const useGlitchEditor = () => {
             closeField();
         }
 
-        EditorUtils.removeRange(gconfig.ranges, rangeIndex);
+        EditorUtils.removeRange(gconfig.value.ranges, rangeIndex);
         computeConfig(true);
 
         nextTick(() => {
@@ -192,62 +211,72 @@ export const useGlitchEditor = () => {
 
     function insertField(rangeIndex: number, offset: number) {
         const insertedIndex = EditorUtils.addFieldAtOffset(
-            gconfig.ranges,
+            gconfig.value.ranges,
             rangeIndex,
             offset,
         );
 
         if (insertedIndex !== -1) {
             computeConfig(true);
-            selectField(gconfig.ranges[rangeIndex][insertedIndex]);
+            selectField(gconfig.value.ranges[rangeIndex][insertedIndex]);
         }
     }
 
     function presetChanged(preset: Preset) {
         currentPreset.value = preset;
-        EditorUtils.setConfigFromPreset(gconfig, preset);
+        EditorUtils.setConfigFromPreset(gconfig.value, preset);
 
-        nextTick(() => {
-            initConfig();
-        });
+        initConfig();
     }
 
     function savePreset() {
-        if (isCustomPreset.value) {
-            presets.value?.savePreset();
-        }
+        nextTick(() => {
+            if (isCustomPreset.value) {
+                presets.value?.savePreset();
+            }
+        });
     }
 
-    const isCustomPreset = computed(() => {
-        const preset = currentPreset.value;
-
-        return preset && !preset.builtIn;
-    });
-
-    const hasValidDuration = computed(() => {
-        return errors.value["animation.duration"] === undefined;
-    });
-
-    watch(gconfig.text, () => {
-        computeConfig();
-    });
-
-    watch(gconfig.animation, () => {
-        const configDuration = gconfig.animation.duration;
+    function onAnimationUpdate() {
+        const configDuration = gconfig.value.animation.duration;
 
         if (configDuration !== animationDuration) {
             if (glitch.canUseAnimation()) {
                 animationDuration = configDuration;
-                glitch.replaceAnimationDuration(gconfig);
+                glitch.replaceAnimationDuration(gconfig.value);
 
-                nextTick(() => {
-                    savePreset();
-                });
+                savePreset();
             } else {
                 computeConfig();
             }
         }
-    });
+    }
+
+    watch(
+        selectedField,
+        () => {
+            if (selectedField.value) {
+                updateField(selectedField.value);
+            }
+        },
+        { deep: true },
+    );
+
+    watch(
+        gconfig.value.text,
+        () => {
+            computeConfig();
+        },
+        { deep: true },
+    );
+
+    watch(
+        gconfig.value.animation,
+        () => {
+            onAnimationUpdate();
+        },
+        { deep: true },
+    );
 
     onBeforeUnmount(() => {
         glitch.destroy();
@@ -264,8 +293,10 @@ export const useGlitchEditor = () => {
         bindings,
         glitch,
         hasValidDuration,
+        currentFieldKey,
         presetChanged,
         initConfig,
+        removeField,
         onRangesEvents,
         onToolboxEvents,
     };

@@ -71,12 +71,12 @@ function selectField(field: G.Field) {
         <div class="mb-4 flex">
             <div class="relative z-10 w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <EditorKeyframesCursor
+                    <EditorCursor
                         v-if="config.controls"
                         :current-percent="currentPercent"
                     />
                 </ClientOnly>
-                <EditorToolboxRange
+                <EditorRange
                     v-for="(range, index) in config.ranges"
                     :key="`${index}-${range.length}`"
                     :selected-field="selectedField"
@@ -94,7 +94,7 @@ function selectField(field: G.Field) {
                     class="relative top-0 mb-2 flex w-full items-center pl-[12px] last:mb-0"
                     :style="{ height: rangeHeight + 'px' }"
                 >
-                    <EditorToolboxRangeOptions
+                    <EditorRangeOptions
                         :range-index="index"
                         :config="config"
                         v-on="onRangeOptions"

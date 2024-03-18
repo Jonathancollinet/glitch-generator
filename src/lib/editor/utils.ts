@@ -29,6 +29,10 @@ export function removeRange(ranges: G.Field[][], rangeIndex: number) {
     });
 
     copy.splice(rangeIndex, 1);
+
+    if (copy.length === 0) {
+        copy.push([getDefaultField(0, 0, 0)]);
+    }
     copyRanges(ranges, copy);
 }
 
@@ -147,16 +151,22 @@ export function reverseRangePositions(range: G.Field[]) {
     });
 }
 
+export function setConfigFromConfig(config: G.Config, newConfig: G.Config) {
+    config.text.bgColor.hex = newConfig.text.bgColor.hex;
+    config.text.bgColor.alphaPercent = newConfig.text.bgColor.alphaPercent;
+    config.text.color.hex = newConfig.text.color.hex;
+    config.text.color.alphaPercent = newConfig.text.color.alphaPercent;
+    config.text.size = newConfig.text.size;
+    config.text.padding = newConfig.text.padding;
+    config.text.height = newConfig.text.height;
+    config.text.borderRadius = newConfig.text.borderRadius;
+    config.text.message = newConfig.text.message;
+    config.animation.duration = newConfig.animation.duration;
+    config.ranges = deepCopy(newConfig.ranges);
+}
+
 export function setConfigFromPreset(config: G.Config, preset: Preset) {
-    config.text.bgColor = deepCopy(preset.config.text.bgColor);
-    config.text.color = deepCopy(preset.config.text.color);
-    config.text.size = preset.config.text.size;
-    config.text.padding = preset.config.text.padding;
-    config.text.height = preset.config.text.height;
-    config.text.borderRadius = preset.config.text.borderRadius;
-    config.text.message = preset.config.text.message;
-    config.animation.duration = preset.config.animation.duration;
-    config.ranges = deepCopy(preset.config.ranges);
+    setConfigFromConfig(config, preset.config as G.Config);
 }
 
 export function setAllColors(config: G.Config) {
@@ -194,6 +204,11 @@ export function setAllColors(config: G.Config) {
 }
 
 function copyRanges(ranges: G.Field[][], rangesToCopy: G.Field[][]) {
+    if (rangesToCopy.length === 0) {
+        ranges.length = 0;
+
+        return;
+    }
     rangesToCopy.forEach((range, index) => {
         ranges[index] = range;
     });

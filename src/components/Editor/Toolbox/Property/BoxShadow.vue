@@ -41,7 +41,7 @@ function getName(key: string) {
             :name="name"
             :errors="errors"
         >
-            <EditorToolboxFieldPropertyWithRange
+            <UiInputWithRange
                 label="pages.editor.config.field.spread"
                 min="0"
                 :value="localProperty.spread"

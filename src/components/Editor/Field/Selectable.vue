@@ -164,7 +164,7 @@ const fieldClass = computed(() => {
 });
 
 watch(
-    props.field,
+    () => props.field.offsetFrame,
     () => {
         emit("updateField", props.field);
     },

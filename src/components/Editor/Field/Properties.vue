@@ -20,11 +20,11 @@ defineProps<{
             </template>
             <template v-else> {{ field.offsetFrame }}% </template>
         </div>
-        <EditorToolboxFieldProperty
+        <EditorFieldProperty
             :field="field"
             :property-name="G.PropertyName.TextShadow"
         />
-        <EditorToolboxFieldProperty
+        <EditorFieldProperty
             :field="field"
             :property-name="G.PropertyName.BoxShadow"
         />

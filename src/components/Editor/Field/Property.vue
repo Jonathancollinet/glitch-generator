@@ -34,7 +34,7 @@ const formatProperty = computed(() => {
         </div>
         <div class="flex items-center space-x-2">
             <div class="h-4 w-4">
-                <EditorToolboxColorDisplay :color="property.color" />
+                <EditorFieldColorDisplay :color="property.color" />
             </div>
             <div>{{ formatProperty }}</div>
         </div>

@@ -218,13 +218,13 @@ const nextHoveredFrameOffset = computed(() => {
                 class="whitespace-nowrap"
                 :style="propertyPosition"
             >
-                <EditorToolboxFieldProperties
+                <EditorFieldProperties
                     :field="fieldPropertiesToShow"
                     :next-hovered-frame-offset="nextHoveredFrameOffset"
                 />
             </UiTooltipContent>
             <div>
-                <EditorToolboxSelectableField
+                <EditorFieldSelectable
                     v-for="(field, index) in range"
                     :key="index"
                     :text-font-size="textFontSize"

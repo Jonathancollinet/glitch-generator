@@ -68,21 +68,21 @@ function getName(key: string) {
             :name="name"
             :errors="errors"
         />
-        <EditorToolboxFieldPropertyWithRange
+        <UiInputWithRange
             label="pages.editor.config.field.offsetX"
             :value="localProperty.offsetX"
             :name="getName('offsetX')"
             :error="offsetXError"
             :update="updateOffsetX"
         />
-        <EditorToolboxFieldPropertyWithRange
+        <UiInputWithRange
             label="pages.editor.config.field.offsetY"
             :value="localProperty.offsetY"
             :name="getName('offsetY')"
             :error="offsetYError"
             :update="updateOffsetY"
         />
-        <EditorToolboxFieldPropertyWithRange
+        <UiInputWithRange
             label="pages.editor.config.field.blur"
             min="0"
             :value="localProperty.blur"

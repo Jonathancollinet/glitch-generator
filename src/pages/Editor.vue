@@ -14,17 +14,19 @@ const displayedText = ref<EditorDisplayedTextData>();
 const {
     currentPercent,
     errors,
-    presets,
-    selectedField,
-    currentPreset,
     gconfig,
     bindings,
     glitch,
     hasValidDuration,
+    selectedField,
+    currentFieldKey,
+
     onRangesEvents,
     onToolboxEvents,
+
     presetChanged,
     initConfig,
+    removeField,
 } = useGlitchEditor();
 
 const { welcomeModal } = useModalWelcome(setTourDone, redirectHelp);
@@ -53,8 +55,7 @@ onMounted(() => {
                     :controller="glitch.controller"
                     :has-valid-duration="hasValidDuration"
                 />
-                <EditorToolboxRanges
-                    :key="currentPreset?.id"
+                <EditorRanges
                     :config="gconfig"
                     :current-percent="currentPercent"
                     :selected-field="selectedField"
@@ -75,10 +76,17 @@ onMounted(() => {
                         <EditorActions :config="gconfig" :glitch="glitch" />
                     </div>
                 </div>
+                <EditorField
+                    v-if="selectedField"
+                    :key="currentFieldKey"
+                    v-model="selectedField"
+                    class="mb-4"
+                    :range="gconfig.ranges[selectedField.range]"
+                    :errors="errors"
+                    @remove-field="removeField"
+                />
                 <EditorToolbox
-                    :key="currentPreset?.id"
                     v-model:config="gconfig"
-                    v-model:field="selectedField"
                     :current-percent="currentPercent"
                     :errors="errors"
                     v-on="onToolboxEvents"
