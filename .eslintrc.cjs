@@ -15,6 +15,7 @@ module.exports = {
     ],
     rules: {
         "prettier/prettier": "error",
+        "no-debugger": "off",
     },
     plugins: ["editorconfig"],
 };
