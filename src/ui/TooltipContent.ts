@@ -1,8 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
-export type TooltipContentVariantsProps = VariantProps<
-    typeof TooltipContentVariants
->;
+export type TooltipContentVariantsProps = VariantProps<typeof TooltipContentVariants>;
 
 export const TooltipContentVariants = cva(
     [

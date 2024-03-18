@@ -125,18 +125,14 @@ export const useGlitchEditor = () => {
 
     function updateField(newField: G.Field) {
         if (gconfig.value.ranges[newField.range]) {
-            glitch?.computeFields(
-                EditorUtils.getFieldsToUpdate(gconfig.value.ranges, newField),
-            );
+            glitch?.computeFields(EditorUtils.getFieldsToUpdate(gconfig.value.ranges, newField));
             EditorUtils.setAllColors(gconfig.value);
             savePreset();
         }
     }
 
     function addEmptyRange() {
-        gconfig.value.ranges.push([
-            getDefaultField(gconfig.value.ranges.length, 0, 0),
-        ]);
+        gconfig.value.ranges.push([getDefaultField(gconfig.value.ranges.length, 0, 0)]);
 
         if (!selectedField.value) {
             selectField(gconfig.value.ranges[0][0]);
@@ -173,10 +169,7 @@ export const useGlitchEditor = () => {
     }
 
     function removeField(field: G.Field) {
-        if (
-            field.index === selectedField.value?.index &&
-            field.range === selectedField.value?.range
-        ) {
+        if (field.index === selectedField.value?.index && field.range === selectedField.value?.range) {
             closeField();
         }
 
@@ -210,11 +203,7 @@ export const useGlitchEditor = () => {
     }
 
     function insertField(rangeIndex: number, offset: number) {
-        const insertedIndex = EditorUtils.addFieldAtOffset(
-            gconfig.value.ranges,
-            rangeIndex,
-            offset,
-        );
+        const insertedIndex = EditorUtils.addFieldAtOffset(gconfig.value.ranges, rangeIndex, offset);
 
         if (insertedIndex !== -1) {
             computeConfig(true);

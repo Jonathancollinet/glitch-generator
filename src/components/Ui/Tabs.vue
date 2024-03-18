@@ -7,9 +7,7 @@ const props = defineProps<{
 
 const openTab = defineModel<keyof typeof props.tabs>({ required: false });
 
-const activeTab = ref<keyof typeof props.tabs>(
-    openTab.value || Object.keys(props.tabs)[0],
-);
+const activeTab = ref<keyof typeof props.tabs>(openTab.value || Object.keys(props.tabs)[0]);
 const isActive = (key: keyof typeof props.tabs) => activeTab.value === key;
 
 function activateTab(key: keyof typeof props.tabs) {
@@ -20,9 +18,7 @@ function activateTab(key: keyof typeof props.tabs) {
     }
 }
 
-const actionClasses: (key: string | number) => ClassValue[] = (
-    key: string | number,
-) => [
+const actionClasses: (key: string | number) => ClassValue[] = (key: string | number) => [
     "w-full border-b rounded-none",
     "border-r-0 last:border-r",
     "hover:bg-primary-100",

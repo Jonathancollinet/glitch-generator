@@ -61,11 +61,7 @@ onUnmounted(() => {
                 {{ Math.round((currentPercent + Number.EPSILON) * 100) / 100 }}%
             </div>
         </Transition>
-        <div
-            class="relative w-full px-4"
-            @mouseenter="setTitle"
-            @mouseleave="removeTitle"
-        >
+        <div class="relative w-full px-4" @mouseenter="setTitle" @mouseleave="removeTitle">
             <input
                 :class="cn('w-full', RangeVariants(), TimelineVariants())"
                 type="range"

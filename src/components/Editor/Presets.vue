@@ -83,16 +83,8 @@ defineExpose({
 
 <template>
     <div class="flex space-x-2">
-        <UiFormGroup
-            v-tooltip="{ content: $t('pages.editor.selectPreset') }"
-            class="mb-0"
-        >
-            <UiSelect
-                v-model="currentPreset"
-                class="max-w-[120px]"
-                :options="presets"
-                label-key="name"
-            />
+        <UiFormGroup v-tooltip="{ content: $t('pages.editor.selectPreset') }" class="mb-0">
+            <UiSelect v-model="currentPreset" class="max-w-[120px]" :options="presets" label-key="name" />
         </UiFormGroup>
         <div :key="currentPreset.id" class="flex items-center">
             <UiButton
@@ -104,20 +96,10 @@ defineExpose({
             >
                 <UiIcon color="danger" :icon="Icons.Trash" />
             </UiButton>
-            <UiButton
-                v-tooltip="$t('pages.editor.savePreset')"
-                variant="icon"
-                size="icon"
-                @click="addPresetModal.open"
-            >
+            <UiButton v-tooltip="$t('pages.editor.savePreset')" variant="icon" size="icon" @click="addPresetModal.open">
                 <UiIcon :icon="Icons.Add" />
             </UiButton>
-            <UiButton
-                v-tooltip="$t('pages.editor.import')"
-                variant="icon"
-                size="icon"
-                @click="importModal.open"
-            >
+            <UiButton v-tooltip="$t('pages.editor.import')" variant="icon" size="icon" @click="importModal.open">
                 <UiIcon :icon="Icons.ImportCode" />
             </UiButton>
         </div>

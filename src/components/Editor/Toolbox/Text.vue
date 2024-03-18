@@ -11,21 +11,11 @@ const localConfig = defineModel<G.BaseText>("localConfig", {
     required: true,
 });
 
-const textSizeError = computed(() =>
-    getErrorMessage(props.errors, "text.size", true),
-);
-const textMessageError = computed(() =>
-    getErrorMessage(props.errors, "text.message"),
-);
-const textPaddingError = computed(() =>
-    getErrorMessage(props.errors, "text.padding"),
-);
-const textBorderRadiusError = computed(() =>
-    getErrorMessage(props.errors, "text.borderRadius"),
-);
-const textHeightError = computed(() =>
-    getErrorMessage(props.errors, "text.height"),
-);
+const textSizeError = computed(() => getErrorMessage(props.errors, "text.size", true));
+const textMessageError = computed(() => getErrorMessage(props.errors, "text.message"));
+const textPaddingError = computed(() => getErrorMessage(props.errors, "text.padding"));
+const textBorderRadiusError = computed(() => getErrorMessage(props.errors, "text.borderRadius"));
+const textHeightError = computed(() => getErrorMessage(props.errors, "text.height"));
 
 const updateText = applyUpdater<G.BaseText>({
     obj: config.value,
@@ -65,9 +55,7 @@ const updateHeight = updateText({
 <template>
     <UiCard openable content-classes="border-0 ml-0 px-0" :is-open="false">
         <template #title>
-            <UiHeading variant="h3">{{
-                $t("pages.editor.config.text.title")
-            }}</UiHeading>
+            <UiHeading variant="h3">{{ $t("pages.editor.config.text.title") }}</UiHeading>
         </template>
 
         <template #content>
@@ -98,16 +86,8 @@ const updateHeight = updateText({
                         name="textColor"
                         :errors="errors"
                     />
-                    <UiFormGroup
-                        class="ml-0"
-                        :error="textMessageError"
-                        name="message"
-                    >
-                        <UiInput
-                            :on-update="updateMessage"
-                            name="message"
-                            :model-value="localConfig.message"
-                        />
+                    <UiFormGroup class="ml-0" :error="textMessageError" name="message">
+                        <UiInput :on-update="updateMessage" name="message" :model-value="localConfig.message" />
                     </UiFormGroup>
                 </template>
             </UiCard>

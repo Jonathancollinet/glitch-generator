@@ -3,10 +3,7 @@ import { HelpChapter, Urls } from "~/types/enums";
 
 export const version = process.env.PACKAGE_VERSION;
 
-export const allDeclarations: string[] = [
-    G.PropertyName.TextShadow,
-    G.PropertyName.BoxShadow,
-];
+export const allDeclarations: string[] = [G.PropertyName.TextShadow, G.PropertyName.BoxShadow];
 
 export const navigationItems: NavigationItem[] = [
     {

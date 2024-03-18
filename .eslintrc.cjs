@@ -7,12 +7,7 @@ module.exports = {
         browser: true,
         node: true,
     },
-    extends: [
-        "@nuxt",
-        "plugin:prettier/recommended",
-        "prettier",
-        "@vue/eslint-config-prettier/skip-formatting",
-    ],
+    extends: ["@nuxt", "plugin:prettier/recommended", "prettier", "@vue/eslint-config-prettier/skip-formatting"],
     rules: {
         "prettier/prettier": "error",
         "no-debugger": "off",

@@ -5,12 +5,7 @@ const { shortcutsModal } = useModalShortcuts();
 </script>
 
 <template>
-    <UiButton
-        v-tooltip="$t('pages.editor.rangeShortcuts')"
-        variant="icon"
-        size="icon"
-        @click="shortcutsModal.open"
-    >
+    <UiButton v-tooltip="$t('pages.editor.rangeShortcuts')" variant="icon" size="icon" @click="shortcutsModal.open">
         <UiIcon :icon="Icons.Cursor" />
     </UiButton>
 </template>

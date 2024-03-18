@@ -16,9 +16,7 @@ function onClose() {
         <UiText as="div">- {{ $t("modals.shortcuts.leftClickDrag") }}</UiText>
         <UiText as="div">- {{ $t("modals.shortcuts.rightClickDrag") }}</UiText>
         <template #footer>
-            <UiButton variant="link" size="link" @click="onClose">{{
-                $t("modals.close")
-            }}</UiButton>
+            <UiButton variant="link" size="link" @click="onClose">{{ $t("modals.close") }}</UiButton>
         </template>
     </UiModal>
 </template>

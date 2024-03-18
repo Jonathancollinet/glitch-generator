@@ -17,9 +17,7 @@ export default class Glitch {
 
         if (isClient()) {
             if (this.canUseAnimation()) {
-                this.controller = new GlitchController(
-                    <Animation>this.keyframes.animation,
-                );
+                this.controller = new GlitchController(<Animation>this.keyframes.animation);
             } else {
                 this.config.controls = false;
             }
@@ -43,10 +41,7 @@ export default class Glitch {
             this.config = this.getConfigCopy(newConfig);
             const bindings = this.getTextBindings();
 
-            if (
-                isClient() &&
-                (forceRangeCompute || !this.config.preventRangesCompute)
-            ) {
+            if (isClient() && (forceRangeCompute || !this.config.preventRangesCompute)) {
                 this.keyframes.generate(this.config);
             }
 
@@ -163,17 +158,11 @@ export default class Glitch {
         return {
             ...containerStyle,
             fontSize: `${configText.size}${configText.unit}`,
-            color: hexToRGB(
-                configText.color.hex,
-                configText.color.alphaPercent,
-            ),
+            color: hexToRGB(configText.color.hex, configText.color.alphaPercent),
             height: `${configText.height}px`,
             padding: `${configText.padding}px`,
             borderRadius: `${configText.borderRadius}px`,
-            backgroundColor: hexToRGB(
-                configText.bgColor.hex,
-                configText.bgColor.alphaPercent,
-            ),
+            backgroundColor: hexToRGB(configText.bgColor.hex, configText.bgColor.alphaPercent),
             ...animationStyle,
         };
     }
@@ -184,9 +173,7 @@ export default class Glitch {
 
         let property: keyof typeof style;
         for (property in style) {
-            const kebabProperty = property
-                .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2")
-                .toLowerCase();
+            const kebabProperty = property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 
             elementStyle += `\t${kebabProperty}: ${style[property]};\n`;
         }

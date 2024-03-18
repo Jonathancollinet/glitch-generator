@@ -65,17 +65,12 @@ export default class GlitchKeyframes {
 
             for (propertyName in frame) {
                 const frameProperty = frame[propertyName];
-                const filteredProperty = frameProperty?.filter(
-                    (frame) => frame,
-                );
+                const filteredProperty = frameProperty?.filter((frame) => frame);
 
                 if (filteredProperty?.length) {
                     filteredProperty.forEach((frame) => {
                         if (frame) {
-                            const camelProperty = propertyName.replace(
-                                /-./g,
-                                (x) => x[1].toUpperCase(),
-                            );
+                            const camelProperty = propertyName.replace(/-./g, (x) => x[1].toUpperCase());
 
                             if (!keyframe[camelProperty]) {
                                 keyframe[camelProperty] = frame;
@@ -113,16 +108,11 @@ export default class GlitchKeyframes {
 
             for (property in framesAt) {
                 const frameProperty = framesAt[property];
-                const filteredProperty = frameProperty?.filter(
-                    (frame) => frame,
-                );
+                const filteredProperty = frameProperty?.filter((frame) => frame);
 
                 if (filteredProperty?.length) {
                     const lastFrameIndex = filteredProperty.length - 1;
-                    const propertyLengthInSpaces = `${property}: `.replace(
-                        /./g,
-                        " ",
-                    );
+                    const propertyLengthInSpaces = `${property}: `.replace(/./g, " ");
 
                     block += `${doubleTab}${property}: `;
                     filteredProperty.forEach((frame, frameIndex) => {
@@ -167,14 +157,10 @@ export default class GlitchKeyframes {
     }
 
     private bindKeyframeEffect(config: G.Config) {
-        const effect = new KeyframeEffect(
-            this.glitchedElement,
-            this.getKeyframesEffect(),
-            {
-                duration: config.animation.duration,
-                iterations: Infinity,
-            },
-        );
+        const effect = new KeyframeEffect(this.glitchedElement, this.getKeyframesEffect(), {
+            duration: config.animation.duration,
+            iterations: Infinity,
+        });
 
         this.mutateAnimation((animation: Animation) => {
             animation.effect = effect;
@@ -200,21 +186,11 @@ export default class GlitchKeyframes {
 
     private generateFrames(config: G.Config, fields?: G.Field[]) {
         if (fields) {
-            fields.forEach((field) =>
-                this.createFrame(
-                    field,
-                    config.ranges[field.range][field.index + 1],
-                ),
-            );
+            fields.forEach((field) => this.createFrame(field, config.ranges[field.range][field.index + 1]));
         } else {
             this.generatedFrames = {};
             config.ranges.forEach((range) => {
-                range.forEach((field) =>
-                    this.createFrame(
-                        field,
-                        config.ranges[field.range][field.index + 1],
-                    ),
-                );
+                range.forEach((field) => this.createFrame(field, config.ranges[field.range][field.index + 1]));
             });
         }
     }
@@ -236,11 +212,7 @@ export default class GlitchKeyframes {
                         if (fieldProperty.enabled) {
                             this.setFrame(propertyName, field, percent);
                         } else {
-                            this.setEmptyFrame(
-                                percent,
-                                propertyName,
-                                field.range,
-                            );
+                            this.setEmptyFrame(percent, propertyName, field.range);
                         }
                     }
                 } else {
@@ -250,22 +222,14 @@ export default class GlitchKeyframes {
                     if (fieldProperty.enabled) {
                         this.setFrame(propertyName, field, field.offsetFrame);
                     } else {
-                        this.setEmptyFrame(
-                            field.offsetFrame,
-                            propertyName,
-                            field.range,
-                        );
+                        this.setEmptyFrame(field.offsetFrame, propertyName, field.range);
                     }
                 }
             }
         }
     }
 
-    private setEmptyFrame(
-        percent: number,
-        propertyName: G.PropertyName,
-        range: number,
-    ) {
+    private setEmptyFrame(percent: number, propertyName: G.PropertyName, range: number) {
         let frame = this.generatedFrames[percent];
 
         if (!frame) {
@@ -280,11 +244,7 @@ export default class GlitchKeyframes {
         this.generatedFrames[percent] = frame;
     }
 
-    private setFrame(
-        propertyName: G.PropertyName,
-        field: G.Field,
-        percent: number,
-    ) {
+    private setFrame(propertyName: G.PropertyName, field: G.Field, percent: number) {
         const property = field.shadows[propertyName];
 
         if (property) {
@@ -298,16 +258,14 @@ export default class GlitchKeyframes {
                 frame[propertyName] = [];
             }
 
-            (<string[]>frame[propertyName])[field.range] =
-                getPropertyData[propertyName](property);
+            (<string[]>frame[propertyName])[field.range] = getPropertyData[propertyName](property);
             this.generatedFrames[percent] = frame;
         }
     }
 
     private injectHeadStyle(keyframes: string) {
         if (!this.styleNode) {
-            const head =
-                document.head || document.getElementsByTagName("head")[0];
+            const head = document.head || document.getElementsByTagName("head")[0];
             const style = document.createElement("style");
             const textNode = document.createTextNode(keyframes);
 

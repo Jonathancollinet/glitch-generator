@@ -8,9 +8,7 @@
             <UiText as="div">2. {{ $t("pages.help.export.js") }}</UiText>
             <UiText as="div">3. {{ $t("pages.help.export.config") }}</UiText>
         </div>
-        <UiHeading variant="h3">{{
-            $t("pages.help.export.asConfig")
-        }}</UiHeading>
+        <UiHeading variant="h3">{{ $t("pages.help.export.asConfig") }}</UiHeading>
         <UiText>{{ $t("pages.help.export.configUsage") }}</UiText>
     </div>
 </template>

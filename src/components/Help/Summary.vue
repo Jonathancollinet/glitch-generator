@@ -26,9 +26,7 @@ function linkClass(part: HelpChapter) {
 </script>
 
 <template>
-    <div
-        class="flex flex-col items-start border-l-2 pl-4 sm:flex-row sm:space-x-4"
-    >
+    <div class="flex flex-col items-start border-l-2 pl-4 sm:flex-row sm:space-x-4">
         <UiButton
             v-for="(chapter, index) in chapters"
             :key="index"

@@ -38,10 +38,7 @@ export const ButtonVariants = cva(
             },
             color: {
                 default: "",
-                danger: [
-                    "text-red-500 hover:text-red-400",
-                    "dark:text-red-500 dark:hover:text-red-400",
-                ],
+                danger: ["text-red-500 hover:text-red-400", "dark:text-red-500 dark:hover:text-red-400"],
             },
         },
         defaultVariants: {

@@ -19,23 +19,15 @@ function getName(key: string) {
     return `${props.name}.${key}`;
 }
 
-const textShadow = computed(
-    () => props.selectedField?.shadows[G.PropertyName.TextShadow],
-);
-const boxShadow = computed(
-    () => props.selectedField?.shadows[G.PropertyName.BoxShadow],
-);
+const textShadow = computed(() => props.selectedField?.shadows[G.PropertyName.TextShadow]);
+const boxShadow = computed(() => props.selectedField?.shadows[G.PropertyName.BoxShadow]);
 </script>
 
 <template>
     <div class="flex w-full justify-between sm:h-8">
-        <div
-            v-if="selectedField"
-            class="w-full items-center sm:flex sm:space-x-8"
-        >
+        <div v-if="selectedField" class="w-full items-center sm:flex sm:space-x-8">
             <UiHeading class="m-0 mb-2 sm:mb-0" variant="h3">
-                {{ $t("pages.editor.config.field.offsetFrame") }} at
-                {{ selectedField?.offsetFrame }}%
+                {{ $t("pages.editor.config.field.offsetFrame") }} at {{ selectedField?.offsetFrame }}%
             </UiHeading>
             <div class="flex space-x-6">
                 <div v-if="textShadow" class="flex items-center">
@@ -80,12 +72,7 @@ const boxShadow = computed(
         </div>
         <div class="flex items-center first:w-full first:justify-end">
             <OpenShortcuts />
-            <UiButton
-                v-tooltip="$t('pages.editor.config.refresh')"
-                variant="icon"
-                size="icon"
-                @click="reset"
-            >
+            <UiButton v-tooltip="$t('pages.editor.config.refresh')" variant="icon" size="icon" @click="reset">
                 <UiIcon :icon="Icons.Refresh" />
             </UiButton>
         </div>

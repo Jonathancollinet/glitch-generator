@@ -75,8 +75,5 @@ const icon = computed(() => IconMap[props.icon]);
 </script>
 
 <template>
-    <component
-        :is="icon"
-        :class="cn(IconVariants({ variant, size, color }), props.class ?? '')"
-    />
+    <component :is="icon" :class="cn(IconVariants({ variant, size, color }), props.class ?? '')" />
 </template>

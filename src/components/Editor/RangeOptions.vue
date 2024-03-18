@@ -13,9 +13,7 @@ const emit = defineEmits<{
     reverseColors: [rangeIndex: number];
 }>();
 
-const showRangeOptions = ref<boolean[]>(
-    new Array(props.config.ranges.length).fill(false),
-);
+const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
 
 function resetRangeOptions() {
     showRangeOptions.value = new Array(props.config.ranges.length).fill(false);
@@ -58,33 +56,16 @@ function reverseColors(rangeIndex: number) {
             v-if="showRangeOptions[rangeIndex]"
             class="-translate-x-[calc(100%+24px)] whitespace-nowrap *:justify-start"
         >
-            <UiButton
-                variant="link"
-                size="link"
-                @click="duplicateRange(rangeIndex)"
-            >
+            <UiButton variant="link" size="link" @click="duplicateRange(rangeIndex)">
                 {{ $t("pages.editor.config.ranges.actions.duplicate") }}
             </UiButton>
-            <UiButton
-                variant="link"
-                size="link"
-                @click="reversePositions(rangeIndex)"
-            >
+            <UiButton variant="link" size="link" @click="reversePositions(rangeIndex)">
                 {{ $t("pages.editor.config.ranges.actions.reversePositions") }}
             </UiButton>
-            <UiButton
-                variant="link"
-                size="link"
-                @click="reverseColors(rangeIndex)"
-            >
+            <UiButton variant="link" size="link" @click="reverseColors(rangeIndex)">
                 {{ $t("pages.editor.config.ranges.actions.reverseColors") }}
             </UiButton>
-            <UiButton
-                color="danger"
-                variant="link"
-                size="link"
-                @click="removeRange(rangeIndex)"
-            >
+            <UiButton color="danger" variant="link" size="link" @click="removeRange(rangeIndex)">
                 {{ $t("pages.editor.config.ranges.actions.removeRange") }}
             </UiButton>
         </UiTooltipContent>

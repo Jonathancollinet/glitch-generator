@@ -26,10 +26,6 @@ watch(
             v-model:localConfig="localeConfig.animation"
             :errors="errors"
         />
-        <EditorToolboxText
-            v-model:config="config.text"
-            v-model:localConfig="localeConfig.text"
-            :errors="errors"
-        />
+        <EditorToolboxText v-model:config="config.text" v-model:localConfig="localeConfig.text" :errors="errors" />
     </div>
 </template>

@@ -18,25 +18,13 @@ const field = defineModel<G.Field>({ required: true });
 const localField = ref<G.Field>(deepCopy(field.value));
 
 const defaultField = getDefaultField(0, 0, 0);
-const defaultTextShadow = deepCopy(
-    defaultField.shadows[G.PropertyName.TextShadow],
-) as G.Shadow;
-const defaultBoxShadow = deepCopy(
-    defaultField.shadows[G.PropertyName.BoxShadow],
-) as G.Shadow;
+const defaultTextShadow = deepCopy(defaultField.shadows[G.PropertyName.TextShadow]) as G.Shadow;
+const defaultBoxShadow = deepCopy(defaultField.shadows[G.PropertyName.BoxShadow]) as G.Shadow;
 
-const textShadow = ref(
-    field.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
-);
-const localTextShadow = ref(
-    localField.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
-);
-const boxShadow = ref(
-    field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
-);
-const localBoxShadow = ref(
-    localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
-);
+const textShadow = ref(field.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow);
+const localTextShadow = ref(localField.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow);
+const boxShadow = ref(field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
+const localBoxShadow = ref(localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
 const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
 const updateField = applyUpdater<G.Field>({
     obj: field.value,
@@ -80,23 +68,15 @@ watch(
                     <UiHeading class="m-0" variant="h3">
                         {{ $t("pages.editor.config.field.offsetFrame") }}
                     </UiHeading>
-                    <UiFormGroup
-                        class="m-0 ml-3"
-                        variant="inline"
-                        name="offsetFrame"
-                    >
+                    <UiFormGroup class="m-0 ml-3" variant="inline" name="offsetFrame">
                         <UiSelect
                             class="bg-transparent"
                             :model-value="localField.offsetFrame"
-                            :options="
-                                getPossibleOffsetFrames(localField, range)
-                            "
+                            :options="getPossibleOffsetFrames(localField, range)"
                             @change="updateOffsetFrame"
                         />
                     </UiFormGroup>
-                    <UiHeading class="m-0 flex items-center pl-2" variant="h4"
-                        >%</UiHeading
-                    >
+                    <UiHeading class="m-0 flex items-center pl-2" variant="h4">%</UiHeading>
                 </div>
                 <div class="flex">
                     <UiIcon
@@ -111,11 +91,7 @@ watch(
         </template>
 
         <template #content>
-            <UiCard
-                openable
-                :class="propertyCardClass(textShadow)"
-                content-classes="pr-0"
-            >
+            <UiCard openable :class="propertyCardClass(textShadow)" content-classes="pr-0">
                 <template #content>
                     <EditorToolboxPropertyTextShadow
                         v-model:config="textShadow"
@@ -125,11 +101,7 @@ watch(
                     />
                 </template>
             </UiCard>
-            <UiCard
-                openable
-                :class="propertyCardClass(boxShadow)"
-                content-classes="pr-0"
-            >
+            <UiCard openable :class="propertyCardClass(boxShadow)" content-classes="pr-0">
                 <template #content>
                     <EditorToolboxPropertyBoxShadow
                         v-model:config="boxShadow"

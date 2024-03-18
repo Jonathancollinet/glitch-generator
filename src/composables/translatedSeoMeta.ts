@@ -1,6 +1,4 @@
-export const useTranslatedSeoMeta = (
-    pageName: string,
-): Parameters<typeof useServerSeoMeta>[0] => {
+export const useTranslatedSeoMeta = (pageName: string): Parameters<typeof useServerSeoMeta>[0] => {
     const { t } = useI18n();
     const seoGlobalPath = "seo";
     const seoPagePath = `pages.${pageName}.seo`;

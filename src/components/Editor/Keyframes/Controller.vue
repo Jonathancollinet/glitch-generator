@@ -39,8 +39,7 @@ function bindTimelineWatcher() {
             const time = props.controller?.getCurrentTime() as number;
 
             if (time) {
-                currentPercent.value =
-                    ((time / props.animationDuration) * 100) % 100;
+                currentPercent.value = ((time / props.animationDuration) * 100) % 100;
             }
         }
     }
@@ -102,10 +101,5 @@ onMounted(() => {
         :current-percent="currentPercent"
         @select-animation-at="selectAnimationAt"
     />
-    <EditorKeyframesActions
-        :play-state="playState"
-        v-on="actions"
-        @play="play()"
-        @pause="pause()"
-    />
+    <EditorKeyframesActions :play-state="playState" v-on="actions" @play="play()" @pause="pause()" />
 </template>

@@ -2,11 +2,7 @@ import G from "~/lib/glitch/types";
 import { allDeclarations } from "~/utils/constants";
 import propertyValuesGetters from "~/lib/toolbox/declarationValues";
 
-export default function importKeyframes(
-    presetName: string,
-    textStyle: string,
-    keyframe: string,
-) {
+export default function importKeyframes(presetName: string, textStyle: string, keyframe: string) {
     const result: { config: any; errors: { [key: string]: string } } = {
         config: null,
         errors: {},
@@ -46,10 +42,7 @@ export default function importKeyframes(
 function fillMissingProperties(ranges: G.Field[][]) {
     ranges.forEach((range, rangeIndex) => {
         range.forEach((field, fieldIndex) => {
-            const shadows = [
-                G.PropertyName.TextShadow,
-                G.PropertyName.BoxShadow,
-            ];
+            const shadows = [G.PropertyName.TextShadow, G.PropertyName.BoxShadow];
             const newField = getDefaultField(0, 0, 0);
 
             newField.range = field.range;
@@ -80,9 +73,7 @@ function kfStringToRanges(keyframe: string) {
         })[0];
 
         if (keyframesRule) {
-            const keyframeRules = [].slice.call(
-                keyframesRule.cssRules,
-            ) as CSSKeyframeRule[];
+            const keyframeRules = [].slice.call(keyframesRule.cssRules) as CSSKeyframeRule[];
 
             keyframeRules.forEach((rule) => {
                 if (rule.constructor.name === "CSSKeyframeRule") {
@@ -119,11 +110,7 @@ function getRuleDeclarationsFrom(rule: CSSKeyframeRule) {
     return allDeclarations.map((declaration: string) => ({
         propertyName: declaration,
         values:
-            (
-                rule.style[
-                    toCamel(declaration) as keyof CSSStyleDeclaration
-                ] as string
-            )
+            (rule.style[toCamel(declaration) as keyof CSSStyleDeclaration] as string)
                 ?.replace(/px,/gim, "px;")
                 .split("; ")
                 .filter((v: string) => v) || [],
@@ -149,12 +136,7 @@ function prefixRangesOffsetZero(ranges: G.Field[][]) {
     });
 }
 
-function setPropertyInRanges(
-    ranges: G.Field[][],
-    propertyName: G.PropertyName,
-    values: string[],
-    offsetFrame: number,
-) {
+function setPropertyInRanges(ranges: G.Field[][], propertyName: G.PropertyName, values: string[], offsetFrame: number) {
     values.forEach((value, rangeIndex) => {
         let range = ranges[rangeIndex];
 

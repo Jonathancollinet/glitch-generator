@@ -4,8 +4,7 @@ import { isTourDone, redirectHelp, setTourDone } from "~/lib/editor/tour";
 
 useServerSeoMeta(useTranslatedSeoMeta("editor"));
 
-interface EditorDisplayedTextData
-    extends Ref<InstanceType<typeof EditorDisplayedText>> {
+interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
     glitchedEl: HTMLElement | null;
 }
 

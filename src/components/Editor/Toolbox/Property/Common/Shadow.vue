@@ -15,15 +15,9 @@ const localProperty = defineModel<G.Shadow>("localConfig", {
     required: true,
 });
 
-const offsetXError = computed(() =>
-    getErrorMessage(props.errors, `${props.name}.offsetX`),
-);
-const offsetYError = computed(() =>
-    getErrorMessage(props.errors, `${props.name}.offsetY`),
-);
-const blurError = computed(() =>
-    getErrorMessage(props.errors, `${props.name}.blur`),
-);
+const offsetXError = computed(() => getErrorMessage(props.errors, `${props.name}.offsetX`));
+const offsetYError = computed(() => getErrorMessage(props.errors, `${props.name}.offsetY`));
+const blurError = computed(() => getErrorMessage(props.errors, `${props.name}.blur`));
 
 const updateShadow = applyUpdater<G.Shadow>({
     obj: property.value,

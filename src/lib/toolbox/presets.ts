@@ -95,10 +95,7 @@ export function getPresets() {
 }
 
 function savePreset(preset: Preset) {
-    localStorage.setItem(
-        `glitch_preset_${preset.id}`,
-        compress(JSON.stringify(preset)),
-    );
+    localStorage.setItem(`glitch_preset_${preset.id}`, compress(JSON.stringify(preset)));
 }
 
 function getPresetsFromLocalStorage() {

@@ -24,12 +24,8 @@ const formatProperty = computed(() => {
         <div class="flex">
             <div class="font-bold underline">"{{ propertyName }}":</div>
             <div class="ml-1 font-bold">
-                <template v-if="!property.fillAllFrames">
-                    {{ field.offsetFrame }}%
-                </template>
-                <template v-else>{{
-                    $t("pages.editor.config.field.all")
-                }}</template>
+                <template v-if="!property.fillAllFrames"> {{ field.offsetFrame }}% </template>
+                <template v-else>{{ $t("pages.editor.config.field.all") }}</template>
             </div>
         </div>
         <div class="flex items-center space-x-2">

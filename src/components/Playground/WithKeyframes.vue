@@ -33,9 +33,7 @@ function reset() {
 }
 
 const selectedIndexes = computed(() => {
-    return selectedField.value
-        ? `${selectedField.value.range}-${selectedField.value.index}`
-        : "";
+    return selectedField.value ? `${selectedField.value.range}-${selectedField.value.index}` : "";
 });
 
 watch(

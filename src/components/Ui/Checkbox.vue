@@ -25,19 +25,9 @@ const checkbox = ref<HTMLInputElement | null>(null);
         :name="name"
     >
         <template #before>
-            <div
-                v-if="checkbox"
-                class="h-3 w-3 border bg-neutral-50"
-                @click="checkbox.click()"
-            >
-                <div
-                    v-if="checked"
-                    class="h-full w-full bg-primary-600 group-hover/fg:bg-primary-500"
-                >
-                    <UiIcon
-                        class="h-full w-full stroke-neutral-50 stroke-[4px]"
-                        :icon="Icons.Checked"
-                    />
+            <div v-if="checkbox" class="h-3 w-3 border bg-neutral-50" @click="checkbox.click()">
+                <div v-if="checked" class="h-full w-full bg-primary-600 group-hover/fg:bg-primary-500">
+                    <UiIcon class="h-full w-full stroke-neutral-50 stroke-[4px]" :icon="Icons.Checked" />
                 </div>
             </div>
             <input

@@ -63,18 +63,13 @@ function selectField(field: G.Field) {
 <template>
     <div class="relative">
         <div class="mb-2 flex items-center space-x-2">
-            <UiHeading class="m-0" variant="h3">{{
-                $t("pages.editor.ranges")
-            }}</UiHeading>
+            <UiHeading class="m-0" variant="h3">{{ $t("pages.editor.ranges") }}</UiHeading>
             <OpenShortcuts class="mt-1" />
         </div>
         <div class="mb-4 flex">
             <div class="relative z-10 w-[calc(100%-36px)]">
                 <ClientOnly>
-                    <EditorCursor
-                        v-if="config.controls"
-                        :current-percent="currentPercent"
-                    />
+                    <EditorCursor v-if="config.controls" :current-percent="currentPercent" />
                 </ClientOnly>
                 <EditorRange
                     v-for="(range, index) in config.ranges"
@@ -94,19 +89,13 @@ function selectField(field: G.Field) {
                     class="relative top-0 mb-2 flex w-full items-center pl-[12px] last:mb-0"
                     :style="{ height: rangeHeight + 'px' }"
                 >
-                    <EditorRangeOptions
-                        :range-index="index"
-                        :config="config"
-                        v-on="onRangeOptions"
-                    />
+                    <EditorRangeOptions :range-index="index" :config="config" v-on="onRangeOptions" />
                 </div>
             </div>
         </div>
         <div class="flex space-x-2">
             <UiButton
-                v-tooltip="
-                    $t('pages.editor.config.ranges.actions.addEmptyRange')
-                "
+                v-tooltip="$t('pages.editor.config.ranges.actions.addEmptyRange')"
                 variant="link"
                 size="link"
                 @click="addEmptyRange"

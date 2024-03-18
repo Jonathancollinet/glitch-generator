@@ -41,11 +41,7 @@ const optionValue = (option: Option) => {
 </script>
 
 <template>
-    <select
-        v-model="value"
-        :class="cn(SelectVariants({ variant, size }), props.class ?? '')"
-        @change="onChange"
-    >
+    <select v-model="value" :class="cn(SelectVariants({ variant, size }), props.class ?? '')" @change="onChange">
         <option
             v-for="(option, index) in props.options"
             :key="index"

@@ -7,17 +7,13 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.directive("click-outside", {
         mounted(el: HTMLElement & ClickOutside, binding) {
             el.clickOutsideEvent = (event: Event) => {
-                if (
-                    !(el == event.target || el.contains(event.target as Node))
-                ) {
+                if (!(el == event.target || el.contains(event.target as Node))) {
                     binding.value(event, el);
                 }
             };
 
             el.mouseupOutsideEvent = (event: Event) => {
-                if (
-                    !(el == event.target || el.contains(event.target as Node))
-                ) {
+                if (!(el == event.target || el.contains(event.target as Node))) {
                     binding.value(event, el);
                 }
             };

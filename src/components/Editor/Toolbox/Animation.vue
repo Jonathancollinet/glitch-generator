@@ -11,9 +11,7 @@ const localAnimation = defineModel<G.Animation>("localConfig", {
     required: true,
 });
 
-const animationDurationError = computed(() =>
-    getErrorMessage(props.errors, "animation.duration"),
-);
+const animationDurationError = computed(() => getErrorMessage(props.errors, "animation.duration"));
 
 const updateAnimation = computed(() =>
     applyUpdater<G.Animation>({

@@ -45,14 +45,9 @@ const contentClass = computed(() => [
                 <slot name="title" />
             </template>
             <template v-else>
-                <div
-                    class="flex select-none items-center justify-between *:m-0"
-                    @click="openToggle = !openToggle"
-                >
+                <div class="flex select-none items-center justify-between *:m-0" @click="openToggle = !openToggle">
                     <slot name="title" />
-                    <UiIcon
-                        :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown"
-                    />
+                    <UiIcon :icon="openToggle ? Icons.ChevronUp : Icons.ChevronDown" />
                 </div>
             </template>
         </div>

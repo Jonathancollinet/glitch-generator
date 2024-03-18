@@ -21,13 +21,7 @@ withDefaults(
 </script>
 
 <template>
-    <UiFormGroup
-        inline
-        :label="label"
-        class="ml-0 w-full"
-        :error="error"
-        :name="name"
-    >
+    <UiFormGroup inline :label="label" class="ml-0 w-full" :error="error" :name="name">
         <UiInput
             class="h-6 w-[40px] px-0"
             alignment="center"

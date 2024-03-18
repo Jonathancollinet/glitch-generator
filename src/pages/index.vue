@@ -13,9 +13,7 @@ useServerSeoMeta(useTranslatedSeoMeta("home"));
             <UiText class="text-center">
                 {{ $t("pages.home.description") }}
             </UiText>
-            <div
-                class="my-4 flex flex-col space-y-4 md:flex-row md:space-x-12 md:space-y-0 md:*:w-full lg:my-8"
-            >
+            <div class="my-4 flex flex-col space-y-4 md:flex-row md:space-x-12 md:space-y-0 md:*:w-full lg:my-8">
                 <HomeCard
                     title="pages.home.create.title"
                     description="pages.home.create.description"

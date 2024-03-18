@@ -22,34 +22,17 @@ function onImport() {
 </script>
 
 <template>
-    <UiModal
-        content-class="w-auto"
-        title="modals.import.title"
-        @closed="onCancel"
-    >
+    <UiModal content-class="w-auto" title="modals.import.title" @closed="onCancel">
         <UiText>
             {{ $t("modals.import.description") }}
             <OpenImportRules />
         </UiText>
 
         <div class="w-full">
-            <UiFormGroup
-                label="modals.import.presetName"
-                name="presetName"
-                :error="errors.presetName"
-            >
-                <UiInput
-                    v-model="presetName"
-                    name="presetName"
-                    class="w-full"
-                />
+            <UiFormGroup label="modals.import.presetName" name="presetName" :error="errors.presetName">
+                <UiInput v-model="presetName" name="presetName" class="w-full" />
             </UiFormGroup>
-            <UiFormGroup
-                class="ml-0"
-                label="modals.import.textStyle"
-                name="textStyle"
-                :error="errors.textStyle"
-            >
+            <UiFormGroup class="ml-0" label="modals.import.textStyle" name="textStyle" :error="errors.textStyle">
                 <UiInput
                     v-model="textStyle"
                     placeholder=".className { ..."
@@ -58,12 +41,7 @@ function onImport() {
                     class="h-32 w-full"
                 />
             </UiFormGroup>
-            <UiFormGroup
-                class="ml-0"
-                label="modals.import.code"
-                name="code"
-                :error="errors.keyframes"
-            >
+            <UiFormGroup class="ml-0" label="modals.import.code" name="code" :error="errors.keyframes">
                 <UiInput
                     v-model="importedCode"
                     placeholder="@keyframes animationName { ..."
@@ -74,12 +52,8 @@ function onImport() {
             </UiFormGroup>
         </div>
         <template #footer>
-            <UiButton variant="link" size="sm" @click="onCancel">{{
-                $t("modals.confirm.cancel")
-            }}</UiButton>
-            <UiButton @click="onImport">{{
-                $t("modals.import.action")
-            }}</UiButton>
+            <UiButton variant="link" size="sm" @click="onCancel">{{ $t("modals.confirm.cancel") }}</UiButton>
+            <UiButton @click="onImport">{{ $t("modals.import.action") }}</UiButton>
         </template>
     </UiModal>
 </template>

@@ -83,11 +83,7 @@ export function removeField(ranges: G.Field[][], field: G.Field) {
     copyRanges(ranges, copy);
 }
 
-export function addFieldAtOffset(
-    ranges: G.Field[][],
-    rangeIndex: number,
-    offset: number,
-) {
+export function addFieldAtOffset(ranges: G.Field[][], rangeIndex: number, offset: number) {
     const copy = deepCopy(ranges);
     const range = copy[rangeIndex];
     let nextIndex = range.findIndex((field) => field.offsetFrame > offset);
@@ -222,10 +218,7 @@ function incrementUpperFieldIndexesFrom(range: G.Field[], index: number) {
     }
 }
 
-function applyToFieldProperties(
-    range: G.Field[],
-    callback: (property: G.Shadow) => void,
-) {
+function applyToFieldProperties(range: G.Field[], callback: (property: G.Shadow) => void) {
     range.forEach((field) => {
         let key: G.PropertyName;
 

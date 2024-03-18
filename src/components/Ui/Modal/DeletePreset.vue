@@ -14,11 +14,7 @@ function onCancel() {
 </script>
 
 <template>
-    <UiModalConfirm
-        title="modals.deletePreset.title"
-        @confirm="onConfirm"
-        @cancel="onCancel"
-    >
+    <UiModalConfirm title="modals.deletePreset.title" @confirm="onConfirm" @cancel="onCancel">
         <UiText>{{ $t("modals.deletePreset.text") }}</UiText>
     </UiModalConfirm>
 </template>

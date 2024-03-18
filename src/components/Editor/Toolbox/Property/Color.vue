@@ -34,12 +34,8 @@ const colors = ref<SketchColor>({
 
 const hexName = `${localName.value}Hex`;
 
-const hexError = computed(() =>
-    getErrorMessage(props.errors, `${props.name}.color.hex`),
-);
-const alphaPercentError = computed(() =>
-    getErrorMessage(props.errors, `${props.name}.color.alphaPercent`),
-);
+const hexError = computed(() => getErrorMessage(props.errors, `${props.name}.color.hex`));
+const alphaPercentError = computed(() => getErrorMessage(props.errors, `${props.name}.color.alphaPercent`));
 
 const presetColors = ref(useAllColors());
 
@@ -72,10 +68,7 @@ watch(
     colors,
     (newVal) => {
         if (updateHex) {
-            updateHex(
-                newVal.hex ||
-                    RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase(),
-            );
+            updateHex(newVal.hex || RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase());
         }
 
         if (isNotFalsy(updateAlphaPercent)) {
@@ -98,9 +91,7 @@ onMounted(() => {
     }
 });
 
-const containerColorClasses: ClassValue[] = [
-    "h-4 w-4 cursor-pointer hover:opacity-80",
-];
+const containerColorClasses: ClassValue[] = ["h-4 w-4 cursor-pointer hover:opacity-80"];
 </script>
 
 <template>
@@ -112,10 +103,7 @@ const containerColorClasses: ClassValue[] = [
         :error="hexError || alphaPercentError"
         @label-click="displayColor"
     >
-        <div
-            :class="cn(containerColorClasses, colorClasses ?? '')"
-            @click="displayColor"
-        >
+        <div :class="cn(containerColorClasses, colorClasses ?? '')" @click="displayColor">
             <EditorFieldColorDisplay :color="localColor" />
         </div>
         <Sketch

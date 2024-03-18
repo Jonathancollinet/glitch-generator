@@ -31,11 +31,7 @@ const defaultField: G.Field = {
     },
 };
 
-export default function getDefaultField(
-    range: number,
-    index: number,
-    offset: number,
-): G.Field {
+export default function getDefaultField(range: number, index: number, offset: number): G.Field {
     return {
         ...deepCopy(defaultField),
         range,

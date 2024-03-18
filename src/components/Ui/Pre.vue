@@ -6,9 +6,7 @@ const props = defineProps<{
     class?: HTMLAttributes["class"];
 }>();
 
-const preClasses: ClassValue[] = [
-    "bg-primary-200 dark:bg-primary-950 h-full p-4 max-h-[250px] overflow-auto",
-];
+const preClasses: ClassValue[] = ["bg-primary-200 dark:bg-primary-950 h-full p-4 max-h-[250px] overflow-auto"];
 </script>
 
 <template>

@@ -15,11 +15,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <component
-        :is="as"
-        :data-tag="as"
-        :class="cn('text', TextVariants(), props.class)"
-    >
+    <component :is="as" :data-tag="as" :class="cn('text', TextVariants(), props.class)">
         <slot />
     </component>
 </template>

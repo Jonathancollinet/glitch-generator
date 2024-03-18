@@ -21,10 +21,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <component
-        :is="as"
-        :class="cn(ButtonVariants({ variant, size, color }), props.class)"
-    >
+    <component :is="as" :class="cn(ButtonVariants({ variant, size, color }), props.class)">
         <slot />
     </component>
 </template>

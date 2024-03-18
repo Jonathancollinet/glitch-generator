@@ -15,10 +15,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <component
-        :is="variant"
-        :class="cn(HeadingVariants({ variant }), props.class)"
-    >
+    <component :is="variant" :class="cn(HeadingVariants({ variant }), props.class)">
         <slot />
     </component>
 </template>

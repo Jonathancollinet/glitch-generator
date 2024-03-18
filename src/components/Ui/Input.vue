@@ -3,16 +3,7 @@ import { type InputVariantsProps, InputVariants } from "~/ui/Input";
 import type { HTMLAttributes } from "vue";
 import type { UpdateFn } from "~/lib/toolbox/utils";
 
-type acceptedTypes =
-    | "textarea"
-    | "text"
-    | "password"
-    | "email"
-    | "number"
-    | "tel"
-    | "search"
-    | "url"
-    | "color";
+type acceptedTypes = "textarea" | "text" | "password" | "email" | "number" | "tel" | "search" | "url" | "color";
 
 const props = withDefaults(
     defineProps<{
@@ -59,14 +50,7 @@ const isTextArea = computed(() => props.type === "textarea");
         :id="name"
         :readonly="readonly"
         :placeholder="placeholder"
-        :class="
-            cn(
-                'resize',
-                isColor ? 'cursor-pointer' : '',
-                InputVariants({ variant, alignment, size }),
-                props.class,
-            )
-        "
+        :class="cn('resize', isColor ? 'cursor-pointer' : '', InputVariants({ variant, alignment, size }), props.class)"
         autocomplete="off"
         :type="type"
         :name="name"
@@ -78,13 +62,7 @@ const isTextArea = computed(() => props.type === "textarea");
         :id="name"
         :readonly="readonly"
         :placeholder="placeholder"
-        :class="
-            cn(
-                isColor ? 'cursor-pointer' : '',
-                InputVariants({ variant, alignment, size }),
-                props.class,
-            )
-        "
+        :class="cn(isColor ? 'cursor-pointer' : '', InputVariants({ variant, alignment, size }), props.class)"
         autocomplete="off"
         :type="type"
         :name="name"

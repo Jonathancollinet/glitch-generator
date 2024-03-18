@@ -16,10 +16,7 @@ export default class GlitchValidator {
         this.errors = {};
     }
 
-    validateConfigWithErrors(
-        newConfig: G.Config,
-        oldConfig: G.Config | undefined,
-    ) {
+    validateConfigWithErrors(newConfig: G.Config, oldConfig: G.Config | undefined) {
         const oldErrors = deepCopy(this.errors);
 
         this.errors = {};
@@ -71,11 +68,7 @@ export default class GlitchValidator {
             return false;
         }
 
-        for (
-            let fieldIndex = 0, len = fields.length;
-            fieldIndex < len;
-            fieldIndex++
-        ) {
+        for (let fieldIndex = 0, len = fields.length; fieldIndex < len; fieldIndex++) {
             const field = fields[fieldIndex];
             const configRange = configRanges[field.range];
             const rangePath = `${pathRanges}[${field.range}]`;
@@ -103,22 +96,13 @@ export default class GlitchValidator {
                 return false;
             }
 
-            results.push(
-                this.validateRangeField(
-                    field,
-                    undefined,
-                    `ranges[${field.range}]`,
-                ),
-            );
+            results.push(this.validateRangeField(field, undefined, `ranges[${field.range}]`));
         }
 
         return results.every((result) => result);
     }
 
-    private validateConfigLeafs(
-        newConfig: G.Config,
-        oldConfig: G.Config | undefined,
-    ) {
+    private validateConfigLeafs(newConfig: G.Config, oldConfig: G.Config | undefined) {
         if (
             this.hasErrorOrRemoveExisting(!newConfig, {
                 path: "Glitch",
@@ -137,73 +121,16 @@ export default class GlitchValidator {
         const oldAnimationLeaf = oldConfig?.animation;
 
         const results = [
-            this.validateConfigLeaf(
-                newConfig,
-                oldConfig,
-                glitchBaseConfigSchemas,
-                "onValidated",
-            ),
-            this.validateConfigLeaf(
-                newConfig,
-                oldConfig,
-                glitchBaseConfigSchemas,
-                "preventRangesCompute",
-            ),
-            this.validateConfigLeaf(
-                newConfig,
-                oldConfig,
-                glitchBaseConfigSchemas,
-                "controls",
-            ),
-            this.validateConfigLeaf(
-                newTextLeaf,
-                oldTextLeaf,
-                glitchTextSchemas,
-                "message",
-                "text.message",
-            ),
-            this.validateConfigLeaf(
-                newTextLeaf,
-                oldTextLeaf,
-                glitchTextSchemas,
-                "size",
-                "text.size",
-            ),
-            this.validateConfigLeaf(
-                newTextLeaf,
-                oldTextLeaf,
-                glitchTextSchemas,
-                "unit",
-                "text.unit",
-            ),
-            this.validateConfigLeaf(
-                newTextLeaf,
-                oldTextLeaf,
-                glitchTextSchemas,
-                "height",
-                "text.height",
-            ),
-            this.validateConfigLeaf(
-                newTextLeaf,
-                oldTextLeaf,
-                glitchTextSchemas,
-                "padding",
-                "text.padding",
-            ),
-            this.validateConfigLeaf(
-                newTextLeaf,
-                oldTextLeaf,
-                glitchTextSchemas,
-                "borderRadius",
-                "text.borderRadius",
-            ),
-            this.validateConfigLeaf(
-                newTextColorLeaf,
-                oldTextColorLeaf,
-                glitchColorSchemas,
-                "hex",
-                "text.color.hex",
-            ),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, "onValidated"),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, "preventRangesCompute"),
+            this.validateConfigLeaf(newConfig, oldConfig, glitchBaseConfigSchemas, "controls"),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, "message", "text.message"),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, "size", "text.size"),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, "unit", "text.unit"),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, "height", "text.height"),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, "padding", "text.padding"),
+            this.validateConfigLeaf(newTextLeaf, oldTextLeaf, glitchTextSchemas, "borderRadius", "text.borderRadius"),
+            this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, "hex", "text.color.hex"),
             this.validateConfigLeaf(
                 newTextColorLeaf,
                 oldTextColorLeaf,
@@ -211,13 +138,7 @@ export default class GlitchValidator {
                 "alphaPercent",
                 "text.color.alphaPercent",
             ),
-            this.validateConfigLeaf(
-                newTextColorLeaf,
-                oldTextColorLeaf,
-                glitchColorSchemas,
-                "hex",
-                "text.bgColor.hex",
-            ),
+            this.validateConfigLeaf(newTextColorLeaf, oldTextColorLeaf, glitchColorSchemas, "hex", "text.bgColor.hex"),
             this.validateConfigLeaf(
                 newTextColorLeaf,
                 oldTextColorLeaf,
@@ -241,26 +162,17 @@ export default class GlitchValidator {
         const rangesPath = `ranges`;
 
         if (
-            this.hasErrorOrRemoveExisting(
-                !newConfig.ranges || newConfig.ranges.length === 0,
-                {
-                    path: rangesPath,
-                    code: "invalid_object",
-                    message: "Ranges must exists.",
-                },
-            )
+            this.hasErrorOrRemoveExisting(!newConfig.ranges || newConfig.ranges.length === 0, {
+                path: rangesPath,
+                code: "invalid_object",
+                message: "Ranges must exists.",
+            })
         ) {
             return false;
         }
 
         return results
-            .concat(
-                this.validateRanges(
-                    newConfig.ranges,
-                    oldConfig?.ranges,
-                    rangesPath,
-                ),
-            )
+            .concat(this.validateRanges(newConfig.ranges, oldConfig?.ranges, rangesPath))
             .every((result) => result);
     }
 
@@ -290,11 +202,7 @@ export default class GlitchValidator {
 
         if (!oldConfigLeaf || newLeaf !== oldLeaf) {
             const schemaKey = leafKey as string as keyof Schemas;
-            const validationError = this.validateLeaf(
-                newLeaf,
-                schemas[schemaKey],
-                path,
-            );
+            const validationError = this.validateLeaf(newLeaf, schemas[schemaKey], path);
 
             if (validationError) {
                 this.addError(validationError);
@@ -308,11 +216,7 @@ export default class GlitchValidator {
         return true;
     }
 
-    private validateLeaf<Leaf>(
-        value: Leaf,
-        schema: z.ZodTypeAny,
-        path: string,
-    ): G.Error | undefined {
+    private validateLeaf<Leaf>(value: Leaf, schema: z.ZodTypeAny, path: string): G.Error | undefined {
         const parseResult = schema.safeParse(value);
 
         if (!parseResult.success) {
@@ -326,25 +230,18 @@ export default class GlitchValidator {
         }
     }
 
-    private validateRanges(
-        ranges: G.Field[][],
-        oldRanges: G.Field[][] | undefined,
-        path: string,
-    ) {
+    private validateRanges(ranges: G.Field[][], oldRanges: G.Field[][] | undefined, path: string) {
         return ranges
             .map((range, rangeIndex) => {
                 const rangePath = `${path}[${rangeIndex}]`;
                 const oldRange = oldRanges?.[rangeIndex];
 
                 if (
-                    this.hasErrorOrRemoveExisting(
-                        !range || range.length === 0,
-                        {
-                            path: rangePath,
-                            code: "invalid_object",
-                            message: `Range must exists and have at least one field.`,
-                        },
-                    )
+                    this.hasErrorOrRemoveExisting(!range || range.length === 0, {
+                        path: rangePath,
+                        code: "invalid_object",
+                        message: `Range must exists and have at least one field.`,
+                    })
                 ) {
                     return false;
                 }
@@ -354,11 +251,7 @@ export default class GlitchValidator {
             .every((result) => result);
     }
 
-    private validateRange(
-        range: G.Field[],
-        oldRange: G.Field[] | undefined,
-        path: string,
-    ) {
+    private validateRange(range: G.Field[], oldRange: G.Field[] | undefined, path: string) {
         return range
             .map((field, fieldIndex) => {
                 const fieldPath = `${path}[${fieldIndex}]`;
@@ -373,62 +266,26 @@ export default class GlitchValidator {
                     return false;
                 }
 
-                return this.validateRangeField(
-                    field,
-                    oldRange?.[fieldIndex],
-                    path,
-                );
+                return this.validateRangeField(field, oldRange?.[fieldIndex], path);
             })
             .every((result) => result);
     }
 
-    private validateRangeField(
-        field: G.Field,
-        oldField: G.Field | undefined,
-        rangePath: string,
-    ) {
+    private validateRangeField(field: G.Field, oldField: G.Field | undefined, rangePath: string) {
         const fieldPath = `${rangePath}[${field.index}]`;
 
         const results = [
-            this.validateConfigLeaf(
-                field,
-                oldField,
-                glitchFieldSchemas,
-                "range",
-                `${fieldPath}.range`,
-            ),
-            this.validateConfigLeaf(
-                field,
-                oldField,
-                glitchFieldSchemas,
-                "index",
-                `${fieldPath}.index`,
-            ),
-            this.validateConfigLeaf(
-                field,
-                oldField,
-                glitchFieldSchemas,
-                "offsetFrame",
-                `${fieldPath}.offsetFrame`,
-            ),
+            this.validateConfigLeaf(field, oldField, glitchFieldSchemas, "range", `${fieldPath}.range`),
+            this.validateConfigLeaf(field, oldField, glitchFieldSchemas, "index", `${fieldPath}.index`),
+            this.validateConfigLeaf(field, oldField, glitchFieldSchemas, "offsetFrame", `${fieldPath}.offsetFrame`),
         ];
 
         return results
-            .concat(
-                this.validateFieldProperties(
-                    field.shadows,
-                    oldField?.shadows,
-                    fieldPath,
-                ),
-            )
+            .concat(this.validateFieldProperties(field.shadows, oldField?.shadows, fieldPath))
             .every((result) => result === true);
     }
 
-    private validateFieldProperties(
-        shadows: G.Shadows,
-        oldProperties: G.Shadows | undefined,
-        fieldPath: string,
-    ) {
+    private validateFieldProperties(shadows: G.Shadows, oldProperties: G.Shadows | undefined, fieldPath: string) {
         const propertiesPath = `${fieldPath}.shadows`;
         let results: boolean[] = [];
         let propertyName: keyof typeof shadows;
@@ -570,9 +427,7 @@ export default class GlitchValidator {
         for (const path in this.errors) {
             const error = this.errors[path];
 
-            console.error(
-                `Error: ${error.code} at ${error.path}: ${error.message}`,
-            );
+            console.error(`Error: ${error.code} at ${error.path}: ${error.message}`);
         }
     }
 }

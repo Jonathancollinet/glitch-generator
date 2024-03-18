@@ -1,11 +1,7 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
 import { VueFinalModal } from "vue-final-modal";
-import {
-    ContentVariants,
-    ModalVariants,
-    type ModalVariantsProps,
-} from "~/ui/Modal";
+import { ContentVariants, ModalVariants, type ModalVariantsProps } from "~/ui/Modal";
 
 const props = withDefaults(
     defineProps<{

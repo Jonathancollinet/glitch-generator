@@ -4,10 +4,7 @@ import type Glitch from "~/lib/glitch";
 import importKeyframes from "~/lib/toolbox/import";
 import type { PresetConfig } from "~/lib/toolbox/presets";
 
-export const useModalImport = (
-    glitch: Glitch,
-    action: (name: string, config?: PresetConfig) => void,
-) => {
+export const useModalImport = (glitch: Glitch, action: (name: string, config?: PresetConfig) => void) => {
     let importKeyframesErrors: Record<string, string> = {};
 
     function closeImportModal() {
@@ -44,22 +41,12 @@ export const useModalImport = (
                         });
                         closeImportModal();
                     } else {
-                        if (
-                            errorsKeys.findIndex((key) =>
-                                key.includes("text"),
-                            ) !== -1
-                        ) {
-                            importKeyframesErrors.textStyle =
-                                "errors.import.textStyle";
+                        if (errorsKeys.findIndex((key) => key.includes("text")) !== -1) {
+                            importKeyframesErrors.textStyle = "errors.import.textStyle";
                         }
 
-                        if (
-                            errorsKeys.findIndex((key) =>
-                                key.includes("ranges"),
-                            ) !== -1
-                        ) {
-                            importKeyframesErrors.keyframes =
-                                "errors.import.keyframes";
+                        if (errorsKeys.findIndex((key) => key.includes("ranges")) !== -1) {
+                            importKeyframesErrors.keyframes = "errors.import.keyframes";
                         }
                     }
                 }

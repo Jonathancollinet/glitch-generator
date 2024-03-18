@@ -15,15 +15,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div
-        :class="
-            cn(
-                'FormGroup group/fg',
-                FormGroupVariants({ variant, alignment, size }),
-                props.class ?? '',
-            )
-        "
-    >
+    <div :class="cn('FormGroup group/fg', FormGroupVariants({ variant, alignment, size }), props.class ?? '')">
         <slot name="before" />
         <template v-if="inline">
             <div class="flex items-center justify-between">
@@ -38,32 +30,16 @@ const props = defineProps<{
                     <slot />
                 </div>
             </div>
-            <UiText
-                v-if="error"
-                as="div"
-                data-color="danger"
-                data-size="xs"
-                class="mt-1 italic"
-                >{{ $t(error) }}</UiText
-            >
+            <UiText v-if="error" as="div" data-color="danger" data-size="xs" class="mt-1 italic">{{
+                $t(error)
+            }}</UiText>
         </template>
         <template v-else>
-            <UiText
-                v-if="label"
-                as="label"
-                class="select-none pl-1 first:pl-0"
-                :for="name"
-                >{{ $t(label) }}</UiText
-            >
+            <UiText v-if="label" as="label" class="select-none pl-1 first:pl-0" :for="name">{{ $t(label) }}</UiText>
             <slot />
-            <UiText
-                v-if="error"
-                as="div"
-                data-color="danger"
-                data-size="xs"
-                class="mt-1 italic"
-                >{{ $t(error) }}</UiText
-            >
+            <UiText v-if="error" as="div" data-color="danger" data-size="xs" class="mt-1 italic">{{
+                $t(error)
+            }}</UiText>
         </template>
     </div>
 </template>

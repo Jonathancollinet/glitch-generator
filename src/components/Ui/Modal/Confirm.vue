@@ -25,12 +25,8 @@ function onClose() {
     <UiModal :title="title" @closed="onClose">
         <slot />
         <template #footer>
-            <UiButton variant="link" size="sm" @click="onCancel">{{
-                $t("modals.confirm.cancel")
-            }}</UiButton>
-            <UiButton @click="onConfirm">{{
-                $t("modals.confirm.confirm")
-            }}</UiButton>
+            <UiButton variant="link" size="sm" @click="onCancel">{{ $t("modals.confirm.cancel") }}</UiButton>
+            <UiButton @click="onConfirm">{{ $t("modals.confirm.confirm") }}</UiButton>
         </template>
     </UiModal>
 </template>

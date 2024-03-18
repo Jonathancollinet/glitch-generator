@@ -27,12 +27,7 @@ export const IconVariants = cva(["transition-all"], {
         },
         color: {
             default: "",
-            danger: [
-                "stroke-red-600",
-                "hover:stroke-red-400",
-                "dark:stroke-red-400",
-                "dark:hover:stroke-red-200",
-            ],
+            danger: ["stroke-red-600", "hover:stroke-red-400", "dark:stroke-red-400", "dark:hover:stroke-red-200"],
         },
     },
     defaultVariants: {

@@ -8,12 +8,7 @@ import { version } from "~/utils/constants";
             {{ $t("footer.inspiration") }}
         </UiText>
         <UiText data-size="xs">
-            <UiLink
-                class="ml-1"
-                as="a"
-                href="https://codepen.io/nucliweb/pen/QEreae"
-                target="_blank"
-            >
+            <UiLink class="ml-1" as="a" href="https://codepen.io/nucliweb/pen/QEreae" target="_blank">
                 /nucliweb/pen/QEreae
             </UiLink>
         </UiText>

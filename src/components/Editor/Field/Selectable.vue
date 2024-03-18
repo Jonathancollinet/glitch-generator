@@ -30,8 +30,7 @@ const emit = defineEmits<{
 }>();
 
 function getPercentWidth() {
-    const length =
-        (props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame;
+    const length = (props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame;
 
     return length + "%";
 }
@@ -49,8 +48,7 @@ function getColorFor(property: G.Shadow, nextProperty?: G.Shadow) {
             return `linear-gradient(to right, ${rgb}, ${nextRgb})`;
         }
 
-        const lastColorPercent =
-            100 - 100 / (nextOffsetFrame - props.field.offsetFrame);
+        const lastColorPercent = 100 - 100 / (nextOffsetFrame - props.field.offsetFrame);
 
         return `linear-gradient(to right, ${rgb} ${lastColorPercent}%, ${nextRgb})`;
     }
@@ -58,12 +56,7 @@ function getColorFor(property: G.Shadow, nextProperty?: G.Shadow) {
     return rgb;
 }
 
-function getAttrs(
-    s: StyleAttrs,
-    property: G.Shadow,
-    blurModifier: number,
-    nextProperty?: G.Shadow,
-) {
+function getAttrs(s: StyleAttrs, property: G.Shadow, blurModifier: number, nextProperty?: G.Shadow) {
     if (nextProperty?.enabled) {
         s.background = getColorFor(property, nextProperty);
     } else {
@@ -90,12 +83,7 @@ function getStyle() {
     const boxShadowEnabled = boxShadow?.enabled;
 
     if (textShadowEnabled) {
-        getAttrs(
-            style[G.PropertyName.TextShadow],
-            textShadow,
-            16,
-            nextTextShadow,
-        );
+        getAttrs(style[G.PropertyName.TextShadow], textShadow, 16, nextTextShadow);
     }
 
     if (boxShadowEnabled) {
@@ -123,9 +111,7 @@ function displayProperties(e: MouseEvent) {
 
 const textShadowStyle = computed(() => getStyle()[G.PropertyName.TextShadow]);
 const boxShadowStyle = computed(() => getStyle()[G.PropertyName.BoxShadow]);
-const textShadowEnabled = computed(
-    () => props.field.shadows[G.PropertyName.TextShadow]?.enabled,
-);
+const textShadowEnabled = computed(() => props.field.shadows[G.PropertyName.TextShadow]?.enabled);
 
 const hasShadowBox = computed(() => {
     return props.field.shadows[G.PropertyName.BoxShadow]?.enabled;
@@ -182,25 +168,12 @@ watch(
         @dragend="dragEnd"
         @click="selectField"
     >
-        <div
-            :class="`w-full overflow-hidden`"
-            :style="{ height: hasShadowBox ? '70%' : '100%' }"
-        >
-            <div
-                class="flex h-full items-center justify-center"
-                :style="{ ...textShadowStyle }"
-            >
-                <UiIcon
-                    v-if="!textShadowEnabled"
-                    class="max-w-[12px]"
-                    :icon="Icons.EyeSlash"
-                />
+        <div :class="`w-full overflow-hidden`" :style="{ height: hasShadowBox ? '70%' : '100%' }">
+            <div class="flex h-full items-center justify-center" :style="{ ...textShadowStyle }">
+                <UiIcon v-if="!textShadowEnabled" class="max-w-[12px]" :icon="Icons.EyeSlash" />
             </div>
         </div>
-        <div
-            v-if="hasShadowBox"
-            class="h-[30%] w-full overflow-hidden border-t-2"
-        >
+        <div v-if="hasShadowBox" class="h-[30%] w-full overflow-hidden border-t-2">
             <div class="h-full" :style="{ ...boxShadowStyle }" />
         </div>
     </div>

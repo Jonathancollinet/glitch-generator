@@ -22,11 +22,7 @@ const linkBindings = {
 </script>
 
 <template>
-    <component
-        :is="as"
-        :class="cn(LinkVariants({ variant }), props.class)"
-        v-bind="linkBindings"
-    >
+    <component :is="as" :class="cn(LinkVariants({ variant }), props.class)" v-bind="linkBindings">
         <slot />
     </component>
 </template>

@@ -35,9 +35,7 @@ watch(
 
 <template>
     <div>
-        <UiText v-if="title" as="div" data-color="black">{{
-            $t(title)
-        }}</UiText>
+        <UiText v-if="title" as="div" data-color="black">{{ $t(title) }}</UiText>
         <EditorToolboxRange
             v-for="(range, index) in ranges"
             :key="`${index}-${range.length}`"

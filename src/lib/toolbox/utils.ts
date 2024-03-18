@@ -16,12 +16,9 @@ export interface FieldUpdate<Container> {
     onUpdate?: (obj: ContainerRecord<Container>) => void;
 }
 
-export interface FieldUpdateWithSources<Container>
-    extends FieldUpdate<Container>,
-        Sources<Container> {}
+export interface FieldUpdateWithSources<Container> extends FieldUpdate<Container>, Sources<Container> {}
 
-export interface WithValue<Container, Value>
-    extends FieldUpdateWithSources<Container> {
+export interface WithValue<Container, Value> extends FieldUpdateWithSources<Container> {
     value: Value;
 }
 
@@ -43,12 +40,7 @@ function applyModifier<Container>({
 
     obj[key] = modifiedValue;
 
-    if (
-        localObj &&
-        modifiedValue !== undefined &&
-        modifiedValue !== null &&
-        !Number.isNaN(modifiedValue)
-    ) {
+    if (localObj && modifiedValue !== undefined && modifiedValue !== null && !Number.isNaN(modifiedValue)) {
         localObj[key] = modifiedValue;
     }
 
@@ -109,12 +101,7 @@ export function applyUpdater<Container>({ obj, localObj }: Sources<Container>) {
 }
 
 export function getUpdateFn<Container>({ obj, localObj }: Sources<Container>) {
-    return ({
-        key,
-        modifier = (v) => v,
-        onUpdate = () => void 0,
-        debounced,
-    }: UpdateValue<Container>): UpdateFn => {
+    return ({ key, modifier = (v) => v, onUpdate = () => void 0, debounced }: UpdateValue<Container>): UpdateFn => {
         if (obj) {
             if (debounced) {
                 return debounce(
@@ -131,8 +118,7 @@ export function getUpdateFn<Container>({ obj, localObj }: Sources<Container>) {
                 );
             }
 
-            return (value: string | Event) =>
-                updateValue({ obj, localObj, key, modifier, onUpdate, value });
+            return (value: string | Event) => updateValue({ obj, localObj, key, modifier, onUpdate, value });
         } else {
             console.error("No object to update");
 
@@ -141,11 +127,7 @@ export function getUpdateFn<Container>({ obj, localObj }: Sources<Container>) {
     };
 }
 
-export function getErrorMessage(
-    errors: Partial<G.Errors>,
-    path: string,
-    withPrecision: boolean = false,
-) {
+export function getErrorMessage(errors: Partial<G.Errors>, path: string, withPrecision: boolean = false) {
     const e = errors[path];
 
     if (e) {
@@ -161,9 +143,7 @@ export function getPossibleOffsetFrames(field: G.Field, range: G.Field[]) {
         const percents = [];
         const previousField = range[field.index - 1];
         const nextField = range[field.index + 1];
-        const length = previousField
-            ? (nextField?.offsetFrame || 101) - (previousField.offsetFrame + 1)
-            : 0;
+        const length = previousField ? (nextField?.offsetFrame || 101) - (previousField.offsetFrame + 1) : 0;
 
         for (let i = 1; i <= length; ++i) {
             percents.push(previousField.offsetFrame + i);

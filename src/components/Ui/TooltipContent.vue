@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import {
-    TooltipContentVariants,
-    type TooltipContentVariantsProps,
-} from "~/ui/TooltipContent";
+import { TooltipContentVariants, type TooltipContentVariantsProps } from "~/ui/TooltipContent";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];
@@ -13,11 +10,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div
-        :class="
-            cn(TooltipContentVariants({ variant, size }), props.class ?? '')
-        "
-    >
+    <div :class="cn(TooltipContentVariants({ variant, size }), props.class ?? '')">
         <slot />
     </div>
 </template>

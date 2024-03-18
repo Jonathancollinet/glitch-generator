@@ -111,8 +111,7 @@ function dragStart(e: DragEvent, field: G.Field) {
         }
     }
 
-    possibilities =
-        fieldToResize && getPossibleOffsetFrames(fieldToResize, props.range);
+    possibilities = fieldToResize && getPossibleOffsetFrames(fieldToResize, props.range);
 }
 
 function dragEnd(e: DragEvent) {
@@ -152,9 +151,7 @@ function removeProperties() {
 
 function isFieldSelected(field: G.Field) {
     return (
-        !!props.selectedField &&
-        props.selectedField.range === field.range &&
-        props.selectedField.index === field.index
+        !!props.selectedField && props.selectedField.range === field.range && props.selectedField.index === field.index
     );
 }
 
@@ -178,14 +175,9 @@ const propertyPosition = computed(() => {
     if (hoveredField.value && fieldPropertiesToShow.value) {
         const field = fieldPropertiesToShow.value;
         const currentOffset = field.offsetFrame;
-        const middleOffset =
-            ((props.range[field.index + 1]?.offsetFrame ?? 101) -
-                currentOffset) /
-            2;
+        const middleOffset = ((props.range[field.index + 1]?.offsetFrame ?? 101) - currentOffset) / 2;
         const left = currentOffset + middleOffset;
-        const finalTranslateX = translationModifier.value
-            ? translationModifier.value
-            : "-50%";
+        const finalTranslateX = translationModifier.value ? translationModifier.value : "-50%";
 
         return {
             left: `${left}%`,
@@ -196,10 +188,7 @@ const propertyPosition = computed(() => {
 
 const nextHoveredFrameOffset = computed(() => {
     if (fieldPropertiesToShow.value) {
-        return (
-            props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ??
-            101
-        );
+        return props.range[fieldPropertiesToShow.value.index + 1]?.offsetFrame ?? 101;
     }
 
     return 100;
@@ -213,11 +202,7 @@ const nextHoveredFrameOffset = computed(() => {
         :style="{ height: rangeHeight + 'px' }"
     >
         <div class="h-full w-[calc(100%-36px)]">
-            <UiTooltipContent
-                v-show="showProperties"
-                class="whitespace-nowrap"
-                :style="propertyPosition"
-            >
+            <UiTooltipContent v-show="showProperties" class="whitespace-nowrap" :style="propertyPosition">
                 <EditorFieldProperties
                     :field="fieldPropertiesToShow"
                     :next-hovered-frame-offset="nextHoveredFrameOffset"
@@ -238,10 +223,7 @@ const nextHoveredFrameOffset = computed(() => {
                     @mousedown.right="showSelectableField"
                 />
             </div>
-            <div
-                v-if="displaySelectableFields"
-                class="absolute z-10 h-full w-full whitespace-nowrap"
-            >
+            <div v-if="displaySelectableFields" class="absolute z-10 h-full w-full whitespace-nowrap">
                 <div
                     v-for="(p, index) in percents"
                     :key="index"

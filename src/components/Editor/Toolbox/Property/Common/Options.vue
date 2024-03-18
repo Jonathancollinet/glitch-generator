@@ -16,9 +16,7 @@ const localProperty = defineModel<G.Shadow>("localConfig", {
 });
 
 const enabledError = computed(() => getErrorMessage(props.errors, "enabled"));
-const fillAllFramesError = computed(() =>
-    getErrorMessage(props.errors, "fillAllFrames"),
-);
+const fillAllFramesError = computed(() => getErrorMessage(props.errors, "fillAllFrames"));
 
 const updateOptions = applyUpdater<G.Shadow>({
     obj: property.value,
