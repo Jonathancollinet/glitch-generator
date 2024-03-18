@@ -14,7 +14,13 @@ const formatProperty = computed(() => {
     const shadow = property.value;
 
     if (shadow) {
-        return `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px`;
+        let values = `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px`;
+
+        if (shadow.spread) {
+            values += ` ${shadow.spread}px`;
+        }
+
+        return values;
     }
 });
 </script>
