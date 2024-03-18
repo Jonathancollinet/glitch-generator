@@ -7,16 +7,16 @@ const props = defineProps<{
     name: string;
 }>();
 
-const property = defineModel<G.Shadow>("config", {
+const property = defineModel<G.Declarations.BoxShadow>("config", {
     required: true,
 });
-const localProperty = defineModel<G.Shadow>("localConfig", {
+const localProperty = defineModel<G.Declarations.BoxShadow>("localConfig", {
     required: true,
 });
 
 const spreadError = computed(() => getErrorMessage(props.errors, "spread"));
 
-const updateBoxShadow = applyUpdater<G.Shadow>({
+const updateBoxShadow = applyUpdater<G.Declarations.BoxShadow>({
     obj: property.value,
     localObj: localProperty.value,
 });

@@ -6,10 +6,10 @@ defineProps<{
     name: string;
 }>();
 
-const property = defineModel<G.Shadow>("config", {
+const property = defineModel<G.Declarations.TextShadow>("config", {
     required: true,
 });
-const localProperty = defineModel<G.Shadow>("localConfig", {
+const localProperty = defineModel<G.Declarations.TextShadow>("localConfig", {
     required: true,
 });
 </script>

@@ -21,9 +21,7 @@ namespace Glitch {
         fillAllFrames: boolean;
     };
 
-    export type Shadow = PropertyBase &
-        Declarations.TextShadow &
-        Declarations.BoxShadow;
+    export type Shadow = Declarations.TextShadow & Declarations.BoxShadow;
 
     export type Shadows = {
         [PropertyName.BoxShadow]?: Shadow;
@@ -108,11 +106,12 @@ namespace Glitch {
             blur: number;
         };
 
-        export type TextShadow = Shadow;
+        export type TextShadow = PropertyBase & Shadow;
 
-        export type BoxShadow = Shadow & {
-            spread?: number;
-        };
+        export type BoxShadow = PropertyBase &
+            Shadow & {
+                spread?: number;
+            };
     }
 }
 
