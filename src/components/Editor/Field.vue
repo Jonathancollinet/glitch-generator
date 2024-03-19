@@ -26,6 +26,7 @@ const localTextShadow = ref(localField.value.shadows[G.PropertyName.TextShadow] 
 const boxShadow = ref(field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
 const localBoxShadow = ref(localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
 const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
+
 const updateField = applyUpdater<G.Field>({
     obj: field.value,
     localObj: localField.value,

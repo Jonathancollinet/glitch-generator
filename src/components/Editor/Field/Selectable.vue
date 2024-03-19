@@ -30,9 +30,7 @@ const emit = defineEmits<{
 }>();
 
 function getPercentWidth() {
-    const length = (props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame;
-
-    return length + "%";
+    return (props.nextField?.offsetFrame ?? 101) - props.field.offsetFrame + "%";
 }
 
 function getColorFor(property: G.Shadow, nextProperty?: G.Shadow) {
@@ -94,7 +92,9 @@ function getStyle() {
 }
 
 function selectField() {
-    emit("selectField", props.field);
+    if (!props.isSelected) {
+        emit("selectField", props.field);
+    }
 }
 
 function dragStart(e: DragEvent) {

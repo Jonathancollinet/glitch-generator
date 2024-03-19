@@ -60,6 +60,8 @@ export const useGlitchEditor = () => {
     };
 
     let animationDuration = gconfig.value.animation.duration;
+    let selectingField = false;
+
     const glitch = new Glitch(gconfig.value);
 
     gconfig.value.preventRangesCompute = true;
@@ -80,10 +82,7 @@ export const useGlitchEditor = () => {
         if (glitchedEl.value) {
             glitch.setGlitchedElement(glitchedEl.value);
             computeConfig(true);
-
-            nextTick(() => {
-                selectFirstRangeField();
-            });
+            selectFirstRangeField();
         }
     }
 
@@ -178,10 +177,7 @@ export const useGlitchEditor = () => {
 
         EditorUtils.removeField(gconfig.value.ranges, field);
         computeConfig(true);
-
-        nextTick(() => {
-            selectFirstRangeField(gconfig.value.ranges[field.range]);
-        });
+        selectFirstRangeField(gconfig.value.ranges[field.range]);
     }
 
     function removeRange(rangeIndex: number) {
@@ -191,17 +187,19 @@ export const useGlitchEditor = () => {
 
         EditorUtils.removeRange(gconfig.value.ranges, rangeIndex);
         computeConfig(true);
-
-        nextTick(() => {
-            selectFirstRangeField();
-        });
+        selectFirstRangeField();
     }
 
     function selectField(newField: G.Field) {
         if (selectedField.value) {
             EditorUtils.patchFieldErrors(selectedField.value, errors.value);
         }
-        selectedField.value = newField;
+
+        selectingField = true;
+        closeField();
+        nextTick(() => {
+            selectedField.value = newField;
+        });
     }
 
     function closeField() {
@@ -224,11 +222,7 @@ export const useGlitchEditor = () => {
 
         if (insertedIndex !== -1) {
             computeConfig(true);
-
-            closeField();
-            nextTick(() => {
-                selectField(gconfig.value.ranges[rangeIndex][insertedIndex]);
-            });
+            selectField(gconfig.value.ranges[rangeIndex][insertedIndex]);
         }
     }
 
@@ -262,15 +256,18 @@ export const useGlitchEditor = () => {
         }
     }
 
-    watch(
-        selectedField,
-        () => {
-            if (selectedField.value) {
-                updateField(selectedField.value);
+    function checkFieldForUpdate() {
+        if (selectedField.value) {
+            if (selectingField) {
+                selectingField = false;
+                return;
             }
-        },
-        { deep: true },
-    );
+
+            updateField(selectedField.value);
+        }
+    }
+
+    watch(selectedField, checkFieldForUpdate, { deep: true });
 
     watch(
         gconfig.value.text,
