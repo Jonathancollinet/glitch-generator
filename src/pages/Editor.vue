@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import type { EditorDisplayedText } from "#build/components";
+import type { EditorDisplayedText, EditorPresets } from "#build/components";
 import { isTourDone, redirectHelp, setTourDone } from "~/lib/editor/tour";
 
 useServerSeoMeta(useTranslatedSeoMeta("editor"));
 
-interface EditorDisplayedTextData extends Ref<InstanceType<typeof EditorDisplayedText>> {
-    glitchedEl: HTMLElement | null;
-}
-
+const presets = ref<EditorPresetsData>();
 const displayedText = ref<EditorDisplayedTextData>();
 
 const {
@@ -26,9 +23,13 @@ const {
     presetChanged,
     initConfig,
     removeField,
-} = useGlitchEditor();
+} = useGlitchEditor(onSavePreset);
 
 const { welcomeModal } = useModalWelcome(setTourDone, redirectHelp);
+
+function onSavePreset() {
+    presets.value?.savePreset();
+}
 
 onMounted(() => {
     if (!isTourDone()) {
