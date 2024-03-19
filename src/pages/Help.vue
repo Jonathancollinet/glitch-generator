@@ -9,19 +9,17 @@ definePageMeta({
 });
 
 const route = useRoute();
-const activeChapter = shallowRef<Chapter>(getActiveChapter());
+const activeChapter = computed(() => {
+    const chapterName = route.fullPath.split("/").pop() as HelpChapter;
 
-function getActiveChapter() {
-    const chapter = chapters.find((chapter) => route.fullPath.includes(chapter.name));
-    return chapter || chapters[0];
-}
+    return chapters.find((chapter) => chapter.name === chapterName) || chapters[0];
+});
 
 function changeChapter(chapterName: HelpChapter) {
     const chapter = chapters.find((chapter) => chapter.name === chapterName);
 
     if (chapter) {
-        activeChapter.value = chapter;
-        navigateTo(`${Urls.Help}/${activeChapter.value.name}`);
+        navigateTo(`${Urls.Help}/${chapter.name}`);
     }
 }
 
@@ -52,12 +50,7 @@ const nextChapter = computed(() => {
     <div class="mx-auto max-w-[800px]">
         <UiHeading class="mt-0 -translate-x-[11px]">{{ $t("pages.help.title") }}</UiHeading>
         <div class="sticky top-0 z-30 mb-8 bg-primary-100 pt-8 transition-[background-color] dark:bg-neutral-900">
-            <HelpSummary
-                class="border-b-2 pb-4"
-                :active-chapter="activeChapter"
-                :chapters="chapters"
-                @active-chapter="changeChapter"
-            />
+            <HelpSummary class="border-b-2 pb-4" :chapters="chapters" />
         </div>
         <div class="mb-12 space-y-8">
             <NuxtPage />
