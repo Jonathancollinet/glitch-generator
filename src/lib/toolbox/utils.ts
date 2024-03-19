@@ -14,6 +14,7 @@ export interface FieldUpdate<Container> {
     key: keyof Container;
     modifier?: (v: string) => string | number | boolean;
     onUpdate?: (obj: ContainerRecord<Container>) => void;
+    acceptEmpty?: boolean;
 }
 
 export interface FieldUpdateWithSources<Container> extends FieldUpdate<Container>, Sources<Container> {}
@@ -55,8 +56,9 @@ function updateValue<Container>({
     modifier = (v) => v,
     onUpdate = () => void 0,
     value,
+    acceptEmpty,
 }: WithValue<Container, string | Event>) {
-    if (value) {
+    if (value || acceptEmpty) {
         if (value instanceof Event) {
             const target = value.target as HTMLInputElement;
             let targetValue: string;
@@ -75,7 +77,7 @@ function updateValue<Container>({
                 targetValue = "";
             }
 
-            if (isCheckbox || targetValue) {
+            if (isCheckbox || targetValue || acceptEmpty) {
                 applyModifier<Container>({
                     obj,
                     localObj,
@@ -100,7 +102,13 @@ export function applyUpdater<Container>({ obj, localObj }: Sources<Container>) {
 }
 
 export function getUpdateFn<Container>({ obj, localObj }: Sources<Container>) {
-    return ({ key, modifier = (v) => v, onUpdate = () => void 0, debounced }: UpdateValue<Container>): UpdateFn => {
+    return ({
+        key,
+        modifier = (v) => v,
+        onUpdate = () => void 0,
+        debounced,
+        acceptEmpty,
+    }: UpdateValue<Container>): UpdateFn => {
         if (obj) {
             if (debounced) {
                 return debounce(
@@ -112,12 +120,14 @@ export function getUpdateFn<Container>({ obj, localObj }: Sources<Container>) {
                             modifier,
                             onUpdate,
                             value,
+                            acceptEmpty,
                         }),
                     debounced,
                 );
             }
 
-            return (value: string | Event) => updateValue({ obj, localObj, key, modifier, onUpdate, value });
+            return (value: string | Event) =>
+                updateValue({ obj, localObj, key, modifier, onUpdate, value, acceptEmpty });
         } else {
             console.error("No object to update");
 

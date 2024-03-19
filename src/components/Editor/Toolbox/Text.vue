@@ -31,6 +31,7 @@ const updateTextSize = updateText({
 const updateMessage = updateText({
     key: "message",
     debounced: 100,
+    acceptEmpty: true,
 });
 
 const updatePadding = updateText({
