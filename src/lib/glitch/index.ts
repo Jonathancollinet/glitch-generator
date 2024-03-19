@@ -44,7 +44,6 @@ export default class Glitch {
             if (isClient() && (forceRangeCompute || !this.config.preventRangesCompute)) {
                 this.keyframes.generate(this.config);
             }
-
             if (this.canUseAnimation() && this.isPlayState("idle")) {
                 this.keyframes.animation?.play();
             }
@@ -148,7 +147,6 @@ export default class Glitch {
             animationStyle.animationIterationCount = "infinite";
             animationStyle.animationPlayState = "running";
         }
-
         if (forExport) {
             containerStyle.display = "flex";
             containerStyle.alignItems = "center";

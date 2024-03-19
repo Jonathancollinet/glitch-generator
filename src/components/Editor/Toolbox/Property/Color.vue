@@ -70,7 +70,6 @@ watch(
         if (updateHex) {
             updateHex(newVal.hex || RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase());
         }
-
         if (isNotFalsy(updateAlphaPercent)) {
             updateAlphaPercent(Math.round(newVal.a * 100).toString());
         }

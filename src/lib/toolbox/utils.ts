@@ -43,7 +43,6 @@ function applyModifier<Container>({
     if (localObj && modifiedValue !== undefined && modifiedValue !== null && !Number.isNaN(modifiedValue)) {
         localObj[key] = modifiedValue;
     }
-
     if (onUpdate) {
         onUpdate(obj);
     }

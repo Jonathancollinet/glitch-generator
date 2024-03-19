@@ -71,7 +71,6 @@ export function getFieldsToUpdate(ranges: G.Field[][], newField: G.Field) {
     if (previousField) {
         batch.splice(0, 0, previousField);
     }
-
     if (nextField) {
         batch.push(nextField);
     }
@@ -127,7 +126,6 @@ export function removeField(ranges: G.Field[][], field: G.Field) {
 
         return;
     }
-
     if (index < fieldNb - 1) {
         const length = fieldNb - 1 - index;
 
@@ -135,7 +133,6 @@ export function removeField(ranges: G.Field[][], field: G.Field) {
             range[index + i].index -= 1;
         }
     }
-
     if (index === 0 && fieldNb > 1) {
         range[1].offsetFrame = 0;
     }

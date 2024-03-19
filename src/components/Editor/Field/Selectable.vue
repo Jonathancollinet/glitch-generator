@@ -83,7 +83,6 @@ function getStyle() {
     if (textShadowEnabled) {
         getAttrs(style[G.PropertyName.TextShadow], textShadow, 16, nextTextShadow);
     }
-
     if (boxShadowEnabled) {
         getAttrs(style[G.PropertyName.BoxShadow], boxShadow, 8, nextBoxShadow);
     }

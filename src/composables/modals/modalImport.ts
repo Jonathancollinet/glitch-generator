@@ -44,7 +44,6 @@ export const useModalImport = (glitch: Glitch, action: (name: string, config?: P
                         if (errorsKeys.findIndex((key) => key.includes("text")) !== -1) {
                             importKeyframesErrors.textStyle = "errors.import.textStyle";
                         }
-
                         if (errorsKeys.findIndex((key) => key.includes("ranges")) !== -1) {
                             importKeyframesErrors.keyframes = "errors.import.keyframes";
                         }

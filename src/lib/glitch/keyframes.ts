@@ -75,7 +75,6 @@ export default class GlitchKeyframes {
                     });
                 }
             }
-
             if (Object.keys(keyframe).length) {
                 keyframe.offset = Number(percent) / 100;
                 keyframes.push(keyframe);
@@ -121,7 +120,6 @@ export default class GlitchKeyframes {
                     block += `;${newLine}`;
                 }
             }
-
             if (block) {
                 if (!percentText) {
                     percentText += `${tab}${percent}%`;
@@ -134,7 +132,6 @@ export default class GlitchKeyframes {
                 if (!previousBlock && block) {
                     previousBlock = block;
                 }
-
                 if (block && block !== previousBlock) {
                     keyframes += `${percentText} {${newLine}${previousBlock}${tab}}${newLine}`;
                     previousBlock = block;
@@ -242,7 +239,6 @@ export default class GlitchKeyframes {
         if (!frame) {
             return;
         }
-
         if (frame && !frame[propertyName]) {
             return;
         }
@@ -258,7 +254,6 @@ export default class GlitchKeyframes {
         if (propertyFrames.length === 0) {
             delete frame[propertyName];
         }
-
         if (Object.keys(frame).length === 0) {
             delete this.generatedFrames[percent];
         }
@@ -273,7 +268,6 @@ export default class GlitchKeyframes {
             if (!frame) {
                 frame = {};
             }
-
             if (!frame[propertyName]) {
                 frame[propertyName] = [];
             }

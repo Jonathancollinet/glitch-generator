@@ -41,7 +41,6 @@ onMounted(() => {
     if (moveContainer.value) {
         currentWidth.value = moveContainer.value.clientWidth;
     }
-
     if (isClient()) {
         window.addEventListener("resize", adaptCurrentWidth);
     }
