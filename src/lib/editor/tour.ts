@@ -10,5 +10,5 @@ export function isTourDone() {
 
 export function redirectHelp() {
     setTourDone();
-    useRouter().push(Urls.Help);
+    navigateTo(Urls.Help);
 }

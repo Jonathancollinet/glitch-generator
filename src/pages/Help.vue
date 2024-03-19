@@ -8,11 +8,11 @@ definePageMeta({
     redirect: "/help/tool",
 });
 
-const router = useRouter();
+const route = useRoute();
 const activeChapter = shallowRef<Chapter>(getActiveChapter());
 
 function getActiveChapter() {
-    const chapter = chapters.find((chapter) => router.currentRoute.value.fullPath.includes(chapter.name));
+    const chapter = chapters.find((chapter) => route.fullPath.includes(chapter.name));
     return chapter || chapters[0];
 }
 
@@ -21,7 +21,7 @@ function changeChapter(chapterName: HelpChapter) {
 
     if (chapter) {
         activeChapter.value = chapter;
-        router.push(`${Urls.Help}/${activeChapter.value.name}`);
+        navigateTo(`${Urls.Help}/${activeChapter.value.name}`);
     }
 }
 
@@ -59,7 +59,7 @@ const nextChapter = computed(() => {
                 @active-chapter="changeChapter"
             />
         </div>
-        <div :id="activeChapter.name" class="mb-12 space-y-8">
+        <div class="mb-12 space-y-8">
             <NuxtPage />
         </div>
         <div class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 md:w-full">

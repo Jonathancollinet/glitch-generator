@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 function goTo() {
-    useRouter().push(props.url);
+    navigateTo(props.url);
 }
 
 const cardClasses: ClassValue[] = [
