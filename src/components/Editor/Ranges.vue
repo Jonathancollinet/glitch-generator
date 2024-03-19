@@ -86,10 +86,15 @@ function selectField(field: G.Field) {
                 <div
                     v-for="(range, index) in config.ranges"
                     :key="index"
-                    class="relative top-0 mb-2 flex w-full items-center pl-[12px] last:mb-0"
+                    class="relative top-0 mb-2 flex w-full items-center justify-center pl-[12px] last:mb-0"
                     :style="{ height: rangeHeight + 'px' }"
                 >
-                    <EditorRangeOptions :range-index="index" :config="config" v-on="onRangeOptions" />
+                    <EditorRangeOptions
+                        class="flex items-center"
+                        :range-index="index"
+                        :config="config"
+                        v-on="onRangeOptions"
+                    />
                 </div>
             </div>
         </div>
