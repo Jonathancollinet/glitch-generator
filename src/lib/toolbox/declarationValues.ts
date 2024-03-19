@@ -16,11 +16,11 @@ function getTextShadowValues(value: string) {
 function getBoxShadowValues(value: string) {
     const shadow = getShadowValues(value);
     const props = shadow.props as G.Declarations.BoxShadow;
-    const sizes = shadow.sizes;
+    const shadowValues = shadow.shadowValues;
 
-    if (sizes) {
-        if (sizes.length === 4) {
-            props.spread = +sizes[3].replace(/px/gim, "");
+    if (shadowValues) {
+        if (shadowValues.length === 4) {
+            props.spread = +shadowValues[3].replace(/px/gim, "");
         }
     }
 
@@ -29,22 +29,24 @@ function getBoxShadowValues(value: string) {
 
 function getShadowValues(value: string) {
     const props: Partial<G.Declarations.Shadow> = {};
-    const sizes = value.match(/([-]?\d+px)/gim);
+    const shadowValues = value.match(/([+-]?\d+(\.\d+)?px)/gim);
 
     props.color = getGlitchColorFrom(value);
 
-    if (sizes) {
-        props.offsetX = +sizes[0].replace(/px/gim, "");
-        props.offsetY = +sizes[1].replace(/px/gim, "");
+    if (shadowValues) {
+        props.offsetX = +shadowValues[0].replace(/px/gim, "");
+        props.offsetY = +shadowValues[1].replace(/px/gim, "");
 
-        if (sizes.length === 3) {
-            props.blur = +sizes[2].replace(/px/gim, "");
+        if (shadowValues.length === 3) {
+            props.blur = +shadowValues[2].replace(/px/gim, "");
+        } else {
+            props.blur = 0;
         }
     }
 
     return {
         props: props as G.Declarations.Shadow,
-        sizes,
+        shadowValues,
     };
 }
 
