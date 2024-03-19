@@ -20,7 +20,7 @@ function getBoxShadowData(property: G.Declarations.BoxShadow) {
     return `${positions} ${spread}px ${color}`;
 }
 
-function getShadowPositions(property: G.Declarations.Shadow) {
+export function getShadowPositions(property: G.Declarations.Shadow) {
     const offsetX = property.offsetX;
     const offsetY = property.offsetY;
     const blur = property.blur;

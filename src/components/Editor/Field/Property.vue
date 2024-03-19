@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { getShadowPositions } from "~/lib/glitch/propertitesData";
 import G from "~/lib/glitch/types";
 
 const props = defineProps<{
@@ -14,7 +15,7 @@ const formatProperty = computed(() => {
     const shadow = property.value;
 
     if (shadow) {
-        let values = `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px`;
+        let values = getShadowPositions(shadow);
 
         if (shadow.spread) {
             values += ` ${shadow.spread}px`;
