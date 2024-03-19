@@ -51,6 +51,10 @@ function getColorFor(property: G.Shadow, nextProperty?: G.Shadow) {
         return `linear-gradient(to right, ${rgb} ${lastColorPercent}%, ${nextRgb})`;
     }
 
+    if (!nextColor && !property.fillAllFrames) {
+        return `linear-gradient(to right, ${rgb}, transparent)`;
+    }
+
     return rgb;
 }
 
