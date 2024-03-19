@@ -48,6 +48,10 @@ export const useModalImport = (glitch: Glitch, action: (name: string, config?: P
                         if (errorsKeys.findIndex((key) => key.includes("ranges")) !== -1) {
                             importKeyframesErrors.keyframes = "errors.import.keyframes";
                         }
+
+                        importModal.patchOptions({
+                            attrs: { errors: { ...importKeyframesErrors } },
+                        });
                     }
                 }
             },
