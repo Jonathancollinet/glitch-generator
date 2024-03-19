@@ -42,9 +42,6 @@ export default class GlitchKeyframes {
 
     setGlitchedElement(element: HTMLElement) {
         this.glitchedElement = element;
-        if (this.animation?.effect) {
-            (this.animation.effect as KeyframeEffect).target = element;
-        }
     }
 
     generateAnimation(config: G.Config) {
@@ -55,17 +52,14 @@ export default class GlitchKeyframes {
         }
     }
 
-    getKeyframesEffect() {
-        const effect: Keyframe[] = [];
-
-        for (const percent in this.generatedFrames) {
-            const frame = this.generatedFrames[percent];
+    getKeyframesEffect(generatedFrames: GeneratedFrames = this.generatedFrames, keyframes: Keyframe[] = []) {
+        for (const percent in generatedFrames) {
+            const frame = generatedFrames[percent];
             const keyframe: Keyframe = {};
             let propertyName: G.PropertyName;
 
             for (propertyName in frame) {
-                const frameProperty = frame[propertyName];
-                const filteredProperty = frameProperty?.filter((frame) => frame);
+                const filteredProperty = frame[propertyName]?.filter((frame) => frame);
 
                 if (filteredProperty?.length) {
                     filteredProperty.forEach((frame) => {
@@ -84,11 +78,11 @@ export default class GlitchKeyframes {
 
             if (Object.keys(keyframe).length) {
                 keyframe.offset = Number(percent) / 100;
-                effect.push(keyframe);
+                keyframes.push(keyframe);
             }
         }
 
-        return effect;
+        return keyframes;
     }
 
     getKeyframesString(formatted: boolean = false) {
@@ -203,45 +197,71 @@ export default class GlitchKeyframes {
             const nextPercent = nextField?.offsetFrame ?? 101;
 
             if (fieldProperty) {
-                if (fieldProperty.fillAllFrames) {
-                    const length = nextPercent - field.offsetFrame;
-
-                    for (let i = 0; i < length; ++i) {
-                        const percent = field.offsetFrame + i;
-
-                        if (fieldProperty.enabled) {
-                            this.setFrame(propertyName, field, percent);
-                        } else {
-                            this.setEmptyFrame(percent, propertyName, field.range);
-                        }
+                if (fieldProperty.enabled) {
+                    if (fieldProperty.fillAllFrames) {
+                        this.forAllFieldFrames(propertyName, field, nextPercent, (index: number) => {
+                            this.setFrame(propertyName, field, field.offsetFrame + index);
+                        });
+                    } else {
+                        this.emptyFieldFrames(propertyName, field, nextPercent);
+                        this.setFrame(propertyName, field, field.offsetFrame);
                     }
                 } else {
-                    for (let i = field.offsetFrame; i < nextPercent; ++i) {
-                        this.setEmptyFrame(i, propertyName, field.range);
-                    }
-                    if (fieldProperty.enabled) {
-                        this.setFrame(propertyName, field, field.offsetFrame);
+                    if (fieldProperty.fillAllFrames) {
+                        this.emptyFieldFrames(propertyName, field, nextPercent);
                     } else {
-                        this.setEmptyFrame(field.offsetFrame, propertyName, field.range);
+                        this.setEmptyFrame(propertyName, field.range, field.offsetFrame);
                     }
                 }
             }
         }
     }
 
-    private setEmptyFrame(percent: number, propertyName: G.PropertyName, range: number) {
-        let frame = this.generatedFrames[percent];
+    private emptyFieldFrames(propertyName: G.PropertyName, field: G.Field, nextPercent: number) {
+        this.forAllFieldFrames(propertyName, field, nextPercent, (index: number) => {
+            this.setEmptyFrame(propertyName, field.range, field.offsetFrame + index);
+        });
+    }
+
+    private forAllFieldFrames(
+        propertyName: G.PropertyName,
+        field: G.Field,
+        nextPercent: number,
+        callback: (index: number) => void,
+    ) {
+        const length = nextPercent - field.offsetFrame;
+
+        for (let i = 0; i < length; ++i) {
+            callback(i);
+        }
+    }
+
+    private setEmptyFrame(propertyName: G.PropertyName, range: number, percent: number) {
+        const frame = this.generatedFrames[percent];
 
         if (!frame) {
-            frame = {};
+            return;
         }
 
-        if (!frame[propertyName]) {
-            frame[propertyName] = [];
+        if (frame && !frame[propertyName]) {
+            return;
         }
 
-        (<string[]>frame[propertyName])[range] = "";
-        this.generatedFrames[percent] = frame;
+        const propertyFrames = frame[propertyName] as string[];
+
+        if (!propertyFrames[range]) {
+            return;
+        }
+
+        delete propertyFrames[range];
+
+        if (propertyFrames.length === 0) {
+            delete frame[propertyName];
+        }
+
+        if (Object.keys(frame).length === 0) {
+            delete this.generatedFrames[percent];
+        }
     }
 
     private setFrame(propertyName: G.PropertyName, field: G.Field, percent: number) {
@@ -258,7 +278,7 @@ export default class GlitchKeyframes {
                 frame[propertyName] = [];
             }
 
-            (<string[]>frame[propertyName])[field.range] = getPropertyData[propertyName](property);
+            (frame[propertyName] as string[])[field.range] = getPropertyData[propertyName](property);
             this.generatedFrames[percent] = frame;
         }
     }
