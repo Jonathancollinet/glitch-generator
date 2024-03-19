@@ -120,6 +120,7 @@ export default class GlitchKeyframes {
                     block += `;${newLine}`;
                 }
             }
+
             if (block) {
                 if (!percentText) {
                     percentText += `${tab}${percent}%`;
