@@ -4,8 +4,7 @@ import { version } from "~/utils/constants";
 <template>
     <div class="flex justify-center pb-6 pt-12">
         <UiText data-size="xs">
-            <!-- {{ $t("footer.text") }} {{ version }} - -->
-            {{ $t("footer.text") }} -
+            {{ $t("footer.text") }} {{ version }} -
             {{ $t("footer.inspiration") }}
         </UiText>
         <UiText data-size="xs">
