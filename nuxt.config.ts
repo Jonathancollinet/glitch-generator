@@ -1,7 +1,4 @@
-import git from "git-rev-sync";
-
 const isProduction = process.env.NODE_ENV === "production";
-const version = git.tag();
 
 export default defineNuxtConfig({
     sourcemap: !isProduction,
@@ -13,18 +10,12 @@ export default defineNuxtConfig({
             include: ["~/types/*.d.ts"],
         },
     },
-    vite: {
-        define: {
-            "process.env.PACKAGE_VERSION": JSON.stringify(version),
-        },
-    },
     modules: [
         "@nuxtjs/tailwindcss",
         "@nuxtjs/i18n",
         "@nuxt/test-utils/module",
         "@nuxtjs/color-mode",
-        "@nuxtjs/google-fonts",
-        "@nuxtjs/eslint-module",
+        "@nuxtjs/google-fonts"
     ],
     build: {
         transpile: ["vue-debounce"],
