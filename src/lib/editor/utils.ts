@@ -93,6 +93,7 @@ export function removeRange(ranges: G.Field[][], rangeIndex: number) {
     if (copy.length === 0) {
         copy.push([getDefaultField(0, 0, 0)]);
     }
+
     copyRanges(ranges, copy);
 }
 
@@ -254,11 +255,7 @@ export function setAllColors(config: G.Config) {
 }
 
 function copyRanges(ranges: G.Field[][], rangesToCopy: G.Field[][]) {
-    if (rangesToCopy.length === 0) {
-        ranges.length = 0;
-
-        return;
-    }
+    ranges.length = rangesToCopy.length;
     rangesToCopy.forEach((range, index) => {
         ranges[index] = range;
     });
