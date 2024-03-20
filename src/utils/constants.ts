@@ -39,6 +39,9 @@ export const chapters: Chapter[] = [
     {
         name: HelpChapter.Presets,
     },
+    {
+        name: HelpChapter.Tricks,
+    },
 ];
 
 export const allColors: any[] = [];

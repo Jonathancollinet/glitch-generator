@@ -48,4 +48,5 @@ export enum HelpChapter {
     Export = "export",
     Import = "import",
     Presets = "presets",
+    Tricks = "tricks",
 }

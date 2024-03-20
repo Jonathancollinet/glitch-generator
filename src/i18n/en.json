@@ -25,7 +25,8 @@
                 "keyframes": "Keyframes",
                 "export": "Export",
                 "import": "Import",
-                "presets": "Presets"
+                "presets": "Presets",
+                "tricks": "Tricks"
             },
             "tool": {
                 "title": "The tool",
@@ -96,6 +97,17 @@
                 "autosave": "The tool will automatically save your custom presets in your browser's local storage.",
                 "noSaveOnBuiltins": "You can't save built-in presets. If you want to modify them, you have to create a custom preset from the wanted built-in.",
                 "presetOfPreset": "You can also create a custom preset from another custom preset."
+            },
+            "tricks": {
+                "title": "Tricks",
+                "symetric": {
+                    "title": "Create a symetric range",
+                    "description": "To create a symetric range, you can duplicate a range and reverse his positions in the range's option."
+                },
+                "jump": {
+                    "title": "Make a jump between two fields",
+                    "description": "To create a jump between two fields, you can insert a third field between and disable every properties. Be careful, this works only if there are no other fields at the same position in other ranges."
+                }
             }
         },
         "home": {
