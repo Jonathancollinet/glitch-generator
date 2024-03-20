@@ -112,7 +112,7 @@
         },
         "home": {
             "seo": {
-                "title": "Glitch Generator - Home"
+                "title": "Glitch Generator"
             },
             "title": "Glitch Generator",
             "description": "Visual tool focused on the text-shadow & box-shadow CSS properties.",
