@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import { CheckVariants, CheckboxVariants, type CheckboxVariantsProps } from "~/ui/Checkbox";
+import { CheckVariants, CheckboxVariants } from "~/ui/Checkbox";
 import { Icons } from "~/types/enums";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];
-    variant?: CheckboxVariantsProps["variant"];
     label: string;
     error?: string;
     name: string;
@@ -17,12 +16,7 @@ const checkbox = ref<HTMLInputElement | null>(null);
 </script>
 
 <template>
-    <UiFormGroup
-        :class="cn(CheckboxVariants({ variant }), props.class ?? '')"
-        :label="label"
-        :error="error"
-        :name="name"
-    >
+    <UiFormGroup :class="cn(CheckboxVariants(), props.class ?? '')" :label="label" :error="error" :name="name">
         <template #before>
             <div v-if="checkbox" class="h-4 w-4 border bg-neutral-50" @click="checkbox.click()">
                 <div v-if="checked" :class="cn(CheckVariants())">

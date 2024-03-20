@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { ClassValue } from "class-variance-authority/types";
+import type { HTMLAttributes } from "vue";
 import G from "~/lib/glitch/types";
 import { Icons } from "~/types/enums";
 
@@ -8,6 +9,7 @@ type Style = { [key in G.PropertyName]: StyleAttrs };
 
 const props = withDefaults(
     defineProps<{
+        class?: HTMLAttributes["class"];
         textFontSize: number;
         field: G.Field;
         nextField?: G.Field;
@@ -16,6 +18,7 @@ const props = withDefaults(
         draggingFieldIndex: number;
     }>(),
     {
+        class: "",
         width: "100%",
         nextField: undefined,
     },
@@ -163,7 +166,7 @@ watch(
 <template>
     <div
         :draggable="true"
-        :class="cn(fieldClass, $attrs.class ?? '')"
+        :class="cn(fieldClass, props.class)"
         :style="fieldStyle"
         @mouseenter="displayProperties"
         @dragstart="dragStart"

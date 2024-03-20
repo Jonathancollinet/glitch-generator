@@ -12,7 +12,7 @@ const cursorStyle = computed(() => {
 
 <template>
     <div
-        class="pointer-events-none absolute top-0 z-20 h-full w-[2px] bg-neutral-50 mix-blend-exclusion will-change-auto"
+        class="pointer-events-none absolute top-0 z-20 h-full w-[2px] bg-neutral-50 mix-blend-exclusion"
         :style="cursorStyle"
     />
 </template>

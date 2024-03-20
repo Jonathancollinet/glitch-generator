@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import { SelectVariants, type SelectVariantsProps } from "~/ui/Select";
+import { SelectVariants } from "~/ui/Select";
 
 type Option = string | number | { [key: string]: any };
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];
-    variant?: SelectVariantsProps["variant"];
-    size?: SelectVariantsProps["size"];
     options: Array<Option>;
     labelKey?: string;
     valueKey?: string;
@@ -41,7 +39,7 @@ const optionValue = (option: Option) => {
 </script>
 
 <template>
-    <select v-model="value" :class="cn(SelectVariants({ variant, size }), props.class ?? '')" @change="onChange">
+    <select v-model="value" :class="cn(SelectVariants(), props.class ?? '')" @change="onChange">
         <option
             v-for="(option, index) in props.options"
             :key="index"

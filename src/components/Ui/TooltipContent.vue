@@ -1,16 +1,14 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import { TooltipContentVariants, type TooltipContentVariantsProps } from "~/ui/TooltipContent";
+import { TooltipContentVariants } from "~/ui/TooltipContent";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];
-    variant?: TooltipContentVariantsProps["variant"];
-    size?: TooltipContentVariantsProps["size"];
 }>();
 </script>
 
 <template>
-    <div :class="cn(TooltipContentVariants({ variant, size }), props.class ?? '')">
+    <div :class="cn(TooltipContentVariants(), props.class ?? '')">
         <slot />
     </div>
 </template>

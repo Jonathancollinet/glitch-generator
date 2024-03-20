@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
 import { VueFinalModal } from "vue-final-modal";
-import { ContentVariants, ModalVariants, type ModalVariantsProps } from "~/ui/Modal";
+import { ContentVariants, ModalVariants } from "~/ui/Modal";
 
 const props = withDefaults(
     defineProps<{
         class?: HTMLAttributes["class"];
-        variant?: ModalVariantsProps["variant"];
-        size?: ModalVariantsProps["size"];
         title?: string;
         contentClass?: string;
         overlayTransition?: string;
@@ -39,7 +37,7 @@ function onClose() {
 
 <template>
     <VueFinalModal
-        :class="cn(ModalVariants({ variant, size }), props.class)"
+        :class="cn(ModalVariants(), props.class)"
         :content-class="cn(ContentVariants(), props.contentClass)"
         :click-to-close="clickToClose"
         :esc-to-close="escToClose"

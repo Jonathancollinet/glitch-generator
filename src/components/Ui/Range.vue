@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import { RangeVariants, type RangeVariantsProps } from "~/ui/Range";
+import { RangeVariants } from "~/ui/Range";
 import type { UpdateFn } from "~/lib/toolbox/utils";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];
-    variant?: RangeVariantsProps["variant"];
     min: string | number;
     max: string | number;
     step?: string | number;
@@ -16,7 +15,7 @@ const props = defineProps<{
 
 <template>
     <input
-        :class="cn(RangeVariants({ variant }), props.class ?? '')"
+        :class="cn(RangeVariants(), props.class ?? '')"
         type="range"
         :step="step"
         :min="min"

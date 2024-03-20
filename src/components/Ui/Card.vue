@@ -1,14 +1,12 @@
 <script lang="ts" setup>
 import type { ClassValue } from "class-variance-authority/types";
 import type { HTMLAttributes } from "vue";
-import { CardVariants, type CardVariantsProps } from "~/ui/Card";
+import { CardVariants } from "~/ui/Card";
 import { Icons } from "~/types/enums";
 
 const props = withDefaults(
     defineProps<{
         class?: HTMLAttributes["class"];
-        variant?: CardVariantsProps["variant"];
-        size?: CardVariantsProps["size"];
         openable?: boolean;
         isOpen?: boolean;
         contentClasses?: ClassValue;
@@ -39,7 +37,7 @@ const contentClass = computed(() => [
 </script>
 
 <template>
-    <div :class="cn(CardVariants({ variant, size }), props.class)">
+    <div :class="cn(CardVariants(), props.class)">
         <div v-if="$slots.title" :class="cn(titleClass)">
             <template v-if="!openable">
                 <slot name="title" />
