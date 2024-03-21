@@ -20,7 +20,7 @@ bun dev
 
 ## Build
 ```
-bun generate
+bun run build
 ```
 
 ## Preview
