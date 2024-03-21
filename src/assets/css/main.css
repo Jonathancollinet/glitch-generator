@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.fade-enter-active,
-.fade-leave-active {
-    transition-duration: 200ms;
-    transition-property: opacity;
-    transition-timing-function: ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0
-}
-
 @layer base {
     html {
         font-family: 'Space Grotesk', Arial, sans-serif;
@@ -43,13 +31,20 @@
         font-family: 'Fira Code', monospace;
         @apply text-sm p-2;
     }
+}
 
-    input[type=number],
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]:hover,
-    input[type=number]::-webkit-inner-spin-button:hover,
-    input[type=number]::-webkit-outer-spin-button:hover {
-        @apply appearance-none;
-    }
+.fade-enter-active,
+.fade-leave-active {
+    transition-duration: 200ms;
+    transition-property: opacity;
+    transition-timing-function: ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0
+}
+
+.vc-sketch-field .vc-input__input {
+    @apply border-2 bg-primary-200 placeholder-neutral-500 dark:bg-neutral-700;
 }
