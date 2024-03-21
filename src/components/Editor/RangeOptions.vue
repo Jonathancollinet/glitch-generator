@@ -54,7 +54,7 @@ function reverseColors(rangeIndex: number) {
     >
         <UiTooltipContent
             v-if="showRangeOptions[rangeIndex]"
-            class="-translate-x-[calc(100%+24px)] whitespace-nowrap *:justify-start"
+            class="top-0 -translate-x-full whitespace-nowrap *:justify-start"
         >
             <UiButton variant="link" size="link" @click="duplicateRange(rangeIndex)">
                 {{ $t("pages.editor.config.ranges.actions.duplicate") }}
