@@ -2,6 +2,7 @@ import G from "./types";
 import GlitchValidator from "./validator";
 import GlitchKeyframes from "./keyframes";
 import GlitchController from "./controller";
+import { formatJSON } from "~/utils";
 
 export default class Glitch {
     private config: G.Config;
@@ -39,7 +40,6 @@ export default class Glitch {
 
         if (success) {
             this.config = this.getConfigCopy(newConfig);
-            const bindings = this.getTextBindings();
 
             if (isClient() && (forceRangeCompute || !this.config.preventRangesCompute)) {
                 this.keyframes.generate(this.config);
@@ -50,7 +50,7 @@ export default class Glitch {
 
             return {
                 config: this.config,
-                bindings,
+                bindings: this.getTextBindings(),
             };
         }
     }
@@ -74,7 +74,7 @@ export default class Glitch {
         return {
             css: `${this.getTextClassText()}\n\n${this.getKeyframesString()}`,
             js: this.getAnimationText(),
-            config: this.formatJSON({
+            config: formatJSON({
                 text: this.config.text,
                 animation: this.config.animation,
                 ranges: this.config.ranges,
@@ -120,7 +120,6 @@ export default class Glitch {
         const functions = {
             onValidated: rawConfig.onValidated,
         };
-
         const _config: G.Config = deepCopy(rawConfig);
 
         _config.onValidated = functions.onValidated;
@@ -181,7 +180,7 @@ export default class Glitch {
 
     private getAnimationText() {
         return `const target = document.querySelector('.my-text-element');
-const effect = ${this.formatJSON(this.keyframes.getKeyframesEffect())};
+const effect = ${formatJSON(this.keyframes.getKeyframesEffect())};
 const options = {
     duration: ${this.config.animation.duration},
     iterations: Infinity
@@ -194,9 +193,5 @@ const keyframeEffect = new KeyframeEffect(
 const animation = new Animation(keyframeEffect);
 
 animation.play();`;
-    }
-
-    private formatJSON<Object>(json: Object) {
-        return JSON.stringify(json, null, 2);
     }
 }

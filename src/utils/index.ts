@@ -107,6 +107,10 @@ export function reverseNumber(num: number): number {
     return 0;
 }
 
+export function formatJSON<Object>(json: Object) {
+    return JSON.stringify(json, null, 2);
+}
+
 function padZero(str: string, len: number = 2) {
     return (new Array(len).join("0") + str).slice(-len);
 }
