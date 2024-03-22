@@ -76,7 +76,10 @@ export const useGlitchEditor = (onSavePreset: () => void) => {
         if (glitchedEl.value) {
             glitch.setGlitchedElement(glitchedEl.value);
             computeConfig(true);
-            selectFirstRangeField();
+
+            nextTick(() => {
+                selectFirstRangeField();
+            });
         }
     }
 
