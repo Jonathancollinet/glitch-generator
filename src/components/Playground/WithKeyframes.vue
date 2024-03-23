@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div :key="refresh" class="bg-primary-200 p-4 dark:bg-primary-950">
+    <div :key="refresh" class="border-2 bg-primary-200 p-4 dark:bg-primary-950">
         <PlaygroundFieldOptions
             :key="selectedIndexes"
             :name="name"
