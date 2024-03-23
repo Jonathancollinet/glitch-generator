@@ -8,6 +8,7 @@ export const CheckVariants = cva([
     "h-full",
     "w-full",
     "bg-primary-600",
+    "dark:bg-primary-950",
     "group-hover/fg:bg-primary-500",
-    "group-hover/fg:dark:bg-primary-700",
+    "group-hover/fg:dark:bg-primary-800",
 ]);
