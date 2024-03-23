@@ -5,7 +5,7 @@ export type InputVariantsProps = VariantProps<typeof InputVariants>;
 export const InputVariants = cva(["outline-none", "px-1", "transition-[background-color]"], {
     variants: {
         variant: {
-            default: ["bg-primary-200 placeholder-neutral-500 border-2", "dark:bg-neutral-700"],
+            default: ["bg-primary-50 placeholder-neutral-500 border-2", "dark:bg-neutral-700"],
         },
         alignment: {
             default: "",
