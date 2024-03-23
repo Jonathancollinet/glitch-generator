@@ -12,9 +12,12 @@ function goTo() {
 }
 
 const cardClasses: ClassValue[] = [
+    "border-2",
+    "shadow-[6px_6px_0px_theme(colors.neutral.700)]",
+    "dark:shadow-[6px_6px_0px_theme(colors.neutral.50)]",
     "transition-[background-color]",
     "cursor-pointer",
-    "border-r-2 border-b-2 p-4",
+    "p-4",
     "bg-primary-50",
     "hover:bg-primary-200",
     "dark:bg-primary-950",

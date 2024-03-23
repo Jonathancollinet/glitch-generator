@@ -7,5 +7,5 @@ export const SelectVariants = cva([
     "bg-transparent select-none",
     "border-b-2 border-r-2",
     "dark:ring-primary-50",
-    "py-1",
+    "px-1",
 ]);

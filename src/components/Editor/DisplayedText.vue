@@ -22,7 +22,7 @@ defineExpose({
 </script>
 
 <template>
-    <UiCard no-content-pad class="bg-primary-50 dark:bg-neutral-800">
+    <UiCard no-content-pad class="border-2 bg-primary-50 dark:bg-neutral-800">
         <template #content>
             <div class="relative h-[50vw] min-h-72 md:max-h-[400px] lg:max-h-[500px] xl:max-h-[50vh]">
                 <div class="flex h-full select-none items-center justify-center overflow-hidden">

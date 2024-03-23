@@ -13,13 +13,15 @@ export const ButtonVariants = cva(
         variants: {
             variant: {
                 default: [
+                    "border-2 border-neutral-900",
                     "bg-primary-500 text-neutral-50 *:stroke-neutral-50",
                     "hover:bg-primary-600 active:bg-primary-700",
+                    "dark:border-neutral-50",
                     "dark:bg-primary-700 hover:dark:bg-primary-800 active:dark:bg-primary-900",
                     "disabled:text-primary-700 disabled:bg-primary-200",
                 ],
                 outline: [
-                    "border border-primary-700",
+                    "border-2 border-primary-700",
                     "hover:bg-primary-50 active:bg-primary-100",
                     "disabled:bg-transparent",
 

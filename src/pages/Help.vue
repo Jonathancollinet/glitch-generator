@@ -50,7 +50,7 @@ const nextChapter = computed(() => {
     <div class="mx-auto max-w-[800px]">
         <UiHeading class="mt-0 -translate-x-[11px]">{{ $t("pages.help.title") }}</UiHeading>
         <div class="sticky top-0 z-30 mb-8 bg-primary-100 pt-8 transition-[background-color] dark:bg-neutral-900">
-            <HelpSummary class="border-b-2 pb-4" :chapters="chapters" />
+            <HelpSummary :chapters="chapters" />
         </div>
         <div class="mb-12 space-y-8">
             <NuxtPage />
