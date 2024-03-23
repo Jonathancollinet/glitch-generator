@@ -22,11 +22,11 @@ export const ButtonVariants = cva(
                 ],
                 outline: [
                     "border-2 border-primary-700",
-                    "hover:bg-primary-50 active:bg-primary-100",
+                    "bg-primary-50 hover:bg-primary-100 active:bg-primary-200",
                     "disabled:bg-transparent",
 
-                    "dark:bg-transparent dark:border-primary-300",
-                    "dark:hover:bg-primary-950 dark:active:bg-primary-950",
+                    "dark:border-primary-300",
+                    "dark:bg-primary-950 dark:hover:bg-primary-900 dark:active:bg-primary-800",
                 ],
                 link: ["hover:text-primary-400"],
                 icon: [],
