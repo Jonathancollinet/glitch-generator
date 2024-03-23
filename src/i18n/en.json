@@ -63,7 +63,7 @@
                 "introduceFill": "Not in this case, it's time to introduce the 'fill' option.",
                 "fill": "The 'fill' option is a boolean which indicates if the field should be applied to all the frames of the field area until the next field or range's end.",
                 "fillExemple": "In the previous exemples, all fields had the 'fill' option disabled.",
-                "fillExemple2": "If you take a look at the last ranges image, you can see a gradient from purple to red. This is because the animation will do a transition from the first field to the second field, that is the normal CSS keyframes behavior.",
+                "fillExemple2": "If you take a look at the last ranges image, you can see a gradient from red to purple. This is because the animation will do a transition from the first field to the second field, that is the normal CSS keyframes behavior.",
                 "fillExemple3": "Now we change the second field's color of the second range in yellow:",
                 "fillExemple3result": "Because there are two ranges, it should be there two values, right ?",
                 "fillExemple3resultbis": "Remember, ranges are combinable. So in our exemple, with every fields with 'fill' option disabled, only both first field's range are at exact same position, so we accumulate the values. But it's not the case of the second field's ranges. So we have two values at 50% (from range 1) and 75% (from range 2).",
