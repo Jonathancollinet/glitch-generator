@@ -20,7 +20,7 @@ watch(
 </script>
 
 <template>
-    <div class="sticky top-4 md:space-x-0 md:space-y-4">
+    <div class="md:space-x-0 md:space-y-4">
         <EditorToolboxAnimation
             v-model:config="config.animation"
             v-model:localConfig="localeConfig.animation"
