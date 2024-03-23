@@ -17,7 +17,7 @@ function onClickColorSheme() {
 const headerClass: ClassValue[] = [
     "h-header",
     "transition-[background-color]",
-    "bg-primary-50 dark:bg-primary-950",
+    "bg-primary-50 dark:bg-neutral-800",
     "flex items-center justify-between",
     "px-8 border-b-2 border-neutral-700",
     "dark:border-neutral-50",

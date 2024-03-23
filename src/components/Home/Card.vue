@@ -20,7 +20,7 @@ const cardClasses: ClassValue[] = [
     "p-4",
     "bg-primary-50",
     "hover:bg-primary-200",
-    "dark:bg-primary-950",
+    "dark:bg-neutral-800",
     "hover:dark:bg-primary-900",
 ];
 </script>
