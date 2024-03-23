@@ -1,21 +1,29 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
-import { TextVariants } from "~/ui/Text";
+import { TextVariants, type TextVariantsProps } from "~/ui/Text";
 
 const props = withDefaults(
     defineProps<{
         as?: "div" | "span" | "p" | "label";
         class?: HTMLAttributes["class"];
+        size?: TextVariantsProps["size"];
+        color?: TextVariantsProps["color"];
     }>(),
     {
         as: "p",
         class: "",
+        size: "default",
+        color: "default",
     },
 );
+
+const variant = computed(() => {
+    return props.as as TextVariantsProps["variant"];
+});
 </script>
 
 <template>
-    <component :is="as" :data-tag="as" :class="cn('text', TextVariants(), props.class)">
+    <component :is="as" :class="cn('text', TextVariants({ variant, size, color }), props.class)">
         <slot />
     </component>
 </template>

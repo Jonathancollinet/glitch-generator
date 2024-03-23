@@ -31,20 +31,10 @@ useServerSeoMeta(useTranslatedSeoMeta("home"));
                 />
             </div>
             <div class="my-12 mb-20">
-                <UiText
-                    as="div"
-                    data-size="big"
-                    data-color="black"
-                    class="exemple mb-12 text-center font-bold tracking-widest"
-                >
+                <UiText as="div" size="big" color="black" class="exemple mb-12 text-center font-bold tracking-widest">
                     {{ $t("pages.home.create.result") }}
                 </UiText>
-                <UiText
-                    as="div"
-                    data-size="big"
-                    data-color="black"
-                    class="exemple2 text-center font-bold tracking-widest"
-                >
+                <UiText as="div" size="big" color="black" class="exemple2 text-center font-bold tracking-widest">
                     {{ $t("pages.home.create.result2") }}
                 </UiText>
             </div>

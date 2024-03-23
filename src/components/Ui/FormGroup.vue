@@ -30,16 +30,12 @@ const props = defineProps<{
                     <slot />
                 </div>
             </div>
-            <UiText v-if="error" as="div" data-color="danger" data-size="xs" class="mt-1 italic">{{
-                $t(error)
-            }}</UiText>
+            <UiText v-if="error" as="div" color="danger" size="xs" class="mt-1 italic">{{ $t(error) }}</UiText>
         </template>
         <template v-else>
             <UiText v-if="label" as="label" class="select-none pl-1 first:pl-0" :for="name">{{ $t(label) }}</UiText>
             <slot />
-            <UiText v-if="error" as="div" data-color="danger" data-size="xs" class="mt-1 italic">{{
-                $t(error)
-            }}</UiText>
+            <UiText v-if="error" as="div" color="danger" size="xs" class="mt-1 italic">{{ $t(error) }}</UiText>
         </template>
     </div>
 </template>
