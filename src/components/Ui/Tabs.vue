@@ -19,8 +19,8 @@ function activateTab(key: keyof typeof props.tabs) {
 }
 
 const actionClasses: (key: string | number) => ClassValue[] = (key: string | number) => [
-    "w-full border-b rounded-none",
-    "border-r-0 last:border-r",
+    "w-full border-b-2 rounded-none",
+    "border-r-0 last:border-r-2",
     "hover:bg-primary-100",
     isActive(key) && [
         "bg-primary-400 hover:bg-primary-400 text-primary-50 dark:bg-primary-900 dark:hover:bg-primary-900",
