@@ -10,52 +10,69 @@ export function getHoveredField(range: G.Field[], offset: number) {
 }
 
 export function patchFieldErrors(field: G.Field, errors: Partial<G.Errors>) {
-    const errorKeys = Object.keys(errors);
     const fieldPath = `ranges[${field.range}][${field.index}]`;
-    const fieldErrors = errorKeys.filter((key) => key.includes(fieldPath));
+    const fieldErrors = Object.keys(errors).filter((key) => key.includes(fieldPath));
+    const defaultField = getDefaultField();
 
     fieldErrors.forEach((key) => {
         if (key.includes(G.PropertyName.BoxShadow)) {
             const boxShadow = field.shadows[G.PropertyName.BoxShadow];
 
             if (boxShadow) {
+                const defaultBoxShadow = defaultField.shadows[G.PropertyName.BoxShadow]!;
+                const shadowPath = `${fieldPath}.shadows.${G.PropertyName.BoxShadow}`;
+
                 if (key.includes("color.hex")) {
-                    boxShadow.color.hex = "#000000";
+                    boxShadow.color.hex = defaultBoxShadow.color.hex;
+                    delete errors[`${shadowPath}.color.hex`];
                 }
                 if (key.includes("color.alphaPercent")) {
-                    boxShadow.color.alphaPercent = 100;
+                    boxShadow.color.alphaPercent = defaultBoxShadow.color.alphaPercent;
+                    delete errors[`${shadowPath}.color.alphaPercent`];
                 }
                 if (key.includes("offsetX")) {
-                    boxShadow.offsetX = 0;
+                    boxShadow.offsetX = defaultBoxShadow.offsetX;
+                    delete errors[`${shadowPath}.offsetX`];
                 }
                 if (key.includes("offsetY")) {
-                    boxShadow.offsetY = 0;
+                    boxShadow.offsetY = defaultBoxShadow.offsetY;
+                    delete errors[`${shadowPath}.offsetY`];
                 }
                 if (key.includes("blur")) {
-                    boxShadow.blur = 0;
+                    boxShadow.blur = defaultBoxShadow.blur;
+                    delete errors[`${shadowPath}.blur`];
                 }
                 if (key.includes("spread")) {
-                    boxShadow.spread = 0;
+                    boxShadow.spread = defaultBoxShadow.spread;
+                    delete errors[`${shadowPath}.spread`];
                 }
             }
         } else if (key.includes(G.PropertyName.TextShadow)) {
             const textShadow = field.shadows[G.PropertyName.TextShadow];
 
             if (textShadow) {
+                const defaultTextShadow = defaultField.shadows[G.PropertyName.TextShadow]!;
+                const shadowPath = `${fieldPath}.shadows.${G.PropertyName.TextShadow}`;
+
                 if (key.includes("color.hex")) {
-                    textShadow.color.hex = "#000000";
+                    textShadow.color.hex = defaultTextShadow.color.hex;
+                    delete errors[`${shadowPath}.color.hex`];
                 }
                 if (key.includes("color.alphaPercent")) {
-                    textShadow.color.alphaPercent = 100;
+                    textShadow.color.alphaPercent = defaultTextShadow.color.alphaPercent;
+                    delete errors[`${shadowPath}.color.alphaPercent`];
                 }
                 if (key.includes("offsetX")) {
-                    textShadow.offsetX = 0;
+                    textShadow.offsetX = defaultTextShadow.offsetX;
+                    delete errors[`${shadowPath}.offsetX`];
                 }
                 if (key.includes("offsetY")) {
-                    textShadow.offsetY = 0;
+                    textShadow.offsetY = defaultTextShadow.offsetY;
+                    delete errors[`${shadowPath}.offsetY`];
                 }
                 if (key.includes("blur")) {
-                    textShadow.blur = 0;
+                    textShadow.blur = defaultTextShadow.blur;
+                    delete errors[`${shadowPath}.blur`];
                 }
             }
         }
