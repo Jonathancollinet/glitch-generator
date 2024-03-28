@@ -20,10 +20,6 @@ const emit = defineEmits<{
     insertField: [rangeIndex: number, offset: number];
 }>();
 
-const { t } = useI18n();
-
-const addEmptyRangeText = t("pages.editor.ranges.addEmptyRange");
-
 const onRangeOptions = {
     removeRange,
     duplicateRange,
@@ -103,8 +99,8 @@ function selectField(field: G.Field) {
             </div>
         </div>
         <div class="flex space-x-2">
-            <UiButton v-tooltip="addEmptyRangeText" variant="link" size="link" @click="addEmptyRange">
-                <UiIcon :icon="Icons.Add" />
+            <UiButton variant="link" size="link" @click="addEmptyRange">
+                <UiIcon v-tooltip="$t('pages.editor.config.ranges.actions.addEmptyRange')" :icon="Icons.Add" />
             </UiButton>
         </div>
     </div>
