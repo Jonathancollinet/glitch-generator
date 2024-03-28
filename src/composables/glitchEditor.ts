@@ -26,10 +26,6 @@ export const useGlitchEditor = (onSavePreset: () => void) => {
         return !errors.value["animation.duration"];
     });
 
-    const currentFieldKey = computed(() => {
-        return `${currentPreset.value?.id}-${selectedField.value?.range}-${selectedField.value?.index}`;
-    });
-
     const isCustomPreset = computed(() => {
         const preset = currentPreset.value;
 
@@ -296,7 +292,6 @@ export const useGlitchEditor = (onSavePreset: () => void) => {
         bindings,
         glitch,
         hasValidDuration,
-        currentFieldKey,
         presetChanged,
         initConfig,
         removeField,

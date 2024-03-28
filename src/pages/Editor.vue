@@ -15,7 +15,6 @@ const {
     glitch,
     hasValidDuration,
     selectedField,
-    currentFieldKey,
 
     onRangesEvents,
     onToolboxEvents,
