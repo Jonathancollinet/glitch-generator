@@ -96,7 +96,7 @@ function selectField(field: G.Field) {
                     <EditorRangeOptions
                         class="flex items-center"
                         :range-index="index"
-                        :config="config"
+                        :nb-ranges="config.ranges.length"
                         v-on="onRangeOptions"
                     />
                 </div>

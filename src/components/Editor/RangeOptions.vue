@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import G from "~/lib/glitch/types";
-
 const props = defineProps<{
     rangeIndex: number;
-    config: G.Config;
+    nbRanges: number;
 }>();
 
 const emit = defineEmits<{
@@ -13,10 +11,10 @@ const emit = defineEmits<{
     reverseColors: [rangeIndex: number];
 }>();
 
-const showRangeOptions = ref<boolean[]>(new Array(props.config.ranges.length).fill(false));
+const showRangeOptions = ref<boolean[]>(new Array(props.nbRanges).fill(false));
 
 function resetRangeOptions() {
-    showRangeOptions.value = new Array(props.config.ranges.length).fill(false);
+    showRangeOptions.value = new Array(props.nbRanges).fill(false);
 }
 
 function displayRangeOptions(index: number) {
