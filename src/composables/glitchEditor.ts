@@ -227,12 +227,10 @@ export const useGlitchEditor = () => {
     }
 
     function savePreset() {
-        nextTick(() => {
-            if (currentPreset.value && isCustomPreset.value) {
-                currentPreset.value.config = getPresetConfig(gconfig.value);
-                updatePreset(currentPreset.value);
-            }
-        });
+        if (currentPreset.value && isCustomPreset.value) {
+            currentPreset.value.config = getPresetConfig(gconfig.value);
+            updatePreset(currentPreset.value);
+        }
     }
 
     function onAnimationUpdate() {
