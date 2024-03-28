@@ -68,9 +68,9 @@ export const useGlitchEditor = () => {
     async function initConfig(el?: HTMLElement | null) {
         if (el) {
             glitchedEl.value = el;
+            glitch.setGlitchedElement(glitchedEl.value);
         }
         if (glitchedEl.value) {
-            glitch.setGlitchedElement(glitchedEl.value);
             computeConfig(true);
 
             nextTick(() => {
