@@ -17,40 +17,52 @@ const textPaddingError = computed(() => getErrorMessage(props.errors, "text.padd
 const textBorderRadiusError = computed(() => getErrorMessage(props.errors, "text.borderRadius"));
 const textHeightError = computed(() => getErrorMessage(props.errors, "text.height"));
 
-const updateText = applyUpdater<G.BaseText>({
-    obj: config.value,
-    localObj: localConfig.value,
-});
+const updateText = computed(() =>
+    applyUpdater<G.BaseText>({
+        obj: config.value,
+        localObj: localConfig.value,
+    }),
+);
 
-const updateTextSize = updateText({
-    key: "size",
-    modifier: Number,
-    debounced: 100,
-});
+const updateTextSize = computed(() =>
+    updateText.value({
+        key: "size",
+        modifier: Number,
+        debounced: 100,
+    }),
+);
 
-const updateMessage = updateText({
-    key: "message",
-    debounced: 100,
-    acceptEmpty: true,
-});
+const updateMessage = computed(() =>
+    updateText.value({
+        key: "message",
+        debounced: 100,
+        acceptEmpty: true,
+    }),
+);
 
-const updatePadding = updateText({
-    key: "padding",
-    modifier: Number,
-    debounced: 100,
-});
+const updatePadding = computed(() =>
+    updateText.value({
+        key: "padding",
+        modifier: Number,
+        debounced: 100,
+    }),
+);
 
-const updateBorderRadius = updateText({
-    key: "borderRadius",
-    modifier: Number,
-    debounced: 100,
-});
+const updateBorderRadius = computed(() =>
+    updateText.value({
+        key: "borderRadius",
+        modifier: Number,
+        debounced: 100,
+    }),
+);
 
-const updateHeight = updateText({
-    key: "height",
-    modifier: Number,
-    debounced: 100,
-});
+const updateHeight = computed(() =>
+    updateText.value({
+        key: "height",
+        modifier: Number,
+        debounced: 100,
+    }),
+);
 </script>
 
 <template>
