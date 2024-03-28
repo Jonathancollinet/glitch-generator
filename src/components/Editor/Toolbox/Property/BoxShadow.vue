@@ -16,16 +16,20 @@ const localProperty = defineModel<G.Declarations.BoxShadow>("localConfig", {
 
 const spreadError = computed(() => getErrorMessage(props.errors, `${props.name}.spread`));
 
-const updateBoxShadow = applyUpdater<G.Declarations.BoxShadow>({
-    obj: property.value,
-    localObj: localProperty.value,
-});
+const updateBoxShadow = computed(() =>
+    applyUpdater<G.Declarations.BoxShadow>({
+        obj: property.value,
+        localObj: localProperty.value,
+    }),
+);
 
-const updateSpread = updateBoxShadow({
-    key: "spread",
-    modifier: Number,
-    debounced: 100,
-});
+const updateSpread = computed(() =>
+    updateBoxShadow.value({
+        key: "spread",
+        modifier: Number,
+        debounced: 100,
+    }),
+);
 
 function getName(key: string) {
     return `${props.name}.${key}`;

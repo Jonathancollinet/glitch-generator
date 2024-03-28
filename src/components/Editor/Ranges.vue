@@ -73,7 +73,7 @@ function selectField(field: G.Field) {
                 </ClientOnly>
                 <EditorRange
                     v-for="(range, index) in config.ranges"
-                    :key="`${index}-${range.length}`"
+                    :key="index"
                     :selected-field="selectedField"
                     :config="config"
                     :range="range"

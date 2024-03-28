@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import G from "~/lib/glitch/types";
-import { addFieldAtOffset, getHoveredField } from "~/lib/editor/utils";
 
-const props = defineProps<{
+defineProps<{
     title?: string;
     ranges?: G.Field[][];
     selectedField?: G.Field;
@@ -10,29 +9,16 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     selectField: [field: G.Field];
+    insertField: [rangeIndex: number, offset: number];
 }>();
 
-const ranges = ref<G.Field[][]>(props.ranges || getExempleRanges());
-
-const selectedField = ref<G.Field | undefined>(props.selectedField);
-
 function selectField(field: G.Field) {
-    selectedField.value = field;
     emit("selectField", field);
 }
 
 function insertField(rangeIndex: number, offset: number) {
-    const hoveredField = getHoveredField(ranges.value[rangeIndex], offset);
-
-    addFieldAtOffset(ranges.value, rangeIndex, hoveredField.index + 1, offset);
+    emit("insertField", rangeIndex, offset);
 }
-
-watch(
-    () => props.selectedField,
-    () => {
-        selectedField.value = props.selectedField;
-    },
-);
 </script>
 
 <template>
@@ -40,7 +26,7 @@ watch(
         <UiText v-if="title" as="div" color="black">{{ $t(title) }}</UiText>
         <EditorRange
             v-for="(range, index) in ranges"
-            :key="`${index}-${range.length}`"
+            :key="index"
             no-properties
             :range="range"
             :selected-field="selectedField"

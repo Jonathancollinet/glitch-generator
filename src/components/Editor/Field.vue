@@ -27,15 +27,19 @@ const boxShadow = ref(field.value.shadows[G.PropertyName.BoxShadow] || defaultBo
 const localBoxShadow = ref(localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
 const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
 
-const updateField = applyUpdater<G.Field>({
-    obj: field.value,
-    localObj: localField.value,
-});
+const updateField = computed(() =>
+    applyUpdater<G.Field>({
+        obj: field.value,
+        localObj: localField.value,
+    }),
+);
 
-const updateOffsetFrame = updateField({
-    key: "offsetFrame",
-    modifier: Number,
-});
+const updateOffsetFrame = computed(() =>
+    updateField.value({
+        key: "offsetFrame",
+        modifier: Number,
+    }),
+);
 
 function propertyCardClass(property: G.Shadow) {
     const notEnabledClasses = "text-neutral-400 opacity-50 hover:opacity-100";

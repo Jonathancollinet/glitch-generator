@@ -39,22 +39,28 @@ const alphaPercentError = computed(() => getErrorMessage(props.errors, `${props.
 
 const presetColors = ref(useAllColors());
 
-const updateColor = applyUpdater<G.Color>({
-    obj: color.value,
-    localObj: localColor.value,
-});
+const updateColor = computed(() =>
+    applyUpdater<G.Color>({
+        obj: color.value,
+        localObj: localColor.value,
+    }),
+);
 
-const updateHex = updateColor({
-    key: "hex",
-    modifier: undefined,
-    debounced: 100,
-});
+const updateHex = computed(() =>
+    updateColor.value({
+        key: "hex",
+        modifier: undefined,
+        debounced: 100,
+    }),
+);
 
-const updateAlphaPercent = updateColor({
-    key: "alphaPercent",
-    modifier: Number,
-    debounced: 100,
-});
+const updateAlphaPercent = computed(() =>
+    updateColor.value({
+        key: "alphaPercent",
+        modifier: Number,
+        debounced: 100,
+    }),
+);
 
 function displayColor() {
     displaySketch.value = true;
@@ -68,10 +74,10 @@ watch(
     colors,
     (newVal) => {
         if (updateHex) {
-            updateHex(newVal.hex || RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase());
+            updateHex.value(newVal.hex || RGBToHex(newVal.r, newVal.g, newVal.b).toLowerCase());
         }
         if (isNotFalsy(updateAlphaPercent)) {
-            updateAlphaPercent(Math.round(newVal.a * 100).toString());
+            updateAlphaPercent.value(Math.round(newVal.a * 100).toString());
         }
     },
     { deep: true },

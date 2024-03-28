@@ -3,9 +3,10 @@ import { Icons } from "~/types/enums";
 import G from "~/lib/glitch/types";
 
 const props = defineProps<{
-    selectedField?: G.Field;
     name: string;
 }>();
+
+const field = defineModel<G.Field | undefined>();
 
 const emit = defineEmits<{
     reset: [];
@@ -19,15 +20,30 @@ function getName(key: string) {
     return `${props.name}.${key}`;
 }
 
-const textShadow = computed(() => props.selectedField?.shadows[G.PropertyName.TextShadow]);
-const boxShadow = computed(() => props.selectedField?.shadows[G.PropertyName.BoxShadow]);
+const textShadow = computed<G.Shadow | undefined>({
+    get() {
+        return field.value?.shadows[G.PropertyName.TextShadow];
+    },
+    set(value: G.Shadow | undefined) {
+        field.value!.shadows[G.PropertyName.TextShadow] = value;
+    },
+});
+
+const boxShadow = computed<G.Shadow | undefined>({
+    get() {
+        return field.value?.shadows[G.PropertyName.BoxShadow];
+    },
+    set(value: G.Shadow | undefined) {
+        field.value!.shadows[G.PropertyName.BoxShadow] = value;
+    },
+});
 </script>
 
 <template>
     <div class="flex w-full justify-between sm:h-8">
-        <div v-if="selectedField" class="w-full items-center sm:flex sm:space-x-8">
+        <div v-if="field" class="w-full items-center sm:flex sm:space-x-8">
             <UiHeading class="m-0 mb-2 sm:mb-0" variant="h3">
-                {{ $t("pages.editor.config.field.offsetFrame") }} at {{ selectedField?.offsetFrame }}%
+                {{ $t("pages.editor.config.field.offsetFrame") }} at {{ field.offsetFrame }}%
             </UiHeading>
             <div class="flex space-x-6">
                 <div v-if="textShadow" class="flex items-center">

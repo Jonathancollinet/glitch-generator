@@ -78,7 +78,6 @@ onMounted(() => {
                 </div>
                 <EditorField
                     v-if="selectedField"
-                    :key="currentFieldKey"
                     v-model="selectedField"
                     class="mb-4"
                     :range="gconfig.ranges[selectedField.range]"

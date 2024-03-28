@@ -18,20 +18,26 @@ const localProperty = defineModel<G.Shadow>("localConfig", {
 const enabledError = computed(() => getErrorMessage(props.errors, "enabled"));
 const fillAllFramesError = computed(() => getErrorMessage(props.errors, "fillAllFrames"));
 
-const updateOptions = applyUpdater<G.Shadow>({
-    obj: property.value,
-    localObj: localProperty.value,
-});
+const updateOptions = computed(() =>
+    applyUpdater<G.Shadow>({
+        obj: property.value,
+        localObj: localProperty.value,
+    }),
+);
 
-const updateEnabled = updateOptions({
-    key: "enabled",
-    modifier: Boolean,
-});
+const updateEnabled = computed(() =>
+    updateOptions.value({
+        key: "enabled",
+        modifier: Boolean,
+    }),
+);
 
-const updateFillAllFrames = updateOptions({
-    key: "fillAllFrames",
-    modifier: Boolean,
-});
+const updateFillAllFrames = computed(() =>
+    updateOptions.value({
+        key: "fillAllFrames",
+        modifier: Boolean,
+    }),
+);
 
 function getName(key: string) {
     return `${props.name}.${key}`;

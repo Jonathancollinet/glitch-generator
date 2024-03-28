@@ -19,28 +19,36 @@ const offsetXError = computed(() => getErrorMessage(props.errors, `${props.name}
 const offsetYError = computed(() => getErrorMessage(props.errors, `${props.name}.offsetY`));
 const blurError = computed(() => getErrorMessage(props.errors, `${props.name}.blur`));
 
-const updateShadow = applyUpdater<G.Shadow>({
-    obj: property.value,
-    localObj: localProperty.value,
-});
+const updateShadow = computed(() =>
+    applyUpdater<G.Shadow>({
+        obj: property.value,
+        localObj: localProperty.value,
+    }),
+);
 
-const updateOffsetX = updateShadow({
-    key: "offsetX",
-    modifier: Number,
-    debounced: 5,
-});
+const updateOffsetX = computed(() =>
+    updateShadow.value({
+        key: "offsetX",
+        modifier: Number,
+        debounced: 5,
+    }),
+);
 
-const updateOffsetY = updateShadow({
-    key: "offsetY",
-    modifier: Number,
-    debounced: 5,
-});
+const updateOffsetY = computed(() =>
+    updateShadow.value({
+        key: "offsetY",
+        modifier: Number,
+        debounced: 5,
+    }),
+);
 
-const updateBlur = updateShadow({
-    key: "blur",
-    modifier: Number,
-    debounced: 5,
-});
+const updateBlur = computed(() =>
+    updateShadow.value({
+        key: "blur",
+        modifier: Number,
+        debounced: 5,
+    }),
+);
 
 function getName(key: string) {
     return `${props.name}.${key}`;
