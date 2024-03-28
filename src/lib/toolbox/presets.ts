@@ -94,6 +94,14 @@ export function getPresets() {
     return deepCopy(presets);
 }
 
+export function getPresetConfig(config: G.Config) {
+    return deepCopy({
+        text: config.text,
+        animation: config.animation,
+        ranges: config.ranges,
+    });
+}
+
 function savePreset(preset: Preset) {
     localStorage.setItem(`glitch_preset_${preset.id}`, compress(JSON.stringify(preset)));
 }

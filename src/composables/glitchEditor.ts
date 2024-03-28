@@ -1,9 +1,9 @@
 import G from "~/lib/glitch/types";
-import { type Preset } from "~/lib/toolbox/presets";
+import { updatePreset, type Preset, getPresetConfig } from "~/lib/toolbox/presets";
 import Glitch from "~/lib/glitch";
 import * as EditorUtils from "~/lib/editor/utils";
 
-export const useGlitchEditor = (onSavePreset: () => void) => {
+export const useGlitchEditor = () => {
     const currentPercent = ref(0);
     const errors = ref<Partial<G.Errors>>({});
     const glitchedEl = ref<HTMLElement | null>(null);
@@ -228,8 +228,9 @@ export const useGlitchEditor = (onSavePreset: () => void) => {
 
     function savePreset() {
         nextTick(() => {
-            if (isCustomPreset.value) {
-                onSavePreset();
+            if (currentPreset.value && isCustomPreset.value) {
+                currentPreset.value.config = getPresetConfig(gconfig.value);
+                updatePreset(currentPreset.value);
             }
         });
     }
@@ -287,7 +288,6 @@ export const useGlitchEditor = (onSavePreset: () => void) => {
         errors,
         glitchedEl,
         selectedField,
-        currentPreset,
         gconfig,
         bindings,
         glitch,

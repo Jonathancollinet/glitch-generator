@@ -4,7 +4,6 @@ import { isTourDone, redirectHelp, setTourDone } from "~/lib/editor/tour";
 
 useServerSeoMeta(useTranslatedSeoMeta("editor"));
 
-const presets = ref<EditorPresetsData>();
 const displayedText = ref<EditorDisplayedTextData>();
 
 const {
@@ -22,13 +21,9 @@ const {
     presetChanged,
     initConfig,
     removeField,
-} = useGlitchEditor(onSavePreset);
+} = useGlitchEditor();
 
 const { welcomeModal } = useModalWelcome(setTourDone, redirectHelp);
-
-function onSavePreset() {
-    presets.value?.savePreset();
-}
 
 onMounted(() => {
     if (!isTourDone()) {
@@ -64,12 +59,7 @@ onMounted(() => {
             <div class="md:ml-4 md:w-[30%] lg:w-[25%]">
                 <div class="mb-4 flex items-center justify-between">
                     <ClientOnly>
-                        <EditorPresets
-                            ref="presets"
-                            :glitch="glitch"
-                            :config="gconfig"
-                            @preset-change="presetChanged"
-                        />
+                        <EditorPresets :glitch="glitch" :config="gconfig" @preset-change="presetChanged" />
                     </ClientOnly>
                     <div class="flex">
                         <EditorActions :config="gconfig" :glitch="glitch" />

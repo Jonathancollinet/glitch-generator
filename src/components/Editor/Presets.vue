@@ -3,13 +3,13 @@ import G from "~/lib/glitch/types";
 import { Icons } from "~/types/enums";
 import {
     getPresets,
-    updatePreset,
     type Preset,
     removePreset,
     addPreset,
     type PresetConfig,
     getLastSelectedPreset,
     saveLastSelectedPreset,
+    getPresetConfig,
 } from "~/lib/toolbox/presets";
 import * as EditorUtils from "~/lib/editor/utils";
 import type Glitch from "~/lib/glitch";
@@ -23,46 +23,40 @@ const emit = defineEmits<{
     presetChange: [preset: Preset];
 }>();
 
-const currentPreset = ref<Preset>(getLastSelectedPreset());
+const presets = ref<Preset[]>(getPresets());
+const currentPresetId = ref<string>(getLastSelectedPreset()?.id);
 
 const { addPresetModal } = useModalAddPreset(createPreset);
 const { deletePresetModal } = useModalDeletePreset(deletePreset);
-
-const presets = ref<Preset[]>(getPresets());
 const { importModal } = useModalImport(props.glitch, createPreset);
 
-function getPresetConfig() {
-    return deepCopy({
-        text: props.config.text,
-        animation: props.config.animation,
-        ranges: props.config.ranges,
-    });
-}
+const isCustomPreset = computed(() => {
+    return !currentPreset.value.builtIn;
+});
+const currentPreset = computed(() => {
+    return presets.value.find((preset) => preset.id === currentPresetId.value) || presets.value[0];
+});
+const presetOptions = computed(() => {
+    return presets.value.map((preset) => ({
+        value: preset.id,
+        label: preset.name,
+    }));
+});
 
 function presetChanged(preset: Preset) {
-    currentPreset.value = preset;
+    currentPresetId.value = preset.id;
     presets.value = getPresets();
     EditorUtils.setConfigFromPreset(props.config, currentPreset.value);
 }
 
 function createPreset(name: string, config?: PresetConfig) {
-    presetChanged(addPreset(name, config || getPresetConfig()));
-}
-
-function savePreset() {
-    currentPreset.value.config = getPresetConfig();
-    updatePreset(currentPreset.value);
-    presets.value = getPresets();
+    presetChanged(addPreset(name, config || getPresetConfig(props.config)));
 }
 
 function deletePreset() {
     removePreset(currentPreset.value.id);
     presetChanged(presets.value[0]);
 }
-
-const isCustomPreset = computed(() => {
-    return !currentPreset.value.builtIn;
-});
 
 watch(
     () => currentPreset.value.id,
@@ -75,18 +69,20 @@ watch(
 onMounted(() => {
     emit("presetChange", currentPreset.value);
 });
-
-defineExpose({
-    savePreset,
-});
 </script>
 
 <template>
     <div class="flex space-x-2">
         <UiFormGroup v-tooltip="{ content: $t('pages.editor.selectPreset') }" class="mb-0">
-            <UiSelect v-model="currentPreset" class="max-w-[150px]" :options="presets" label-key="name" />
+            <UiSelect
+                v-model="currentPresetId"
+                class="max-w-[150px]"
+                :options="presetOptions"
+                label-key="label"
+                value-key="value"
+            />
         </UiFormGroup>
-        <div :key="currentPreset.id" class="flex items-center">
+        <div class="flex items-center">
             <UiButton
                 v-if="isCustomPreset"
                 v-tooltip="$t('pages.editor.removePreset')"
