@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { EditorDisplayedText, EditorPresets } from "#build/components";
+import type { EditorDisplayedText } from "#build/components";
 import { isTourDone, redirectHelp, setTourDone } from "~/lib/editor/tour";
 
 useServerSeoMeta(useTranslatedSeoMeta("editor"));
