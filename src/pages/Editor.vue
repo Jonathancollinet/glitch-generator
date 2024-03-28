@@ -36,9 +36,6 @@ onMounted(() => {
 
 <template>
     <div>
-        <UiHeading v-show="false" variant="h1">
-            {{ $t("pages.editor.title") }}
-        </UiHeading>
         <div class="h-full space-y-4 md:flex md:space-y-0">
             <div class="space-x-1 md:mr-4 md:w-[70%] lg:w-[75%]">
                 <EditorDisplayedText
