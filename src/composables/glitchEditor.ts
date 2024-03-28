@@ -72,10 +72,7 @@ export const useGlitchEditor = () => {
         }
         if (glitchedEl.value) {
             computeConfig(true);
-
-            nextTick(() => {
-                selectFirstRangeField();
-            });
+            selectFirstRangeField();
         }
     }
 
@@ -189,10 +186,7 @@ export const useGlitchEditor = () => {
         }
 
         selectingField = true;
-        closeField();
-        nextTick(() => {
-            selectedField.value = newField;
-        });
+        selectedField.value = newField;
     }
 
     function closeField() {

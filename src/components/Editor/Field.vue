@@ -15,17 +15,36 @@ const emit = defineEmits<{
 }>();
 
 const field = defineModel<G.Field>({ required: true });
-const localField = ref<G.Field>(deepCopy(field.value));
+const localField = computed<G.Field>(() => deepCopy(field.value));
 
 const defaultField = getDefaultField(0, 0, 0);
 const defaultTextShadow = deepCopy(defaultField.shadows[G.PropertyName.TextShadow]) as G.Shadow;
 const defaultBoxShadow = deepCopy(defaultField.shadows[G.PropertyName.BoxShadow]) as G.Shadow;
 
-const textShadow = ref(field.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow);
-const localTextShadow = ref(localField.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow);
-const boxShadow = ref(field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
-const localBoxShadow = ref(localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow);
-const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
+const textShadow = computed<G.Shadow>({
+    get: () => field.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
+    set: (textShadow: G.Shadow) => {
+        field.value.shadows[G.PropertyName.TextShadow] = textShadow;
+    },
+});
+const localTextShadow = computed<G.Shadow>({
+    get: () => localField.value.shadows[G.PropertyName.TextShadow] || defaultTextShadow,
+    set: (textShadow: G.Shadow) => {
+        localField.value.shadows[G.PropertyName.TextShadow] = textShadow;
+    },
+});
+const boxShadow = computed<G.Shadow>({
+    get: () => field.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
+    set: (boxShadow: G.Shadow) => {
+        field.value.shadows[G.PropertyName.BoxShadow] = boxShadow;
+    },
+});
+const localBoxShadow = computed<G.Shadow>({
+    get: () => localField.value.shadows[G.PropertyName.BoxShadow] || defaultBoxShadow,
+    set: (boxShadow: G.Shadow) => {
+        localField.value.shadows[G.PropertyName.BoxShadow] = boxShadow;
+    },
+});
 
 const updateField = computed(() =>
     applyUpdater<G.Field>({
@@ -41,6 +60,8 @@ const updateOffsetFrame = computed(() =>
     }),
 );
 
+const fieldName = `ranges[${field.value.range}][${field.value.index}]`;
+
 function propertyCardClass(property: G.Shadow) {
     const notEnabledClasses = "text-neutral-400 opacity-50 hover:opacity-100";
     const cls: ClassValue[] = ["border-transparent"];
@@ -53,16 +74,6 @@ function propertyCardClass(property: G.Shadow) {
 function removeField() {
     emit("removeField", field.value);
 }
-
-watch(
-    field.value,
-    () => {
-        if (field.value) {
-            localField.value = deepCopy(field.value);
-        }
-    },
-    { deep: true },
-);
 </script>
 
 <template>

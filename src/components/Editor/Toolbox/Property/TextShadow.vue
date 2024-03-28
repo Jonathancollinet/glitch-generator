@@ -9,7 +9,9 @@ defineProps<{
 const property = defineModel<G.Declarations.TextShadow>("config", {
     required: true,
 });
-const localProperty = ref<G.Declarations.TextShadow>(deepCopy(property.value));
+const localProperty = defineModel<G.Declarations.TextShadow>("localConfig", {
+    required: true,
+});
 </script>
 
 <template>
