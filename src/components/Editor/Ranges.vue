@@ -22,7 +22,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 
-const addEmptyRangeText = t("pages.editor.ranges.addRange");
+const addEmptyRangeText = t("pages.editor.ranges.addEmptyRange");
 
 const onRangeOptions = {
     removeRange,
