@@ -53,7 +53,7 @@ onMounted(() => {
 
 <template>
     <div class="border-2 bg-primary-200 p-4 dark:bg-primary-950">
-        <PlaygroundFieldOptions v-model="selectedField" :name="name" class="mb-2" @reset="reset" />
+        <PlaygroundFieldOptions v-if="selectedField" v-model="selectedField" :name="name" class="mb-2" @reset="reset" />
         <PlaygroundRanges
             class="mb-4"
             :ranges="gconfig.ranges"

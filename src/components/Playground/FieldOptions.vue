@@ -6,7 +6,7 @@ const props = defineProps<{
     name: string;
 }>();
 
-const field = defineModel<G.Field | undefined>();
+const field = defineModel<G.Field>({ required: true });
 
 const emit = defineEmits<{
     reset: [];
@@ -22,19 +22,19 @@ function getName(key: string) {
 
 const textShadow = computed<G.Shadow | undefined>({
     get() {
-        return field.value?.shadows[G.PropertyName.TextShadow];
+        return field.value.shadows[G.PropertyName.TextShadow];
     },
     set(value: G.Shadow | undefined) {
-        field.value!.shadows[G.PropertyName.TextShadow] = value;
+        field.value.shadows[G.PropertyName.TextShadow] = value;
     },
 });
 
 const boxShadow = computed<G.Shadow | undefined>({
     get() {
-        return field.value?.shadows[G.PropertyName.BoxShadow];
+        return field.value.shadows[G.PropertyName.BoxShadow];
     },
     set(value: G.Shadow | undefined) {
-        field.value!.shadows[G.PropertyName.BoxShadow] = value;
+        field.value.shadows[G.PropertyName.BoxShadow] = value;
     },
 });
 </script>
